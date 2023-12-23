@@ -17,6 +17,7 @@ export default function Home() {
     deleteUser,
     getUser,
     listUsers,
+    listAllUsers,
     showTable,
     tableVisible
   } = useUsers()
@@ -24,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     if (tableVisible) {
       // Chame a função listUsers quando tableVisible mudar
-      listUsers();
+      listAllUsers();
     }
   }, [tableVisible]); // O segundo argumento é um array de dependências
 
