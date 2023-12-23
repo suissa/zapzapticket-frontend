@@ -1,6 +1,7 @@
 export default class User {
   #_id: string
   #name: string
+  #email: string
   #phone: string
   #status: string
   #city: string
@@ -11,10 +12,10 @@ export default class User {
   #isConnected: boolean
 
   constructor(
-    name: string, phone: string, id: string = null, status: string = "", 
-    city: string = "", state: string = "", country: string = "", level: string = "",
-    isActive: true, isConnected: false) {
+    name: string, phone: string, id: string = null, email= "", status: string = "", 
+    city: string = "", state: string = "", country: string = "", level: string = "") {
     this.#_id = id
+    this.#email = email
     this.#name = name
     this.#phone = phone
     this.#status = status
@@ -22,7 +23,7 @@ export default class User {
     this.#state = state
     this.#country = country
     this.#level = level
-    this.#isActive = this.#isActive
+    this.#isActive = true
     this.#isConnected = false
   }
 
@@ -36,6 +37,10 @@ export default class User {
 
   get name() {
     return this.#name
+  }
+
+  get email() {
+    return this.#email
   }
 
   get phone() {
