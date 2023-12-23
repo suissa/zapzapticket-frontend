@@ -1,29 +1,29 @@
 import { useEffect } from "react";
 import Botao from "../components/Button";
-import Form from "../components/FormMessage";
+import Form from "../components/FormUser";
 import Layout from "../components/Layout";
-import Table from "../components/TableMessages";
-import useMessages from "../hooks/useMessages";
+import Table from "../components/TableUsers";
+import useUsers from "../hooks/useUsers";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const {
-    message,
-    messages,
-    createMessage,
-    saveMessage,
-    criarMessage,
-    deleteMessage,
-    getMessage,
-    listMessages,
+    user,
+    users,
+    createUser,
+    saveUser,
+    criarUser,
+    deleteUser,
+    getUser,
+    listUsers,
     showTable,
     tableVisible
-  } = useMessages()
+  } = useUsers()
 
   useEffect(() => {
     if (tableVisible) {
-      // Chame a função listMessages quando tableVisible mudar
-      listMessages();
+      // Chame a função listUsers quando tableVisible mudar
+      listUsers();
     }
   }, [tableVisible]); // O segundo argumento é um array de dependências
 
@@ -33,28 +33,28 @@ export default function Home() {
       h-screen bg-gradient-to-r from-blue-500 to-purple-500
       text-white
     `}>
-      <Layout title="Mensagens">
+      <Layout title="Usuários">
         {tableVisible ? (
           <div>
             <div className="flex justify-end">
               <Botao
                 color="green"
                 className="mb-4"
-                onClick={createMessage}
+                onClick={createUser}
               >
                 Nova Mensagem
               </Botao>
             </div>
             <Table
-              messages={messages}
-              messageSelected={getMessage}
-              messageDeleted={deleteMessage}
+              users={users}
+              userSelected={getUser}
+              userDeleted={deleteUser}
             />
           </div>
         ) : (
           <Form
-            message={message}
-            messageModified={saveMessage}
+            user={user}
+            userModified={saveUser}
             canceled={showTable}
           />
         )}

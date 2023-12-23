@@ -19,32 +19,7 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
 
   const handleCheckboxChange = async (isActive, _id) => {
     console.log("handleCheckboxChange isActive:", isActive);
-    // tirar implementacao daqui
-    if(!isActive){
-      console.log(_id)
-      const result = await fetch(`${API_URL}/users/${_id}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const userAPI = await result.json();
-      console.log(userAPI)
 
-      const instanceName = userAPI.title.replace(" ", "_") + "-" + userAPI.text;
-      console.log(instanceName)
-      const data = {
-        instanceName: instanceName,
-        token: "tokenMaroto_872983_" + Date.now(),
-        qrcode: true
-      }
-      const resultUpdate = await fetch(`${API_URL}/evolution/instances`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const userSAVED = await resultUpdate.json();
-      console.log(userSAVED)
-      setQrCodeBase64(userSAVED.qrcode.base64);
-    }
   };
 
   const Modal = ({ onClose, children }) => {
@@ -66,11 +41,13 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
   function renderHeader() {
     return (
       <tr>
-        <th className="text-left p-4">Id</th>
-        <th className="text-left p-4">Título</th>
-        <th className="text-left p-4">Texto</th>
+        <th className="text-left p-4">Nome</th>
+        <th className="text-left p-4">Telefone</th>
         <th className="text-left p-4">Ativo</th>
-        {showActions ? <th className="p-4">Ações</th> : false}
+        <th className="text-left p-4">Status</th>
+        <th className="text-left p-4">Nível</th>
+        <th className="text-left p-4">Conectado</th>
+        <th className="text-right p-4">Ações</th>
       </tr>
     )
   }
@@ -79,9 +56,8 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
     return users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
-          <td className="text-left p-4">{user._id}</td>
-          <td className="text-left p-4">{user.title}</td>
-          <td className="text-left p-4">{user.text}</td>
+          <td className="text-left p-4">{user.name}</td>
+          <td className="text-left p-4">{user.phone}</td>
           <td className="text-left p-4">
             <label>
                 <input
@@ -90,7 +66,21 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
                   onChange={() => handleCheckboxChange(user.isActive, user._id)}
                   // onChange={handleCheckboxChange}
                   />
-              </label></td>
+            </label>
+          </td>
+          <td className="text-left p-4">{user.status}</td>
+          <td className="text-left p-4">{user.level}</td>
+          {/* <td className="text-left p-4">{user.isConnected}</td> */}
+          <td className="text-center p-4">
+            <label>
+                <input
+                  type="checkbox"
+                  checked={user.isConnected ? true : false}
+                  onChange={() => handleCheckboxChange(user.isActive, user._id)}
+                  // onChange={handleCheckboxChange}
+                  />
+            </label>
+          </td>
           {showActions ? renderActions(user) : false}
         </tr>
       )
