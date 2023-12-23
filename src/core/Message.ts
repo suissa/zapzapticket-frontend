@@ -6,7 +6,7 @@ export default class Message {
 
   constructor(title: string, text: string, id: string = null) {
     this.#_id = id
-    this.#title = text
+    this.#title = title
     this.#text = text
     this.#isActive = false
   }
