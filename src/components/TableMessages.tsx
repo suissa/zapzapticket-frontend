@@ -106,7 +106,7 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
                     text-green-600 rounded-md p-2 m-1
                     hover:bg-purple-50
                 `}>
-            {IconeEdicao}
+            {IconEdit}
           </button>
         ) : false}
         {messageDeleted ? (
@@ -115,7 +115,7 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
                     text-red-500 rounded-md p-2 m-1
                     hover:bg-purple-50
                 `}>
-            {IconeLixeira}
+            {IconThrash}
           </button>
         ) : false}
       </td>
