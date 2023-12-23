@@ -1,5 +1,7 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import User from "../core/User"
+import Button from "../components/Button"
+import Form from "../components/FormUser"
 import { IconEdit, IconThrash } from "./Icons"
 
 interface TableProps {
@@ -7,17 +9,22 @@ interface TableProps {
   user: User
   userSelected?: (user: User) => void
   userDeleted?: (user: User) => void
+  userModified?: (user: User) => void
+  canceled?: () => void
 }
 
 const API_URL = "http://localhost:9000";
 
-export default function Table({ users, userSelected, userDeleted }: TableProps) {
+export default function Table({ users, userSelected, userDeleted, userModified, canceled }: TableProps) {
 
   const showActions = userSelected || userDeleted
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+
   const Modal = ({ onClose, onConfirm, user }) => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
@@ -42,6 +49,56 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
     );
   };
 
+  const ModalUpdate = ({ onClose, onConfirm, user }) => {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+        <div className="bg-white p-4 rounded">
+          {isFormOpen ? (
+            <Form
+              user={currentUser}
+              userModified={(user) => {
+                // Lógica para tratar o usuário modificado
+                console.log("Usuário modificado:", user);
+
+                // Atualizar o objeto UserObj com os estados atuais
+                const UserObj = new User(
+                  user._id,
+                  user.name,
+                  user.phone,
+                  user.email,
+                  user.status,
+                  user.city,
+                  user.state,
+                  user.country,
+                  user.level
+                );
+
+                userModified?.(UserObj);
+                setIsFormOpen(false);
+              }}
+              canceled={() => setIsFormOpen(false)}
+            />
+          ) : (
+            children
+          )}
+          {/* <button
+            className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
+            onClick={onConfirm}
+          >
+            Salvar
+          </button>
+          <button
+            className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
+            onClick={onClose}
+          >
+            Fechar
+          </button> */}
+
+        </div>
+      </div>
+    );
+  };
+
   const handleCheckboxChange = async (isActive, _id) => {
     console.log("handleCheckboxChange isActive:", isActive);
 
@@ -54,10 +111,22 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
   //     console.log("confirmAndDeleteUser: ", user)
   //   }
   // }
+  const openFormWithUser = (user) => {
+    setCurrentUser(user);
+    setIsFormOpen(true);
+  };
 
   const confirmAndDeleteUser = (user) => {
     setCurrentUser(user);
     setIsModalOpen(true);
+  };
+
+  const handleUpdate = () => {
+    if (currentUser) {
+      userSelected?.(currentUser);
+      console.log("Usuário atualizado:", currentUser);
+    }
+    setIsModalOpen(false);
   };
 
   const handleDelete = () => {
@@ -83,7 +152,7 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
   }
 
   function renderData() {
-    console.log("renderData: ", users)
+    // console.log("renderData: ", users)
     return users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
@@ -122,7 +191,7 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
     return (
       <td className="flex justify-right w-1/8 pl-10">
         {userSelected ? (
-          <button onClick={() => userSelected?.(user)} className={`
+          <button onClick={() => openFormWithUser(user)} className={`
             flex justify-right items-right
             text-green-600 rounded-md p-0 mt-4
             hover:bg-purple-50
@@ -159,6 +228,13 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
       </table>
       {isModalOpen && (
         <Modal 
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleDelete}
+          user={currentUser}
+        />
+      )}
+      {isFormOpen && (
+        <ModalUpdate
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
           user={currentUser}
