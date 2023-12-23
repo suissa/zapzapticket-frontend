@@ -38,13 +38,20 @@ export default function useUsers() {
     async function saveUser(user: User) {
       console.log("saveUser user", user)
       const userStr = JSON.stringify({
-        title: user.title,
-        text: user.text,
-        isActive: user.isActive
+        _id: user._id,
+        name: user.name,
+        phone: user.phone,
+        status: user.status,
+        city: user.city,
+        state: user.state,
+        country: user.country,
+        level: user.level,
+        isActive: user.isActive,
+        isConnected: user.isConnected,
       })
       console.log("saveUser userStr", userStr)
-      const response = user?.id
-        ? await fetch(`${API_URL}/${user.id}`, {
+      const response = user?._id
+        ? await fetch(`${API_URL}/${user._id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: userStr
