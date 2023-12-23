@@ -1,4 +1,4 @@
-# WhatsApp Api Nest.js
+# WhatsApp Api Next.js
 
 ## Installation
 
