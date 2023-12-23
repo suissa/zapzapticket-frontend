@@ -45,13 +45,15 @@ export default function Home() {
                   className="mb-4"
                   onClick={createUser}
                 >
-                  Nova Mensagem
+                  Novo Usuário
                 </Botao>
               </div>
               <Table
                 users={users}
                 userSelected={getUser}
                 userDeleted={deleteUser}
+                userModified={saveUser}
+                canceled={showTable}
               />
             </div>
           ) : (
