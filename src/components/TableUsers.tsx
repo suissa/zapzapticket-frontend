@@ -17,19 +17,56 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const Modal = ({ onClose, onConfirm, user }) => {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+        <div className="bg-white p-4 rounded">
+          <p>Tem certeza que deseja excluir o usuário {user?.name}?</p>
+          <div className="flex justify-end mt-4">
+            <button
+              className="bg-red-500 text-white py-2 px-4 rounded mr-2"
+              onClick={onConfirm}
+            >
+              Excluir
+            </button>
+            <button
+              className="bg-gray-500 text-white py-2 px-4 rounded"
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const handleCheckboxChange = async (isActive, _id) => {
     console.log("handleCheckboxChange isActive:", isActive);
 
   };
 
+  // const confirmAndDeleteUser = (user) => {
+  //   // Confirmação de exclusão
+  //   if (window.confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
+  //     userDeleted?.(user);
+  //     console.log("confirmAndDeleteUser: ", user)
+  //   }
+  // }
+
   const confirmAndDeleteUser = (user) => {
-    // Confirmação de exclusão
-    if (window.confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
-      userDeleted?.(user);
-      console.log("confirmAndDeleteUser: ", user)
+    setCurrentUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = () => {
+    if (currentUser) {
+      userDeleted?.(currentUser);
+      console.log("Usuário excluído:", currentUser);
     }
-  }
+    setIsModalOpen(false);
+  };
 
   function renderHeader() {
     return (
@@ -120,6 +157,13 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
           {renderData()}
         </tbody>
       </table>
+      {isModalOpen && (
+        <Modal 
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleDelete}
+          user={currentUser}
+        />
+      )}
     </div>
   )
 }
