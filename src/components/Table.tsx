@@ -87,7 +87,7 @@ export default function Table({ connections, connectionSelected, connectionDelet
         <th className="text-left p-4">Nome</th>
         <th className="text-left p-4">Telefone</th>
         <th className="text-left p-4">Instância</th>
-        <th className="text-left p-4">Ativa</th>
+        <th className="text-center p-4">Ativa</th>
         {showActions ? <th className="p-4">Ações</th> : false}
       </tr>
     )
@@ -100,7 +100,7 @@ export default function Table({ connections, connectionSelected, connectionDelet
           <td className="text-left p-4">{connection.name}</td>
           <td className="text-left p-4">{connection.phone}</td>
           <td className="text-left p-4">{connection.instanceName}</td>
-          <td className="text-left p-4">
+          <td className="text-center p-4">
             <label>
                 <input
                   type="checkbox"

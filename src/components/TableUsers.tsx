@@ -58,7 +58,7 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           <td className="text-left p-4">{user.name}</td>
           <td className="text-left p-4">{user.phone}</td>
-          <td className="text-left p-4">
+          <td className="text-center p-4">
             <label>
                 <input
                   type="checkbox"
