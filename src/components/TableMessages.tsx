@@ -20,7 +20,7 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
   const handleCheckboxChange = async (isActive, _id) => {
     console.log("handleCheckboxChange isActive:", isActive);
     // tirar implementacao daqui
-    if(!isActive){
+    if (!isActive) {
       console.log(_id)
       const result = await fetch(`${API_URL}/messages/${_id}`, {
         method: 'GET',
@@ -82,13 +82,13 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
           <td className="text-left p-4">{message.text}</td>
           <td className="text-center p-4">
             <label>
-                <input
-                  type="checkbox"
-                  checked={message.isActive ? true : false}
-                  onChange={() => handleCheckboxChange(message.isActive, message._id)}
-                  // onChange={handleCheckboxChange}
-                  />
-              </label></td>
+              <input
+                type="checkbox"
+                checked={message.isActive ? true : false}
+                onChange={() => handleCheckboxChange(message.isActive, message._id)}
+              // onChange={handleCheckboxChange}
+              />
+            </label></td>
           {showActions ? renderActions(message) : false}
         </tr>
       )
@@ -126,18 +126,18 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
         <img src={`${qrCodeBase64}`} alt="QR Code" />
       )}
 
-    <table className="w-full rounded-xl overflow-hidden">
-      <thead className={`
+      <table className="w-full rounded-xl overflow-hidden">
+        <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800
       `}>
-        {renderHeader()}
-      </thead>
-      <tbody>
-        {renderData()}
-      </tbody>
-    </table>
-    {isModalOpen && (
+          {renderHeader()}
+        </thead>
+        <tbody>
+          {renderData()}
+        </tbody>
+      </table>
+      {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           {/* Conteúdo do modal, como informações ou confirmação */}
           <p>Conteúdo do modal vai aqui</p>
