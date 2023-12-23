@@ -84,7 +84,6 @@ export default function Table({ connections, connectionSelected, connectionDelet
   function renderHeader() {
     return (
       <tr>
-        <th className="text-left p-4">Id</th>
         <th className="text-left p-4">Nome</th>
         <th className="text-left p-4">Telefone</th>
         <th className="text-left p-4">Instância</th>
@@ -98,7 +97,6 @@ export default function Table({ connections, connectionSelected, connectionDelet
     return connections?.map((connection, i) => {
       return (
         <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
-          <td className="text-left p-4">{connection._id}</td>
           <td className="text-left p-4">{connection.name}</td>
           <td className="text-left p-4">{connection.phone}</td>
           <td className="text-left p-4">{connection.instanceName}</td>
@@ -126,7 +124,7 @@ export default function Table({ connections, connectionSelected, connectionDelet
                     text-green-600 rounded-md p-2 m-1
                     hover:bg-purple-50
                 `}>
-            {IconeEdicao}
+            {IconEdit}
           </button>
         ) : false}
         {connectionDeleted ? (
@@ -135,7 +133,7 @@ export default function Table({ connections, connectionSelected, connectionDelet
                     text-red-500 rounded-md p-2 m-1
                     hover:bg-purple-50
                 `}>
-            {IconeLixeira}
+            {IconThrash}
           </button>
         ) : false}
       </td>
