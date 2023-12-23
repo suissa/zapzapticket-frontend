@@ -52,7 +52,8 @@ export default function Table({ users, userSelected, userDeleted, userModified, 
   const ModalUpdate = ({ onClose, onConfirm, user }) => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-        <div className="bg-white p-4 rounded">
+        <div className="flex flex-col w-2/3 rounded-md p-4
+            bg-white text-gray-800">
           {isFormOpen ? (
             <Form
               user={currentUser}
