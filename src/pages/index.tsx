@@ -3,8 +3,10 @@ import Botao from "../components/Button";
 import Form from "../components/Form";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
+import Menu from '../components/Menu';
 import useConnections from "../hooks/useConnections";
 import useLayout from "../hooks/useLayout";
+import { Link } from 'react-router-dom'; // Importe Link do React Router para criar links
 
 export default function Home() {
   const {
@@ -21,6 +23,9 @@ export default function Home() {
   } = useConnections()
 
   return (
+
+    <div>
+      <Menu />
     <div className={`
       flex justify-center items-center
       h-screen bg-gradient-to-r from-blue-500 to-purple-500
@@ -52,6 +57,7 @@ export default function Home() {
           />
         )}
       </Layout>
+    </div>
     </div>
   )
 }
