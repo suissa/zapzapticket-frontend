@@ -14,12 +14,11 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
 
   const showActions = messageSelected || messageDeleted
   const [checked, setChecked] = useState(false);
-  const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(null);
 
-  const confirmAndDeleteMessage = (user) => {
+  const confirmAndDelete = (user) => {
     setCurrentMessage(user);
     setIsModalOpen(true);
   };
@@ -131,7 +130,7 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
           </button>
         ) : false}
         {messageDeleted ? (
-          <button onClick={() => confirmAndDeleteMessage(message)} className={`
+          <button onClick={() => confirmAndDelete(message)} className={`
                     flex justify-right items-right
                     text-red-500 rounded-md p-2 m-1
                     hover:bg-purple-50
