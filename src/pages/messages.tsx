@@ -23,10 +23,9 @@ export default function Home() {
 
   useEffect(() => {
     if (tableVisible) {
-      // Chame a função listMessages quando tableVisible mudar
       listMessages();
     }
-  }, [tableVisible]); // O segundo argumento é um array de dependências
+  }, [tableVisible]);
 
   return (
     <div>
