@@ -4,6 +4,7 @@ import { IconEdit, IconThrash } from "./Icons"
 
 interface TableProps {
   users: User[]
+  user: User
   userSelected?: (user: User) => void
   userDeleted?: (user: User) => void
 }
@@ -26,6 +27,7 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
     // Confirmação de exclusão
     if (window.confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
       userDeleted?.(user);
+      console.log("confirmAndDeleteUser: ", user)
     }
   }
 
@@ -44,6 +46,7 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
   }
 
   function renderData() {
+    console.log("renderData: ", users)
     return users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
@@ -83,19 +86,20 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
       <td className="flex justify-right w-1/8 pl-10">
         {userSelected ? (
           <button onClick={() => userSelected?.(user)} className={`
-                    flex justify-right items-right
-                    text-green-600 rounded-md p-0 mt-4
-                    hover:bg-purple-50
-                `}>
+            flex justify-right items-right
+            text-green-600 rounded-md p-0 mt-4
+            hover:bg-purple-50
+          `}>
             {IconEdit}
           </button>
         ) : false}
         {userDeleted ? (
-          <button onClick={() => userDeleted?.(user)} className={`
-                    flex justify-right items-right
-                    text-red-500 rounded-md p-0 mt-4
-                    hover:bg-purple-50
-                `}>
+          // <button onClick={() => userDeleted?.(user)} className={`
+          <button onClick={() => confirmAndDeleteUser(user)} className={`
+            flex justify-right items-right
+            text-red-500 rounded-md p-0 mt-4 ml-2
+            hover:bg-purple-50
+          `}>
             {IconThrash}
           </button>
         ) : false}
