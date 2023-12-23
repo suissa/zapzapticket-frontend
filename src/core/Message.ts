@@ -15,7 +15,7 @@ export default class Message {
     return new Message("", "")
   }
 
-  get id() {
+  get _id() {
     return this.#_id
   }
 
