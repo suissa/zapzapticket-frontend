@@ -64,7 +64,8 @@ export default function useUsers() {
             city: user.city,
             state: user.state,
             country: user.country,
-            level: user.level
+            level: user.level,
+            isActive: user.isActive
           })
         : JSON.stringify({
             name: user.name,
@@ -74,7 +75,8 @@ export default function useUsers() {
             city: user.city,
             state: user.state,
             country: user.country,
-            level: user.level
+            level: user.level,
+            isActive: true
           })
       console.log("saveUser userStr", userStr)
       const response = user?._id
@@ -83,13 +85,13 @@ export default function useUsers() {
           headers: { 'Content-Type': 'application/json' },
           body: userStr
         })
-        : await fetch(`${API_URL}/all`, {
+        : await fetch(`${API_URL}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: userStr
         });
 
-        fetch(API_URL)
+        fetch(`${API_URL}/all`)
         .then(response => response.json())
         .then(data => {
           // console.log("listUsers then", data)
