@@ -15,7 +15,7 @@ export default class Connection {
     return new Connection("", "")
   }
 
-  get id() {
+  get _id() {
     return this.#_id
   }
 
