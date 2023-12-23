@@ -6,117 +6,117 @@ import useLayout from "./useLayout"
 const API_URL = "http://localhost:9000/users";
 
 export default function useUsers() {
-    const [ user, setUser ] = useState<User>(User.empty())
-    const [ users, setUsers ] = useState<User[]>([])
-    const { showForm, showTable, tableVisible } = useLayout()
+  const [user, setUser] = useState<User>(User.empty())
+  const [users, setUsers] = useState<User[]>([])
+  const { showForm, showTable, tableVisible } = useLayout()
 
-    useEffect(listAllUsers, [])
+  useEffect(listAllUsers, [])
 
-    function createUser() {
-      setUser(User.empty())
-      showForm()
-    }
+  function createUser() {
+    setUser(User.empty())
+    showForm()
+  }
 
-    function listUsers() {
-      fetch(`${API_URL}`)
-        .then(response => response.json())
-        .then(data => {
-          console.log("listUsers then", data)
-          return setUsers(data)
-        })
-    }
-
-    function listAllUsers() {
-      fetch(`${API_URL}/all`)
-        .then(response => response.json())
-        .then(data => {
-          // console.log("listUsers then", data)
-          return setUsers(data)
-        })
-    }
-
-    function getUser(user: User) {
-      setUser(user)
-      showForm()
-    }
-
-    async function deleteUser(user: User) {
-      fetch(`${API_URL}/${user._id}`, {
-        method: 'DELETE',
+  function listUsers() {
+    fetch(`${API_URL}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("listUsers then", data)
+        return setUsers(data)
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log("DELETE then", data)
-          return listUsers()
-        })
-    }
+  }
 
-    async function saveUser(user: User) {
-      console.log("saveUser user", user)
-      console.log("status: ", user.status)
-      const userStr = user?._id
-        ? JSON.stringify({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            status: user.status,
-            city: user.city,
-            state: user.state,
-            country: user.country,
-            level: user.level,
-            isActive: user.isActive
-          })
-        : JSON.stringify({
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            status: user.status,
-            city: user.city,
-            state: user.state,
-            country: user.country,
-            level: user.level,
-            isActive: true
-          })
-      console.log("saveUser userStr", userStr)
-      const response = user?._id
-        ? await fetch(`${API_URL}/${user._id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: userStr
-        })
-        : await fetch(`${API_URL}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: userStr
-        });
+  function listAllUsers() {
+    fetch(`${API_URL}/all`)
+      .then(response => response.json())
+      .then(data => {
+        // console.log("listUsers then", data)
+        return setUsers(data)
+      })
+  }
 
-        fetch(`${API_URL}/all`)
-        .then(response => response.json())
-        .then(data => {
-          // console.log("listUsers then", data)
-          return setUsers(data)
-        })
-      // const data = await response.json();
-    }
+  function getUser(user: User) {
+    setUser(user)
+    showForm()
+  }
 
-    function criarUser() {
-        setUser(User.empty())
-        showForm()
-    }
+  async function deleteUser(user: User) {
+    fetch(`${API_URL}/${user._id}`, {
+      method: 'DELETE',
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("DELETE then", data)
+        return listUsers()
+      })
+  }
+
+  async function saveUser(user: User) {
+    console.log("saveUser user", user)
+    console.log("status: ", user.status)
+    const userStr = user?._id
+      ? JSON.stringify({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        status: user.status,
+        city: user.city,
+        state: user.state,
+        country: user.country,
+        level: user.level,
+        isActive: user.isActive
+      })
+      : JSON.stringify({
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        status: user.status,
+        city: user.city,
+        state: user.state,
+        country: user.country,
+        level: user.level,
+        isActive: true
+      })
+    console.log("saveUser userStr", userStr)
+    const response = user?._id
+      ? await fetch(`${API_URL}/${user._id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: userStr
+      })
+      : await fetch(`${API_URL}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: userStr
+      });
+
+    fetch(`${API_URL}/all`)
+      .then(response => response.json())
+      .then(data => {
+        // console.log("listUsers then", data)
+        return setUsers(data)
+      })
+    // const data = await response.json();
+  }
+
+  function criarUser() {
+    setUser(User.empty())
+    showForm()
+  }
 
 
-    return {
-        user,
-        users,
-        createUser,
-        saveUser,
-        criarUser,
-        deleteUser,
-        getUser,
-        listUsers,
-        listAllUsers,
-        showTable,
-        tableVisible
-    }
+  return {
+    user,
+    users,
+    createUser,
+    saveUser,
+    criarUser,
+    deleteUser,
+    getUser,
+    listUsers,
+    listAllUsers,
+    showTable,
+    tableVisible
+  }
 }
