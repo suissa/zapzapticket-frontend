@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Botao from "../components/Button";
+import Button from "../components/Button";
 import Form from "../components/FormMessage";
 import Layout from "../components/Layout";
 import Table from "../components/TableMessages";
@@ -39,13 +39,12 @@ export default function Home() {
         {tableVisible ? (
           <div>
             <div className="flex justify-end">
-              <Botao
-                color="green"
+              <Button
                 className="mb-4"
                 onClick={createMessage}
               >
                 Nova Mensagem
-              </Botao>
+              </Button>
             </div>
             <Table
               messages={messages}
