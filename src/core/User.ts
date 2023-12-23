@@ -12,7 +12,7 @@ export default class User {
   #isConnected: boolean
 
   constructor(
-    name: string, phone: string, id: string = null, email= "", status: string = "", 
+    id: string = null, name: string, phone: string, email= "", status: string = "", 
     city: string = "", state: string = "", country: string = "", level: string = "") {
     this.#_id = id
     this.#email = email
@@ -74,4 +74,6 @@ export default class User {
   get isConnected() {
     return this.#isConnected
   }
+
+  
 }
