@@ -16,7 +16,21 @@ export default function Table({ connections, connectionSelected, connectionDelet
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [currentConnection, setCurrentConnection] = useState(null);
 
+  const confirmAndDelete = (user) => {
+    setCurrentConnection(user);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = () => {
+    if (currentConnection) {
+      messageDeleted?.(currentConnection);
+      console.log("Usuário excluído:", currentConnection);
+    }
+    setIsModalOpen(false);
+  };
   const handleCheckboxChange = async (instanceStatus, _id) => {
     console.log("handleCheckboxChange instanceStatus:", instanceStatus);
     // tirar implementacao daqui
@@ -65,17 +79,26 @@ export default function Table({ connections, connectionSelected, connectionDelet
     }
   };
 
-  const Modal = ({ onClose, children }) => {
+  const Modal = ({ onClose, onConfirm, message }) => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
         <div className="bg-white p-4 rounded">
-          {children}
-          <button
-            className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
-            onClick={onClose}
-          >
-            Fechar
-          </button>
+          <p>Tem certeza que deseja excluir a mensagem {message?.title}?</p>
+          <div className="flex justify-end mt-4">
+            <button
+              className="bg-red-500 text-white py-2 px-4 rounded mr-2"
+              onClick={onConfirm}
+            >
+              Excluir
+            </button>
+            <button
+              className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
+              px-4 py-2 rounded-md"
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -158,11 +181,12 @@ export default function Table({ connections, connectionSelected, connectionDelet
       </tbody>
     </table>
     {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          {/* Conteúdo do modal, como informações ou confirmação */}
-          <p>Conteúdo do modal vai aqui</p>
-        </Modal>
-      )}
+      <Modal 
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDelete}
+        message={currentConnection}
+      />
+    )}
     </div>
   )
 }
