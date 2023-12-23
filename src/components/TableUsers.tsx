@@ -3,7 +3,11 @@ import User from "../core/User"
 import Button from "../components/Button"
 import Form from "../components/FormUser"
 import { IconEdit, IconThrash } from "./Icons"
+import styled from 'styled-components';
 
+const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  cursor: pointer;
+`;
 interface TableProps {
   users: User[]
   user: User
@@ -101,9 +105,14 @@ export default function Table({ users, userSelected, userDeleted, userModified, 
     );
   };
 
-  const handleCheckboxChange = async (isActive, _id) => {
+  const handleCheckboxChange = async (isActive, user) => {
     console.log("handleCheckboxChange isActive:", isActive);
-
+    console.log("handleCheckboxChange user:", user);
+    const newIsActive = !isActive
+    console.log("handleCheckboxChange newIsActive:", newIsActive);
+    const newUser = user;
+    newUser.isActive = newIsActive
+    userModified?.(newUser);
   };
 
   // const confirmAndDeleteUser = (user) => {
@@ -164,10 +173,11 @@ export default function Table({ users, userSelected, userDeleted, userModified, 
           <td className="text-left p-4 w-1/8">{user.level}</td>
           <td className="text-center p-4 w-1/10">
             <label>
-                <input
+                <CursorPointerCheckbox
                   type="checkbox"
+                  className="cursorPointer"
                   checked={user.isActive ? true : false}
-                  onChange={() => handleCheckboxChange(user.isActive, user._id)}
+                  onChange={() => handleCheckboxChange(user.isActive, user)}
                   // onChange={handleCheckboxChange}
                   />
             </label>
