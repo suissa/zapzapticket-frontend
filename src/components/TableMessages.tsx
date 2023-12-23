@@ -100,7 +100,7 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
       <td className="flex justify-center">
         {messageSelected ? (
           <button onClick={() => messageSelected?.(message)} className={`
-                    flex justify-center items-center
+                    flex justify-right items-right
                     text-green-600 rounded-md p-2 m-1
                     hover:bg-purple-50
                 `}>
