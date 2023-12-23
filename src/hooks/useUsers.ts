@@ -21,7 +21,7 @@ export default function useUsers() {
       fetch(API_URL)
         .then(response => response.json())
         .then(data => {
-          console.log("listUsers then", data)
+          // console.log("listUsers then", data)
           return setUsers(data)
         })
     }
@@ -32,22 +32,29 @@ export default function useUsers() {
     }
 
     async function deleteUser(user: User) {
-      listUsers()
+      fetch(`${API_URL}/${user._id}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("DELETE then", data)
+          return listUsers()
+        })
     }
 
     async function saveUser(user: User) {
       console.log("saveUser user", user)
+      console.log("status: ", user.status)
       const userStr = JSON.stringify({
         _id: user._id,
         name: user.name,
+        email: user.email,
         phone: user.phone,
         status: user.status,
         city: user.city,
         state: user.state,
         country: user.country,
-        level: user.level,
-        isActive: user.isActive,
-        isConnected: user.isConnected,
+        level: user.level
       })
       console.log("saveUser userStr", userStr)
       const response = user?._id
@@ -62,7 +69,13 @@ export default function useUsers() {
           body: userStr
         });
 
-      const data = await response.json();
+        fetch(API_URL)
+        .then(response => response.json())
+        .then(data => {
+          // console.log("listUsers then", data)
+          return setUsers(data)
+        })
+      // const data = await response.json();
     }
 
     function criarUser() {
