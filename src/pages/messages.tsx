@@ -3,6 +3,7 @@ import Botao from "../components/Button";
 import Form from "../components/FormMessage";
 import Layout from "../components/Layout";
 import Table from "../components/TableMessages";
+import Menu from '../components/Menu';
 import useMessages from "../hooks/useMessages";
 import useLayout from "../hooks/useLayout";
 
@@ -28,6 +29,8 @@ export default function Home() {
   }, [tableVisible]); // O segundo argumento é um array de dependências
 
   return (
+    <div>
+      <Menu />
     <div className={`
       flex justify-center items-center
       h-screen bg-gradient-to-r from-blue-500 to-purple-500
@@ -59,6 +62,7 @@ export default function Home() {
           />
         )}
       </Layout>
+    </div>
     </div>
   )
 }
