@@ -1,35 +1,35 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Connection from "../core/Connection"
+import User from "../core/User"
 import { IconEdit, IconThrash } from "./Icons"
 
 interface TableProps {
-  connections: Connection[]
-  connectionSelected?: (connection: Connection) => void
-  connectionDeleted?: (connection: Connection) => void
+  users: User[]
+  userSelected?: (user: User) => void
+  userDeleted?: (user: User) => void
 }
 
 const API_URL = "http://localhost:9000";
 
-export default function Table({ connections, connectionSelected, connectionDeleted }: TableProps) {
+export default function Table({ users, userSelected, userDeleted }: TableProps) {
 
-  const showActions = connectionSelected || connectionDeleted
+  const showActions = userSelected || userDeleted
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCheckboxChange = async (instanceStatus, _id) => {
-    console.log("handleCheckboxChange instanceStatus:", instanceStatus);
+  const handleCheckboxChange = async (isActive, _id) => {
+    console.log("handleCheckboxChange isActive:", isActive);
     // tirar implementacao daqui
-    if(!instanceStatus){
+    if(!isActive){
       console.log(_id)
-      const result = await fetch(`${API_URL}/connections/${_id}`, {
+      const result = await fetch(`${API_URL}/users/${_id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
-      const connectionAPI = await result.json();
-      console.log(connectionAPI)
+      const userAPI = await result.json();
+      console.log(userAPI)
 
-      const instanceName = connectionAPI.name.replace(" ", "_") + "-" + connectionAPI.phone;
+      const instanceName = userAPI.title.replace(" ", "_") + "-" + userAPI.text;
       console.log(instanceName)
       const data = {
         instanceName: instanceName,
@@ -41,27 +41,9 @@ export default function Table({ connections, connectionSelected, connectionDelet
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      const connectionSAVED = await resultUpdate.json();
-      console.log(connectionSAVED)
-      setQrCodeBase64(connectionSAVED.qrcode.base64);
-
-      // setIsModalOpen(true);
-    // fetch(`${SERVER_API}/evolution/instances/create`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     instanceName: connectionName,
-    //     token: "tokenAOIEKdjnj1701477826237",
-    //     qrcode: true
-    //   })
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   // Trate a resposta aqui
-    //   console.log(data);
-    // })
-    // .catch(error => console.error("Error:", error));
-
+      const userSAVED = await resultUpdate.json();
+      console.log(userSAVED)
+      setQrCodeBase64(userSAVED.qrcode.base64);
     }
   };
 
@@ -85,57 +67,55 @@ export default function Table({ connections, connectionSelected, connectionDelet
     return (
       <tr>
         <th className="text-left p-4">Id</th>
-        <th className="text-left p-4">Nome</th>
-        <th className="text-left p-4">Telefone</th>
-        <th className="text-left p-4">Instância</th>
-        <th className="text-left p-4">Ativa</th>
+        <th className="text-left p-4">Título</th>
+        <th className="text-left p-4">Texto</th>
+        <th className="text-left p-4">Ativo</th>
         {showActions ? <th className="p-4">Ações</th> : false}
       </tr>
     )
   }
 
   function renderData() {
-    return connections?.map((connection, i) => {
+    return users?.map((user, i) => {
       return (
-        <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
-          <td className="text-left p-4">{connection._id}</td>
-          <td className="text-left p-4">{connection.name}</td>
-          <td className="text-left p-4">{connection.phone}</td>
-          <td className="text-left p-4">{connection.instanceName}</td>
+        <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+          <td className="text-left p-4">{user._id}</td>
+          <td className="text-left p-4">{user.title}</td>
+          <td className="text-left p-4">{user.text}</td>
           <td className="text-left p-4">
             <label>
                 <input
                   type="checkbox"
-                  checked={connection.instanceStatus ? true : false}
-                  onChange={() => handleCheckboxChange(connection.instanceStatus, connection._id)}
+                  checked={user.isActive ? true : false}
+                  onChange={() => handleCheckboxChange(user.isActive, user._id)}
                   // onChange={handleCheckboxChange}
                   />
               </label></td>
-          {showActions ? renderActions(connection) : false}
+          {showActions ? renderActions(user) : false}
         </tr>
       )
     })
   }
 
-  function renderActions(connection: Connection) {
+  function renderActions(user: User) {
     return (
       <td className="flex justify-center">
-        {connectionSelected ? (
-          <button onClick={() => connectionSelected?.(connection)} className={`
+        {userSelected ? (
+          <button onClick={() => userSelected?.(user)} className={`
                     flex justify-center items-center
                     text-green-600 rounded-md p-2 m-1
                     hover:bg-purple-50
                 `}>
-            {IconeEdicao}
+            {IconEdit}
           </button>
         ) : false}
-        {connectionDeleted ? (
-          <button onClick={() => connectionDeleted?.(connection)} className={`
+        {userDeleted ? (
+          <button onClick={() => userDeleted?.(user)} className={`
                     flex justify-center items-center
                     text-red-500 rounded-md p-2 m-1
                     hover:bg-purple-50
                 `}>
-            {IconeLixeira}
+            {IconThrash}
           </button>
         ) : false}
       </td>

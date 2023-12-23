@@ -1,6 +1,6 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Message from "../core/Message"
-import { IconeEdicao, IconeLixeira } from "./Icones"
+import { IconEdit, IconThrash } from "./Icons"
 
 interface TableProps {
   messages: Message[]
