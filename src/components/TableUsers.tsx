@@ -22,32 +22,23 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
 
   };
 
-  const Modal = ({ onClose, children }) => {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-        <div className="bg-white p-4 rounded">
-          {children}
-          <button
-            className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
-            onClick={onClose}
-          >
-            Fechar
-          </button>
-        </div>
-      </div>
-    );
-  };
+  const confirmAndDeleteUser = (user) => {
+    // Confirmação de exclusão
+    if (window.confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
+      userDeleted?.(user);
+    }
+  }
 
   function renderHeader() {
     return (
       <tr>
-        <th className="text-left p-4">Nome</th>
-        <th className="text-left p-4">Telefone</th>
-        <th className="text-left p-4">Status</th>
-        <th className="text-left p-4">Nível</th>
-        <th className="text-left p-4">Ativo</th>
-        <th className="text-left p-4">Conectado</th>
-        <th className="text-right p-4">Ações</th>
+        <th className="text-left p-4 w-1/6">Nome</th>
+        <th className="text-left p-4 w-1/6">Telefone</th>
+        <th className="text-left p-4 w-1/8">Status</th>
+        <th className="text-left p-4 w-1/8">Nível</th>
+        <th className="text-left p-4 w-1/10">Ativo</th>
+        <th className="text-left p-0 w-1/10">Conectado</th>
+        <th className="text-right p-4 w-1/8">Ações</th>
       </tr>
     )
   }
@@ -56,11 +47,11 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
     return users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
-          <td className="text-left p-4">{user.name}</td>
-          <td className="text-left p-4">{user.phone}</td>
-          <td className="text-left p-4">{user.status}</td>
-          <td className="text-left p-4">{user.level}</td>
-          <td className="text-center p-4">
+          <td className="text-left p-4 w-1/6">{user.name}</td>
+          <td className="text-left p-4 w-1/6">{user.phone}</td>
+          <td className="text-left p-4 w-1/8">{user.status}</td>
+          <td className="text-left p-4 w-1/8">{user.level}</td>
+          <td className="text-center p-4 w-1/10">
             <label>
                 <input
                   type="checkbox"
@@ -71,7 +62,7 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
             </label>
           </td>
           {/* <td className="text-left p-4">{user.isConnected}</td> */}
-          <td className="text-center p-4">
+          <td className="text-center p-4 w-1/10">
             <label>
                 <input
                   type="checkbox"
@@ -89,11 +80,11 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
 
   function renderActions(user: User) {
     return (
-      <td className="flex justify-center">
+      <td className="flex justify-right w-1/8 pl-10">
         {userSelected ? (
           <button onClick={() => userSelected?.(user)} className={`
-                    flex justify-center items-center
-                    text-green-600 rounded-md p-2 m-1
+                    flex justify-right items-right
+                    text-green-600 rounded-md p-0 mt-4
                     hover:bg-purple-50
                 `}>
             {IconEdit}
@@ -101,8 +92,8 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
         ) : false}
         {userDeleted ? (
           <button onClick={() => userDeleted?.(user)} className={`
-                    flex justify-center items-center
-                    text-red-500 rounded-md p-2 m-1
+                    flex justify-right items-right
+                    text-red-500 rounded-md p-0 mt-4
                     hover:bg-purple-50
                 `}>
             {IconThrash}
@@ -114,27 +105,17 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
 
   return (
     <div>
-      {qrCodeBase64 && (
-        <img src={`${qrCodeBase64}`} alt="QR Code" />
-      )}
-
-    <table className="w-full rounded-xl overflow-hidden">
-      <thead className={`
-          text-gray-100
-          bg-gradient-to-r from-purple-500 to-purple-800
-      `}>
-        {renderHeader()}
-      </thead>
-      <tbody>
-        {renderData()}
-      </tbody>
-    </table>
-    {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          {/* Conteúdo do modal, como informações ou confirmação */}
-          <p>Conteúdo do modal vai aqui</p>
-        </Modal>
-      )}
+      <table className="w-full rounded-xl overflow-hidden table-fixed">
+        <thead className={`
+            text-gray-100
+            bg-gradient-to-r from-purple-500 to-purple-800
+        `}>
+          {renderHeader()}
+        </thead>
+        <tbody>
+          {renderData()}
+        </tbody>
+      </table>
     </div>
   )
 }
