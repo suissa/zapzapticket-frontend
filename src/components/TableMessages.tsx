@@ -66,10 +66,9 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
   function renderHeader() {
     return (
       <tr>
-        <th className="text-left p-4">Id</th>
         <th className="text-left p-4">Título</th>
         <th className="text-left p-4">Texto</th>
-        <th className="text-left p-4">Ativo</th>
+        <th className="text-center p-4">Ativo</th>
         {showActions ? <th className="p-4">Ações</th> : false}
       </tr>
     )
@@ -79,10 +78,9 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
     return messages?.map((message, i) => {
       return (
         <tr key={message._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
-          <td className="text-left p-4">{message._id}</td>
           <td className="text-left p-4">{message.title}</td>
           <td className="text-left p-4">{message.text}</td>
-          <td className="text-left p-4">
+          <td className="text-center p-4">
             <label>
                 <input
                   type="checkbox"
