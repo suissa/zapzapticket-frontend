@@ -10,16 +10,19 @@ export default class User {
   #isActive: boolean
   #isConnected: boolean
 
-  constructor(name: string, phone: string, id: string = null) {
+  constructor(
+    name: string, phone: string, id: string = null, status: string = "", 
+    city: string = "", state: string = "", country: string = "", level: string = "",
+    isActive: true, isConnected: false) {
     this.#_id = id
     this.#name = name
     this.#phone = phone
-    this.#status = ""
-    this.#city = ""
-    this.#state = ""
-    this.#country = ""
-    this.#level = ""
-    this.#isActive = false
+    this.#status = status
+    this.#city = city
+    this.#state = state
+    this.#country = country
+    this.#level = level
+    this.#isActive = this.#isActive
     this.#isConnected = false
   }
 
