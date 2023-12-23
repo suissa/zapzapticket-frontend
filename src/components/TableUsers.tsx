@@ -43,9 +43,9 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
       <tr>
         <th className="text-left p-4">Nome</th>
         <th className="text-left p-4">Telefone</th>
-        <th className="text-left p-4">Ativo</th>
         <th className="text-left p-4">Status</th>
         <th className="text-left p-4">Nível</th>
+        <th className="text-left p-4">Ativo</th>
         <th className="text-left p-4">Conectado</th>
         <th className="text-right p-4">Ações</th>
       </tr>
@@ -58,6 +58,8 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           <td className="text-left p-4">{user.name}</td>
           <td className="text-left p-4">{user.phone}</td>
+          <td className="text-left p-4">{user.status}</td>
+          <td className="text-left p-4">{user.level}</td>
           <td className="text-center p-4">
             <label>
                 <input
@@ -68,8 +70,6 @@ export default function Table({ users, userSelected, userDeleted }: TableProps) 
                   />
             </label>
           </td>
-          <td className="text-left p-4">{user.status}</td>
-          <td className="text-left p-4">{user.level}</td>
           {/* <td className="text-left p-4">{user.isConnected}</td> */}
           <td className="text-center p-4">
             <label>
