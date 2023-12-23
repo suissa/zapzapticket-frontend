@@ -10,7 +10,7 @@ export default function useUsers() {
     const [ users, setUsers ] = useState<User[]>([])
     const { showForm, showTable, tableVisible } = useLayout()
 
-    useEffect(listUsers, [])
+    useEffect(listAllUsers, [])
 
     function createUser() {
       setUser(User.empty())
@@ -18,7 +18,16 @@ export default function useUsers() {
     }
 
     function listUsers() {
-      fetch(API_URL)
+      fetch(`${API_URL}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log("listUsers then", data)
+          return setUsers(data)
+        })
+    }
+
+    function listAllUsers() {
+      fetch(`${API_URL}/all`)
         .then(response => response.json())
         .then(data => {
           // console.log("listUsers then", data)
@@ -45,17 +54,28 @@ export default function useUsers() {
     async function saveUser(user: User) {
       console.log("saveUser user", user)
       console.log("status: ", user.status)
-      const userStr = JSON.stringify({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        status: user.status,
-        city: user.city,
-        state: user.state,
-        country: user.country,
-        level: user.level
-      })
+      const userStr = user?._id
+        ? JSON.stringify({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            status: user.status,
+            city: user.city,
+            state: user.state,
+            country: user.country,
+            level: user.level
+          })
+        : JSON.stringify({
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            status: user.status,
+            city: user.city,
+            state: user.state,
+            country: user.country,
+            level: user.level
+          })
       console.log("saveUser userStr", userStr)
       const response = user?._id
         ? await fetch(`${API_URL}/${user._id}`, {
@@ -63,7 +83,7 @@ export default function useUsers() {
           headers: { 'Content-Type': 'application/json' },
           body: userStr
         })
-        : await fetch(`${API_URL}`, {
+        : await fetch(`${API_URL}/all`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: userStr
@@ -93,6 +113,7 @@ export default function useUsers() {
         deleteUser,
         getUser,
         listUsers,
+        listAllUsers,
         showTable,
         tableVisible
     }
