@@ -46,6 +46,7 @@ export default function Home() {
             <Table
               connections={connections}
               connectionSelected={getConnection}
+              connectionSaved={saveConnection}
               connectionDeleted={deleteConnection}
             />
           </div>
