@@ -1,79 +1,118 @@
-export default class User {
-  #_id: string
-  #name: string
-  #email: string
-  #phone: string
-  #status: string
-  #city: string
-  #state: string
-  #country: string
-  #level: string
-  #isActive: boolean
-  #isConnected: boolean
+export default class Contact {
+  #name: string;
+  #phone: string;
+  #status: string;
+  #city: string;
+  #state: string;
+  #country: string;
+  #ticketStatus: string;
+  #ticketCreatedAt: string;
+  #ticketClosedAt: string;
+  #badges: string[];
+  #messages: Message[]; // Assumindo que Message é uma classe ou interface definida
 
   constructor(
-    id: string = null, name: string, phone: string, email= "", status: string = "", 
-    city: string = "", state: string = "", country: string = "", level: string = "") {
-    this.#_id = id
-    this.#email = email
-    this.#name = name
-    this.#phone = phone
-    this.#status = status
-    this.#city = city
-    this.#state = state
-    this.#country = country
-    this.#level = level
-    this.#isActive = true
-    this.#isConnected = false
+    name: string = "",
+    phone: string = "",
+    status: string = "Lista fria",
+    city: string = "",
+    state: string = "",
+    country: string = "",
+    ticketStatus: string = "inativo",
+    ticketCreatedAt: string = "",
+    ticketClosedAt: string = "",
+    badges: string[] = [],
+    messages: Message[] = [] // Assumindo que Message é uma classe ou interface definida
+  ) {
+    this.#name = name;
+    this.#phone = phone;
+    this.#status = status;
+    this.#city = city;
+    this.#state = state;
+    this.#country = country;
+    this.#ticketStatus = ticketStatus;
+    this.#ticketCreatedAt = ticketCreatedAt;
+    this.#ticketClosedAt = ticketClosedAt;
+    this.#badges = badges;
+    this.#messages = messages;
   }
 
   static empty() {
-    return new User("", "")
-  }
-
-  get _id() {
-    return this.#_id
+    return new Contact();
   }
 
   get name() {
-    return this.#name
-  }
-
-  get email() {
-    return this.#email
+    return this.#name;
   }
 
   get phone() {
-    return this.#phone
+    return this.#phone;
   }
 
   get status() {
-    return this.#status
+    return this.#status;
   }
 
-  get city() {
-    return this.#city
+  // ... outros métodos getter para as propriedades restantes ...
+
+  get badges() {
+    return this.#badges;
   }
 
-  get state() {
-    return this.#state
+  get messages() {
+    return this.#messages;
   }
 
-  get country() {
-    return this.#country
-  }
-
-  get level() {
-    return this.#level
-  }
-
-  get isActive() {
-    return this.#isActive
-  }
-
-  get isConnected() {
-    return this.#isConnected
-  }
-
-  
 }
+
+export class Message {
+  #type: string;
+  #text: string;
+  #createdAt: Date;
+  #phoneReply: string;
+
+  constructor(
+    type: string = 'text',
+    text: string = '',
+    createdAt: Date = new Date(),
+    phoneReply: string = ''
+  ) {
+    this.#type = type;
+    this.#text = text;
+    this.#createdAt = createdAt;
+    this.#phoneReply = phoneReply;
+  }
+
+  get type() {
+    return this.#type;
+  }
+
+  set type(value: string) {
+    this.#type = value;
+  }
+
+  get text() {
+    return this.#text;
+  }
+
+  set text(value: string) {
+    this.#text = value;
+  }
+
+  get createdAt() {
+    return this.#createdAt;
+  }
+
+  set createdAt(value: Date) {
+    this.#createdAt = value;
+  }
+
+  get phoneReply() {
+    return this.#phoneReply;
+  }
+
+  set phoneReply(value: string) {
+    this.#phoneReply = value;
+  }
+}
+
