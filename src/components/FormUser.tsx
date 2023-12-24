@@ -13,7 +13,6 @@ export default function Form({ user, canceled, userModified }: FormProps) {
   const [name, setName] = useState(user?.name ?? "")
   const [email, setEmail] = useState(user?.email ?? "")
   const [phone, setPhone] = useState(user?.phone ?? "")
-  const [status, setStatus] = useState(user?.status ?? "")
   const [city, setCity] = useState(user?.city ?? "")
   const [state, setState] = useState(user?.state ?? "")
   const [country, setCountry] = useState(user?.country ?? "Brasil")
@@ -36,20 +35,6 @@ export default function Form({ user, canceled, userModified }: FormProps) {
     );
   };
 
-  const handleStatusChange = (event) => {
-    console.log("handleStatusChange: ", event.target.value)
-    setStatus(event.target.value); // Atualiza o estado com o valor selecionado
-  };
-
-  useEffect(() => {
-    if (status) { // Verifica se o status não está vazio
-      // Preparar o objeto user com o status atualizado
-      const UserObj = { ...user, status };
-      console.log("UserObj", UserObj)
-      // Chamar a função saveUser com o user atualizado
-      // saveUser(userUpdated);
-    }
-  }, [status]);
   const handleStateChange = (event) => {
     setState(event.target.value);
     console.log("state", state)
@@ -78,7 +63,6 @@ export default function Form({ user, canceled, userModified }: FormProps) {
       name,
       email,
       phone,
-      status,
       city,
       state,
       country,
@@ -116,28 +100,6 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         text="Telefone"
         value={phone}
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
-      />
-      <Entry
-        text="Status"
-        type="select"
-        value={status} // Use o estado como valor
-        onChange={handleStatusChange}
-        selectOptions={[
-          { value: "", label: "Escolha um status" },
-          { value: "Lista fria", label: "Lista fria" },
-          { value: "Enviando mensagem 1", label: "Enviando mensagem 1" },
-          { value: "Prospectado", label: "Prospectado" },
-          { value: "Lead", label: "Lead" },
-          { value: "Lead quente", label: "Lead quente" },
-          { value: "Lead frio", label: "Lead frio" },
-          { value: "Sem interesse", label: "Sem interesse" },
-          { value: "Bloqueado", label: "Bloqueado" },
-          { value: "Não é o momento", label: "Não é o momento" },
-          { value: "Sem dinheiro", label: "Sem dinheiro" },
-          { value: "Objeção", label: "Objeção" },
-          { value: "Vai pagar", label: "Vai pagar" },
-          { value: "Cliente", label: "Cliente" },
-        ]}
       />
       <Entry
         text="Cidade"
