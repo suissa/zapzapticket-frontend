@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import FormContact from "../components/FormContact"; // Certifique-se de que o nome está correto
 import Layout from "../components/Layout";
@@ -7,9 +7,23 @@ import TableMessages from "../components/TableMessages"; // Componente de tabela
 import Menu from '../components/Menu';
 import useContacts from "../hooks/useContacts";
 import useMessages from "../hooks/useMessages";
+import useSend from "../hooks/useSend";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
+  const [selectedContacts, setSelectedContacts] = useState([]);
+  const [selectedMessage, setSelectedMessage] = useState();
+
+  const handleContactsSelectionChange = (selectedIds) => {
+    setSelectedContacts(selectedIds);
+  };
+
+  const handleMessagesSelectionChange = (selectedId) => {
+    // const selectedMsg = messages.find(msg => msg._id === selectedId);
+    setSelectedMessage(selectedId);
+  };
+  
+
   const {
     contact,
     contacts,
@@ -32,12 +46,24 @@ export default function Home() {
     listMessages,
   } = useMessages()
 
+  const {
+    sendMessage
+  } = useSend()
+
   useEffect(() => {
     if (tableVisible) {
       listContacts();
       listMessages(); // Carregar mensagens
     }
   }, [tableVisible]);
+
+  const handleSendMessage = () => {
+    // Supondo que você tem uma função sendMessage no seu hook
+    // sendMessage(selectedMessage, selectedContacts);
+    console.log('Mensagens selecionadas:', selectedMessage);
+    console.log('Contatos selecionados:', selectedContacts);
+    sendMessage(selectedMessage, selectedContacts, "Criptou_Onboarding-5511994649923")
+  };
 
   return (
     <div>
@@ -54,8 +80,8 @@ export default function Home() {
               <Button
                 color="green"
                 className="mb-4"
-                onClick={createContact}
-              >
+                onClick={handleSendMessage}
+                >
                 Novo Envio
               </Button>
             </div>
@@ -68,6 +94,7 @@ export default function Home() {
                 canceled={showTable}
                 showCheckboxes={true}
                 showActions={false}
+                onSelectionChange={handleMessagesSelectionChange}
               />
             </div>
 
@@ -81,10 +108,10 @@ export default function Home() {
                 canceled={showTable}
                 showCheckboxes={true}
                 showActions={false}
+                onSelectionChange={handleContactsSelectionChange}
               />
             </div>
           </div>
-          
           ) : (
             <FormContact
               contact={contact}
