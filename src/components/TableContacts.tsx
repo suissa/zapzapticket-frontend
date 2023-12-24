@@ -15,13 +15,15 @@ interface TableProps {
   contactDeleted?: (contact: Contact) => void
   contactModified?: (contact: Contact) => void
   canceled?: () => void
+  showCheckboxes?: boolean
+  showActions?: boolean
 }
 
 const API_URL = "http://localhost:9000";
 
-export default function Table({ contacts, contactSelected, contactDeleted, contactModified, canceled, contact }: TableProps) {
+export default function Table({ contacts, contactSelected, contactDeleted, contactModified, showCheckboxes, showActions = true, contact }: TableProps) {
 
-  const showActions = contactSelected || contactDeleted
+  // const showActions = contactSelected || contactDeleted
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,12 +73,10 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
                   contact._id,
                   contact.name,
                   contact.phone,
-                  contact.email,
                   contact.status,
                   contact.city,
                   contact.state,
                   contact.country,
-                  contact.level
                 );
 
                 contactModified?.(ContactObj);
@@ -151,6 +151,7 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
   function renderHeader() {
     return (
       <tr>
+        {showCheckboxes && <th className="text-center p-4">Selecionar</th>}
         <th className="text-left p-4 w-1/6">Nome</th>
         <th className="text-left p-4 w-1/6">Telefone</th>
         <th className="text-left p-4 w-1/8">Status</th>
@@ -164,6 +165,13 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
     return contacts?.map((contact, i) => {
       return (
         <tr key={contact._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+          {showCheckboxes && (
+            <td className="text-center p-4">
+              <CursorPointerCheckbox
+                // ... código para checkbox ...
+              />
+            </td>
+          )}
           <td className="text-left p-4 w-1/6">{contact.name}</td>
           <td className="text-left p-4 w-1/6">{contact.phone}</td>
           <td className="text-left p-4 w-1/8">{contact.status}</td>
