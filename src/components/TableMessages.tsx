@@ -1,6 +1,7 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Message from "../core/Message"
 import { IconEdit, IconThrash } from "./Icons"
+import styled from 'styled-components';
 
 interface TableProps {
   messages: Message[]
@@ -8,12 +9,16 @@ interface TableProps {
   messageDeleted?: (message: Message) => void
 }
 
+const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  cursor: pointer;
+`;
 const API_URL = "http://localhost:9000";
 
 export default function Table({ messages, messageSelected, messageDeleted }: TableProps) {
 
   const showActions = messageSelected || messageDeleted
   const [checked, setChecked] = useState(false);
+  const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(null);
@@ -104,7 +109,7 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
           <td className="text-left p-4">{message.text}</td>
           <td className="text-center p-4">
             <label>
-              <input
+              <CursorPointerCheckbox
                 type="checkbox"
                 checked={message.isActive ? true : false}
                 onChange={() => handleCheckboxChange(message.isActive, message._id)}
