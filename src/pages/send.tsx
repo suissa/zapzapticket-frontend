@@ -80,7 +80,8 @@ export default function Home() {
     // sendMessage(selectedMessage, selectedContacts);
     console.log('Mensagens selecionadas:', selectedMessage);
     console.log('Contatos selecionados:', selectedContacts);
-    sendMessage(selectedMessage, selectedContacts, "Criptou_Onboarding-5511994649923")
+    console.log('Conenction selecionado:', selectedConnection);
+    // sendMessage(selectedMessage, selectedContacts, "Criptou_Onboarding-5511994649923")
   };
 
   return (
@@ -91,7 +92,7 @@ export default function Home() {
         h-screen bg-gradient-to-r from-blue-500 to-purple-500
         text-white
       `}>
-        <Layout title="Envios">
+        <Layout title="Envios" width="w-3/3">
           {tableVisible ? (
           <div>
             <div className="flex justify-end">
@@ -110,6 +111,7 @@ export default function Home() {
                 connections={connections}
                 showCheckboxes={true}
                 showActions={false}
+                hideCertainColumns={true}
                 onSelectionChange={handleConnectionsSelectionChange}
               />
               </div>
