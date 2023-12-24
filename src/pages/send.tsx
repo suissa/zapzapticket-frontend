@@ -17,21 +17,6 @@ export default function Home() {
   const [selectedMessage, setSelectedMessage] = useState();
   const [selectedConnection, setSelectedConnection] = useState();
 
-  const handleContactsSelectionChange = (selectedIds) => {
-    setSelectedContacts(selectedIds);
-  };
-
-  const handleMessagesSelectionChange = (selectedId) => {
-    setSelectedMessage(selectedId);
-  };
-
-  const handleConnectionsSelectionChange = (selectedId) => {
-    console.log("handleConnectionsSelectionChange selectedId", selectedId)
-    setSelectedConnection(selectedId);
-  };
-
-  
-
   const {
     contact,
     contacts,
@@ -68,12 +53,19 @@ export default function Home() {
     sendMessage
   } = useSend()
 
-  useEffect(() => {
-    if (tableVisible) {
-      listContacts();
-      listMessages(); // Carregar mensagens
-    }
-  }, [tableVisible]);
+
+  const handleContactsSelectionChange = (selectedIds) => {
+    setSelectedContacts(selectedIds);
+  };
+
+  const handleMessagesSelectionChange = (selectedId) => {
+    setSelectedMessage(selectedId);
+  };
+
+  const handleConnectionsSelectionChange = (selectedId) => {
+    console.log("handleConnectionsSelectionChange selectedId", selectedId)
+    setSelectedConnection(selectedId);
+  };
 
   const handleSendMessage = () => {
     // Supondo que você tem uma função sendMessage no seu hook
@@ -81,7 +73,7 @@ export default function Home() {
     console.log('Mensagens selecionadas:', selectedMessage);
     console.log('Contatos selecionados:', selectedContacts);
     console.log('Conenction selecionado:', selectedConnection);
-    // sendMessage(selectedMessage, selectedContacts, "Criptou_Onboarding-5511994649923")
+    sendMessage(selectedMessage, selectedContacts, selectedConnection)
   };
 
   return (
@@ -112,6 +104,7 @@ export default function Home() {
                 showCheckboxes={true}
                 showActions={false}
                 hideCertainColumns={true}
+                filterActiveInstances={true}
                 onSelectionChange={handleConnectionsSelectionChange}
               />
               </div>
