@@ -153,7 +153,6 @@ export default function Table({ users, userSelected, userDeleted, userModified, 
       <tr>
         <th className="text-left p-4 w-1/6">Nome</th>
         <th className="text-left p-4 w-1/6">Telefone</th>
-        <th className="text-left p-4 w-1/8">Status</th>
         <th className="text-left p-4 w-1/8">Nível</th>
         <th className="text-center p-4 w-1/10">Ativo</th>
         <th className="text-center p-0 w-1/10">Conectado</th>
@@ -169,7 +168,6 @@ export default function Table({ users, userSelected, userDeleted, userModified, 
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           <td className="text-left p-4 w-1/6">{user.name}</td>
           <td className="text-left p-4 w-1/6">{user.phone}</td>
-          <td className="text-left p-4 w-1/8">{user.status}</td>
           <td className="text-left p-4 w-1/8">{user.level}</td>
           <td className="text-center p-4 w-1/10">
             <label>
