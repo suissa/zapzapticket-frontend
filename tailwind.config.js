@@ -10,7 +10,13 @@ module.exports = {
     /^from-/,
   ],
   theme: {
-      extend: {},
+      extend: {
+        width: {
+          '1/8': '12.5%',
+          '1/10': '10%',
+          '1/12': '8.333333%',
+        },
+      },
   },
   plugins: [],
 }
