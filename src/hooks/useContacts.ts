@@ -1,5 +1,5 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Contact from "../core/Contact"
+import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 
@@ -10,7 +10,7 @@ export default function useContacts() {
   const [contacts, setContacts] = useState<Contact[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
 
-  useEffect(listAllContacts, [])
+  useEffect(listContacts, [])
 
   function createContact() {
     setContact(Contact.empty())
@@ -22,15 +22,6 @@ export default function useContacts() {
       .then(response => response.json())
       .then(data => {
         console.log("listContacts then", data)
-        return setContacts(data)
-      })
-  }
-
-  function listAllContacts() {
-    fetch(`${API_URL}/all`)
-      .then(response => response.json())
-      .then(data => {
-        // console.log("listContacts then", data)
         return setContacts(data)
       })
   }
@@ -58,25 +49,19 @@ export default function useContacts() {
       ? JSON.stringify({
         _id: contact._id,
         name: contact.name,
-        email: contact.email,
         phone: contact.phone,
         status: contact.status,
         city: contact.city,
         state: contact.state,
         country: contact.country,
-        level: contact.level,
-        isActive: contact.isActive
       })
       : JSON.stringify({
         name: contact.name,
-        email: contact.email,
         phone: contact.phone,
         status: contact.status,
         city: contact.city,
         state: contact.state,
         country: contact.country,
-        level: contact.level,
-        isActive: true
       })
     console.log("saveContact contactStr", contactStr)
     const response = contact?._id
@@ -91,12 +76,13 @@ export default function useContacts() {
         body: contactStr
       });
 
-    fetch(`${API_URL}/all`)
-      .then(response => response.json())
-      .then(data => {
-        // console.log("listContacts then", data)
-        return setContacts(data)
-      })
+      showTable()
+    // fetch(`${API_URL}`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     // console.log("listContacts then", data)
+    //     listContacts()
+    //   })
     // const data = await response.json();
   }
 
@@ -115,7 +101,7 @@ export default function useContacts() {
     deleteContact,
     getContact,
     listContacts,
-    listAllContacts,
+    listContacts,
     showTable,
     tableVisible
   }
