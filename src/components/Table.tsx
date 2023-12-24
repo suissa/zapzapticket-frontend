@@ -1,16 +1,21 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Connection from "../core/Connection"
 import { IconEdit, IconThrash } from "./Icons"
+import styled from 'styled-components';
 
 interface TableProps {
   connections: Connection[]
   connectionSelected?: (connection: Connection) => void
   connectionDeleted?: (connection: Connection) => void
+  connectionSaved?: (connection: Connection) => void
 }
 
+const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  cursor: pointer;
+`;
 const API_URL = "http://localhost:9000";
 
-export default function Table({ connections, connectionSelected, connectionDeleted }: TableProps) {
+export default function Table({ connections, connectionSelected, connectionDeleted, connectionSaved }: TableProps) {
 
   const showActions = connectionSelected || connectionDeleted
   const [checked, setChecked] = useState(false);
@@ -31,12 +36,12 @@ export default function Table({ connections, connectionSelected, connectionDelet
     }
     setIsModalOpen(false);
   };
-  const handleCheckboxChange = async (instanceStatus, _id) => {
+  const handleCheckboxChange = async (instanceStatus, connection) => {
     console.log("handleCheckboxChange instanceStatus:", instanceStatus);
     // tirar implementacao daqui
-    if(!instanceStatus){
-      console.log(_id)
-      const result = await fetch(`${API_URL}/connections/${_id}`, {
+    if (!instanceStatus) {
+      console.log(connection._id)
+      const result = await fetch(`${API_URL}/connections/${connection._id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
@@ -55,27 +60,22 @@ export default function Table({ connections, connectionSelected, connectionDelet
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      const connectionSAVED = await resultUpdate.json();
+      const connectionSAVED = await resultUpdate.json()
       console.log(connectionSAVED)
-      setQrCodeBase64(connectionSAVED.qrcode.base64);
+      setQrCodeBase64(connectionSAVED.qrcode.base64)
 
-      // setIsModalOpen(true);
-    // fetch(`${SERVER_API}/evolution/instances/create`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     instanceName: connectionName,
-    //     token: "tokenAOIEKdjnj1701477826237",
-    //     qrcode: true
-    //   })
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   // Trate a resposta aqui
-    //   console.log(data);
-    // })
-    // .catch(error => console.error("Error:", error));
+    } else {
+      console.log("caiu no else")
+      connection.isActive = !connection.isActive
+      // atualiza pra instanceStatus false
+      // connectionSaved(connection)
 
+      const result = await fetch(`${API_URL}/connections/shutdown/${connection.instanceName}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const connectionAPI = await result.json();
+      console.log(connectionAPI)
     }
   };
 
@@ -125,13 +125,13 @@ export default function Table({ connections, connectionSelected, connectionDelet
           <td className="text-left p-4">{connection.instanceName}</td>
           <td className="text-center p-4">
             <label>
-                <input
-                  type="checkbox"
-                  checked={connection.instanceStatus ? true : false}
-                  onChange={() => handleCheckboxChange(connection.instanceStatus, connection._id)}
-                  // onChange={handleCheckboxChange}
-                  />
-              </label></td>
+              <CursorPointerCheckbox
+                type="checkbox"
+                checked={connection.instanceStatus ? true : false}
+                onChange={() => handleCheckboxChange(connection.instanceStatus, connection)}
+              // onChange={handleCheckboxChange}
+              />
+            </label></td>
           {showActions ? renderActions(connection) : false}
         </tr>
       )
@@ -169,24 +169,24 @@ export default function Table({ connections, connectionSelected, connectionDelet
         <img src={`${qrCodeBase64}`} alt="QR Code" />
       )}
 
-    <table className="w-full rounded-xl overflow-hidden">
-      <thead className={`
+      <table className="w-full rounded-xl overflow-hidden">
+        <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800
       `}>
-        {renderHeader()}
-      </thead>
-      <tbody>
-        {renderData()}
-      </tbody>
-    </table>
-    {isModalOpen && (
-      <Modal 
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleDelete}
-        message={currentConnection}
-      />
-    )}
+          {renderHeader()}
+        </thead>
+        <tbody>
+          {renderData()}
+        </tbody>
+      </table>
+      {isModalOpen && (
+        <Modal
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleDelete}
+          message={currentConnection}
+        />
+      )}
     </div>
   )
 }
