@@ -66,24 +66,28 @@ export default function Home() {
                 Nova Mensagem
               </Botao>
             </div>
-            <div className="overflow-auto h-96">
+            <div className="overflow-auto h-80">
               <TableMessages
                 messages={messages}
                 messageSelected={getMessage}
                 messageDeleted={deleteMessage}
                 messageModified={saveMessage}
                 canceled={showTable}
+                showCheckboxes={true}
+                showActions={false}
               />
             </div>
 
             {/* Corrigido: Removido o fechamento incorreto da div aqui e colocado a div corretamente em volta de TableContacts */}
-            <div className="overflow-auto h-96">
+            <div className="overflow-auto h-80 mt-4">
               <TableContacts
                 contacts={contacts}
                 contactSelected={getContact}
                 contactDeleted={deleteContact}
                 contactModified={saveContact}
                 canceled={showTable}
+                showCheckboxes={true}
+                showActions={false}
               />
             </div>
           </div>
