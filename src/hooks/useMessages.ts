@@ -62,7 +62,7 @@ export default function useMessages() {
         body: messageStr
       });
       // listMessages()
-      showTable();
+      showTable()
     ;
   }
 
