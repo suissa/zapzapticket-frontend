@@ -53,14 +53,12 @@ export default function useUsers() {
 
   async function saveUser(user: User) {
     console.log("saveUser user", user)
-    console.log("status: ", user.status)
     const userStr = user?._id
       ? JSON.stringify({
         _id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
-        status: user.status,
         city: user.city,
         state: user.state,
         country: user.country,
@@ -71,7 +69,6 @@ export default function useUsers() {
         name: user.name,
         email: user.email,
         phone: user.phone,
-        status: user.status,
         city: user.city,
         state: user.state,
         country: user.country,
@@ -95,7 +92,8 @@ export default function useUsers() {
       .then(response => response.json())
       .then(data => {
         // console.log("listUsers then", data)
-        return setUsers(data)
+        setUsers(data)
+        showTable()
       })
     // const data = await response.json();
   }
