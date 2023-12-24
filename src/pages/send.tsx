@@ -1,27 +1,35 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import FormContact from "../components/FormContact"; // Certifique-se de que o nome está correto
+import FormContact from "../components/FormContact";
 import Layout from "../components/Layout";
-import TableContacts from "../components/TableContacts"; // Componente de tabela para contatos
-import TableMessages from "../components/TableMessages"; // Componente de tabela para mensagens
+import TableContacts from "../components/TableContacts";
+import TableMessages from "../components/TableMessages";
+import TableConnections from "../components/Table";
 import Menu from '../components/Menu';
 import useContacts from "../hooks/useContacts";
 import useMessages from "../hooks/useMessages";
+import useConnections from "../hooks/useConnections";
 import useSend from "../hooks/useSend";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState();
+  const [selectedConnection, setSelectedConnection] = useState();
 
   const handleContactsSelectionChange = (selectedIds) => {
     setSelectedContacts(selectedIds);
   };
 
   const handleMessagesSelectionChange = (selectedId) => {
-    // const selectedMsg = messages.find(msg => msg._id === selectedId);
     setSelectedMessage(selectedId);
   };
+
+  const handleConnectionsSelectionChange = (selectedId) => {
+    console.log("handleConnectionsSelectionChange selectedId", selectedId)
+    setSelectedConnection(selectedId);
+  };
+
   
 
   const {
@@ -45,6 +53,16 @@ export default function Home() {
     getMessage,
     listMessages,
   } = useMessages()
+
+  const {
+    connection,
+    connections,
+    createConnection,
+    saveConnection,
+    deleteConnection,
+    getConnection,
+    listConnections,
+  } = useConnections()
 
   const {
     sendMessage
@@ -85,7 +103,33 @@ export default function Home() {
                 Novo Envio
               </Button>
             </div>
-            <div className="overflow-auto h-80">
+            <div className="flex h-80">
+              <div className="flex-1 overflow-auto">
+
+              <TableConnections
+                connections={connections}
+                showCheckboxes={true}
+                showActions={false}
+                onSelectionChange={handleConnectionsSelectionChange}
+              />
+              </div>
+              <div className="flex-1 overflow-auto">
+
+                <TableContacts
+                  contacts={contacts}
+                  contactSelected={getContact}
+                  contactDeleted={deleteContact}
+                  contactModified={saveContact}
+                  canceled={showTable}
+                  showCheckboxes={true}
+                  showActions={false}
+                  onSelectionChange={handleContactsSelectionChange}
+                />
+              </div>
+            </div>
+
+            {/* Corrigido: Removido o fechamento incorreto da div aqui e colocado a div corretamente em volta de TableContacts */}
+            <div className="overflow-auto h-80 mt-4">
               <TableMessages
                 messages={messages}
                 messageSelected={getMessage}
@@ -95,20 +139,6 @@ export default function Home() {
                 showCheckboxes={true}
                 showActions={false}
                 onSelectionChange={handleMessagesSelectionChange}
-              />
-            </div>
-
-            {/* Corrigido: Removido o fechamento incorreto da div aqui e colocado a div corretamente em volta de TableContacts */}
-            <div className="overflow-auto h-80 mt-4">
-              <TableContacts
-                contacts={contacts}
-                contactSelected={getContact}
-                contactDeleted={deleteContact}
-                contactModified={saveContact}
-                canceled={showTable}
-                showCheckboxes={true}
-                showActions={false}
-                onSelectionChange={handleContactsSelectionChange}
               />
             </div>
           </div>
