@@ -9,6 +9,7 @@ interface TableProps {
   messageDeleted?: (message: Message) => void
   showCheckboxes?: boolean
   showActions?: boolean
+  onSelectionChange?: (selectedIds: string[]) => void;
 }
 
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -16,12 +17,14 @@ const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `;
 const API_URL = "http://localhost:9000";
 
-export default function Table({ messages, messageSelected, messageDeleted, showCheckboxes, showActions = true }: TableProps) {
+export default function Table({
+  messages, messageSelected, messageDeleted, showCheckboxes, showActions = true, onSelectionChange 
+}: TableProps) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(null);
-  const [selectedMessageId, setSelectedMessageId] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null);
 
   const confirmAndDelete = (user) => {
     setCurrentMessage(user);
@@ -36,9 +39,18 @@ export default function Table({ messages, messageSelected, messageDeleted, showC
     setIsModalOpen(false);
   };
 
-  const handleCheckboxChange = (messageId) => {
-    setSelectedMessageId(selectedMessageId === messageId ? null : messageId);
+  const handleCheckboxChange = (message) => {
+    if (selectedMessage && selectedMessage._id === message._id) {
+      // Desmarcar se já está selecionada
+      setSelectedMessage(null);
+    } else {
+      // Selecionar a nova mensagem
+      setSelectedMessage(message);
+    }
+    // Chamar onSelectionChange com o texto da mensagem
+    onSelectionChange?.(message.text);
   };
+  
 
   const Modal = ({ onClose, onConfirm, message }) => {
     return (
@@ -85,8 +97,8 @@ export default function Table({ messages, messageSelected, messageDeleted, showC
               <CursorPointerCheckbox
                   type="checkbox"
                   className="cursorPointer"
-                  checked={message._id === selectedMessageId}
-                  onChange={() => handleCheckboxChange(message._id)}
+                  checked={selectedMessage?._id === message._id}
+                  onChange={() => handleCheckboxChange(message)}
               />
             </td>
           )}
