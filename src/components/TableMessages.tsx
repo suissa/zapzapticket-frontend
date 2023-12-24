@@ -80,7 +80,7 @@ export default function Table({
   function renderHeader() {
     return (
       <tr>
-        {showCheckboxes && <th className="text-center p-4">Selecionar</th>}
+        {showCheckboxes && <th className="text-center p-4 w-1/10">Selecionar</th>}
         <th className="text-left p-4 w-1/4">Título</th>
         <th className="text-left p-4">Texto</th>
         {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
