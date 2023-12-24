@@ -17,14 +17,17 @@ interface TableProps {
   canceled?: () => void
   showCheckboxes?: boolean
   showActions?: boolean
+  onSelectionChange?: (selectedIds: string[]) => void;
 }
 
 const API_URL = "http://localhost:9000";
 
-export default function Table({ contacts, contactSelected, contactDeleted, contactModified, showCheckboxes = false, showActions = true, canceled, contact }: TableProps) {
+export default function Table({ 
+  contacts, contactSelected, contactDeleted, contactModified, showCheckboxes = false, showActions = true, canceled, contact, onSelectionChange
+}: TableProps) {
 
   // const showActions = contactSelected || contactDeleted
-  const [selectedContactIds, setSelectedContactIds] = useState([]);
+  const [selectedContactPhones, setSelectedContactPhones] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -92,14 +95,19 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
   };
 
   const handleContactCheckboxChange = (contact) => {
-    console.log("handleContactCheckboxChange contact:", contact);
-    if (selectedContactIds.includes(contact._id)) {
-      setSelectedContactIds(selectedContactIds.filter(id => id !== contact._id));
-    } else {
-      setSelectedContactIds([...selectedContactIds, contact._id]);
-    }
+    setSelectedContactPhones((prevSelectedPhones) => {
+      if (prevSelectedPhones.includes(contact.phone)) {
+        return prevSelectedPhones.filter(phone => phone !== contact.phone);
+      } else {
+        return [...prevSelectedPhones, contact.phone];
+      }
+    });
   };
-  
+
+  useEffect(() => {
+    onSelectionChange?.(selectedContactPhones);
+  }, [selectedContactPhones, onSelectionChange]);
+
 
   // const confirmAndDeleteContact = (contact) => {
   //   // Confirmação de exclusão
@@ -156,12 +164,11 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
               <CursorPointerCheckbox
                 type="checkbox"
                 className="cursorPointer"
-                checked={selectedContactIds.includes(contact._id)}
+                checked={selectedContactPhones.includes(contact.phone)}
                 onChange={() => handleContactCheckboxChange(contact)}
               />
             </td>
           )}
-
           <td className="text-left p-4 w-1/6">{contact.name}</td>
           <td className="text-left p-4 w-1/6">{contact.phone}</td>
           <td className="text-left p-4 w-1/8">{contact.status}</td>
