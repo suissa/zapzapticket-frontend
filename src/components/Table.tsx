@@ -86,16 +86,17 @@ export default function Table({
     }
   };
 
-  const handleCheckboxChange = (message) => {
-    if (selectedConnection && selectedConnection._id === message._id) {
+  const handleCheckboxChange = (connection) => {
+    console.log("handleCheckboxChange connection:", connection);
+    if (selectedConnection && selectedConnection._id === connection._id) {
       // Desmarcar se já está selecionada
       setSelectedConnection(null);
     } else {
       // Selecionar a nova mensagem
-      setSelectedConnection(message);
+      setSelectedConnection(connection);
     }
     // Chamar onSelectionChange com o texto da mensagem
-    onSelectionChange?.(message.text);
+    onSelectionChange?.(connection.instanceName);
   };
 
   const Modal = ({ onClose, onConfirm, connection }) => {
