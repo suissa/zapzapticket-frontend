@@ -7,6 +7,8 @@ interface TableProps {
   messages: Message[]
   messageSelected?: (message: Message) => void
   messageDeleted?: (message: Message) => void
+  showCheckboxes?: boolean
+  showActions?: boolean
 }
 
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -14,9 +16,9 @@ const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `;
 const API_URL = "http://localhost:9000";
 
-export default function Table({ messages, messageSelected, messageDeleted }: TableProps) {
+export default function Table({ messages, messageSelected, messageDeleted, showCheckboxes, showActions = true }: TableProps) {
 
-  const showActions = messageSelected || messageDeleted
+  // const showActions = messageSelected || messageDeleted
   const [checked, setChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -67,6 +69,7 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
   function renderHeader() {
     return (
       <tr>
+        {showCheckboxes && <th className="text-center p-4">Selecionar</th>}
         <th className="text-left p-4 w-1/4">Título</th>
         <th className="text-left p-4">Texto</th>
         {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
@@ -78,6 +81,16 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
     return messages?.map((message, i) => {
       return (
         <tr key={message._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+          {showCheckboxes && (
+            <td className="text-center p-4 w-1/10">
+              <CursorPointerCheckbox
+                  type="checkbox"
+                  className="cursorPointer"
+                  checked={false}
+                  onChange={() => handleContactCheckboxChange(contact)}
+              />
+            </td>
+          )}
           <td className="text-left p-4">{message.title}</td>
           <td className="text-left p-4">{message.text}</td>
           {showActions ? renderActions(message) : false}
