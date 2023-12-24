@@ -18,7 +18,6 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
 
   const showActions = messageSelected || messageDeleted
   const [checked, setChecked] = useState(false);
-  const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(null);
@@ -35,34 +34,9 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
     }
     setIsModalOpen(false);
   };
-  const handleCheckboxChange = async (isActive, _id) => {
+  const handleCheckboxChange = async (isActive, message) => {
     console.log("handleCheckboxChange isActive:", isActive);
-    // tirar implementacao daqui
-    if (!isActive) {
-      console.log(_id)
-      const result = await fetch(`${API_URL}/messages/${_id}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const messageAPI = await result.json();
-      console.log(messageAPI)
 
-      const instanceName = messageAPI.title.replace(" ", "_") + "-" + messageAPI.text;
-      console.log(instanceName)
-      const data = {
-        instanceName: instanceName,
-        token: "tokenMaroto_872983_" + Date.now(),
-        qrcode: true
-      }
-      const resultUpdate = await fetch(`${API_URL}/evolution/instances`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const messageSAVED = await resultUpdate.json();
-      console.log(messageSAVED)
-      setQrCodeBase64(messageSAVED.qrcode.base64);
-    }
   };
 
   const Modal = ({ onClose, onConfirm, message }) => {
@@ -93,10 +67,9 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
   function renderHeader() {
     return (
       <tr>
-        <th className="text-left p-4">Título</th>
+        <th className="text-left p-4 w-1/4">Título</th>
         <th className="text-left p-4">Texto</th>
-        <th className="text-center p-4">Ativo</th>
-        {showActions ? <th className="p-4">Ações</th> : false}
+        {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
       </tr>
     )
   }
@@ -107,15 +80,6 @@ export default function Table({ messages, messageSelected, messageDeleted }: Tab
         <tr key={message._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           <td className="text-left p-4">{message.title}</td>
           <td className="text-left p-4">{message.text}</td>
-          <td className="text-center p-4">
-            <label>
-              <CursorPointerCheckbox
-                type="checkbox"
-                checked={message.isActive ? true : false}
-                onChange={() => handleCheckboxChange(message.isActive, message._id)}
-              // onChange={handleCheckboxChange}
-              />
-            </label></td>
           {showActions ? renderActions(message) : false}
         </tr>
       )
