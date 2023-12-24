@@ -144,11 +144,11 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
   function renderHeader() {
     return (
       <tr>
-        {showCheckboxes && <th className="text-center p-4">Selecionar</th>}
+        {showCheckboxes && <th className="text-center p-4 w-1/10">Selecionar</th>}
         <th className="text-left p-4 w-1/6">Nome</th>
         <th className="text-left p-4 w-1/6">Telefone</th>
         <th className="text-left p-4 w-1/8">Status</th>
-        <th className="text-center p-4 w-1/8">Ações</th>
+        {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
       </tr>
     )
   }

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Botao from "../components/Button";
+import Button from "../components/Button";
 import FormContact from "../components/FormContact"; // Certifique-se de que o nome está correto
 import Layout from "../components/Layout";
 import TableContacts from "../components/TableContacts"; // Componente de tabela para contatos
@@ -51,20 +51,13 @@ export default function Home() {
           {tableVisible ? (
           <div>
             <div className="flex justify-end">
-              <Botao
+              <Button
                 color="green"
                 className="mb-4"
                 onClick={createContact}
               >
-                Novo Contato
-              </Botao>
-              <Botao
-                color="blue"
-                className="mb-4 ml-2"
-                onClick={createMessage}
-              >
-                Nova Mensagem
-              </Botao>
+                Novo Envio
+              </Button>
             </div>
             <div className="overflow-auto h-80">
               <TableMessages
