@@ -1,121 +1,107 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
-import User from "../core/User"
-import UserRepository from "../core/UserRepository"
+import { Contact } from "../core/Contact"
+import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/users";
+const API_URL = "http://localhost:9000/contacts";
 
-export default function useUsers() {
-  const [user, setUser] = useState<User>(User.empty())
-  const [users, setUsers] = useState<User[]>([])
+export default function useContacts() {
+  const [contact, setContact] = useState<Contact>(Contact.empty())
+  const [contacts, setContacts] = useState<Contact[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
 
-  useEffect(listAllUsers, [])
+  useEffect(listContacts, [])
 
-  function createUser() {
-    setUser(User.empty())
+  function createContact() {
+    setContact(Contact.empty())
     showForm()
   }
 
-  function listUsers() {
+  function listContacts() {
     fetch(`${API_URL}`)
       .then(response => response.json())
       .then(data => {
-        console.log("listUsers then", data)
-        return setUsers(data)
+        console.log("listContacts then", data)
+        return setContacts(data)
       })
   }
 
-  function listAllUsers() {
-    fetch(`${API_URL}/all`)
-      .then(response => response.json())
-      .then(data => {
-        // console.log("listUsers then", data)
-        return setUsers(data)
-      })
-  }
-
-  function getUser(user: User) {
-    setUser(user)
+  function getContact(contact: Contact) {
+    setContact(contact)
     showForm()
   }
 
-  async function deleteUser(user: User) {
-    fetch(`${API_URL}/${user._id}`, {
+  async function deleteContact(contact: Contact) {
+    fetch(`${API_URL}/${contact._id}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
       .then(data => {
         console.log("DELETE then", data)
-        return listUsers()
+        return listContacts()
       })
   }
 
-  async function saveUser(user: User) {
-    console.log("saveUser user", user)
-    console.log("status: ", user.status)
-    const userStr = user?._id
+  async function saveContact(contact: Contact) {
+    console.log("saveContact contact", contact)
+    console.log("status: ", contact.status)
+    const contactStr = contact?._id
       ? JSON.stringify({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        status: user.status,
-        city: user.city,
-        state: user.state,
-        country: user.country,
-        level: user.level,
-        isActive: user.isActive
+        _id: contact._id,
+        name: contact.name,
+        phone: contact.phone,
+        status: contact.status,
+        city: contact.city,
+        state: contact.state,
+        country: contact.country,
       })
       : JSON.stringify({
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        status: user.status,
-        city: user.city,
-        state: user.state,
-        country: user.country,
-        level: user.level,
-        isActive: true
+        name: contact.name,
+        phone: contact.phone,
+        status: contact.status,
+        city: contact.city,
+        state: contact.state,
+        country: contact.country,
       })
-    console.log("saveUser userStr", userStr)
-    const response = user?._id
-      ? await fetch(`${API_URL}/${user._id}`, {
+    console.log("saveContact contactStr", contactStr)
+    const response = contact?._id
+      ? await fetch(`${API_URL}/${contact._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: userStr
+        body: contactStr
       })
       : await fetch(`${API_URL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: userStr
+        body: contactStr
       });
 
-    fetch(`${API_URL}/all`)
-      .then(response => response.json())
-      .then(data => {
-        // console.log("listUsers then", data)
-        return setUsers(data)
-      })
+      showTable()
+    // fetch(`${API_URL}`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     // console.log("listContacts then", data)
+    //     listContacts()
+    //   })
     // const data = await response.json();
   }
 
-  function criarUser() {
-    setUser(User.empty())
+  function criarContact() {
+    setContact(Contact.empty())
     showForm()
   }
 
 
   return {
-    user,
-    users,
-    createUser,
-    saveUser,
-    criarUser,
-    deleteUser,
-    getUser,
-    listUsers,
-    listAllUsers,
+    contact,
+    contacts,
+    createContact,
+    saveContact,
+    criarContact,
+    deleteContact,
+    getContact,
+    listContacts,
+    listContacts,
     showTable,
     tableVisible
   }

@@ -1,8 +1,8 @@
-import Connection from "./Connection";
+import User from "./User";
 
-export default interface ConnectionRepository {
-  save(cliente: Connection): Promise<Connection>
-  delete(cliente: Connection): Promise<void>
-  get(): Promise<Connection[]>
-  getAll(): Promise<Connection[]>
+export default interface UserRepository {
+  save(user: User): Promise<User>
+  delete(user: User): Promise<void>
+  get(): Promise<User[]>
+  getAll(): Promise<User[]>
 }
