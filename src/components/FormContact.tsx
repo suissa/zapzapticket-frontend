@@ -1,23 +1,21 @@
 import { useState, useEffect } from "react";
-import User from "../core/User";
+import { Contact } from "../core/Contact";
 import Button from "./Button";
 import Entry from "./Entry";
 
 interface FormProps {
-  user: User
-  userModified?: (user: User) => void
+  contact: Contact
+  contactModified?: (contact: Contact) => void
   canceled?: () => void
 }
 
-export default function Form({ user, canceled, userModified }: FormProps) {
-  const [name, setName] = useState(user?.name ?? "")
-  const [email, setEmail] = useState(user?.email ?? "")
-  const [phone, setPhone] = useState(user?.phone ?? "")
-  const [status, setStatus] = useState(user?.status ?? "")
-  const [city, setCity] = useState(user?.city ?? "")
-  const [state, setState] = useState(user?.state ?? "")
-  const [country, setCountry] = useState(user?.country ?? "Brasil")
-  const [level, setLevel] = useState(user?.level ?? "")
+export default function Form({ contact, canceled, contactModified }: FormProps) {
+  const [name, setName] = useState(contact?.name ?? "")
+  const [phone, setPhone] = useState(contact?.phone ?? "")
+  const [status, setStatus] = useState(contact?.status ?? "")
+  const [city, setCity] = useState(contact?.city ?? "")
+  const [state, setState] = useState(contact?.state ?? "")
+  const [country, setCountry] = useState(contact?.country ?? "Brasil")
   const [selectedStatus, setSelectedStatus] = useState(""); // Estado para o valor selecionado
 
   const Modal = ({ onClose, children }) => {
@@ -43,11 +41,11 @@ export default function Form({ user, canceled, userModified }: FormProps) {
 
   useEffect(() => {
     if (status) { // Verifica se o status não está vazio
-      // Preparar o objeto user com o status atualizado
-      const UserObj = { ...user, status };
-      console.log("UserObj", UserObj)
-      // Chamar a função saveUser com o user atualizado
-      // saveUser(userUpdated);
+      // Preparar o objeto contact com o status atualizado
+      const ContactObj = { ...contact, status };
+      console.log("ContactObj", ContactObj)
+      // Chamar a função saveContact com o contact atualizado
+      // saveContact(contactUpdated);
     }
   }, [status]);
   const handleStateChange = (event) => {
@@ -55,38 +53,32 @@ export default function Form({ user, canceled, userModified }: FormProps) {
     console.log("state", state)
   };
 
-  const handleLevelChange = (event) => {
-    console.log("handleStatusChange: ", event.target.value)
-    setLevel(event.target.value);
-  };
 
-  useEffect(() => {
-    if (level) { // Verifica se o level não está vazio
-      // Preparar o objeto user com o level atualizado
-      const UserObj = { ...user, level };
-      console.log("UserObj", UserObj)
-      // Chamar a função saveUser com o user atualizado
-      // saveUser(userUpdated);
-    }
-  }, [level]);
+  // useEffect(() => {
+  //   if (level) { // Verifica se o level não está vazio
+  //     // Preparar o objeto contact com o level atualizado
+  //     const ContactObj = { ...contact, level };
+  //     console.log("ContactObj", ContactObj)
+  //     // Chamar a função saveContact com o contact atualizado
+  //     // saveContact(contactUpdated);
+  //   }
+  // }, [level]);
 
-  const _id = user?._id
+  const _id = contact?._id
   const handleSubmit = () => {
-    // Atualizar o objeto UserObj com os estados atuais
-    const UserObj = {
-      _id: user?._id, // ou simplesmente _id, se já estiver no escopo
+    // Atualizar o objeto ContactObj com os estados atuais
+    const ContactObj = {
+      _id: contact?._id, // ou simplesmente _id, se já estiver no escopo
       name,
-      email,
       phone,
       status,
       city,
       state,
       country,
-      level
     };
   
-    console.log("Objeto User a ser salvo:", UserObj);
-    userModified?.(UserObj);
+    console.log("Objeto Contact a ser salvo:", ContactObj);
+    contactModified?.(ContactObj);
   }
   
   // Restante do seu código...
@@ -106,11 +98,6 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
         className="mb-4"
-      />
-      <Entry
-        text="Email"
-        value={email}
-        onChange={e => setEmail((e.target as HTMLInputElement).value)}
       />
       <Entry
         text="Telefone"
@@ -185,17 +172,6 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         text="País"
         value={country}
         onChange={e => setCountry((e.target as HTMLInputElement).value)}
-      />
-      <Entry
-        text="Nível"
-        type="select"
-        onChange={handleLevelChange}
-        selectOptions={[
-          { value: "", label: "Escolha um nível"},
-          { value: "normal", label: "Normal" },
-          { value: "admin", label: "Admin" },
-          { value: "master", label: "Master" },
-        ]}
       />
       <div className="flex justify-end mt-7">
         <Button

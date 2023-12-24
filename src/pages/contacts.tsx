@@ -45,7 +45,7 @@ export default function Home() {
                   className="mb-4"
                   onClick={createContact}
                 >
-                  Novo Usuário
+                  Novo Contato
                 </Botao>
               </div>
               <Table
