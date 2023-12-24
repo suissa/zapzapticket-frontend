@@ -1,5 +1,5 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Contact from "../core/Contact"
+import { Contact } from "../core/Contact"
 import Button from "../components/Button"
 import Form from "../components/FormContact"
 import { IconEdit, IconThrash } from "./Icons"
@@ -24,7 +24,7 @@ const API_URL = "http://localhost:9000";
 export default function Table({ contacts, contactSelected, contactDeleted, contactModified, showCheckboxes = false, showActions = true, canceled, contact }: TableProps) {
 
   // const showActions = contactSelected || contactDeleted
-  const [checked, setChecked] = useState(false);
+  const [selectedContactIds, setSelectedContactIds] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -86,27 +86,20 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
           ) : (
             children
           )}
-          {/* <button
-            className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
-            onClick={onConfirm}
-          >
-            Salvar
-          </button>
-          <button
-            className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
-            onClick={onClose}
-          >
-            Fechar
-          </button> */}
-
         </div>
       </div>
     );
   };
 
-  const handleContactCheckboxChange = async (contact) => {
+  const handleContactCheckboxChange = (contact) => {
     console.log("handleContactCheckboxChange contact:", contact);
+    if (selectedContactIds.includes(contact._id)) {
+      setSelectedContactIds(selectedContactIds.filter(id => id !== contact._id));
+    } else {
+      setSelectedContactIds([...selectedContactIds, contact._id]);
+    }
   };
+  
 
   // const confirmAndDeleteContact = (contact) => {
   //   // Confirmação de exclusão
@@ -161,13 +154,14 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
-                  type="checkbox"
-                  className="cursorPointer"
-                  checked={false}
-                  onChange={() => handleContactCheckboxChange(contact)}
+                type="checkbox"
+                className="cursorPointer"
+                checked={selectedContactIds.includes(contact._id)}
+                onChange={() => handleContactCheckboxChange(contact)}
               />
             </td>
           )}
+
           <td className="text-left p-4 w-1/6">{contact.name}</td>
           <td className="text-left p-4 w-1/6">{contact.phone}</td>
           <td className="text-left p-4 w-1/8">{contact.status}</td>
