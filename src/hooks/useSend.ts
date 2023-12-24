@@ -9,7 +9,6 @@ export default function useContacts() {
 
   async function sendMessage(text, phones, instaceName) {
     for (const phone of phones) {
-
       const data = {
         "number": phone,
         "options": {
@@ -21,6 +20,7 @@ export default function useContacts() {
           "text": text
         }
       }
+      console.log("data: ", data, `${API_URL}/${instaceName}`);
       await fetch(`${API_URL}/${instaceName}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
