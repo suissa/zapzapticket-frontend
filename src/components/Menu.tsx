@@ -9,6 +9,9 @@ const Menu: React.FC = () => {
           <Link href="/users">Usuários</Link>
         </li>
         <li>
+          <Link href="/contacts">Contatos</Link>
+        </li>
+        <li>
           <Link href="/messages">Mensagens</Link>
         </li>
         <li>
