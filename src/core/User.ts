@@ -3,7 +3,6 @@ export default class User {
   #name: string
   #email: string
   #phone: string
-  #status: string
   #city: string
   #state: string
   #country: string
@@ -12,13 +11,12 @@ export default class User {
   #isConnected: boolean
 
   constructor(
-    id: string = null, name: string, phone: string, email= "", status: string = "", 
+    id: string = null, name: string, phone: string, email= "", 
     city: string = "", state: string = "", country: string = "", level: string = "") {
     this.#_id = id
     this.#email = email
     this.#name = name
     this.#phone = phone
-    this.#status = status
     this.#city = city
     this.#state = state
     this.#country = country
@@ -45,10 +43,6 @@ export default class User {
 
   get phone() {
     return this.#phone
-  }
-
-  get status() {
-    return this.#status
   }
 
   get city() {
