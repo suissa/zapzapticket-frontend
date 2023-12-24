@@ -145,7 +145,7 @@ export default function Table({
   function renderHeader() {
     return (
       <tr>
-        {showCheckboxes && <th className="text-center p-4 w-1/10">Selecionar</th>}
+        {showCheckboxes && <th className="text-center p-4 w-1/8">Selecionar</th>}
         <th className="text-left p-4 w-1/6">Nome</th>
         <th className="text-left p-4 w-1/6">Telefone</th>
         <th className="text-left p-4 w-1/8">Status</th>
@@ -160,7 +160,7 @@ export default function Table({
       return (
         <tr key={contact._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
-            <td className="text-center p-4 w-1/10">
+            <td className="text-center p-4 w-1/6">
               <CursorPointerCheckbox
                 type="checkbox"
                 className="cursorPointer"
