@@ -8,6 +8,11 @@ interface TableProps {
   connectionSelected?: (connection: Connection) => void
   connectionDeleted?: (connection: Connection) => void
   connectionSaved?: (connection: Connection) => void
+  showCheckboxes?: boolean
+  showActions?: boolean
+  onSelectionChange?: (selectedIds: string[]) => void;
+  hideCertainColumns?: boolean;
+
 }
 
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -15,14 +20,16 @@ const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `;
 const API_URL = "http://localhost:9000";
 
-export default function Table({ connections, connectionSelected, connectionDeleted, connectionSaved }: TableProps) {
+export default function Table({ 
+  connections, connectionSelected, connectionDeleted, connectionSaved, 
+  showCheckboxes, showActions = true, onSelectionChange, hideCertainColumns = false }: TableProps) {
 
-  const showActions = connectionSelected || connectionDeleted
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentConnection, setCurrentConnection] = useState(null);
+  const [selectedConnection, setSelectedConnection] = useState(null);
 
   const confirmAndDelete = (user) => {
     setCurrentConnection(user);
@@ -31,13 +38,13 @@ export default function Table({ connections, connectionSelected, connectionDelet
 
   const handleDelete = () => {
     if (currentConnection) {
-      messageDeleted?.(currentConnection);
-      console.log("Usuário excluído:", currentConnection);
+      connectionDeleted?.(currentConnection);
+      console.log("Conexão excluído:", currentConnection);
     }
     setIsModalOpen(false);
   };
-  const handleCheckboxChange = async (instanceStatus, connection) => {
-    console.log("handleCheckboxChange instanceStatus:", instanceStatus);
+  const handleIntanceStatusCheckboxChange = async (instanceStatus, connection) => {
+    console.log("handleIntanceStatusCheckboxChange instanceStatus:", instanceStatus);
     // tirar implementacao daqui
     if (!instanceStatus) {
       console.log(connection._id)
@@ -79,11 +86,23 @@ export default function Table({ connections, connectionSelected, connectionDelet
     }
   };
 
-  const Modal = ({ onClose, onConfirm, message }) => {
+  const handleCheckboxChange = (message) => {
+    if (selectedConnection && selectedConnection._id === message._id) {
+      // Desmarcar se já está selecionada
+      setSelectedConnection(null);
+    } else {
+      // Selecionar a nova mensagem
+      setSelectedConnection(message);
+    }
+    // Chamar onSelectionChange com o texto da mensagem
+    onSelectionChange?.(message.text);
+  };
+
+  const Modal = ({ onClose, onConfirm, connection }) => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
         <div className="bg-white p-4 rounded">
-          <p>Tem certeza que deseja excluir a mensagem {message?.title}?</p>
+          <p>Tem certeza que deseja excluir a mensagem {connection?.title}?</p>
           <div className="flex justify-end mt-4">
             <button
               className="bg-red-500 text-white py-2 px-4 rounded mr-2"
@@ -107,10 +126,11 @@ export default function Table({ connections, connectionSelected, connectionDelet
   function renderHeader() {
     return (
       <tr>
+      {showCheckboxes && <th className="text-center p-4">Selecionar</th>}
         <th className="text-left p-4">Nome</th>
         <th className="text-left p-4">Telefone</th>
-        <th className="text-left p-4">Instância</th>
-        <th className="text-center p-4">Ativa</th>
+        {!hideCertainColumns && <th className="text-left p-4">Instância</th>}
+        {!hideCertainColumns && <th className="text-center p-4">Ativa</th>}
         {showActions ? <th className="p-4">Ações</th> : false}
       </tr>
     )
@@ -120,18 +140,28 @@ export default function Table({ connections, connectionSelected, connectionDelet
     return connections?.map((connection, i) => {
       return (
         <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+          {showCheckboxes && (
+            <td className="text-center p-4 w-1/10">
+              <CursorPointerCheckbox
+                  type="checkbox"
+                  className="cursorPointer"
+                  checked={selectedConnection?._id === connection._id}
+                  onChange={() => handleCheckboxChange(connection)}
+              />
+            </td>
+          )}
           <td className="text-left p-4">{connection.name}</td>
           <td className="text-left p-4">{connection.phone}</td>
-          <td className="text-left p-4">{connection.instanceName}</td>
-          <td className="text-center p-4">
+          {!hideCertainColumns && <td className="text-left p-4">{connection.instanceName}</td>}
+          {!hideCertainColumns && <td className="text-center p-4">
             <label>
               <CursorPointerCheckbox
                 type="checkbox"
                 checked={connection.instanceStatus ? true : false}
-                onChange={() => handleCheckboxChange(connection.instanceStatus, connection)}
-              // onChange={handleCheckboxChange}
+                onChange={() => handleIntanceStatusCheckboxChange(connection.instanceStatus, connection)}
+              // onChange={handleIntanceStatusCheckboxChange}
               />
-            </label></td>
+            </label></td>}
           {showActions ? renderActions(connection) : false}
         </tr>
       )
@@ -173,7 +203,7 @@ export default function Table({ connections, connectionSelected, connectionDelet
         <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800
-      `}>
+        `}>
           {renderHeader()}
         </thead>
         <tbody>
@@ -184,7 +214,7 @@ export default function Table({ connections, connectionSelected, connectionDelet
         <Modal
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
-          message={currentConnection}
+          connection={currentConnection}
         />
       )}
     </div>
