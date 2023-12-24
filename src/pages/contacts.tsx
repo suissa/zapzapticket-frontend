@@ -1,31 +1,31 @@
 import { useEffect } from "react";
 import Botao from "../components/Button";
-import Form from "../components/FormUser";
+import Form from "../components/FormContact";
 import Layout from "../components/Layout";
-import Table from "../components/TableUsers";
+import Table from "../components/TableContacts";
 import Menu from '../components/Menu';
-import useUsers from "../hooks/useUsers";
+import useContacts from "../hooks/useContacts";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const {
-    user,
-    users,
-    createUser,
-    saveUser,
-    criarUser,
-    deleteUser,
-    getUser,
-    listUsers,
-    listAllUsers,
+    contact,
+    contacts,
+    createContact,
+    saveContact,
+    criarContact,
+    deleteContact,
+    getContact,
+    listContacts,
+    listAllContacts,
     showTable,
     tableVisible
-  } = useUsers()
+  } = useContacts()
 
   useEffect(() => {
     if (tableVisible) {
-      // Chame a função listUsers quando tableVisible mudar
-      listAllUsers();
+      // Chame a função listContacts quando tableVisible mudar
+      listAllContacts();
     }
   }, [tableVisible]); // O segundo argumento é um array de dependências
 
@@ -44,23 +44,23 @@ export default function Home() {
                 <Botao
                   color="green"
                   className="mb-4"
-                  onClick={createUser}
+                  onClick={createContact}
                 >
                   Novo Usuário
                 </Botao>
               </div>
               <Table
-                users={users}
-                userSelected={getUser}
-                userDeleted={deleteUser}
-                userModified={saveUser}
+                contacts={contacts}
+                contactSelected={getContact}
+                contactDeleted={deleteContact}
+                contactModified={saveContact}
                 canceled={showTable}
               />
             </div>
           ) : (
             <Form
-              user={user}
-              userModified={saveUser}
+              contact={contact}
+              contactModified={saveContact}
               canceled={showTable}
             />
           )}
