@@ -21,11 +21,10 @@ interface TableProps {
 
 const API_URL = "http://localhost:9000";
 
-export default function Table({ contacts, contactSelected, contactDeleted, contactModified, showCheckboxes, showActions = true, canceled, contact }: TableProps) {
+export default function Table({ contacts, contactSelected, contactDeleted, contactModified, showCheckboxes = false, showActions = true, canceled, contact }: TableProps) {
 
   // const showActions = contactSelected || contactDeleted
   const [checked, setChecked] = useState(false);
-  const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -105,14 +104,8 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
     );
   };
 
-  const handleCheckboxChange = async (isActive, contact) => {
-    console.log("handleCheckboxChange isActive:", isActive);
-    console.log("handleCheckboxChange contact:", contact);
-    const newIsActive = !isActive
-    console.log("handleCheckboxChange newIsActive:", newIsActive);
-    const newContact = contact;
-    newContact.isActive = newIsActive
-    contactModified?.(newContact);
+  const handleContactCheckboxChange = async (contact) => {
+    console.log("handleContactCheckboxChange contact:", contact);
   };
 
   // const confirmAndDeleteContact = (contact) => {
@@ -166,9 +159,12 @@ export default function Table({ contacts, contactSelected, contactDeleted, conta
       return (
         <tr key={contact._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
-            <td className="text-center p-4">
+            <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
-                // ... código para checkbox ...
+                  type="checkbox"
+                  className="cursorPointer"
+                  checked={false}
+                  onChange={() => handleContactCheckboxChange(contact)}
               />
             </td>
           )}
