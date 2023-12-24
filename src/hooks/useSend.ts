@@ -3,106 +3,33 @@ import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/contacts";
+const API_URL = "http://localhost:9000/evolution/messages/send";
 
 export default function useContacts() {
-  const [contact, setContact] = useState<Contact>(Contact.empty())
-  const [contacts, setContacts] = useState<Contact[]>([])
-  const { showForm, showTable, tableVisible } = useLayout()
 
-  useEffect(listContacts, [])
+  async function sendMessage(text, phones, instaceName) {
+    for (const phone of phones) {
 
-  function createContact() {
-    setContact(Contact.empty())
-    showForm()
-  }
-
-  function listContacts() {
-    fetch(`${API_URL}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log("listContacts then", data)
-        return setContacts(data)
-      })
-  }
-
-  function getContact(contact: Contact) {
-    setContact(contact)
-    showForm()
-  }
-
-  async function deleteContact(contact: Contact) {
-    fetch(`${API_URL}/${contact._id}`, {
-      method: 'DELETE',
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("DELETE then", data)
-        return listContacts()
-      })
-  }
-
-  async function saveContact(contact: Contact) {
-    console.log("saveContact contact", contact)
-    console.log("status: ", contact.status)
-    const contactStr = contact?._id
-      ? JSON.stringify({
-        _id: contact._id,
-        name: contact.name,
-        phone: contact.phone,
-        status: contact.status,
-        city: contact.city,
-        state: contact.state,
-        country: contact.country,
-      })
-      : JSON.stringify({
-        name: contact.name,
-        phone: contact.phone,
-        status: contact.status,
-        city: contact.city,
-        state: contact.state,
-        country: contact.country,
-      })
-    console.log("saveContact contactStr", contactStr)
-    const response = contact?._id
-      ? await fetch(`${API_URL}/${contact._id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: contactStr
-      })
-      : await fetch(`${API_URL}`, {
+      const data = {
+        "number": phone,
+        "options": {
+          "delay": 1200,
+          "presence": "composing",
+          "linkPreview": false
+        },
+        "textMessage": {
+          "text": text
+        }
+      }
+      await fetch(`${API_URL}/${instaceName}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: contactStr
-      });
-
-      showTable()
-    // fetch(`${API_URL}`)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     // console.log("listContacts then", data)
-    //     listContacts()
-    //   })
-    // const data = await response.json();
+        body: JSON.stringify(data)
+      })
+    }
   }
-
-  function criarContact() {
-    setContact(Contact.empty())
-    showForm()
-  }
-
 
   return {
-    contact,
-    contacts,
-    createContact,
-    saveContact,
-    criarContact,
-    deleteContact,
-    getContact,
-    listContacts,
-    listContacts,
-    showTable,
-    tableVisible
+    sendMessage
   }
 }
