@@ -15,7 +15,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
   const [status, setStatus] = useState(contact?.status ?? "")
   const [city, setCity] = useState(contact?.city ?? "")
   const [state, setState] = useState(contact?.state ?? "")
-  const [country, setCountry] = useState(contact?.country ?? "Brasil")
+  const [country, setCountry] = useState("Brasil")
   const [selectedStatus, setSelectedStatus] = useState(""); // Estado para o valor selecionado
 
   const Modal = ({ onClose, children }) => {
