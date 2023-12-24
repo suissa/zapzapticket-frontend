@@ -155,8 +155,8 @@ export default function Table({ users, userSelected, userDeleted, userModified, 
         <th className="text-left p-4 w-1/6">Telefone</th>
         <th className="text-left p-4 w-1/8">Status</th>
         <th className="text-left p-4 w-1/8">Nível</th>
-        <th className="text-left p-4 w-1/10">Ativo</th>
-        <th className="text-left p-0 w-1/10">Conectado</th>
+        <th className="text-center p-4 w-1/10">Ativo</th>
+        <th className="text-center p-0 w-1/10">Conectado</th>
         <th className="text-right p-4 w-1/8">Ações</th>
       </tr>
     )
