@@ -17,7 +17,6 @@ export default function Home() {
     deleteContact,
     getContact,
     listContacts,
-    listAllContacts,
     showTable,
     tableVisible
   } = useContacts()
@@ -25,7 +24,7 @@ export default function Home() {
   useEffect(() => {
     if (tableVisible) {
       // Chame a função listContacts quando tableVisible mudar
-      listAllContacts();
+      listContacts();
     }
   }, [tableVisible]); // O segundo argumento é um array de dependências
 
@@ -37,7 +36,7 @@ export default function Home() {
         h-screen bg-gradient-to-r from-blue-500 to-purple-500
         text-white
       `}>
-        <Layout title="Usuários">
+        <Layout title="Contatos">
           {tableVisible ? (
             <div>
               <div className="flex justify-end">
