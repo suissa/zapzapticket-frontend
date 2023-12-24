@@ -11,6 +11,7 @@ export class Contact {
   #ticketClosedAt: string;
   #badges: string[];
   #messages: Message[]; // Assumindo que Message é uma classe ou interface definida
+  #isSelected: boolean;
 
   constructor(
     name: string = "",
@@ -91,6 +92,9 @@ export class Contact {
     return this.#messages;
   }
 
+  get isSelected() {
+    return this.#isSelected;
+  }
 }
 
 export class Message {
