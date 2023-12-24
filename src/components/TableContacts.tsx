@@ -19,7 +19,7 @@ interface TableProps {
 
 const API_URL = "http://localhost:9000";
 
-export default function Table({ contacts, contactSelected, contactDeleted, contactModified, canceled }: TableProps) {
+export default function Table({ contacts, contactSelected, contactDeleted, contactModified, canceled, contact }: TableProps) {
 
   const showActions = contactSelected || contactDeleted
   const [checked, setChecked] = useState(false);
