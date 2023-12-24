@@ -17,6 +17,9 @@ const Menu: React.FC = () => {
         <li>
           <Link href="/">Conexões</Link>
         </li>
+        <li>
+          <Link href="/send">Enviar</Link>
+        </li>
       </ul>
     </nav>
   );
