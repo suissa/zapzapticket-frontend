@@ -18,11 +18,10 @@ const API_URL = "http://localhost:9000";
 
 export default function Table({ messages, messageSelected, messageDeleted, showCheckboxes, showActions = true }: TableProps) {
 
-  // const showActions = messageSelected || messageDeleted
-  const [checked, setChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(null);
+  const [selectedMessageId, setSelectedMessageId] = useState(null);
 
   const confirmAndDelete = (user) => {
     setCurrentMessage(user);
@@ -36,9 +35,9 @@ export default function Table({ messages, messageSelected, messageDeleted, showC
     }
     setIsModalOpen(false);
   };
-  const handleCheckboxChange = async (isActive, message) => {
-    console.log("handleCheckboxChange isActive:", isActive);
 
+  const handleCheckboxChange = (messageId) => {
+    setSelectedMessageId(selectedMessageId === messageId ? null : messageId);
   };
 
   const Modal = ({ onClose, onConfirm, message }) => {
@@ -86,8 +85,8 @@ export default function Table({ messages, messageSelected, messageDeleted, showC
               <CursorPointerCheckbox
                   type="checkbox"
                   className="cursorPointer"
-                  checked={false}
-                  onChange={() => handleContactCheckboxChange(contact)}
+                  checked={message._id === selectedMessageId}
+                  onChange={() => handleCheckboxChange(message._id)}
               />
             </td>
           )}
