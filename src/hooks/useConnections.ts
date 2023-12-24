@@ -39,9 +39,8 @@ export default function useConnections() {
     const connectionStr = JSON.stringify({
       name: connection.name,
       phone: connection.phone,
-      instanceName: "Teste nome conexao",
-      // instanceName: connection.instanceName,
-      instanceStatus: true,
+      instanceName: connection.instanceName,
+      instanceStatus: connection.instanceName,
     })
     console.log("saveConnection connectionStr", connectionStr)
     const response = connection?._id
