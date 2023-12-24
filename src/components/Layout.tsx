@@ -3,12 +3,13 @@ import Title from "./Title"
 interface LayoutProps {
   title: string
   children: JSX.Element
+  width: string
 }
 
-export default function Layout({ title, children }: LayoutProps) {
+export default function Layout({ title, children, width = "w-2/3" }: LayoutProps) {
   return (
     <div className={`
-            flex flex-col w-2/3 rounded-md
+            flex flex-col ${width} rounded-md
             bg-white text-gray-800
         `}>
       <Title>{title}</Title>
