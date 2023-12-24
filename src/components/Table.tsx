@@ -12,7 +12,7 @@ interface TableProps {
   showActions?: boolean
   onSelectionChange?: (selectedIds: string[]) => void;
   hideCertainColumns?: boolean;
-
+  filterActiveInstances?: boolean;
 }
 
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -21,8 +21,8 @@ const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
 const API_URL = "http://localhost:9000";
 
 export default function Table({ 
-  connections, connectionSelected, connectionDeleted, connectionSaved, 
-  showCheckboxes, showActions = true, onSelectionChange, hideCertainColumns = false }: TableProps) {
+  connections, connectionSelected, connectionDeleted, connectionSaved, showCheckboxes, onSelectionChange, 
+  showActions = true, hideCertainColumns = false, filterActiveInstances = false }: TableProps) {
 
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
@@ -138,7 +138,10 @@ export default function Table({
   }
 
   function renderData() {
-    return connections?.map((connection, i) => {
+    const filteredConnections = filterActiveInstances 
+      ? connections.filter(connection => connection.instanceStatus) 
+      : connections;
+    return filteredConnections?.map((connection, i) => {
       return (
         <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
