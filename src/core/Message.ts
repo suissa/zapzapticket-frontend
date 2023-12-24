@@ -3,6 +3,7 @@ export default class Message {
   #title: string
   #text: string
   #isActive: boolean
+  #isSelected: boolean
 
   constructor(title: string, text: string, id: string = null) {
     this.#_id = id
@@ -29,5 +30,9 @@ export default class Message {
 
   get isActive() {
     return this.#isActive
+  }
+
+  get isSelected() {
+    return this.#isSelected
   }
 }
