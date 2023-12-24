@@ -1,4 +1,5 @@
-export default class Contact {
+export class Contact {
+  #_id: string;
   #name: string;
   #phone: string;
   #status: string;
@@ -41,6 +42,10 @@ export default class Contact {
     return new Contact();
   }
 
+  get _id() {
+    return this.#_id;
+  }
+
   get name() {
     return this.#name;
   }
@@ -53,7 +58,30 @@ export default class Contact {
     return this.#status;
   }
 
-  // ... outros métodos getter para as propriedades restantes ...
+  get city() {
+    return this.#city;
+  }
+
+  get state() {
+    return this.#state;
+  }
+
+  get country() {
+    return this.#country;
+  }
+
+  get ticketStatus() {
+    return this.#ticketStatus;
+  }
+
+  get ticketCreatedAt() {
+    return this.#ticketCreatedAt;
+  }
+
+  get ticketClosedAt() {
+    return this.#ticketClosedAt;
+  }
+
 
   get badges() {
     return this.#badges;
