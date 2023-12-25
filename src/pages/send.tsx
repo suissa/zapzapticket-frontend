@@ -71,17 +71,38 @@ export default function Home() {
     setSelectedConnection(selectedId);
   };
 
+  // const handleSendMessage = async () => {
+  //   setLoading(true);
+  //   console.log('loading:', loading);
+  //   console.log('Mensagens selecionadas:', selectedMessage);
+  //   console.log('Contatos selecionados:', selectedContacts);
+  //   console.log('Conenction selecionado:', selectedConnection);
+  //   const arr = selectedContacts.map((contact) => {
+  //     return {connection: selectedConnection, contact: contact, message: selectedMessage}
+  //   })
+  //   setList([...list, ...arr])
+  //   await sendMessage(selectedMessage, selectedContacts, selectedConnection)
+  //   // setLoading(false);
+  // };
   const handleSendMessage = async () => {
     setLoading(true);
-    console.log('loading:', loading);
-    console.log('Mensagens selecionadas:', selectedMessage);
-    console.log('Contatos selecionados:', selectedContacts);
-    console.log('Conenction selecionado:', selectedConnection);
-    const arr = selectedContacts.map((contact) => {
-      return {connection: selectedConnection, contact: contact, message: selectedMessage}
-    })
-    setList([...list, ...arr])
-    await sendMessage(selectedMessage, selectedContacts, selectedConnection)
+
+    // Criar um novo array filtrando contatos que já estão na lista
+    const newContacts = selectedContacts.filter(contact => 
+      !list.some(item => item.contact === contact)
+    );
+
+    // Criar objetos para os novos contatos
+    const newEntries = newContacts.map(contact => ({
+      connection: selectedConnection,
+      contact: contact,
+      message: selectedMessage
+    }));
+
+    // Adicionar apenas novos contatos à lista
+    setList([...list, ...newEntries]);
+
+    await sendMessage(selectedMessage, newContacts, selectedConnection);
     // setLoading(false);
   };
 
