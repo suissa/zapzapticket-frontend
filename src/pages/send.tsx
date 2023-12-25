@@ -4,6 +4,7 @@ import FormContact from "../components/FormContact";
 import Layout from "../components/Layout";
 import TableContacts from "../components/TableContacts";
 import TableMessages from "../components/TableMessages";
+import TableSendings from "../components/TableSendings";
 import TableConnections from "../components/Table";
 import Menu from '../components/Menu';
 import useContacts from "../hooks/useContacts";
@@ -14,6 +15,7 @@ import useLayout from "../hooks/useLayout";
 import constructWithOptions from "styled-components/dist/constructors/constructWithOptions";
 
 export default function Home() {
+  const [list, setList] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState();
   const [selectedConnection, setSelectedConnection] = useState();
@@ -75,9 +77,19 @@ export default function Home() {
     console.log('Mensagens selecionadas:', selectedMessage);
     console.log('Contatos selecionados:', selectedContacts);
     console.log('Conenction selecionado:', selectedConnection);
-    await sendMessage(selectedMessage, selectedContacts, selectedConnection)
+    setList([...list, {connection: selectedConnection, contact: selectedContacts, message: selectedMessage}])
+    // await sendMessage(selectedMessage, selectedContacts, selectedConnection)
     // setLoading(false);
   };
+
+  useEffect(() => {
+    if (list) {
+      console.log('list if:', list);
+    } else {
+      console.log('list else:', list);
+    }
+  }, [list]); // Dependência do useEffect
+
   useEffect(() => {
     if (loading) {
       console.log('loading if:', loading);
@@ -112,13 +124,8 @@ export default function Home() {
   return (
     <div>
       <Menu />
-      <div className={`
-        flex justify-center items-center
-        h-screen bg-gradient-to-r from-blue-500 to-purple-500
-        text-white
-      `}>
+      <div className={`flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-purple-500 text-white`}>
         <Layout title="Envios" width="w-3/3">
-          {tableVisible ? (
           <div>
             <div className="flex justify-end">
               <Button
@@ -131,52 +138,48 @@ export default function Home() {
             </div>
             <div className="flex h-80">
               <div className="flex-1 overflow-auto">
-
-              <TableConnections
-                connections={connections}
-                showCheckboxes={true}
-                showActions={false}
-                hideCertainColumns={true}
-                filterActiveInstances={true}
-                onSelectionChange={handleConnectionsSelectionChange}
-              />
+                <TableConnections
+                  connections={connections}
+                  showCheckboxes={true}
+                  showActions={false}
+                  hideCertainColumns={true}
+                  filterActiveInstances={true}
+                  onSelectionChange={handleConnectionsSelectionChange}
+                />
               </div>
               <div className="flex-1 overflow-auto">
-
                 <TableContacts
                   contacts={contacts}
                   contactSelected={getContact}
                   contactDeleted={deleteContact}
                   contactModified={saveContact}
-                  canceled={showTable}
                   showCheckboxes={true}
+                  canceled={showTable}
                   showActions={false}
                   onSelectionChange={handleContactsSelectionChange}
                 />
               </div>
             </div>
-
-            {/* Corrigido: Removido o fechamento incorreto da div aqui e colocado a div corretamente em volta de TableContacts */}
-            <div className="overflow-auto h-80 mt-4">
-              <TableMessages
-                messages={messages}
-                messageSelected={getMessage}
-                messageDeleted={deleteMessage}
-                messageModified={saveMessage}
-                canceled={showTable}
-                showCheckboxes={true}
-                showActions={false}
-                onSelectionChange={handleMessagesSelectionChange}
-              />
+            <div className="flex h-80">
+              <div className="flex-1 overflow-auto">
+                <TableMessages
+                  messages={messages}
+                  messageSelected={getMessage}
+                  messageDeleted={deleteMessage}
+                  messageModified={saveMessage}
+                  canceled={showTable}
+                  showCheckboxes={true}
+                  showActions={false}
+                  onSelectionChange={handleMessagesSelectionChange}
+                />
+              </div>
+              <div className="flex-1 overflow-auto">
+                <TableSendings
+                  list={list}
+                />
+              </div>
             </div>
           </div>
-          ) : (
-            <FormContact
-              contact={contact}
-              contactModified={saveContact}
-              canceled={showTable}
-            />
-          )}
         </Layout>
       </div>
     </div>

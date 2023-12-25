@@ -26,6 +26,13 @@ export default function useContacts() {
     };
   }, []);
 
+  socket.on("message:sent", (data) => {
+    console.log("message:sent eliminar da lista:", data);
+  });
+  socket.on("message:received", (data) => {
+    console.log("Mensagem recebida:", data);
+  });
+
   async function sendMessage(text, phones, instaceName) {
     for (const phone of phones) {
       const data = {
@@ -39,6 +46,8 @@ export default function useContacts() {
           "text": text
         }
       }
+      // const jsonStr = JSON.stringify({...data, instaceName});
+
       console.log("data: ", data, `${API_URL}/${instaceName}`);
       await fetch(`${API_URL}/${instaceName}`, {
         method: "POST",
