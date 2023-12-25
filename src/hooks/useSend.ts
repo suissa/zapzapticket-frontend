@@ -4,57 +4,54 @@ import useLayout from "./useLayout"
 import io from "socket.io-client";
 
 const socket = io("http://localhost:9000");
-const API_URL = "http://localhost:9000/evolution/messages/send";
+const API_URL = "http://localhost:9000/evolution/messages/send/batch";
 
 export default function useContacts() {
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Conectado ao servidor Socket.io");
-    });
+    // Registra ouvintes de eventos
+    const handleConnect = () => console.log("Conectado ao servidor Socket.io");
+    const handleMessage = (data) => console.log("Dados recebidos:", data);
+    const handleMessageSent = (data) => console.log("message:sent eliminar da lista:", data);
+    const handleMessageReceived = (data) => console.log("Mensagem recebida:", data);
 
-    socket.on("message", (data) => {
-      console.log("Dados recebidos:", data);
-    });
+    socket.on("connect", handleConnect);
+    socket.on("message", handleMessage);
+    socket.on("message:sent", handleMessageSent);
+    socket.on("message:received", handleMessageReceived);
 
-    socket.emit("message", ()=> {
-      console.log("Dados enviados do front:");
-      return "Dados enviados do front:"
-    });
+    // Limpa os ouvintes ao desmontar
     return () => {
-      socket.off("connect");
-      socket.off("message");
+      socket.off("connect", handleConnect);
+      socket.off("message", handleMessage);
+      socket.off("message:sent", handleMessageSent);
+      socket.off("message:received", handleMessageReceived);
     };
   }, []);
 
-  socket.on("message:sent", (data) => {
-    console.log("message:sent eliminar da lista:", data);
-  });
-  socket.on("message:received", (data) => {
-    console.log("Mensagem recebida:", data);
-  });
+  async function sendMessage(text, phones, instanceName) {
+    // for (const phone of phones) {
+    //   const data = {
+    //     "number": phone,
+    //     "options": {
+    //       "delay": 1200,
+    //       "presence": "composing",
+    //       "linkPreview": false
+    //     },
+    //     "textMessage": {
+    //       "text": text
+    //     }
+    //   }
+    //   // const jsonStr = JSON.stringify({...data, instaceName});
 
-  async function sendMessage(text, phones, instaceName) {
-    for (const phone of phones) {
-      const data = {
-        "number": phone,
-        "options": {
-          "delay": 1200,
-          "presence": "composing",
-          "linkPreview": false
-        },
-        "textMessage": {
-          "text": text
-        }
-      }
-      // const jsonStr = JSON.stringify({...data, instaceName});
-
-      console.log("data: ", data, `${API_URL}/${instaceName}`);
-      await fetch(`${API_URL}/${instaceName}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      })
-    }
+    //   console.log("data: ", data, `${API_URL}/${instaceName}`);
+    // }
+    const data = {phones, text, instanceName}
+    console.log("data: ", data, `${API_URL}`);
+    return await fetch(`${API_URL}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
   }
 
   return {

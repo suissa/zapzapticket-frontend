@@ -77,8 +77,11 @@ export default function Home() {
     console.log('Mensagens selecionadas:', selectedMessage);
     console.log('Contatos selecionados:', selectedContacts);
     console.log('Conenction selecionado:', selectedConnection);
-    setList([...list, {connection: selectedConnection, contact: selectedContacts, message: selectedMessage}])
-    // await sendMessage(selectedMessage, selectedContacts, selectedConnection)
+    const arr = selectedContacts.map((contact) => {
+      return {connection: selectedConnection, contact: contact, message: selectedMessage}
+    })
+    setList([...list, ...arr])
+    await sendMessage(selectedMessage, selectedContacts, selectedConnection)
     // setLoading(false);
   };
 

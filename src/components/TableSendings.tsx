@@ -33,7 +33,7 @@ export default function Table({ list }: TableProps) {
     return list?.map(({connection, contact, message}, i) => {
       return (
         <tr key={contact} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
-          <td className="text-left p-4 w-1/6">{connection}</td>
+          <td className="text-left p-4 w-1/6">{connection.split("-")[0].replace("_", " ")}</td>
           <td className="text-left p-4 w-1/6">{contact}</td>
           <td className="text-left p-4 w-1/6">{message}</td>
         </tr>
