@@ -4,15 +4,21 @@ import useLayout from "./useLayout"
 import io from "socket.io-client";
 
 const socket = io("http://localhost:9000");
-const API_URL = "http://localhost:9000/evolution/messages/send/batch";
+const API_URL = "http://localhost:9000/messages/send/batch";
+
 
 export default function useContacts() {
+  const [sendingsList, setSendingsList] = useState([]);
+  
   useEffect(() => {
     // Registra ouvintes de eventos
     const handleConnect = () => console.log("Conectado ao servidor Socket.io");
     const handleMessage = (data) => console.log("Dados recebidos:", data);
     const handleMessageSent = (data) => console.log("message:sent eliminar da lista:", data);
-    const handleMessageReceived = (data) => console.log("Mensagem recebida:", data);
+    const handleMessageReceived = (data) => {
+      console.log("Mensagem recebida:", data)
+      setSendingsList(currentList => [...currentList, data]);
+    };
 
     socket.on("connect", handleConnect);
     socket.on("message", handleMessage);
@@ -55,6 +61,7 @@ export default function useContacts() {
   }
 
   return {
-    sendMessage
+    sendMessage,
+    sendingsList
   }
 }

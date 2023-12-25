@@ -54,7 +54,8 @@ export default function Home() {
   } = useConnections()
 
   const {
-    sendMessage
+    sendMessage,
+    sendingsList
   } = useSend()
 
 
@@ -87,22 +88,38 @@ export default function Home() {
   const handleSendMessage = async () => {
     setLoading(true);
 
-    // Criar um novo array filtrando contatos que já estão na lista
-    const newContacts = selectedContacts.filter(contact => 
-      !list.some(item => item.contact === contact)
-    );
+    if (selectedMessage && selectedContacts.length > 0 && selectedConnection) {
+      try {
 
-    // Criar objetos para os novos contatos
-    const newEntries = newContacts.map(contact => ({
-      connection: selectedConnection,
-      contact: contact,
-      message: selectedMessage
-    }));
 
-    // Adicionar apenas novos contatos à lista
-    setList([...list, ...newEntries]);
-
-    await sendMessage(selectedMessage, newContacts, selectedConnection);
+        // Criar um novo array filtrando contatos que já estão na lista
+        const newContacts = selectedContacts.filter(contact => 
+          !list.some(item => item.contact === contact)
+        );
+    
+        // Criar objetos para os novos contatos
+        const newEntries = newContacts.map(contact => ({
+          connection: selectedConnection,
+          contact: contact,
+          message: selectedMessage
+        }));
+    
+        // Adicionar apenas novos contatos à lista
+        setList([...list, ...newEntries]);
+    
+        await sendMessage(selectedMessage, newContacts, selectedConnection);
+        // await sendMessage(selectedMessage, selectedContacts, selectedConnection);
+        // Lógica de sucesso, se necessário
+      } catch (error) {
+        // Trate qualquer erro aqui, se necessário
+        console.error("Erro ao enviar mensagem:", error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert("Parâmetros incompletos para o envio.");
+      setLoading(false);
+    }
     // setLoading(false);
   };
 
@@ -199,7 +216,7 @@ export default function Home() {
               </div>
               <div className="flex-1 overflow-auto">
                 <TableSendings
-                  list={list}
+                  list={sendingsList}
                 />
               </div>
             </div>
