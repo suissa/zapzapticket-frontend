@@ -23,7 +23,6 @@ export default function Table({ list }: TableProps) {
       <tr>
         <th className="text-left p-4 w-1/6">Enviador</th>
         <th className="text-left p-4 w-1/6">Recebedor</th>
-        <th className="text-left p-4 w-1/8">Mensagem</th>
       </tr>
     )
   }
@@ -35,7 +34,6 @@ export default function Table({ list }: TableProps) {
         <tr key={contact} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           <td className="text-left p-4 w-1/6">{connection.split("-")[0].replace("_", " ")}</td>
           <td className="text-left p-4 w-1/6">{contact}</td>
-          <td className="text-left p-4 w-1/6">{message}</td>
         </tr>
       )
     })
