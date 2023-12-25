@@ -11,11 +11,13 @@ import useMessages from "../hooks/useMessages";
 import useConnections from "../hooks/useConnections";
 import useSend from "../hooks/useSend";
 import useLayout from "../hooks/useLayout";
+import constructWithOptions from "styled-components/dist/constructors/constructWithOptions";
 
 export default function Home() {
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState();
   const [selectedConnection, setSelectedConnection] = useState();
+  const [loading, setLoading] = useState(false);
 
   const {
     contact,
@@ -67,15 +69,46 @@ export default function Home() {
     setSelectedConnection(selectedId);
   };
 
-  const handleSendMessage = () => {
-    // Supondo que você tem uma função sendMessage no seu hook
-    // sendMessage(selectedMessage, selectedContacts);
+  const handleSendMessage = async () => {
+    setLoading(true);
+    console.log('loading:', loading);
     console.log('Mensagens selecionadas:', selectedMessage);
     console.log('Contatos selecionados:', selectedContacts);
     console.log('Conenction selecionado:', selectedConnection);
-    sendMessage(selectedMessage, selectedContacts, selectedConnection)
+    await sendMessage(selectedMessage, selectedContacts, selectedConnection)
+    // setLoading(false);
   };
+  useEffect(() => {
+    if (loading) {
+      console.log('loading if:', loading);
+    } else {
+      console.log('loading else:', loading);
+    }
+  }, [loading]); // Dependência do useEffect
 
+  const Modal = ({ onClose, onConfirm, contact }) => {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+        <div className="bg-white p-4 rounded">
+          <div className="flex justify-end mt-4">
+            <button
+              className="bg-red-500 text-white py-2 px-4 rounded mr-2"
+              onClick={onConfirm}
+            >
+              Excluir
+            </button>
+            <button
+              className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
+              px-4 py-2 rounded-md"
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
     <div>
       <Menu />
@@ -93,7 +126,7 @@ export default function Home() {
                 className="mb-4"
                 onClick={handleSendMessage}
                 >
-                Novo Envio
+                {loading ? 'Enviando...' : 'Novo Envio'}
               </Button>
             </div>
             <div className="flex h-80">
