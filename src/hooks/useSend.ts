@@ -34,7 +34,9 @@ export default function useContacts() {
     };
   }, []);
 
-  async function sendMessage(text, phones, instanceName) {
+  async function sendMessage(list) {
+    console.log("sendMessage: ", list)
+    return false
     // for (const phone of phones) {
     //   const data = {
     //     "number": phone,
