@@ -107,7 +107,7 @@ export default function Home() {
         // Adicionar apenas novos contatos à lista
         setList([...list, ...newEntries]);
     
-        await sendMessage(list);
+        await sendMessage(selectedMessage, newContacts, selectedConnection);
         // await sendMessage(selectedMessage, selectedContacts, selectedConnection);
         // Lógica de sucesso, se necessário
       } catch (error) {
