@@ -154,7 +154,7 @@ export default function Home() {
   return (
     <div>
       <Menu />
-      <div className={`flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-purple-500 text-white`}>
+      <div className={`flex justify-center items-center h-screen bg text-white`}>
         <Layout title="Envios" width="w-3/3">
           <div>
             <div className="flex justify-end">
@@ -168,13 +168,15 @@ export default function Home() {
             </div>
             <div className="flex h-80">
               <div className="flex-1 overflow-auto">
-                <TableConnections
-                  connections={connections}
+                <TableMessages
+                  messages={messages}
+                  messageSelected={getMessage}
+                  messageDeleted={deleteMessage}
+                  messageModified={saveMessage}
+                  canceled={showTable}
                   showCheckboxes={true}
                   showActions={false}
-                  hideCertainColumns={true}
-                  filterActiveInstances={true}
-                  onSelectionChange={handleConnectionsSelectionChange}
+                  onSelectionChange={handleMessagesSelectionChange}
                 />
               </div>
               <div className="flex-1 overflow-auto">
@@ -192,15 +194,14 @@ export default function Home() {
             </div>
             <div className="flex h-80">
               <div className="flex-1 overflow-auto">
-                <TableMessages
-                  messages={messages}
-                  messageSelected={getMessage}
-                  messageDeleted={deleteMessage}
-                  messageModified={saveMessage}
-                  canceled={showTable}
+
+              <TableConnections
+                  connections={connections}
                   showCheckboxes={true}
                   showActions={false}
-                  onSelectionChange={handleMessagesSelectionChange}
+                  hideCertainColumns={true}
+                  filterActiveInstances={true}
+                  onSelectionChange={handleConnectionsSelectionChange}
                 />
               </div>
               <div className="flex-1 overflow-auto">

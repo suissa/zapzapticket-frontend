@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Menu: React.FC = () => {
   return (
-    <nav className="bg-blue-500 p-4">
+    <nav className="bg-purple-1000 p-4">
       <ul className="flex space-x-4 text-white">
         <li>
           <Link href="/users">Usuários</Link>

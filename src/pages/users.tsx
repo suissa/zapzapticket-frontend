@@ -34,12 +34,12 @@ export default function Home() {
       <Menu />
       <div className={`
         flex justify-center items-center
-        h-screen bg-gradient-to-r from-blue-500 to-purple-500
-        text-white
+        h-screen
+        text-white bg
       `}>
         <Layout title="Usuários">
           {tableVisible ? (
-            <div>
+            <div >
               <div className="flex justify-end">
                 <Botao
                   color="green"

@@ -1,0 +1,6 @@
+body .bg {
+  background-image: url('/images/bg.jpg');
+  background-size: cover; /* Para cobrir toda a página */
+  background-repeat: no-repeat; /* Para não repetir a imagem */
+  background-attachment: fixed; /* Opcional, para fixar o fundo durante a rolagem */
+}

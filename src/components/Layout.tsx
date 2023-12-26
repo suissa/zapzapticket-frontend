@@ -10,7 +10,7 @@ export default function Layout({ title, children, width = "w-2/3" }: LayoutProps
   return (
     <div className={`
             flex flex-col ${width} rounded-md
-            bg-white text-gray-800
+            bg-glass text-gray-800
         `}>
       <Title>{title}</Title>
       <div className="p-6">
