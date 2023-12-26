@@ -12,14 +12,12 @@ export default function Entry({ text, type = 'text', selectOptions, ...props }: 
         {text}
       </label>
       {type === 'checkbox' ? (
-        // Renderizar um input tipo checkbox
         <input
           type="checkbox"
           {...props}
           className="form-checkbox h-5 w-5 text-purple-600"
         />
       ) : type === 'select' && selectOptions ? (
-        // Renderizar um select com as opções fornecidas
         <select
           {...props}
           className={`
