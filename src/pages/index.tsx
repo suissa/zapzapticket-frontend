@@ -4,6 +4,7 @@ import Form from "../components/Form";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Menu from '../components/Menu';
+import Head from 'next/head';
 import useConnections from "../hooks/useConnections";
 import useLayout from "../hooks/useLayout";
 import { Link } from 'react-router-dom'; // Importe Link do React Router para criar links
@@ -23,42 +24,46 @@ export default function Home() {
   } = useConnections()
 
   return (
-
-    <div>
-      <Menu />
-    <div className={`
-      flex justify-center items-center
-      h-screen bg
-      text-white
-    `}>
-      <Layout title="Conexões">
-        {tableVisible ? (
-          <div>
-            <div className="flex justify-end">
-              <Botao
-                color="green"
-                className="mb-4"
-                onClick={createConnection}
-              >
-                Nova Conexão
-              </Botao>
-            </div>
-            <Table
-              connections={connections}
-              connectionSelected={getConnection}
-              connectionSaved={saveConnection}
-              connectionDeleted={deleteConnection}
-            />
-          </div>
-        ) : (
-          <Form
-            connection={connection}
-            connectionModified={saveConnection}
-            canceled={showTable}
-          />
-        )}
-      </Layout>
-    </div>
-    </div>
+    <>
+      <Head>
+        <title>ZapCRM</title>
+      </Head>
+      <div>
+        <Menu />
+        <div className={`
+          flex justify-center items-center
+          h-screen bg
+          text-white
+        `}>
+          <Layout title="Conexões">
+            {tableVisible ? (
+              <div>
+                <div className="flex justify-end">
+                  <Botao
+                    color="green"
+                    className="mb-4"
+                    onClick={createConnection}
+                  >
+                    Nova Conexão
+                  </Botao>
+                </div>
+                <Table
+                  connections={connections}
+                  connectionSelected={getConnection}
+                  connectionSaved={saveConnection}
+                  connectionDeleted={deleteConnection}
+                />
+              </div>
+            ) : (
+              <Form
+                connection={connection}
+                connectionModified={saveConnection}
+                canceled={showTable}
+              />
+            )}
+          </Layout>
+        </div>
+      </div>
+    </>
   )
 }
