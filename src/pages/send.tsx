@@ -15,7 +15,7 @@ import useLayout from "../hooks/useLayout";
 import constructWithOptions from "styled-components/dist/constructors/constructWithOptions";
 
 export default function Home() {
-  const [list, setList] = useState([]);
+  // const [list, setList] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState();
   const [selectedConnection, setSelectedConnection] = useState();
@@ -55,8 +55,48 @@ export default function Home() {
 
   const {
     sendMessage,
-    sendingsList
+    list,
+    setList
   } = useSend()
+
+  const handleSendMessage = async () => {
+    setLoading(true);
+
+    if (selectedMessage && selectedConnection) {
+      try {
+        // Use selectedContacts diretamente
+        if (selectedContacts.length > 0) {  
+          console.log('selectedContacts:', selectedContacts);
+          // const newContacts = selectedContacts.filter(contact => 
+          //   !list.some(item => item.contact === contact)
+          // );
+          // console.log('newContacts:', newContacts);
+          const newEntries = selectedContacts.map(contact => ({
+            connection: selectedConnection,
+            contact: contact,
+            message: selectedMessage
+          }));
+
+          console.log('list:', list);
+          console.log('newEntries:', newEntries);
+          setList([...list, ...newEntries]);
+
+          console.log('sendingsList:', selectedMessage);
+          await sendMessage(selectedMessage, selectedContacts, selectedConnection);
+        } else {
+          // Trate o caso em que nenhum contato foi selecionado
+          alert("Nenhum contato selecionado.");
+        }
+      } catch (error) {
+        console.error("Erro ao enviar mensagem:", error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert("Parâmetros incompletos para o envio.");
+      setLoading(false);
+    }
+  };
 
 
   const handleContactsSelectionChange = (selectedIds) => {
@@ -70,57 +110,6 @@ export default function Home() {
   const handleConnectionsSelectionChange = (selectedId) => {
     console.log("handleConnectionsSelectionChange selectedId", selectedId)
     setSelectedConnection(selectedId);
-  };
-
-  // const handleSendMessage = async () => {
-  //   setLoading(true);
-  //   console.log('loading:', loading);
-  //   console.log('Mensagens selecionadas:', selectedMessage);
-  //   console.log('Contatos selecionados:', selectedContacts);
-  //   console.log('Conenction selecionado:', selectedConnection);
-  //   const arr = selectedContacts.map((contact) => {
-  //     return {connection: selectedConnection, contact: contact, message: selectedMessage}
-  //   })
-  //   setList([...list, ...arr])
-  //   await sendMessage(selectedMessage, selectedContacts, selectedConnection)
-  //   // setLoading(false);
-  // };
-  const handleSendMessage = async () => {
-    setLoading(true);
-
-    if (selectedMessage && selectedContacts.length > 0 && selectedConnection) {
-      try {
-
-
-        // Criar um novo array filtrando contatos que já estão na lista
-        const newContacts = selectedContacts.filter(contact => 
-          !list.some(item => item.contact === contact)
-        );
-    
-        // Criar objetos para os novos contatos
-        const newEntries = newContacts.map(contact => ({
-          connection: selectedConnection,
-          contact: contact,
-          message: selectedMessage
-        }));
-    
-        // Adicionar apenas novos contatos à lista
-        setList([...list, ...newEntries]);
-    
-        await sendMessage(selectedMessage, newContacts, selectedConnection);
-        // await sendMessage(selectedMessage, selectedContacts, selectedConnection);
-        // Lógica de sucesso, se necessário
-      } catch (error) {
-        // Trate qualquer erro aqui, se necessário
-        console.error("Erro ao enviar mensagem:", error);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      alert("Parâmetros incompletos para o envio.");
-      setLoading(false);
-    }
-    // setLoading(false);
   };
 
   useEffect(() => {
@@ -216,7 +205,7 @@ export default function Home() {
               </div>
               <div className="flex-1 overflow-auto">
                 <TableSendings
-                  list={sendingsList}
+                  list={list}
                 />
               </div>
             </div>
