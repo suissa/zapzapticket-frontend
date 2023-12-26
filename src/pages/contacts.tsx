@@ -33,7 +33,7 @@ export default function Home() {
       <Menu />
       <div className={`
         flex justify-center items-center
-        h-screen bg-gradient-to-r from-blue-500 to-purple-500
+        h-screen bg
         text-white
       `}>
         <Layout title="Contatos">

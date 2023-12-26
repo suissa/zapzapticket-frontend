@@ -143,7 +143,7 @@ export default function Table({
       : connections;
     return filteredConnections?.map((connection, i) => {
       return (
-        <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+        <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-300' : 'bg-purple-200'}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox

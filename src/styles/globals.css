@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 body .bg {
-  background-image: url("/images/bg-02/vecteezy_abstract-purple-fluid-wave-background_6868934.jpg");
+  background-image: url("/images/bg-02/bg-02.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
