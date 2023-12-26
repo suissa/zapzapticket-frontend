@@ -15,7 +15,7 @@ const Menu: React.FC = () => {
           <Link href="/messages">Mensagens</Link>
         </li>
         <li>
-          <Link href="/">Conexões</Link>
+          <Link href="/connections">Conexões</Link>
         </li>
         <li>
           <Link href="/send">Enviar</Link>
