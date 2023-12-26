@@ -12,18 +12,25 @@ body .bg-glass {
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
+body .bg-glass-super {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 body .bg-purple-1000 {
   background-color: #860391;
 }
 body .bg-purple-600 {
   background-color: rgb(147 51 234 / 0.1);
 }
-body input[type="text"] {
+body input[type="text"],
+body select.bg-gray-50  {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
-body input[type="text"]:focus {
+body input[type="text"]:focus,
+body select.bg-gray-50:focus {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
