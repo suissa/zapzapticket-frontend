@@ -8,7 +8,7 @@ const API_URL = "http://localhost:9000/users";
 export default function useUsers() {
   const [user, setUser] = useState<User>(User.empty())
   const [users, setUsers] = useState<User[]>([])
-  const { showForm, showTable, tableVisible } = useLayout()
+  const { showForm, showTable, tableVisible, showModal } = useLayout()
 
   useEffect(listAllUsers, [])
 
@@ -115,6 +115,7 @@ export default function useUsers() {
     listUsers,
     listAllUsers,
     showTable,
-    tableVisible
+    tableVisible,
+    showModal
   }
 }
