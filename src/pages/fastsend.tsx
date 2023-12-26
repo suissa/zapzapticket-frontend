@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import TableContacts from "../components/TableContacts"; // Componente de tabela para contatos
 import TableMessages from "../components/TableMessages"; // Componente de tabela para mensagens
 import Menu from '../components/Menu';
-import useSend from "../hooks/useSend";
+import useSend from "../hooks/useSending";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
