@@ -34,18 +34,20 @@ export default function Form({ message, canceled, messageModified }: FormProps) 
         text="Título"
         value={title}
         onChange={e => setTitle((e.target as HTMLInputElement).value)}
-        className="mb-4"
+        className="mb-4 text-white"
       />
       <Entry
         text="Texto"
         value={text}
-        onChange={e => setText((e.target as HTMLInputElement).value)} // Removido o operador +
+        onChange={e => setText((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
       />
       <Entry
         text="isActive"
         type="checkbox"
         checked={true}
         onChange={e => setIsActive(e.target.checked)}
+        className="mb-4 text-white"
       />
       <div className="flex justify-end mt-7">
         <Button
