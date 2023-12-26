@@ -29,11 +29,11 @@ export default function Table({ list }: TableProps) {
 
   function renderData() {
     console.log("renderData TableSendings: ", list)
-    return list?.map(({instanceName, phone, message}, i) => {
+    return list?.map(({connection, contact, message}, i) => {
       return (
-        <tr key={phone} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
-          <td className="text-left p-4 w-1/6">{instanceName.split("-")[0].replace("_", " ")}</td>
-          <td className="text-left p-4 w-1/6">{phone}</td>
+        <tr key={contact} className={`${i % 2 === 0 ? "bg-purple-200" : "bg-purple-100"}`}>
+          <td className="text-left p-4 w-1/6">{connection.split("-")[0].replace("_", " ")}</td>
+          <td className="text-left p-4 w-1/6">{contact}</td>
         </tr>
       )
     })

@@ -6,53 +6,57 @@ import io from "socket.io-client";
 const socket = io("http://localhost:9000");
 const API_URL = "http://localhost:9000/messages/send/batch";
 
+export default function useSend() {
+  const [list, setList] = useState([]);
 
-export default function useContacts() {
-  const [sendingsList, setSendingsList] = useState([]);
-  
   useEffect(() => {
-    // Registra ouvintes de eventos
     const handleConnect = () => console.log("Conectado ao servidor Socket.io");
     const handleMessage = (data) => console.log("Dados recebidos:", data);
-    const handleMessageSent = (data) => console.log("message:sent eliminar da lista:", data);
-    const handleMessageReceived = (data) => {
-      console.log("Mensagem recebida:", data)
-      setSendingsList(currentList => [...currentList, data]);
+    const handleMessageSent = (phone) => {
+      console.log("message:sent eliminar da lista:", phone);
+      setList(currentList => currentList.filter(item => item.contact !== phone));
     };
 
     socket.on("connect", handleConnect);
     socket.on("message", handleMessage);
     socket.on("message:sent", handleMessageSent);
-    socket.on("message:received", handleMessageReceived);
 
-    // Limpa os ouvintes ao desmontar
     return () => {
-      socket.off("connect", handleConnect);
-      socket.off("message", handleMessage);
       socket.off("message:sent", handleMessageSent);
-      socket.off("message:received", handleMessageReceived);
     };
   }, []);
 
-  async function sendMessage(list) {
-    console.log("sendMessage: ", list)
-    return false
-    // for (const phone of phones) {
-    //   const data = {
-    //     "number": phone,
-    //     "options": {
-    //       "delay": 1200,
-    //       "presence": "composing",
-    //       "linkPreview": false
-    //     },
-    //     "textMessage": {
-    //       "text": text
-    //     }
-    //   }
-    //   // const jsonStr = JSON.stringify({...data, instaceName});
+  useEffect(() => {
+    console.log("Estado atualizado da list:", list);
+  }, [list]);
 
-    //   console.log("data: ", data, `${API_URL}/${instaceName}`);
-    // }
+  // useEffect(() => {
+  //   console.log("Estado atualizado da list:", list);
+
+  //   // Registra ouvintes de eventos
+  //   const handleMessageSent = (data) => console.log("message:sent eliminar da lista:", data);
+  //   const handleMessageReceived = (data) => {
+  //     console.log("Mensagem recebida:", data, new Date())
+  //     console.log("handleMessageReceived list", list);
+  //     // setList(currentList => []);
+  //     setList(currentList => currentList.filter(item => item.phone !== data.phone));
+  //     console.log("handleMessageReceived depois list", list);
+  //   };
+
+  //   socket.on("message:sent", handleMessageSent);
+  //   socket.on("message:received", handleMessageReceived);
+
+  //   // Limpa os ouvintes ao desmontar
+  //   return () => {
+  //     socket.off("connect", handleConnect);
+  //     socket.off("message", handleMessage);
+  //     socket.off("message:sent", handleMessageSent);
+  //     socket.off("message:received", handleMessageReceived);
+  //   };
+  // }, [list]);
+
+  async function sendMessage(text, phones, instanceName) {
+    console.log("sendMessage: list", list);
     const data = {phones, text, instanceName}
     console.log("data: ", data, `${API_URL}`);
     return await fetch(`${API_URL}`, {
@@ -64,6 +68,7 @@ export default function useContacts() {
 
   return {
     sendMessage,
-    sendingsList
+    list,
+    setList
   }
 }
