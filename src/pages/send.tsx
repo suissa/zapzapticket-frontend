@@ -10,7 +10,7 @@ import Menu from '../components/Menu';
 import useContacts from "../hooks/useContacts";
 import useMessages from "../hooks/useMessages";
 import useConnections from "../hooks/useConnections";
-import useSend from "../hooks/useSend";
+import useSending from "../hooks/useSending";
 import useLayout from "../hooks/useLayout";
 import constructWithOptions from "styled-components/dist/constructors/constructWithOptions";
 
@@ -57,7 +57,7 @@ export default function Home() {
     sendMessage,
     list,
     setList
-  } = useSend()
+  } = useSending()
 
   const handleSendMessage = async () => {
     setLoading(true);
