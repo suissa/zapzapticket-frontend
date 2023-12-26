@@ -89,27 +89,31 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         text="Nome"
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
-        className="mb-4"
+        className="mb-4 text-white"
       />
       <Entry
         text="Email"
         value={email}
         onChange={e => setEmail((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
       />
       <Entry
         text="Telefone"
         value={phone}
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
       />
       <Entry
         text="Cidade"
         value={city}
         onChange={e => setCity((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
       />
       <Entry
         text="Estado"
         type="select"
         onChange={handleStateChange}
+        className="mb-4 text-white"
         selectOptions={[
           { value: "", label: "Escolha um estado"},
           { value: "AC", label: "Acre" },
@@ -147,11 +151,13 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         text="País"
         value={country}
         onChange={e => setCountry((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
       />
       <Entry
         text="Nível"
         type="select"
         onChange={handleLevelChange}
+        className="mb-4 text-white"
         selectOptions={[
           { value: "", label: "Escolha um nível"},
           { value: "normal", label: "Normal" },
