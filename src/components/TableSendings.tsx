@@ -1,8 +1,3 @@
-import { useState, MutableRefObject, useRef, useEffect } from "react"
-import User from "../core/User"
-import Button from "./Button"
-import { IconEdit, IconThrash } from "./Icons"
-
 interface TableProps {
   list: string[];
   connection: string;
@@ -10,13 +5,6 @@ interface TableProps {
 }
 
 export default function Table({ list }: TableProps) {
-  const [checked, setChecked] = useState(false);
-  const [qrCodeBase64, setQrCodeBase64] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-
 
   function renderHeader() {
     return (
@@ -38,6 +26,7 @@ export default function Table({ list }: TableProps) {
       )
     })
   }
+
   return (
     <div>
       <table className="w-full rounded-xl overflow-hidden table-fixed">
