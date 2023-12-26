@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Botao from "../components/Button";
+import Button from "../components/Button";
 import Form from "../components/FormUser";
 import Layout from "../components/Layout";
 import Table from "../components/TableUsers";
@@ -17,55 +17,50 @@ export default function Home() {
     deleteUser,
     getUser,
     listUsers,
-    listAllUsers,
     showTable,
     tableVisible
   } = useUsers()
 
   useEffect(() => {
     if (tableVisible) {
-      // Chame a função listUsers quando tableVisible mudar
-      listAllUsers();
+      listUsers();
     }
-  }, [tableVisible]); // O segundo argumento é um array de dependências
+  }, [tableVisible]);
 
   return (
     <div>
       <Menu />
-      <div className={`
-        flex justify-center items-center
-        h-screen
-        text-white bg
-      `}>
-        <Layout title="Usuários">
-          {tableVisible ? (
-            <div >
-              <div className="flex justify-end">
-                <Botao
-                  color="green"
-                  className="mb-4"
-                  onClick={createUser}
-                >
-                  Novo Usuário
-                </Botao>
-              </div>
-              <Table
-                users={users}
-                userSelected={getUser}
-                userDeleted={deleteUser}
-                userModified={saveUser}
-                canceled={showTable}
-              />
+    <div className={`
+      flex justify-center items-center
+      h-screen bg
+      text-white
+    `}>
+      <Layout title="Usuários">
+        {tableVisible ? (
+          <div>
+            <div className="flex justify-end">
+              <Button
+                className="mb-4"
+                onClick={createUser}
+              >
+                Novo Usuário
+              </Button>
             </div>
-          ) : (
-            <Form
-              user={user}
-              userModified={saveUser}
-              canceled={showTable}
+            <Table
+              users={users}
+              userSelected={getUser}
+              userDeleted={deleteUser}
             />
-          )}
-        </Layout>
-      </div>
+          </div>
+        ) : (
+          <Form
+            user={user}
+            userModified={saveUser}
+            canceled={showTable}
+          />
+        )}
+      </Layout>
+    </div>
     </div>
   )
 }
