@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <div>
       <Menu />
-      <div className={`flex justify-center items-center h-screen bg text-white`}>
+      <div className={`flex justify-center items-top h-screen bg text-white`}>
         <Kanban
           list={list}
         />
