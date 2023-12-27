@@ -6,6 +6,9 @@ const Menu: React.FC = () => {
     <nav className="bg-gradient-to-r from-purple-500 to-purple-800 p-4">
       <ul className="flex space-x-4 text-white">
         <li>
+          <Link href="/">Dashboard</Link>
+        </li>
+        <li>
           <Link href="/users">Usuários</Link>
         </li>
         <li>
@@ -16,6 +19,9 @@ const Menu: React.FC = () => {
         </li>
         <li>
           <Link href="/connections">Conexões</Link>
+        </li>
+        <li>
+          <Link href="/kanban">Kanban</Link>
         </li>
         <li>
           <Link href="/send">Enviar</Link>
