@@ -14,10 +14,23 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const {
-    sendMessage,
     list,
-    setList
+    setList,
+    listTickets
   } = useKanban()
+
+
+  // useEffect(() => {
+  //   if (tableVisible) {
+  //     // Chame a função listTickets quando tableVisible mudar
+  //     listTickets();
+  //   }
+  // }, [tableVisible]); // O segundo argumento é um array de dependências
+
+  useEffect(() => {
+    listTickets();
+    console.log("kanban page list", list);
+  }, []);
 
   const handleSendMessage = async () => {
     setLoading(true);
