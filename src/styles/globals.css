@@ -10,10 +10,15 @@ body .bg {
 body .bg-glass {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(10px);
 }
 body .bg-glass-super {
   background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+body .bg-dark-glass {
+  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -35,7 +40,26 @@ body select.bg-gray-50:focus {
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
-body .columnKanban {
-  flex: 0 1 auto;
-  max-width: 50%;
+body .task {
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 999999;
+}
+body .taskContent {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+body .kanbanColumn{
+  background-color: rgba(255, 255, 255, .1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 5px;
+  padding: 10px;
+  width: 400px;
+  margin: 10px;
+  margin-top: 20px;
+  z-index: 1;
 }
