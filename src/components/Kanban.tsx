@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useKanban from "../hooks/useKanban";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import dynamic from 'next/dynamic';
 
@@ -27,56 +28,48 @@ import Column from "./Column";
 
 function Kanban({ list }) {
 
-  console.log("Kanban component list", list)
+  const [taskList, setTasks] = useState(transformList(list));
 
-  // const todoList = list
-  //   .filter((item) => item.ticketStatus == "inativo")
-  //   .map((item) => {
-  //     return {  
-  //       id: item._id,
-  //       title: `${item.name ? item.name : "Não informado"}
-  //       ${item.messages[0].text ? item.messages[0].text : "Não informado"}`,
-  //     }
-  //   })
-
-  const transformList = (list) => {
+  function transformList(list) {
     const todoList = list
-      .filter((item) => item.ticketStatus === "inativo")
+      .filter((item) =>
+        item.ticketStatus.toLowerCase() === "inativo" || item.ticketStatus.toLowerCase() === "to do"
+      )
       .map((item) => ({
         id: item._id,
-        title: `${item.name ? item.name : "Não informado"}: ${item.messages[0] ? item.messages[0].text : "Não informado"}`,
+        title: `${item.name ? item.name : "Não informado"}`,
+        content: `${item.messages[0] ? item.messages[0].text : "Não informado"}`,
       }));
+
+    const doingList = list
+      .filter((item) => item.ticketStatus.toLowerCase() === "doing")
+      .map((item) => ({
+        id: item._id,
+        title: `${item.name ? item.name : "Não informado"}`,
+        content: `${item.messages[0] ? item.messages[0].text : "Não informado"}`,
+      }));
+
+    const doneList = list
+    .filter((item) => item.ticketStatus.toLowerCase() === "done")
+    .map((item) => ({
+      id: item._id,
+      title: `${item.name ? item.name : "Não informado"}`,
+      content: `${item.messages[0] ? item.messages[0].text : "Não informado"}`,
+    }));
 
     return [
       { groupName: "To Do", tasks: todoList },
-      { groupName: "Doing", tasks: [{ id: "3", title: "Test-3" }, { id: "4", title: "Test-4" }] },
-      { groupName: "Done", tasks: [{ id: "5", title: "Test-5" }] },
+      { groupName: "Doing", tasks: doingList },
+      { groupName: "Done", tasks: doneList },
     ];
   };
 
-  const [taskList, setTasks] = useState(transformList(list));
 
   useEffect(() => {
     setTasks(transformList(list));
   }, [list]);
 
-  // console.log("Kanban component todoList", todoList);
-  // let initialState = [
-  //   {
-  //     groupName: "To Do",
-  //     tasks: [{ id: "1", title: "Test-1" }]
-  //   },
-  //   {
-  //     groupName: "Doing",
-  //     tasks: [{ id: "3", title: "Test-3" }, { id: "4", title: "Test-4" }]
-  //   },
-  //   {
-  //     groupName: "Done",
-  //     tasks: [{ id: "5", title: "Test-5" }]
-  //   }
-  // ];
-
-  // const [taskList, setTasks] = useState(initialState);
+  const { setUpdateTaskStatus } = useKanban();
 
   function onDragEnd(val) {
     // Your version
@@ -93,12 +86,20 @@ function Kanban({ list }) {
     // Destination might be `null`: when a task is
     // dropped outside any drop area. In this case the
     // task reamins in the same column so `destination` is same as `source`
+    console.log("onDragEnd destination", destination)
     const [destinationGroup] = destination
       ? taskList.filter(column => column.groupName === destination.droppableId)
       : { ...sourceGroup };
 
+    console.log("onDragEnd destinationGroup", destinationGroup)
+
+    setUpdateTaskStatus({
+      ticketId: draggableId,
+      ticketStatus: destination.droppableId,
+    });
     // We save the task we are moving
     const [movingTask] = sourceGroup.tasks.filter(t => t.id === draggableId);
+    console.log("onDragEnd movingTask", movingTask)
 
     const newSourceGroupTasks = sourceGroup.tasks.splice(source.index, 1);
     const newDestinationGroupTasks = destinationGroup.tasks.splice(
@@ -107,9 +108,12 @@ function Kanban({ list }) {
       movingTask
     );
 
+    console.log("onDragEnd newSourceGroupTasks", newSourceGroupTasks)
+    console.log("onDragEnd newDestinationGroupTasks", newDestinationGroupTasks)
     // Mapping over the task lists means that you can easily
     // add new columns
     const newTaskList = taskList.map(column => {
+      console.log("onDragEnd column", column)
       if (column.groupName === source.groupName) {
         return {
           groupName: column.groupName,
@@ -124,6 +128,7 @@ function Kanban({ list }) {
       }
       return column;
     });
+    console.log("onDragEnd newTaskList", newTaskList)
     setTasks(newTaskList);
   }
 
