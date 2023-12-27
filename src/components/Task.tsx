@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 function Task(props) {
   const { id, index, title } = props;
   let style = {
-    backgroundColor: "red"
+    backgroundColor: "purple"
   };
 
   return (
@@ -15,7 +15,7 @@ function Task(props) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <h4 style={style}>{title}</h4>
+          <h4 style={style} className="bg-gradient-to-r from-purple-500 to-purple-800 p-4 mb-2">{title}</h4>
         </div>
       )}
     </Draggable>

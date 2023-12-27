@@ -6,10 +6,12 @@ function Column(props) {
   const { droppableId, list, type } = props;
 
   let style = {
-    backgroundColor: "orange",
+    backgroundColor: "rgba(255, 255, 255, .1)",
+    borderRadius: "5px",
+    padding: "10px",
     height: "300px",
     width: "400px",
-    margin: "100px"
+    margin: "10px"
   };
 
   console.log("type = ", droppableId, list.map(console.log));
