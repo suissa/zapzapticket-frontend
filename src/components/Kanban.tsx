@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import dynamic from 'next/dynamic';
 
@@ -25,23 +25,58 @@ const Draggable = dynamic(
 );
 import Column from "./Column";
 
-function App() {
-  let initialState = [
-    {
-      groupName: "To Do",
-      tasks: [{ id: "1", title: "Test-1" }, { id: "2", title: "Test-2" }]
-    },
-    {
-      groupName: "Doing",
-      tasks: [{ id: "3", title: "Test-3" }, { id: "4", title: "Test-4" }]
-    },
-    {
-      groupName: "Done",
-      tasks: [{ id: "5", title: "Test-5" }]
-    }
-  ];
+function Kanban({ list }) {
 
-  const [taskList, setTasks] = useState(initialState);
+  console.log("Kanban component list", list)
+
+  // const todoList = list
+  //   .filter((item) => item.ticketStatus == "inativo")
+  //   .map((item) => {
+  //     return {  
+  //       id: item._id,
+  //       title: `${item.name ? item.name : "Não informado"}
+  //       ${item.messages[0].text ? item.messages[0].text : "Não informado"}`,
+  //     }
+  //   })
+
+  const transformList = (list) => {
+    const todoList = list
+      .filter((item) => item.ticketStatus === "inativo")
+      .map((item) => ({
+        id: item._id,
+        title: `${item.name ? item.name : "Não informado"}: ${item.messages[0] ? item.messages[0].text : "Não informado"}`,
+      }));
+
+    return [
+      { groupName: "To Do", tasks: todoList },
+      { groupName: "Doing", tasks: [{ id: "3", title: "Test-3" }, { id: "4", title: "Test-4" }] },
+      { groupName: "Done", tasks: [{ id: "5", title: "Test-5" }] },
+    ];
+  };
+
+  const [taskList, setTasks] = useState(transformList(list));
+
+  useEffect(() => {
+    setTasks(transformList(list));
+  }, [list]);
+
+  // console.log("Kanban component todoList", todoList);
+  // let initialState = [
+  //   {
+  //     groupName: "To Do",
+  //     tasks: [{ id: "1", title: "Test-1" }]
+  //   },
+  //   {
+  //     groupName: "Doing",
+  //     tasks: [{ id: "3", title: "Test-3" }, { id: "4", title: "Test-4" }]
+  //   },
+  //   {
+  //     groupName: "Done",
+  //     tasks: [{ id: "5", title: "Test-5" }]
+  //   }
+  // ];
+
+  // const [taskList, setTasks] = useState(initialState);
 
   function onDragEnd(val) {
     // Your version
@@ -121,4 +156,4 @@ function App() {
   );
 }
 
-export default App;
+export default Kanban;

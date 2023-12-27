@@ -14,7 +14,7 @@ function Column(props) {
     margin: "10px"
   };
 
-  console.log("type = ", droppableId, list.map(console.log));
+  // console.log("type = ", droppableId, list.map(console.log));
 
   return (
     <Droppable droppableId={droppableId} type={type} key={droppableId}>
