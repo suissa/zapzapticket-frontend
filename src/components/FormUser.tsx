@@ -82,7 +82,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
           text="ID"
           value={_id}
           readOnly
-          className="mb-4"
+          className="mb-4 text-white"
         />
       ) : false}
       <Entry
