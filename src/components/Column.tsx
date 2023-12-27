@@ -10,7 +10,8 @@ function Column(props) {
     borderRadius: "5px",
     padding: "10px",
     width: "400px",
-    margin: "10px"
+    margin: "10px",
+    marginTop: "20px"
   };
 
   // console.log("type = ", droppableId, list.map(console.log));
@@ -19,7 +20,7 @@ function Column(props) {
     <Droppable droppableId={droppableId} type={type} key={droppableId}>
       {provided => (
         <div {...provided.droppableProps} ref={provided.innerRef} style={style}>
-          <h2>{droppableId}</h2>
+          <h2 className="mb-4">{droppableId}</h2>
 
           {list.map((val, index) => {
             return (
