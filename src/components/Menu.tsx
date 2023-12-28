@@ -18,6 +18,9 @@ const Menu: React.FC = () => {
           <Link href="/messages">Mensagens</Link>
         </li>
         <li>
+          <Link href="/groups">Grupos</Link>
+        </li>
+        <li>
           <Link href="/connections">Conexões</Link>
         </li>
         <li>
