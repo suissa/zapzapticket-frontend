@@ -10,7 +10,7 @@ export default function useGroups() {
   const [groups, setGroups] = useState<Group[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
 
-  useEffect(listGroups, [])
+  // useEffect(listGroups, [])
 
   function createGroup() {
     setGroup(Group.empty())
@@ -18,6 +18,9 @@ export default function useGroups() {
   }
 
   function listGroups(instanceName = "Criptou_Onboarding-5511994649923") {
+    console.log("useGroups listGroups instanceName", instanceName)
+    // const instanceName = selectedConnection ? selectedConnection.instanceName : "Criptou_Onboarding-5511994649923";
+    console.log("useGroups listGroups instanceName", instanceName)
     fetch(`${API_URL}/${instanceName}`)
       .then(response => response.json())
       .then(data => {
@@ -66,10 +69,6 @@ export default function useGroups() {
     ;
   }
 
-  function criarGroup() {
-    setGroup(Group.empty())
-    showForm()
-  }
 
 
   return {
@@ -77,7 +76,6 @@ export default function useGroups() {
     groups,
     createGroup,
     saveGroup,
-    criarGroup,
     deleteGroup,
     getGroup,
     listGroups,

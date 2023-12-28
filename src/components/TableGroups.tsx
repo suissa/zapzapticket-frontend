@@ -89,9 +89,13 @@ export default function Table({
   }
 
   function renderData() {
+    console.log("TableGroups renderData groups", groups);
+    if (!Array.isArray(groups)) {
+      return <tr><td colSpan="100% text-white">Nenhum grupo encontrado</td></tr>;
+    }
     return groups?.map((group, i) => {
       return (
-        <tr key={group._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+        <tr key={group.id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox

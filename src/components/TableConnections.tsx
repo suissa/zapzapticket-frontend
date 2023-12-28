@@ -143,7 +143,11 @@ export default function Table({
       : connections;
     return filteredConnections?.map((connection, i) => {
       return (
-        <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-300' : 'bg-purple-200'}`}>
+        <tr key={connection._id} 
+            onClick={() => {
+              connectionSelected(connection)
+            }}
+            className={`${i % 2 === 0 ? 'bg-purple-300' : 'bg-purple-200'}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
@@ -176,20 +180,30 @@ export default function Table({
     return (
       <td className="flex justify-center">
         {connectionSelected ? (
-          <button onClick={() => connectionSelected?.(connection)} className={`
-                    flex justify-center items-center
-                    text-green-600 rounded-md p-2 m-1
-                    hover:bg-purple-50
-                `}>
+          <button 
+            onClick={(e) =>{ 
+              e.stopPropagation();
+              connectionSelected?.(connection)}
+            } 
+            className={`
+              flex justify-center items-center
+              text-green-600 rounded-md p-2 m-1
+              hover:bg-purple-50
+            `}>
             {IconEdit}
           </button>
         ) : false}
         {connectionDeleted ? (
-          <button onClick={() => connectionDeleted?.(connection)} className={`
-                    flex justify-center items-center
-                    text-red-500 rounded-md p-2 m-1
-                    hover:bg-purple-50
-                `}>
+          <button 
+          onClick={(e) =>{ 
+            e.stopPropagation();
+            connectionDeleted?.(connection)
+          }} 
+          className={`
+            flex justify-center items-center
+            text-red-500 rounded-md p-2 m-1
+            hover:bg-purple-50
+          `}>
             {IconThrash}
           </button>
         ) : false}

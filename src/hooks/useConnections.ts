@@ -5,7 +5,7 @@ import useLayout from "./useLayout"
 
 const API_URL = "http://localhost:9000/connections";
 
-export default function useConnections() {
+export default function useConnections(onConnectionSelected) {
   const [connection, setConnection] = useState<Connection>(Connection.empty())
   const [connections, setConnections] = useState<Connection[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
@@ -29,6 +29,10 @@ export default function useConnections() {
   function getConnection(connection: Connection) {
     setConnection(connection)
     showForm()
+
+    if (onConnectionSelected) {
+      onConnectionSelected(connection);
+    }
   }
 
   async function deleteConnection(connection: Connection) {

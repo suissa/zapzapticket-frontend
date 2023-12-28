@@ -10,12 +10,18 @@ import useConnections from "../hooks/useConnections";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
+  const [selectedConnection, setSelectedConnection] = useState(null);
+
+  const handleConnectionSelected = (connection) => {
+    setSelectedConnection(connection);
+    console.log("Groups Page handleConnectionSelected Conexão selecionada:", connection);
+    // Outras ações, se necessário
+  };
   const {
     group,
     groups,
     createGroup,
     saveGroup,
-    criarGroup,
     deleteGroup,
     getGroup,
     listGroups,
@@ -30,9 +36,7 @@ export default function Home() {
     deleteConnection,
     getConnection,
     listConnections,
-  } = useConnections()
-
-  // const [connections, setConnections] = useState([]);
+  } = useConnections(setSelectedConnection)
 
 
   useEffect(() => {
@@ -40,54 +44,60 @@ export default function Home() {
 
   }, []);
 
-  useEffect(() => {
-    if (tableVisible) {
-      listGroups();
-    }
-  }, [tableVisible]);
+  // useEffect(() => {
+  //   if (tableVisible) {
+  //     listGroups();
+  //   }
+  // }, [tableVisible]);
 
+  useEffect(() => {
+    console.log("Groups Page useEffect selectedConnection:", selectedConnection);
+    if (selectedConnection) {
+      listGroups(selectedConnection.instanceName);
+    }
+  }, [selectedConnection]);
+  
   return (
     <div>
       <Menu />
-    <div className={`
-      flex justify-center items-center
-      h-screen bg
-      text-white
-    `}>
-      <Layout title="Grupos">
-
-        <TableConnections
-          connections={connections}
-          connectionSelected={getConnection}
-          hideCertainColumns={true}
-          filterActiveInstances={true}
-          showActions={false}
-        />
-        {tableVisible ? (
-          <div>
-            <div className="flex justify-end">
-              <Button
-                className="mb-4"
-                onClick={createGroup}
-              >
-                Nova Grupo
-              </Button>
-            </div>
-            <Table
-              groups={groups}
-              groupSelected={getGroup}
-              groupDeleted={deleteGroup}
-            />
-          </div>
-        ) : (
-          <Form
-            group={group}
-            groupModified={saveGroup}
-            canceled={showTable}
+      <div className={`flex justify-center items-center h-screen bg text-white`}>
+        <Layout title="Grupos">
+          <h1 className="text-white text-xl">
+            Conexões
+          </h1>
+            <p className="text-white text-sm">  *selecione uma conexão para ver seus grupos</p>
+          
+          <TableConnections
+            connections={connections}
+            connectionSelected={handleConnectionSelected}
+            hideCertainColumns={true}
+            filterActiveInstances={true}
+            showActions={false}
           />
-        )}
-      </Layout>
+          {selectedConnection && (
+            <div>
+              <div className="flex justify-end">
+                <Button className="mb-4" onClick={createGroup}>
+                  Novo Grupo
+                </Button>
+              </div>
+              <Table
+                groups={groups}
+                groupSelected={getGroup}
+                groupDeleted={deleteGroup}
+                selectedConnection={selectedConnection}
+              />
+            </div>
+          )}
+          {!tableVisible && !selectedConnection && (
+            <Form
+              group={group}
+              groupModified={saveGroup}
+              canceled={showTable}
+            />
+          )}
+        </Layout>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
