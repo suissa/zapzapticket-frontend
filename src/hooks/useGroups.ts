@@ -1,86 +1,86 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Message from "../core/Message"
-import MessageRepository from "../core/MessageRepository"
+import Group from "../core/Group"
+import GroupRepository from "../core/GroupRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/messages";
+const API_URL = "http://localhost:9000/evolution/groups";
 
-export default function useMessages() {
-  const [message, setMessage] = useState<Message>(Message.empty())
-  const [messages, setMessages] = useState<Message[]>([])
+export default function useGroups() {
+  const [group, setGroup] = useState<Group>(Group.empty())
+  const [groups, setGroups] = useState<Group[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
 
-  useEffect(listMessages, [])
+  useEffect(listGroups, [])
 
-  function createMessage() {
-    setMessage(Message.empty())
+  function createGroup() {
+    setGroup(Group.empty())
     showForm()
   }
 
-  function listMessages() {
-    fetch(API_URL)
+  function listGroups(instanceName = "Criptou_Onboarding-5511994649923") {
+    fetch(`${API_URL}/${instanceName}`)
       .then(response => response.json())
       .then(data => {
-        console.log("listMessages then", data)
-        return setMessages(data)
+        console.log("listGroups then", data)
+        return setGroups(data)
       })
   }
 
-  function getMessage(message: Message) {
-    setMessage(message)
+  function getGroup(group: Group) {
+    setGroup(group)
     showForm()
   }
 
-  async function deleteMessage(message: Message) {
-    listMessages()
+  async function deleteGroup(group: Group) {
+    listGroups()
   }
 
-  async function saveMessage(message: Message) {
-    console.log("saveMessage message", message)
-    const messageStr = message?._id
+  async function saveGroup(group: Group) {
+    console.log("saveGroup group", group)
+    const groupStr = group?._id
       ? JSON.stringify({
-          _id: message._id,
-          title: message.title,
-          text: message.text,
-          isActive: message.isActive
+          _id: group._id,
+          title: group.title,
+          text: group.text,
+          isActive: group.isActive
         })
       : JSON.stringify({
-        title: message.title,
-        text: message.text,
-        isActive: message.isActive
+        title: group.title,
+        text: group.text,
+        isActive: group.isActive
       })
-    console.log("saveMessage messageStr", messageStr)
-    const response = message?._id
-      ? await fetch(`${API_URL}/${message._id}`, {
+    console.log("saveGroup groupStr", groupStr)
+    const response = group?._id
+      ? await fetch(`${API_URL}/${group._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: messageStr
+        body: groupStr
       })
       : await fetch(`${API_URL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: messageStr
+        body: groupStr
       });
-      // listMessages()
+      // listGroups()
       showTable()
     ;
   }
 
-  function criarMessage() {
-    setMessage(Message.empty())
+  function criarGroup() {
+    setGroup(Group.empty())
     showForm()
   }
 
 
   return {
-    message,
-    messages,
-    createMessage,
-    saveMessage,
-    criarMessage,
-    deleteMessage,
-    getMessage,
-    listMessages,
+    group,
+    groups,
+    createGroup,
+    saveGroup,
+    criarGroup,
+    deleteGroup,
+    getGroup,
+    listGroups,
     showTable,
     tableVisible
   }

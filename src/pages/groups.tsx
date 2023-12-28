@@ -1,29 +1,48 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import Form from "../components/FormMessage";
+import Form from "../components/FormGroup";
 import Layout from "../components/Layout";
-import Table from "../components/TableMessages";
+import Table from "../components/TableGroups";
+import TableConnections from "../components/TableConnections";
 import Menu from '../components/Menu';
-import useMessages from "../hooks/useMessages";
+import useGroups from "../hooks/useGroups";
+import useConnections from "../hooks/useConnections";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const {
-    message,
-    messages,
-    createMessage,
-    saveMessage,
-    criarMessage,
-    deleteMessage,
-    getMessage,
-    listMessages,
+    group,
+    groups,
+    createGroup,
+    saveGroup,
+    criarGroup,
+    deleteGroup,
+    getGroup,
+    listGroups,
     showTable,
     tableVisible
-  } = useMessages()
+  } = useGroups()
+
+  const {
+    connections,
+    createConnection,
+    saveConnection,
+    deleteConnection,
+    getConnection,
+    listConnections,
+  } = useConnections()
+
+  // const [connections, setConnections] = useState([]);
+
+
+  useEffect(() => {
+    listConnections();
+
+  }, []);
 
   useEffect(() => {
     if (tableVisible) {
-      listMessages();
+      listGroups();
     }
   }, [tableVisible]);
 
@@ -35,27 +54,35 @@ export default function Home() {
       h-screen bg
       text-white
     `}>
-      <Layout title="Mensagens">
+      <Layout title="Grupos">
+
+        <TableConnections
+          connections={connections}
+          connectionSelected={getConnection}
+          hideCertainColumns={true}
+          filterActiveInstances={true}
+          showActions={false}
+        />
         {tableVisible ? (
           <div>
             <div className="flex justify-end">
               <Button
                 className="mb-4"
-                onClick={createMessage}
+                onClick={createGroup}
               >
-                Nova Mensagem
+                Nova Grupo
               </Button>
             </div>
             <Table
-              messages={messages}
-              messageSelected={getMessage}
-              messageDeleted={deleteMessage}
+              groups={groups}
+              groupSelected={getGroup}
+              groupDeleted={deleteGroup}
             />
           </div>
         ) : (
           <Form
-            message={message}
-            messageModified={saveMessage}
+            group={group}
+            groupModified={saveGroup}
             canceled={showTable}
           />
         )}
