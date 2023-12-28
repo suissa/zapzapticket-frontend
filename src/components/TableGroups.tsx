@@ -60,12 +60,21 @@ export default function Table({
   const ParticipantsModal = ({ onClose, onConfirm, group }) => {
     console.log("TableGroups ParticipantsModal group", group);
     const { participants } = group;
+    participants.sort((a, b) => {
+      if (a.admin === b.admin) {
+        return 0;
+      }
+      return a.admin ? -1 : 1;
+    });
+
     return (
+      
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-        <div className="bg-white p-4 rounded">
+        <div className="bg-white p-4 rounded w-1/2">
           <p>Listagem dos participantes do grupo <strong>{group?.subject}</strong>?</p>
-          <div className="flex justify-end mt-4">
-            <table className="w-full rounded-xl overflow-hidden">
+            <div className="overflow-y-auto h-80 mt-4">
+          
+            <table className="w-full rounded-xl">
               <thead className={`
                 text-gray-100
                 bg-gradient-to-r from-purple-500 to-purple-800
@@ -80,7 +89,7 @@ export default function Table({
                   return (
                     <tr key={participant._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
                       <td className="text-left p-4">{participant.id.replace("@s.whatsapp.net", "")}</td>
-                      <td className="text-left p-4">{participant.admin}</td>
+                      <td className="text-left p-4">{participant.admin ? participant.admin : "participante"}</td>
                     </tr>
                   )
                 })}
@@ -88,13 +97,15 @@ export default function Table({
             </table>
             
           </div>
-          <button
-              className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
-              px-4 py-2 rounded-md"
-              onClick={onClose}
-            >
-              Fechar
-            </button>
+          <div className="flex justify-end mt-4">
+            <button
+                className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
+                px-4 py-2 rounded-md"
+                onClick={onClose}
+              >
+                Fechar
+              </button>
+            </div>
           {/* <div className="flex justify-end mt-4">
             <button
               className="bg-red-500 text-white py-2 px-4 rounded mr-2"
