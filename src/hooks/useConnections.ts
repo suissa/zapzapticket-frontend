@@ -21,7 +21,7 @@ export default function useConnections(onConnectionSelected) {
     fetch(API_URL)
       .then(response => response.json())
       .then(data => {
-        console.log("listConnections then", data)
+        console.log("useConnection listConnections then", data)
         return setConnections(data)
       })
   }
