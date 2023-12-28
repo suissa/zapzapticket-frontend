@@ -46,7 +46,7 @@ body .task {
   -webkit-backdrop-filter: blur(10px);
   z-index: 999999;
 }
-body .taskContent {
+body .task-content {
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
@@ -69,4 +69,10 @@ body .text-ssm {
 }
 body .text-light-purple {
   color: #c364ec;
+}
+body .icon-blue {
+  stroke: blue;
+}
+body .icon-purple {
+  stroke: rgb(150, 19, 176);
 }

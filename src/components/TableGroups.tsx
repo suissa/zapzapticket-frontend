@@ -1,6 +1,6 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Group from "../core/Group"
-import { IconEdit, IconThrash } from "./Icons"
+import { IconEdit, IconThrash, IconUsers } from "./Icons"
 import styled from 'styled-components';
 
 interface TableProps {
@@ -117,6 +117,14 @@ export default function Table({
   function renderActions(group: Group) {
     return (
       <td className="flex justify-center">
+
+        <button onClick={() => groupSelected?.(group)} className={`
+          flex justify-right items-right
+          text-green-600 rounded-md p-2 m-1
+          hover:bg-purple-50
+        `}>
+          {IconUsers}
+        </button>
         {groupSelected ? (
           <button onClick={() => groupSelected?.(group)} className={`
                     flex justify-right items-right

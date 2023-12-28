@@ -1,8 +1,6 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Connection from "../core/Connection"
 import { IconEdit, IconThrash } from "./Icons"
-import { PencilIcon } from "@heroicons/react/24/outline"
-import { TrashIcon } from "@heroicons/react/24/outline"
 import styled from "styled-components";
 
 interface TableProps {
@@ -206,7 +204,7 @@ export default function Table({
             text-red-500 rounded-md p-2 m-1
             hover:bg-purple-50
           `}>
-          <TrashIcon className="h-5 w-5 text-red-500" />
+          {IconThrash}
 
           </button>
         ) : false}

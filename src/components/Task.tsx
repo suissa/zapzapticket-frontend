@@ -21,7 +21,7 @@ function Task(props) {
           <div className="p-2 mb-2 task bg-gradient-to-r from-purple-500 to-purple-800">
 
             <h4>{title}</h4>
-            <p className="taskContent">{content}</p>
+            <p className="task-content">{content}</p>
           </div>
         </div>
       )}
