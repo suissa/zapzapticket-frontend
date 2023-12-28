@@ -1,7 +1,9 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Connection from "../core/Connection"
 import { IconEdit, IconThrash } from "./Icons"
-import styled from 'styled-components';
+import { PencilIcon } from "@heroicons/react/24/outline"
+import { TrashIcon } from "@heroicons/react/24/outline"
+import styled from "styled-components";
 
 interface TableProps {
   connections: Connection[]
@@ -15,7 +17,7 @@ interface TableProps {
   filterActiveInstances?: boolean;
 }
 
-const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
   cursor: pointer;
 `;
 const API_URL = "http://localhost:9000";
@@ -49,8 +51,8 @@ export default function Table({
     if (!instanceStatus) {
       console.log(connection._id)
       const result = await fetch(`${API_URL}/connections/${connection._id}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       })
       const connectionAPI = await result.json();
       console.log(connectionAPI)
@@ -63,8 +65,8 @@ export default function Table({
         qrcode: true
       }
       const resultUpdate = await fetch(`${API_URL}/evolution/instances`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
       const connectionSAVED = await resultUpdate.json()
@@ -78,8 +80,8 @@ export default function Table({
       // connectionSaved(connection)
 
       const result = await fetch(`${API_URL}/connections/shutdown/${connection.instanceName}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
       })
       const connectionAPI = await result.json();
       console.log(connectionAPI)
@@ -147,7 +149,7 @@ export default function Table({
             onClick={() => {
               connectionSelected(connection)
             }}
-            className={`${i % 2 === 0 ? 'bg-purple-300' : 'bg-purple-200'}`}>
+            className={`${i % 2 === 0 ? "bg-purple-300" : "bg-purple-200"}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
@@ -204,7 +206,8 @@ export default function Table({
             text-red-500 rounded-md p-2 m-1
             hover:bg-purple-50
           `}>
-            {IconThrash}
+          <TrashIcon className="h-5 w-5 text-red-500" />
+
           </button>
         ) : false}
       </td>
