@@ -63,3 +63,10 @@ body .kanbanColumn{
   margin-top: 20px;
   z-index: 1;
 }
+body .text-ssm {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+body .text-light-purple {
+  color: #c364ec;
+}

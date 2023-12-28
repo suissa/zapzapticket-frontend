@@ -65,7 +65,7 @@ export default function Home() {
           <h1 className="text-white text-xl">
             Conexões
           </h1>
-            <p className="text-white text-sm">  *selecione uma conexão para ver seus grupos</p>
+            <p className="text-light-purple text-ssm mb-2">  *selecione uma conexão para ver seus grupos</p>
           
           <TableConnections
             connections={connections}
