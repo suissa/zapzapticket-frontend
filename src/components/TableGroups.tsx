@@ -10,6 +10,8 @@ interface TableProps {
   showCheckboxes?: boolean
   showActions?: boolean
   onSelectionChange?: (selectedIds: string[]) => void;
+  getProfileImage?: (instanceName: string, number: string) => Promise<string>;
+  importContacts?: (instanceName: string, numbers: string, groupId: string) => void;
 }
 
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -18,7 +20,8 @@ const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
 const API_URL = "http://localhost:9000";
 
 export default function Table({
-  groups, groupSelected, groupDeleted, showCheckboxes, showActions = true, onSelectionChange 
+  groups, groupSelected, groupDeleted, showCheckboxes, showActions = true, onSelectionChange, 
+  getProfileImage, importContacts
 }: TableProps) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +60,8 @@ export default function Table({
     onSelectionChange?.(group.text);
   };
 
-  const ParticipantsModal = ({ onClose, onConfirm, group }) => {
+  
+  const ParticipantsModal = ({ onClose, onConfirm, group, importContacts }) => {
     console.log("TableGroups ParticipantsModal group", group);
     const { participants } = group;
     participants.sort((a, b) => {
@@ -66,7 +70,33 @@ export default function Table({
       }
       return a.admin ? -1 : 1;
     });
-
+    useEffect(() => {
+      if (group) {
+        group.participants.forEach(participant => {
+          console.log("TableGroups ParticipantsModal participant", participant);
+          // const _participant = getProfileImage("Criptou_Onboarding-5511994649923", participant.id)
+          // getProfileImage("Criptou_Onboarding-5511994649923", participant.id)
+          //   .then(pictureUrl => {
+          //     // Faça algo com a pictureUrl, como adicionar a uma lista de URLs de imagens
+          //   });
+        });
+      }
+    }, [group, getProfileImage]);
+    const handleImportContacts = () => {
+      const instanceName = "ExemploInstanceName"; // Substitua com o nome da instância apropriada
+      const numbers = group.participants.map(p => p.id.replace("@s.whatsapp.net", "")); // Supondo que id seja o número do telefone
+      const groupId = group.id;
+      console.log("TableGroups ParticipantsModal handleImportContacts instanceName", instanceName);
+      console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
+      console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
+      importContacts(instanceName, numbers, groupId)
+        .then(response => {
+            console.log("TableGroups ParticipantsModal handleImportContacts response", response);
+        })
+        .catch(error => {
+          console.log("TableGroups ParticipantsModal handleImportContacts error", error);
+        });
+    };
     return (
       
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
@@ -87,7 +117,7 @@ export default function Table({
               <tbody>
                 {participants?.map((participant, i) => {
                   return (
-                    <tr key={participant._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+                    <tr key={i} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
                       <td className="text-left p-4">{participant.id.replace("@s.whatsapp.net", "")}</td>
                       <td className="text-left p-4">{participant.admin ? participant.admin : "participante"}</td>
                     </tr>
@@ -98,6 +128,14 @@ export default function Table({
             
           </div>
           <div className="flex justify-end mt-4">
+            
+            <button
+                className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
+                px-4 py-2 rounded-md"
+                onClick={importContacts}
+              >
+                Importar Contatos
+              </button>
             <button
                 className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
                 px-4 py-2 rounded-md"
@@ -165,7 +203,7 @@ export default function Table({
   function renderData() {
     console.log("TableGroups renderData groups", groups);
     if (!Array.isArray(groups)) {
-      return <tr><td colSpan="100% text-white">Nenhum grupo encontrado</td></tr>;
+      return <tr><td colSpan="100%" className="text-white">Nenhum grupo encontrado</td></tr>;
     }
     return groups?.map((group, i) => {
       return (
@@ -191,7 +229,8 @@ export default function Table({
   function renderActions(group: Group) {
     return (
       <td className="flex justify-center">
-        <button onClick={() => handleParticipantsClick(group)} className={`
+        <button title="Ver participantes"
+          onClick={() => handleParticipantsClick(group)} className={`
           flex justify-right items-right
           text-green-600 rounded-md p-2 m-1
           hover:bg-purple-50
@@ -199,20 +238,22 @@ export default function Table({
           {IconUsers}
         </button>
         {groupSelected ? (
-          <button onClick={() => groupSelected?.(group)} className={`
-                    flex justify-right items-right
-                    text-green-600 rounded-md p-2 m-1
-                    hover:bg-purple-50
-                `}>
+          <button title="Editar"
+            onClick={() => groupSelected?.(group)} className={`
+                flex justify-right items-right
+                text-green-600 rounded-md p-2 m-1
+                hover:bg-purple-50
+            `}>
             {IconEdit}
           </button>
         ) : false}
         {groupDeleted ? (
-          <button onClick={() => confirmAndDelete(group)} className={`
-                    flex justify-right items-right
-                    text-red-500 rounded-md p-2 m-1
-                    hover:bg-purple-50
-                `}>
+          <button title="Excluir"
+            onClick={() => confirmAndDelete(group)} className={`
+                flex justify-right items-right
+                text-red-500 rounded-md p-2 m-1
+                hover:bg-purple-50
+            `}>
             {IconThrash}
           </button>
         ) : false}
@@ -245,6 +286,7 @@ export default function Table({
         <ParticipantsModal 
           group={selectedGroupForParticipants} 
           onClose={() => setIsParticipantsModalOpen(false)}
+          importContacts={importContacts}
         />
       )}
     </div>
