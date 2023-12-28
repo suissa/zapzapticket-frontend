@@ -44,7 +44,7 @@ export default function Home() {
 
   useEffect(() => {
     console.log("Groups Page useEffect selectedConnection:", selectedConnection);
-    if (selectedConnection) {
+    if (selectedConnection && selectedConnection.instanceName) {
       listGroups(selectedConnection.instanceName);
     }
   }, [selectedConnection]);
@@ -67,7 +67,7 @@ export default function Home() {
             showActions={false}
             showButton={true}
           />
-          {selectedConnection && (
+          {selectedConnection && selectedConnection.instanceName && (
             <div>
               <div className="flex justify-end">
                 <Button className="mb-4 mt-4" onClick={createGroup}>

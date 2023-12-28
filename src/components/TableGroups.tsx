@@ -31,7 +31,7 @@ export default function Table({
   const [selectedGroupForParticipants, setSelectedGroupForParticipants] = useState(null);
   const [participantImages, setParticipantImages] = useState({});
 
-
+  console.log("TableGroups rodei 1x");
   const handleParticipantsClick = (group) => {
     setSelectedGroupForParticipants(group);
     setIsParticipantsModalOpen(true);
@@ -72,7 +72,7 @@ export default function Table({
       }
       return a.admin ? -1 : 1;
     });
-
+    console.log("Rodei 1x")
     useEffect(() => {
       const loadImages = async () => {
         const imageMap = {};
