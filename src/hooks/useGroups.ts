@@ -10,7 +10,12 @@ export default function useGroups() {
   const [groups, setGroups] = useState<Group[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
 
-  // useEffect(listGroups, [])
+  useEffect(() => {
+    // getProfileImage("Criptou_Onboarding-5511994649923", "5511994458797")
+    //   .then(result => {
+    //     console.log("useGroups useEffect result", result)
+    //   })
+  }, [])
 
   function createGroup() {
     setGroup(Group.empty())
@@ -69,7 +74,27 @@ export default function useGroups() {
     ;
   }
 
+  async function getProfileImage(instanceName: string, number: string) {
+    const response = await fetch(`http://localhost:9000/evolution/profile/${instanceName}/${number}`)
+    const data = await response.json()
+    console.log("getProfileImage data", data.picture)
+    return data.picture
+  }
 
+  async function importContacts(instanceName: string, numbers: string, groupId: string) {
+    const objStr = JSON.stringify({ groupId, numbers })
+    console.log("useGroups importContacts instanceName", instanceName)
+    console.log("useGroups importContacts numbers", numbers)
+    console.log("useGroups importContacts groupId", groupId)
+  //   const response = await fetch(`http://localhost:9000/contacts/import/${instanceName}`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: objStr
+  //   })
+  //   const data = await response.json()
+  //   console.log("importContacts data", data)
+  //   return data
+  }
 
   return {
     group,
@@ -79,6 +104,8 @@ export default function useGroups() {
     deleteGroup,
     getGroup,
     listGroups,
+    getProfileImage,
+    importContacts,
     showTable,
     tableVisible
   }
