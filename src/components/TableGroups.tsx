@@ -31,6 +31,7 @@ export default function Table({
   const [selectedGroupForParticipants, setSelectedGroupForParticipants] = useState(null);
   const [participantImages, setParticipantImages] = useState({});
 
+
   const handleParticipantsClick = (group) => {
     setSelectedGroupForParticipants(group);
     setIsParticipantsModalOpen(true);
@@ -71,39 +72,44 @@ export default function Table({
       }
       return a.admin ? -1 : 1;
     });
-    // const handleImportContacts = () => {
-    //   const instanceName = "ExemploInstanceName"; // Substitua com o nome da instância apropriada
-    //   const numbers = group.participants.map(p => p.id.replace("@s.whatsapp.net", "")); // Supondo que id seja o número do telefone
-    //   const groupId = group.id;
-    //   console.log("TableGroups ParticipantsModal handleImportContacts instanceName", instanceName);
-    //   console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
-    //   console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
-    //   importContacts(instanceName, numbers, groupId)
-    //     .then(response => {
-    //         console.log("TableGroups ParticipantsModal handleImportContacts response", response);
-    //     })
-    //     .catch(error => {
-    //       console.log("TableGroups ParticipantsModal handleImportContacts error", error);
-    //     });
-    // };
 
     useEffect(() => {
-      if (group && group.participants) {
-        const loadImages = async () => {
-          const imageMap = {};
+      const loadImages = async () => {
+        const imageMap = {};
     
-          for (const participant of group.participants) {
-            const pictureUrl = await getProfileImage("Criptou_Onboarding-5511994649923", participant.id.replace("@s.whatsapp.net", ""));
+        for (const participant of group.participants) {
+          const pictureUrl = await getProfileImage("Criptou_Onboarding-5511994649923", participant.id.replace("@s.whatsapp.net", ""));
+          if (pictureUrl && !participantImages[participant.id]) {
             imageMap[participant.id] = pictureUrl;
           }
+        }
     
-          setParticipantImages(imageMap);
-        };
+        if (Object.keys(imageMap).length > 0) {
+          setParticipantImages(prevImages => ({ ...prevImages, ...imageMap }));
+        }
+      };
     
+      if (group && group.participants) {
         loadImages();
       }
-    }, [group]);
-
+    }, [group, participantImages]);
+    
+    
+    const handleImportContacts = () => {
+      const instanceName = "ExemploInstanceName"; // Substitua com o nome da instância apropriada
+      const numbers = group.participants.map(p => p.id.replace("@s.whatsapp.net", "")); // Supondo que id seja o número do telefone
+      const groupId = group.id;
+      console.log("TableGroups ParticipantsModal handleImportContacts instanceName", instanceName);
+      console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
+      console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
+      importContacts(instanceName, numbers, groupId)
+        .then(response => {
+            console.log("TableGroups ParticipantsModal handleImportContacts response", response);
+        })
+        .catch(error => {
+          console.log("TableGroups ParticipantsModal handleImportContacts error", error);
+        });
+    };
     return (
       
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
@@ -136,6 +142,7 @@ export default function Table({
                   )
                 })}
               </tbody>
+
             </table>
             
           </div>
