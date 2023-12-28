@@ -22,9 +22,15 @@ export default function Table({
 }: TableProps) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [isParticipantsModalOpen, setIsParticipantsModalOpen] = useState(false);
+  const [selectedGroupForParticipants, setSelectedGroupForParticipants] = useState(null);
+
+  const handleParticipantsClick = (group) => {
+    setSelectedGroupForParticipants(group);
+    setIsParticipantsModalOpen(true);
+  };
 
   const confirmAndDelete = (user) => {
     setCurrentGroup(user);
@@ -50,7 +56,64 @@ export default function Table({
     // Chamar onSelectionChange com o texto da mensagem
     onSelectionChange?.(group.text);
   };
-  
+
+  const ParticipantsModal = ({ onClose, onConfirm, group }) => {
+    console.log("TableGroups ParticipantsModal group", group);
+    const { participants } = group;
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+        <div className="bg-white p-4 rounded">
+          <p>Listagem dos participantes do grupo <strong>{group?.subject}</strong>?</p>
+          <div className="flex justify-end mt-4">
+            <table className="w-full rounded-xl overflow-hidden">
+              <thead className={`
+                text-gray-100
+                bg-gradient-to-r from-purple-500 to-purple-800
+            `}>
+                <tr>
+                  <th className="text-left p-4 w-1/4">Telefone</th>
+                  <th className="text-left p-4">Nível</th>
+                </tr>
+              </thead>
+              <tbody>
+                {participants?.map((participant, i) => {
+                  return (
+                    <tr key={participant._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+                      <td className="text-left p-4">{participant.id.replace("@s.whatsapp.net", "")}</td>
+                      <td className="text-left p-4">{participant.admin}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            
+          </div>
+          <button
+              className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
+              px-4 py-2 rounded-md"
+              onClick={onClose}
+            >
+              Fechar
+            </button>
+          {/* <div className="flex justify-end mt-4">
+            <button
+              className="bg-red-500 text-white py-2 px-4 rounded mr-2"
+              onClick={onConfirm}
+            >
+              Excluir
+            </button>
+            <button
+              className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
+              px-4 py-2 rounded-md"
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
+          </div> */}
+        </div>
+      </div>
+    );
+  };
 
   const Modal = ({ onClose, onConfirm, group }) => {
     return (
@@ -117,8 +180,7 @@ export default function Table({
   function renderActions(group: Group) {
     return (
       <td className="flex justify-center">
-
-        <button onClick={() => groupSelected?.(group)} className={`
+        <button onClick={() => handleParticipantsClick(group)} className={`
           flex justify-right items-right
           text-green-600 rounded-md p-2 m-1
           hover:bg-purple-50
@@ -165,6 +227,13 @@ export default function Table({
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
           group={currentGroup}
+        />
+      )}
+
+      {isParticipantsModalOpen && (
+        <ParticipantsModal 
+          group={selectedGroupForParticipants} 
+          onClose={() => setIsParticipantsModalOpen(false)}
         />
       )}
     </div>
