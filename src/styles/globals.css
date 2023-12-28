@@ -76,3 +76,6 @@ body .icon-blue {
 body .icon-purple {
   stroke: rgb(150, 19, 176);
 }
+body .tb-connections tr{
+  cursor: pointer;
+}
