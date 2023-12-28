@@ -1,38 +1,43 @@
-export default class Message {
-  #_id: string
-  #title: string
-  #text: string
-  #isActive: boolean
-  #isSelected: boolean
+type Participant = {
+  id: string;
+  admin: string | null;
+};
 
-  constructor(title: string, text: string, id: string = null) {
+export default class Group {
+  #_id: string
+  #subject: string
+  #size: string
+  #desc: boolean
+  #participants: Participant[];
+
+  constructor(subject: string, size: string, id: string = null) {
     this.#_id = id
-    this.#title = title
-    this.#text = text
-    this.#isActive = false
+    this.#subject = subject
+    this.#size = size
+    this.#desc = false
   }
 
   static empty() {
-    return new Message("", "")
+    return new Group("", "")
   }
 
   get _id() {
     return this.#_id
   }
 
-  get title() {
-    return this.#title
+  get subject() {
+    return this.#subject
   }
 
-  get text() {
-    return this.#text
+  get size() {
+    return this.#size
   }
 
-  get isActive() {
-    return this.#isActive
+  get desc() {
+    return this.#desc
   }
 
-  get isSelected() {
-    return this.#isSelected
+  get participants() {
+    return this.#participants
   }
 }
