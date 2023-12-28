@@ -1,6 +1,6 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Connection from "../core/Connection"
-import { IconEdit, IconThrash } from "./Icons"
+import { IconEdit, IconThrash, IconShow } from "./Icons"
 import styled from "styled-components";
 
 interface TableProps {
@@ -13,6 +13,7 @@ interface TableProps {
   onSelectionChange?: (selectedIds: string[]) => void;
   hideCertainColumns?: boolean;
   filterActiveInstances?: boolean;
+  showButton?: boolean;
 }
 
 const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -22,7 +23,7 @@ const API_URL = "http://localhost:9000";
 
 export default function Table({ 
   connections, connectionSelected, connectionDeleted, connectionSaved, showCheckboxes, onSelectionChange, 
-  showActions = true, hideCertainColumns = false, filterActiveInstances = false }: TableProps) {
+  showActions = true, hideCertainColumns = false, filterActiveInstances = false, showButton = false }: TableProps) {
 
   const [checked, setChecked] = useState(false);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
@@ -133,6 +134,7 @@ export default function Table({
         {!hideCertainColumns && <th className="text-left p-4">Instância</th>}
         {!hideCertainColumns && <th className="text-center p-4">Ativa</th>}
         {showActions ? <th className="p-4">Ações</th> : false}
+        {showButton ? <th className="p-4">Selecionar</th> : false}
       </tr>
     )
   }
@@ -144,9 +146,9 @@ export default function Table({
     return filteredConnections?.map((connection, i) => {
       return (
         <tr key={connection._id} 
-            onClick={() => {
-              connectionSelected(connection)
-            }}
+            // onClick={() => {
+            //   connectionSelected(connection)
+            // }}
             className={`${i % 2 === 0 ? "bg-purple-300" : "bg-purple-200"}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
@@ -170,15 +172,51 @@ export default function Table({
               // onChange={handleIntanceStatusCheckboxChange}
               />
             </label></td>}
+            {showButton ? renderShow(connection) : false}
           {showActions ? renderActions(connection) : false}
         </tr>
       )
     })
   }
 
+  function renderShow(connection: Connection) {
+    return (
+      <td className="flex justify-center">
+        {connectionSelected ? (
+          <button 
+            onClick={(e) =>{ 
+              e.stopPropagation();
+              connectionSelected(connection)}
+            } 
+            className={`
+              flex justify-center items-center
+              text-green-600 rounded-md p-2 m-1
+              hover:bg-purple-50
+            `}>
+            {IconShow}
+          </button>
+        ) : false}
+      </td>
+    )
+  }
+
   function renderActions(connection: Connection) {
     return (
       <td className="flex justify-center">
+        {connectionSelected ? (
+          <button 
+            onClick={(e) =>{ 
+              e.stopPropagation();
+              connectionSelected(connection)}
+            } 
+            className={`
+              flex justify-center items-center
+              text-green-600 rounded-md p-2 m-1
+              hover:bg-purple-50
+            `}>
+            {IconShow}
+          </button>
+        ) : false}
         {connectionSelected ? (
           <button 
             onClick={(e) =>{ 
@@ -218,7 +256,7 @@ export default function Table({
         <img src={`${qrCodeBase64}`} alt="QR Code" />
       )}
 
-      <table className="w-full rounded-xl overflow-hidden">
+      <table className="w-full rounded-xl overflow-hidden tb-connections">
         <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800
