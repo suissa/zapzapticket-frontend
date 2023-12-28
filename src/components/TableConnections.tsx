@@ -183,7 +183,7 @@ export default function Table({
     return (
       <td className="flex justify-center">
         {connectionSelected ? (
-          <button 
+          <button title="Selecionar grupo"
             onClick={(e) =>{ 
               e.stopPropagation();
               connectionSelected(connection)}
