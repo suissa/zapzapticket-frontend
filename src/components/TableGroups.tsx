@@ -1,7 +1,8 @@
-import { useState, MutableRefObject, useRef, useEffect } from "react"
+import { useState, MutableRefObject, useRef, useEffect, useCallback } from "react"
+import React from "react";
 import Group from "../core/Group"
 import { IconEdit, IconThrash, IconUsers } from "./Icons"
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface TableProps {
   groups: Group[]
@@ -14,7 +15,7 @@ interface TableProps {
   importContacts?: (instanceName: string, numbers: string, groupId: string) => void;
 }
 
-const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
   cursor: pointer;
 `;
 const API_URL = "http://localhost:9000";
@@ -32,10 +33,10 @@ export default function Table({
   const [participantImages, setParticipantImages] = useState({});
 
   console.log("TableGroups rodei 1x");
-  const handleParticipantsClick = (group) => {
+  const handleParticipantsClick = useCallback((group) => {
     setSelectedGroupForParticipants(group);
     setIsParticipantsModalOpen(true);
-  };
+  }, []);
 
   const confirmAndDelete = (user) => {
     setCurrentGroup(user);
@@ -125,6 +126,7 @@ export default function Table({
                 <tr>
                   <th className="text-left p-4 w-1/4">Telefone</th>
                   <th className="text-left p-4">Nível</th>
+                  <th className="text-left p-4">Foto</th>
                 </tr>
               </thead>
               <tbody>
@@ -132,12 +134,14 @@ export default function Table({
                   const pictureUrl = participantImages[participant.id];
 
                   return (
-                    <tr key={i} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+                    <tr key={i} className={`${i % 2 === 0 ? "bg-purple-200" : "bg-purple-100"}`}>
                       <td className="text-left p-4">
-                        {pictureUrl && <img src={pictureUrl} alt="Profile" style={{ width: '50px', height: '50px' }} />}
                         {participant.id.replace("@s.whatsapp.net", "")}
                       </td>
                       <td className="text-left p-4">{participant.admin ? participant.admin : "participante"}</td>
+                      <td className="text-center">
+                      {pictureUrl && <img src={pictureUrl} alt="Profile" style={{ width: "50px", height: "50px", margin: "0 auto" }} />}
+                      </td>
                     </tr>
                   )
                 })}
@@ -150,14 +154,13 @@ export default function Table({
             
             <button
                 className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
-                px-4 py-2 rounded-md"
+                px-4 py-2 rounded-md mr-2"
                 onClick={importContacts}
               >
                 Importar Contatos
               </button>
             <button
-                className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
-                px-4 py-2 rounded-md"
+                className="bg-red-500 text-white py-2 px-4 rounded"
                 onClick={onClose}
               >
                 Fechar
@@ -182,6 +185,7 @@ export default function Table({
       </div>
     );
   };
+
 
   const Modal = ({ onClose, onConfirm, group }) => {
     return (
@@ -226,7 +230,7 @@ export default function Table({
     }
     return groups?.map((group, i) => {
       return (
-        <tr key={group.id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+        <tr key={group.id} className={`${i % 2 === 0 ? "bg-purple-200" : "bg-purple-100"}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
