@@ -1,24 +1,24 @@
 import { useState } from "react";
-import Message from "../core/Message";
+import Group from "../core/Group";
 import Button from "./Button";
 import Entry from "./Entry";
 
 interface FormProps {
-  message: Message
-  messageModified?: (message: Message) => void
+  group: Group
+  groupModified?: (group: Group) => void
   canceled?: () => void
 }
 
-export default function Form({ message, canceled, messageModified }: FormProps) {
-  const [title, setTitle] = useState(message?.title ?? "")
-  const [text, setText] = useState(message?.text ?? "")
-  const [isActive, setIsActive] = useState(message?.isActive ?? "")
-  const [instanceStatus, setInstanceStatus] = useState(message?.instanceStatus ?? false)
+export default function Form({ group, canceled, groupModified }: FormProps) {
+  const [title, setTitle] = useState(group?.title ?? "")
+  const [text, setText] = useState(group?.text ?? "")
+  const [isActive, setIsActive] = useState(group?.isActive ?? "")
+  const [instanceStatus, setInstanceStatus] = useState(group?.instanceStatus ?? false)
 
-  const _id = message?._id
+  const _id = group?._id
   const handleSubmit = () => {
     console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
-    messageModified?.(new Message(title, text, _id));
+    groupModified?.(new Group(title, text, _id));
   }
   return (
     <div>
