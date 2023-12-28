@@ -25,16 +25,14 @@ export default function Home() {
     deleteGroup,
     getGroup,
     listGroups,
+    getProfileImage,
+    importContacts,
     showTable,
     tableVisible
   } = useGroups()
 
   const {
     connections,
-    createConnection,
-    saveConnection,
-    deleteConnection,
-    getConnection,
     listConnections,
   } = useConnections(setSelectedConnection)
 
@@ -44,19 +42,13 @@ export default function Home() {
 
   }, []);
 
-  // useEffect(() => {
-  //   if (tableVisible) {
-  //     listGroups();
-  //   }
-  // }, [tableVisible]);
-
   useEffect(() => {
     console.log("Groups Page useEffect selectedConnection:", selectedConnection);
     if (selectedConnection) {
       listGroups(selectedConnection.instanceName);
     }
   }, [selectedConnection]);
-  
+
   return (
     <div>
       <Menu />
@@ -65,19 +57,20 @@ export default function Home() {
           <h1 className="text-white text-xl">
             Conexões
           </h1>
-            <p className="text-light-purple text-ssm mb-2">  *selecione uma conexão para ver seus grupos</p>
-          
+            <p className="text-white text-sm">  *selecione uma conexão para ver seus grupos</p>
+
           <TableConnections
             connections={connections}
             connectionSelected={handleConnectionSelected}
             hideCertainColumns={true}
             filterActiveInstances={true}
             showActions={false}
+            showButton={true}
           />
           {selectedConnection && (
             <div>
               <div className="flex justify-end">
-                <Button className="mb-4" onClick={createGroup}>
+                <Button className="mb-4 mt-4" onClick={createGroup}>
                   Novo Grupo
                 </Button>
               </div>
@@ -86,6 +79,8 @@ export default function Home() {
                 groupSelected={getGroup}
                 groupDeleted={deleteGroup}
                 selectedConnection={selectedConnection}
+                getProfileImage={getProfileImage}
+                importContacts={importContacts}
               />
             </div>
           )}
