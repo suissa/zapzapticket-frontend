@@ -107,12 +107,14 @@ export default function Table({
       console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
       console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
       console.log("TableGroups ParticipantsModal handleImportContacts participantImages", participantImages);
-      importContacts(instanceName, numbers, groupId, participantImages)
+      importContacts(instanceName, groupId, participantImages)
         .then(response => {
             console.log("TableGroups ParticipantsModal handleImportContacts response", response);
+            alert("Contatos importados com sucesso!")
         })
         .catch(error => {
           console.log("TableGroups ParticipantsModal handleImportContacts error", error);
+          alert("Erro ao importar contatos!")
         });
     };
     return (
