@@ -81,8 +81,9 @@ export default function Table({
         const imageMap = {};
     
         for (const participant of group.participants) {
-          const pictureUrl = await getProfileImage("Criptou_Onboarding-5511994649923", participant.id.replace("@s.whatsapp.net", ""));
-          if (pictureUrl && !participantImages[participant.id]) {
+          const pictureUrl = await getProfileImage(selectedConnection.instanceName, participant.id.replace("@s.whatsapp.net", ""));
+          console.log("TableGroups ParticipantsModal pictureUrl", pictureUrl);
+          if (!participantImages[participant.id]) {
             imageMap[participant.id] = pictureUrl || "/images/avatar-01.png";
           }
         }
@@ -105,7 +106,8 @@ export default function Table({
       console.log("TableGroups ParticipantsModal handleImportContacts instanceName", instanceName);
       console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
       console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
-      importContacts(instanceName, numbers, groupId)
+      console.log("TableGroups ParticipantsModal handleImportContacts participantImages", participantImages);
+      importContacts(instanceName, numbers, groupId, participantImages)
         .then(response => {
             console.log("TableGroups ParticipantsModal handleImportContacts response", response);
         })
@@ -128,7 +130,7 @@ export default function Table({
                 <tr>
                   <th className="text-left p-4 w-1/4">Telefone</th>
                   <th className="text-left p-4">Nível</th>
-                  <th className="text-left p-4">Foto</th>
+                  <th className="text-left p-4"></th>
                 </tr>
               </thead>
               <tbody>
@@ -155,7 +157,7 @@ export default function Table({
           <div className="flex justify-end mt-4">
             
             <button
-                className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
+                className="bg-gradient-to-t from-purple-500 to-purple-700 text-white
                 px-4 py-2 rounded-md mr-2"
                 onClick={handleImportContacts}
               >
