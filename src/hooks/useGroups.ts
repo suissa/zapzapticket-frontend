@@ -3,7 +3,7 @@ import Group from "../core/Group"
 import GroupRepository from "../core/GroupRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/evolution/groups";
+const API_URL = "http://localhost:9000";
 
 export default function useGroups() {
   const [group, setGroup] = useState<Group>(Group.empty())
@@ -26,7 +26,7 @@ export default function useGroups() {
     console.log("useGroups listGroups instanceName", instanceName)
     // const instanceName = selectedConnection ? selectedConnection.instanceName : "Criptou_Onboarding-5511994649923";
     console.log("useGroups listGroups instanceName", instanceName)
-    fetch(`${API_URL}/${instanceName}`)
+    fetch(`${API_URL}/evolution/groups/${instanceName}`)
       .then(response => response.json())
       .then(data => {
         console.log("listGroups then", data)
@@ -59,12 +59,12 @@ export default function useGroups() {
       })
     console.log("saveGroup groupStr", groupStr)
     const response = group?._id
-      ? await fetch(`${API_URL}/${group._id}`, {
+      ? await fetch(`${API_URL}/evolution/groups/${group._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: groupStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/evolution/groups`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: groupStr
@@ -75,7 +75,7 @@ export default function useGroups() {
   }
 
   async function getProfileImage(instanceName: string, number: string) {
-    const response = await fetch(`http://localhost:9000/evolution/profile/${instanceName}/${number}`)
+    const response = await fetch(`${API_URL}/evolution/profile/${instanceName}/${number}`)
     const data = await response.json()
     console.log("getProfileImage data", data.picture)
     return data.picture
@@ -86,14 +86,14 @@ export default function useGroups() {
     console.log("useGroups importContacts instanceName", instanceName)
     console.log("useGroups importContacts numbers", numbers)
     console.log("useGroups importContacts groupId", groupId)
-  //   const response = await fetch(`http://localhost:9000/contacts/import/${instanceName}`, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: objStr
-  //   })
-  //   const data = await response.json()
-  //   console.log("importContacts data", data)
-  //   return data
+    const response = await fetch(`${API_URL}/contacts/import/${instanceName}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: objStr
+    })
+    const data = await response.json()
+    console.log("importContacts data", data)
+    return data
   }
 
   return {
