@@ -11,8 +11,9 @@ interface TableProps {
   showCheckboxes?: boolean
   showActions?: boolean
   onSelectionChange?: (selectedIds: string[]) => void;
-  getProfileImage?: (instanceName: string, number: string) => Promise<string>;
-  importContacts?: (instanceName: string, numbers: string, groupId: string) => void;
+  getProfileImage?: (instanceName: string, number: string) => Promise<string>
+  importContacts?: (instanceName: string, numbers: string, groupId: string) => void
+  selectedConnection?: any
 }
 
 const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -22,7 +23,7 @@ const API_URL = "http://localhost:9000";
 
 export default function Table({
   groups, groupSelected, groupDeleted, showCheckboxes, showActions = true, onSelectionChange, 
-  getProfileImage, importContacts
+  getProfileImage, importContacts, selectedConnection
 }: TableProps) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,8 +65,9 @@ export default function Table({
   };
 
   
-  const ParticipantsModal = ({ onClose, onConfirm, group, importContacts }) => {
+  const ParticipantsModal = ({ onClose, onConfirm, group, importContacts, selectedConnection }) => {
     console.log("TableGroups ParticipantsModal group", group);
+    console.log("TableGroups ParticipantsModal selectedConnection", selectedConnection);
     const { participants } = group;
     participants.sort((a, b) => {
       if (a.admin === b.admin) {
@@ -81,7 +83,7 @@ export default function Table({
         for (const participant of group.participants) {
           const pictureUrl = await getProfileImage("Criptou_Onboarding-5511994649923", participant.id.replace("@s.whatsapp.net", ""));
           if (pictureUrl && !participantImages[participant.id]) {
-            imageMap[participant.id] = pictureUrl;
+            imageMap[participant.id] = pictureUrl || "/images/avatar-01.png";
           }
         }
     
@@ -97,9 +99,9 @@ export default function Table({
     
     
     const handleImportContacts = () => {
-      const instanceName = "ExemploInstanceName"; // Substitua com o nome da instância apropriada
       const numbers = group.participants.map(p => p.id.replace("@s.whatsapp.net", "")); // Supondo que id seja o número do telefone
       const groupId = group.id;
+      const { instanceName } = selectedConnection;
       console.log("TableGroups ParticipantsModal handleImportContacts instanceName", instanceName);
       console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
       console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
@@ -155,7 +157,7 @@ export default function Table({
             <button
                 className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
                 px-4 py-2 rounded-md mr-2"
-                onClick={importContacts}
+                onClick={handleImportContacts}
               >
                 Importar Contatos
               </button>
@@ -310,6 +312,7 @@ export default function Table({
           group={selectedGroupForParticipants} 
           onClose={() => setIsParticipantsModalOpen(false)}
           importContacts={importContacts}
+          selectedConnection={selectedConnection}
         />
       )}
     </div>
