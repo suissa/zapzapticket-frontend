@@ -81,11 +81,12 @@ export default function useGroups() {
     return data.picture
   }
 
-  async function importContacts(instanceName: string, numbers: string, groupId: string) {
-    const objStr = JSON.stringify({ groupId, numbers })
+  async function importContacts(instanceName: string, groupId: string, participants: string[]) {
+    const objStr = JSON.stringify({ groupId, participants })
     console.log("useGroups importContacts instanceName", instanceName)
-    console.log("useGroups importContacts numbers", numbers)
+    console.log("useGroups importContacts participants", participants)
     console.log("useGroups importContacts groupId", groupId)
+
     const response = await fetch(`${API_URL}/contacts/import/${instanceName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
