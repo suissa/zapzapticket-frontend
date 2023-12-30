@@ -79,3 +79,26 @@ body .icon-purple {
 body .tb-connections tr{
   cursor: pointer;
 }
+body .menu-nav {
+  transition: width 10s ease-linear;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  width: 60px;
+  padding: 18px;
+  background-color: #6b21a8;
+}
+
+.menu.expanded {
+  width: 256px;
+}
+
+.menu-content {
+  height: 100%;
+}
