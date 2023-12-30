@@ -230,16 +230,73 @@
 // export default Menu;
 
 // components/Menu.js
-import React, { useState } from 'react';
+// import React, { useState, memo } from 'react';
+// import Link from 'next/link';
+// import { IconDashboardMenu, IconUsersMenu } from './Icons';
+
+// const DashboardIcon = memo(() => <IconDashboardMenu className="text-white" />);
+// const UsersIcon = memo(() => <IconUsersMenu className="text-white" />);
+
+// const Menu = memo(({ onToggle }) => {
+//   const [isExpanded, setIsExpanded] = useState(false);
+
+//   const toggleExpansion = () => {
+//     setIsExpanded(!isExpanded);
+//     onToggle(!isExpanded); // Chama a função onToggle passada via props
+//   };
+
+//   const renderIcon = (iconName) => {
+//     switch (iconName) {
+//       case "dashboard":
+//         return <DashboardIcon />;
+//       case "users":
+//         return <UsersIcon />;
+//       default:
+//         return null;
+//     }
+//   };
+//   return (
+//     <div className={`menu ${isExpanded ? 'expanded' : ''}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
+//       <div className="menu-content">
+//         <ul className="flex flex-col space-y-4 text-white">
+//             <li>
+//               <Link href="/">
+//                 <span className="flex items-center" key="dashboard">
+//                   {renderIcon("dashboard")}
+//                   {isExpanded && <span className="ml-2">Dashboard</span>}
+//                 </span>
+//               </Link>
+//             </li>
+//             <li>
+//               <Link href="/users">
+//                 <span className="flex items-center" key="users">
+//                   {renderIcon("users")}
+//                   {isExpanded && <span className="ml-2">Usuários</span>}
+//                 </span>
+//               </Link>
+//             </li>
+//             {/* ... outros itens do menu ... */}
+//           </ul>
+//       </div>
+//     </div>
+//   );
+// });
+
+// export default Menu;
+
+
+import React, { useState, memo } from 'react';
 import Link from 'next/link';
 import { IconDashboardMenu, IconUsersMenu } from './Icons';
 
-const Menu = ({ onToggle }) => {
+const Menu = memo(({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
-    onToggle(!isExpanded); // Chama a função onToggle passada via props
+    if (onToggle) {
+      onToggle(!isExpanded);
+    }
   };
 
   const renderIcon = (iconName) => {
@@ -252,31 +309,32 @@ const Menu = ({ onToggle }) => {
         return null;
     }
   };
+
   return (
     <div className={`menu ${isExpanded ? 'expanded' : ''}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
       <div className="menu-content">
         <ul className="flex flex-col space-y-4 text-white">
-            <li>
-              <Link href="/">
-                <span className="flex items-center">
-                  {renderIcon("dashboard")}
-                  {isExpanded && <span className="ml-2">Dashboard</span>}
-                </span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/users">
-                <span className="flex items-center">
-                  {renderIcon("users")}
-                  {isExpanded && <span className="ml-2">Usuários</span>}
-                </span>
-              </Link>
-            </li>
-            {/* ... outros itens do menu ... */}
-          </ul>
+          <li>
+            <Link href="/">
+              <span className="flex items-center">
+                {renderIcon("dashboard")}
+                {isExpanded && <span className="ml-2">Dashboard</span>}
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link href="/users">
+              <span className="flex items-center">
+                {renderIcon("users")}
+                {isExpanded && <span className="ml-2">Usuários</span>}
+              </span>
+            </Link>
+          </li>
+          {/* ... outros itens do menu ... */}
+        </ul>
       </div>
     </div>
   );
-};
+});
 
 export default Menu;
