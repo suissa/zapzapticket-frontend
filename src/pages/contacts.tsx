@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Form from "../components/FormContact";
 import Layout from "../components/Layout";
@@ -28,14 +28,16 @@ export default function Home() {
     }
   }, [tableVisible]); // O segundo argumento é um array de dependências
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  
+  const handleToggleSidebar = (isExpanded) => {
+    setIsSidebarExpanded(isExpanded);
+  };
   return (
-    <div>
-      <Menu />
-      <div className={`
-        flex justify-center items-center
-        h-screen bg
-        text-white
-      `}>
+    <div className="flex">
+      <Menu onToggle={setIsSidebarExpanded} />
+      <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+        <div className="h-screen bg text-white p-10">
         <Layout title="Contatos">
           {tableVisible ? (
             <div>
@@ -64,6 +66,7 @@ export default function Home() {
             />
           )}
         </Layout>
+      </div>
       </div>
     </div>
   )
