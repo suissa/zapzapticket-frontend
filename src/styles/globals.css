@@ -45,6 +45,7 @@ body .task {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 999999;
+  background-color: #6b21a8;
 }
 body .task-content {
   padding: 20px;
