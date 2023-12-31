@@ -292,7 +292,7 @@ export default function Table({
 
   return (
     <div>
-      <table className="w-full rounded-xl overflow-hidden">
+      <table className="w-full rounded-md overflow-hidden">
         <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800
