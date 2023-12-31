@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import Botao from "../components/Button";
+import { useEffect, useState } from "react";
+import Button from "../components/Button";
 import Form from "../components/FormConnection";
 import Layout from "../components/Layout";
 import Table from "../components/TableConnections";
@@ -23,38 +23,39 @@ export default function Home() {
     tableVisible
   } = useConnections()
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
+  const handleToggleSidebar = (isExpanded) => {
+    setIsSidebarExpanded(isExpanded);
+  };
   return (
     <>
       <Head>
         <title>Conexões</title>
       </Head>
       <div>
-        <Menu />
-        <div className={`
-          flex justify-center items-center
-          h-screen bg
-          text-white
-        `}>
-          <Layout title="Conexões">
+        <Menu onToggle={setIsSidebarExpanded} />
+        <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+        <div className="h-screen bg p-10">
+          <Layout title="Campanhas" width="80%">
             {tableVisible ? (
-              <div>
-                <div className="flex justify-end">
-                  <Botao
-                    color="green"
-                    className="mb-4"
-                    onClick={createConnection}
-                  >
-                    Nova Conexão
-                  </Botao>
-                </div>
-                <Table
-                  connections={connections}
-                  connectionSelected={getConnection}
-                  connectionSaved={saveConnection}
-                  connectionDeleted={deleteConnection}
-                />
+            <div>
+              <div className="flex justify-end">
+                <Button
+                  className="mb-4"
+                  onClick={createConnection}
+                >
+                  Nova Mensagem
+                </Button>
               </div>
-            ) : (
+              <Table
+                connections={connections}
+                connectionSelected={getConnection}
+                connectionSaved={saveConnection}
+                connectionDeleted={deleteConnection}
+              />
+              </div>
+              ) : (
               <Form
                 connection={connection}
                 connectionModified={saveConnection}
@@ -63,6 +64,8 @@ export default function Home() {
             )}
           </Layout>
         </div>
+      </div>
+
       </div>
     </>
   )
