@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import Form from "../components/FormMessage";
+import Form from "../components/FormTag";
 import Layout from "../components/Layout";
-import Table from "../components/TableMessages";
+import Table from "../components/TableTags";
 import Menu from '../components/Menu';
-import useMessages from "../hooks/useMessages";
+import useTags from "../hooks/useTags";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const {
-    message,
-    messages,
-    createMessage,
-    saveMessage,
-    criarMessage,
-    deleteMessage,
-    getMessage,
-    listMessages,
+    tag,
+    tags,
+    createTag,
+    saveTag,
+    criarTag,
+    deleteTag,
+    getTag,
+    listTags,
     showTable,
     tableVisible
-  } = useMessages()
+  } = useTags()
 
   useEffect(() => {
     if (tableVisible) {
-      listMessages();
+      listTags();
     }
   }, [tableVisible]);
 
@@ -37,27 +37,28 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <Layout title="Mensagens">
+          <Layout title="Tags">
             {tableVisible ? (
               <div>
                 <div className="flex justify-end">
                   <Button
                     className="mb-4"
-                    onClick={createMessage}
+                    onClick={createTag}
                   >
                     Novo Usuário
                   </Button>
                 </div>
                 <Table
-                  messages={messages}
-                  messageSelected={getMessage}
-                  messageDeleted={deleteMessage}
+                  tags={tags}
+                  tagSelected={getTag}
+                  tagDeleted={deleteTag}
                 />
               </div>
             ) : (
               <Form
-              message={message}
-              messageModified={saveMessage}
+              tag={tag}
+              initialColor={tag.color} 
+              tagModified={saveTag}
               canceled={showTable}
               />
             )}
