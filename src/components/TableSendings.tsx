@@ -19,7 +19,7 @@ export default function Table({ list }: TableProps) {
     console.log("renderData TableSendings: ", list)
     return list?.map(({connection, contact, message}, i) => {
       return (
-        <tr key={contact} className={`${i % 2 === 0 ? "bg-purple-200" : "bg-purple-100"}`}>
+        <tr key={contact} className={`text-black ${i % 2 === 0 ? "bg-purple-200" : "bg-purple-100"}`}>
           <td className="text-left p-4 w-1/6">{connection.split("-")[0].replace("_", " ")}</td>
           <td className="text-left p-4 w-1/6">{contact}</td>
         </tr>

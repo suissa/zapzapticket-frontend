@@ -91,7 +91,7 @@ export default function Table({
   function renderData() {
     return messages?.map((message, i) => {
       return (
-        <tr key={message._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+        <tr key={message._id} className={`text-black ${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox

@@ -158,7 +158,7 @@ export default function Table({
     // console.log("renderData: ", contacts)
     return contacts?.map((contact, i) => {
       return (
-        <tr key={contact._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+        <tr key={contact._id} className={`text-black ${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
