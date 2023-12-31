@@ -149,7 +149,7 @@ export default function Table({
         <th className="text-left p-4 w-1/6">Nome</th>
         <th className="text-left p-4 w-1/6">Telefone</th>
         <th className="text-left p-4 w-1/8">Status</th>
-        {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
+        {showActions ? <th className="p-4 w-1/8 text-center">Ações</th> : false}
       </tr>
     )
   }
@@ -180,7 +180,7 @@ export default function Table({
 
   function renderActions(contact: Contact) {
     return (
-      <td className="flex justify-right w-1/8 pl-10">
+      <td className="flex justify-right w-1/8 pl-14">
         {contactSelected ? (
           <button onClick={() => openFormWithContact(contact)} className={`
             flex justify-right items-right
@@ -205,7 +205,7 @@ export default function Table({
   }
 
   return (
-    <div>
+    <div className="h-600px overflow-auto">
       <table className="w-full rounded-xl overflow-hidden table-fixed">
         <thead className={`
             text-gray-100
