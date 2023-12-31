@@ -9,6 +9,11 @@ export default function Home() {
   const [selectedConnection, setSelectedConnection] = useState();
   const [loading, setLoading] = useState(false);
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
+  const handleToggleSidebar = (isExpanded) => {
+    setIsSidebarExpanded(isExpanded);
+  };
   const {
     list,
     setList,
@@ -29,12 +34,14 @@ export default function Home() {
   }, [list]); // Dependência do useEffect
 
   return (
-    <div>
-      <Menu />
-      <div className={`flex justify-center items-top h-screen bg text-white`}>
-        <Kanban
-          list={list}
-        />
+    <div className="flex">
+      <Menu onToggle={setIsSidebarExpanded} />
+      <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+        <div className="h-screen bg text-white p-10">
+          <Kanban
+            list={list}
+          />
+        </div>
       </div>
     </div>
   )
