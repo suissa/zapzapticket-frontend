@@ -8,7 +8,7 @@ function Column(props) {
   return (
     <Droppable droppableId={droppableId} type={type} key={droppableId}>
       {provided => (
-        <div {...provided.droppableProps} ref={provided.innerRef} className="kanbanColumn">
+        <div {...provided.droppableProps} ref={provided.innerRef} className="kanban-column">
           <h2 className="mb-4">{droppableId}</h2>
 
           {list.map((val, index) => {
