@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 import Link from "next/link";
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage,
-IconTasks, IconTags, IconFastSend, IconQueues} from "./Icons";
+IconTasks, IconTags, IconFastSend, IconQueues, IconFastAnswers} from "./Icons";
 
 const Menu = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -66,6 +66,10 @@ const Menu = ({ onToggle }) => {
     <IconQueues className="text-white" />
   ));
 
+  const FastAnswersIcon = memo(() => (
+    <IconFastAnswers className="text-white" />
+  ));
+
   return (
     <div className={`menu ${isExpanded ? "expanded" : ""}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
       <div className="menu-content">
@@ -81,11 +85,61 @@ const Menu = ({ onToggle }) => {
           </Link>
           </li>
           <li>
-            <Link href="/users">
+          <Link href="/fastanswers">
+            <div className="inline-flex items-center">
+              <FastSendIcon className="text-white" />
+              <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                Respostas Rápidas
+              </span>
+            </div>
+          </Link>
+          </li>
+          <li>
+            <Link href="/kanban">
               <div className="inline-flex items-center">
-                <UsersIcon className="text-white" />
+                <KanbanIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Usuários
+                  Funil
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/schedulemessages">
+              <div className="inline-flex items-center">
+                <ScheduleMessageIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Campanhas
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/groups">
+              <div className="inline-flex items-center">
+                <GroupsIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Grupos
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/queues">
+              <div className="inline-flex items-center">
+                <QueuesIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Tags
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/queues">
+              <div className="inline-flex items-center">
+                <TasksIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Tasks
                 </span>
               </div>
             </Link>
@@ -111,26 +165,6 @@ const Menu = ({ onToggle }) => {
             </Link>
           </li>
           <li>
-            <Link href="/groups">
-              <div className="inline-flex items-center">
-                <GroupsIcon className="text-white" />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Grupos
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/kanban">
-              <div className="inline-flex items-center">
-                <KanbanIcon className="text-white" />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Funil
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li>
             <Link href="/messages">
               <div className="inline-flex items-center">
                 <MessageIcon className="text-white" />
@@ -151,41 +185,11 @@ const Menu = ({ onToggle }) => {
             </Link>
           </li>
           <li>
-            <Link href="/send">
+            <Link href="/users">
               <div className="inline-flex items-center">
-                <FastSendIcon className="text-white" />
+                <UsersIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Mensagens Rápidas
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/schedulemessages">
-              <div className="inline-flex items-center">
-                <ScheduleMessageIcon className="text-white" />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Campanhas
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/queues">
-              <div className="inline-flex items-center">
-                <QueuesIcon className="text-white" />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Tags
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/queues">
-              <div className="inline-flex items-center">
-                <TasksIcon className="text-white" />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Tasks
+                  Usuários
                 </span>
               </div>
             </Link>
