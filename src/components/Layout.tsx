@@ -6,7 +6,7 @@ interface LayoutProps {
   width: string
 }
 
-export default function Layout({ title, children, width = "w-2/3" }: LayoutProps) {
+export default function Layout({ title, children, width = "w-3/3" }: LayoutProps) {
   return (
     <div className={`
             flex flex-col ${width} rounded-md
