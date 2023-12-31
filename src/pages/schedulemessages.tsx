@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Form from "../components/FormMessage";
-import Table from "../components/TableScheduleMessages";
+import Layout from "../components/Layout";
 import Menu from '../components/Menu';
+import Table from "../components/TableScheduleMessages";
 import useScheduleMessages from "../hooks/useScheduleMessages";
 
 export default function Home() {
@@ -31,11 +32,12 @@ export default function Home() {
   }, [tableVisible]);
 
   return (
+   
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <div title="Campanhas">
+          <Layout title="Usuários">
             {tableVisible ? (
               <div>
                 <div className="flex justify-end">
@@ -43,7 +45,7 @@ export default function Home() {
                     className="mb-4"
                     onClick={createScheduleMessage}
                   >
-                    Nova Mensagem
+                    Novo Usuário
                   </Button>
                 </div>
                 <Table
@@ -59,9 +61,78 @@ export default function Home() {
                 canceled={showTable}
               />
             )}
-          </div>
+          </Layout>
         </div>
       </div>
     </div>
   )
+  // return (
+  //   <div className="flex">
+  //     <Menu onToggle={setIsSidebarExpanded} />
+  //     <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+  //       <div className="h-screen bg text-white p-10">
+  //         <Layout title="Campanhas">
+  //         {tableVisible ? (
+  //             <div>
+  //               <div className="flex justify-end">
+  //                 <Button
+  //                   className="mb-4"
+  //                   onClick={createScheduleMessage}
+  //                 >
+  //                   Nova Mensagem
+  //                 </Button>
+  //               </div>
+  //               <Table
+  //                 scheduleMessages={scheduleMessages}
+  //                 scheduleMessageSelected={getScheduleMessage}
+  //                 scheduleMessageDeleted={deleteScheduleMessage}
+  //               />
+  //             </div>
+  //           ) : (
+  //             <Form
+  //               scheduleMessage={scheduleMessage}
+  //               scheduleMessageModified={saveScheduleMessage}
+  //               canceled={showTable}
+  //             />
+  //           )}
+  //         </Layout>
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
+  // return (
+  //   <div className="flex">
+  //     <Menu onToggle={setIsSidebarExpanded} />
+  //     <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+  //       <div className="h-screen bg text-white p-10">
+  //         <Layout title="Campanhas">
+  //           {tableVisible ? (
+  //             <div>
+  //               <div className="flex justify-end">
+  //                 <Button
+  //                   className="mb-4"
+  //                   onClick={createScheduleMessage}
+  //                 >
+  //                   Nova Mensagem
+  //                 </Button>
+  //               </div>
+  //               <Table
+  //                 scheduleMessages={scheduleMessages}
+  //                 scheduleMessageSelected={getScheduleMessage}
+  //                 scheduleMessageDeleted={deleteScheduleMessage}
+  //               />
+  //             </div>
+  //           ) : (
+  //             <Form
+  //               scheduleMessage={scheduleMessage}
+  //               scheduleMessageModified={saveScheduleMessage}
+  //               canceled={showTable}
+  //             />
+  //           )}
+  //           </Layout>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
 }
