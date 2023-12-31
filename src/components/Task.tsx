@@ -18,7 +18,7 @@ function Task(props) {
             // Resto do seu estilo aqui
           }}
         >
-          <div className="p-2 mb-2 task bg-gradient-to-r from-purple-500 to-purple-800">
+          <div className="p-2 mb-2 task">
 
             <h4>{title}</h4>
             <p className="task-content">{content}</p>
