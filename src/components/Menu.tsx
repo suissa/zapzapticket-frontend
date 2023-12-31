@@ -152,7 +152,7 @@ const Menu = ({ onToggle }) => {
               <div className="inline-flex items-center">
                 <TasksIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Tasks
+                  Tarefas
                 </span>
               </div>
             </Link>
