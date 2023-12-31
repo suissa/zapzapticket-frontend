@@ -52,10 +52,10 @@ body .task-content {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-body .kanbanColumn{
-  background-color: rgba(255, 255, 255, .1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+body .kanban-column{
+  background-color: rgba(255, 255, 255, .05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 5px;
   padding: 10px;
   width: 400px;
