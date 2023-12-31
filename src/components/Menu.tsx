@@ -1,7 +1,8 @@
 import React, { useState, memo } from "react";
 import Link from "next/link";
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
-IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage } from "./Icons";
+IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage,
+IconTasks, IconTags, IconFastSend, IconQueues} from "./Icons";
 
 const Menu = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,6 +48,22 @@ const Menu = ({ onToggle }) => {
 
   const ScheduleMessageIcon = memo(() => (
     <IconScheduleMessage className="text-white" />
+  ));
+
+  const TasksIcon = memo(() => (
+    <IconTasks className="text-white" />
+  ));
+
+  const TagsIcon = memo(() => (
+    <IconTags className="text-white" />
+  ));
+
+  const FastSendIcon = memo(() => (
+    <IconFastSend className="text-white" />
+  ));
+
+  const QueuesIcon = memo(() => (
+    <IconQueues className="text-white" />
   ));
 
   return (
@@ -108,7 +125,7 @@ const Menu = ({ onToggle }) => {
               <div className="inline-flex items-center">
                 <KanbanIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
-                  Kanban
+                  Funil
                 </span>
               </div>
             </Link>
@@ -134,11 +151,41 @@ const Menu = ({ onToggle }) => {
             </Link>
           </li>
           <li>
+            <Link href="/send">
+              <div className="inline-flex items-center">
+                <FastSendIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Mensagens Rápidas
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
             <Link href="/schedulemessages">
               <div className="inline-flex items-center">
                 <ScheduleMessageIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
                   Campanhas
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/queues">
+              <div className="inline-flex items-center">
+                <QueuesIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Tags
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/queues">
+              <div className="inline-flex items-center">
+                <TasksIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Tasks
                 </span>
               </div>
             </Link>
