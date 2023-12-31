@@ -206,7 +206,7 @@ export default function Table({
 
   return (
     <div className="h-600px overflow-auto">
-      <table className="w-full rounded-xl overflow-hidden table-fixed">
+      <table className="w-full rounded-md overflow-hidden table-fixed">
         <thead className={`
             text-gray-100
             bg-gradient-to-r from-purple-500 to-purple-800
