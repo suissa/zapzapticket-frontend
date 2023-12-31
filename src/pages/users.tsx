@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Form from "../components/FormUser";
 import Layout from "../components/Layout";
@@ -21,6 +21,12 @@ export default function Home() {
     tableVisible
   } = useUsers()
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
+  const handleToggleSidebar = (isExpanded) => {
+    setIsSidebarExpanded(isExpanded);
+  };
+
   useEffect(() => {
     if (tableVisible) {
       listUsers();
@@ -28,39 +34,38 @@ export default function Home() {
   }, [tableVisible]);
 
   return (
-    <div>
-      <Menu />
-    <div className={`
-      flex justify-center items-center
-      h-screen bg
-      text-white
-    `}>
-      <Layout title="Usuários">
-        {tableVisible ? (
-          <div>
-            <div className="flex justify-end">
-              <Button
-                className="mb-4"
-                onClick={createUser}
-              >
-                Novo Usuário
-              </Button>
-            </div>
-            <Table
-              users={users}
-              userSelected={getUser}
-              userDeleted={deleteUser}
-            />
-          </div>
-        ) : (
-          <Form
-            user={user}
-            userModified={saveUser}
-            canceled={showTable}
-          />
-        )}
-      </Layout>
-    </div>
+   
+    <div className="flex">
+      <Menu onToggle={setIsSidebarExpanded} />
+      <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+        <div className="h-screen bg text-white p-10">
+          <Layout title="Usuários">
+            {tableVisible ? (
+              <div>
+                <div className="flex justify-end">
+                  <Button
+                    className="mb-4"
+                    onClick={createUser}
+                  >
+                    Novo Usuário
+                  </Button>
+                </div>
+                <Table
+                  users={users}
+                  userSelected={getUser}
+                  userDeleted={deleteUser}
+                />
+              </div>
+            ) : (
+              <Form
+                user={user}
+                userModified={saveUser}
+                canceled={showTable}
+              />
+            )}
+          </Layout>
+        </div>
+      </div>
     </div>
   )
 }
