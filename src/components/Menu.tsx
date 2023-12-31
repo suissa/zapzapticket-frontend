@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 import Link from "next/link";
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage,
-IconTasks, IconTags, IconFastSend, IconQueues, IconFastAnswers} from "./Icons";
+IconTasks, IconTags, IconFastSend, IconQueues, IconFastAnswers, IconWhatsapp} from "./Icons";
 
 const Menu = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,6 +14,9 @@ const Menu = ({ onToggle }) => {
     }
   };
 
+  const WhatsappIcon = memo(() => (
+    <IconWhatsapp className="text-white" />
+  ))
   const DashboardIcon = memo(() => (
     <IconDashboardMenu className="text-white" />
   ));
@@ -85,6 +88,16 @@ const Menu = ({ onToggle }) => {
           </Link>
           </li>
           <li>
+          <Link href="/tickets">
+            <div className="inline-flex items-center">
+              <WhatsappIcon className="text-white" />
+              <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                Tickets
+              </span>
+            </div>
+          </Link>
+          </li>
+          <li>
           <Link href="/fastanswers">
             <div className="inline-flex items-center">
               <FastSendIcon className="text-white" />
@@ -125,7 +138,7 @@ const Menu = ({ onToggle }) => {
             </Link>
           </li>
           <li>
-            <Link href="/queues">
+            <Link href="/tags">
               <div className="inline-flex items-center">
                 <QueuesIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
@@ -135,7 +148,7 @@ const Menu = ({ onToggle }) => {
             </Link>
           </li>
           <li>
-            <Link href="/queues">
+            <Link href="/tasks">
               <div className="inline-flex items-center">
                 <TasksIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
