@@ -101,6 +101,9 @@ body .tb-connections tr{
   visibility: hidden;
   overflow: hidden;
   white-space: nowrap;
+  position: relative;
+  top: 2px;
+  left: 10px;
 }
 
 .menu.expanded .menu-text {
