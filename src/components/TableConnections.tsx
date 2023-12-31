@@ -242,7 +242,7 @@ export default function Table({
         <img src={`${qrCodeBase64}`} alt="QR Code" />
       )}
 
-      <table className="w-full rounded-xl overflow-hidden tb-connections">
+      <table className="w-full rounded-md overflow-hidden tb-connections">
         <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800
