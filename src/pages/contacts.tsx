@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Botao from "../components/Button";
+import Button from "../components/Button";
 import Form from "../components/FormContact";
 import Layout from "../components/Layout";
 import Table from "../components/TableContacts";
@@ -40,13 +40,13 @@ export default function Home() {
           {tableVisible ? (
             <div>
               <div className="flex justify-end">
-                <Botao
+                <Button
                   color="green"
                   className="mb-4"
                   onClick={createContact}
                 >
                   Novo Contato
-                </Botao>
+                </Button>
               </div>
               <Table
                 contacts={contacts}
