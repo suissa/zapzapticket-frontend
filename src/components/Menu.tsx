@@ -1,4 +1,4 @@
-// import React from 'react';
+// import React from "react";
 // import Link from "next/link";
 
 // const Menu: React.FC = () => {
@@ -39,9 +39,9 @@
 
 // export default Menu;
 
-// import React, { useState } from 'react';
+// import React, { useState } from "react";
 // import Link from "next/link";
-// import { IconDashboardMenu, IconUsersMenu } from './Icons';
+// import { IconDashboardMenu, IconUsersMenu } from "./Icons";
 
 // const Menu = ({ onToggle }) => {
 //   const [isExpanded, setIsExpanded] = useState(false);
@@ -108,9 +108,9 @@
 
 // export default Menu;
 
-// import React, { useState } from 'react';
+// import React, { useState } from "react";
 // import Link from "next/link";
-// import { IconDashboardMenu, IconUsersMenu } from './Icons';
+// import { IconDashboardMenu, IconUsersMenu } from "./Icons";
 
 // const Menu = ({ onToggle }) => {
 //   const [isExpanded, setIsExpanded] = useState(false);
@@ -166,24 +166,24 @@
 
 // export default Menu;
 
-// import React, { useState } from 'react';
+// import React, { useState } from "react";
 // import Link from "next/link";
-// import { IconDashboardMenu, IconUsersMenu } from './Icons';
+// import { IconDashboardMenu, IconUsersMenu } from "./Icons";
 
 // const Menu = ({ onToggle }) => {
 //   const [isExpanded, setIsExpanded] = useState(false);
-//   const [menuWidth, setMenuWidth] = useState('60px'); // Largura fechada
+//   const [menuWidth, setMenuWidth] = useState("60px"); // Largura fechada
 
 //   const handleMouseEnter = () => {
 //     setIsExpanded(true);
-//     setMenuWidth('200px'); // Largura expandida
+//     setMenuWidth("200px"); // Largura expandida
 
 //     if (onToggle) onToggle(true);
 //   };
 
 //   const handleMouseLeave = () => {
 //     setIsExpanded(false);
-//     setMenuWidth('60px'); // Largura fechada
+//     setMenuWidth("60px"); // Largura fechada
 
 //     if (onToggle) onToggle(false);
 //   };
@@ -230,9 +230,9 @@
 // export default Menu;
 
 // components/Menu.js
-// import React, { useState, memo } from 'react';
-// import Link from 'next/link';
-// import { IconDashboardMenu, IconUsersMenu } from './Icons';
+// import React, { useState, memo } from "react";
+// import Link from "next/link";
+// import { IconDashboardMenu, IconUsersMenu } from "./Icons";
 
 // const DashboardIcon = memo(() => <IconDashboardMenu className="text-white" />);
 // const UsersIcon = memo(() => <IconUsersMenu className="text-white" />);
@@ -256,7 +256,7 @@
 //     }
 //   };
 //   return (
-//     <div className={`menu ${isExpanded ? 'expanded' : ''}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
+//     <div className={`menu ${isExpanded ? "expanded" : "}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
 //       <div className="menu-content">
 //         <ul className="flex flex-col space-y-4 text-white">
 //             <li>
@@ -285,11 +285,68 @@
 // export default Menu;
 
 
-import React, { useState, memo } from 'react';
-import Link from 'next/link';
-import { IconDashboardMenu, IconUsersMenu } from './Icons';
+// import React, { useState, memo } from "react";
+// import Link from "next/link";
+// import { IconDashboardMenu, IconUsersMenu } from "./Icons";
 
-const Menu = memo(({ onToggle }) => {
+// const Menu = memo(({ onToggle }) => {
+//   const [isExpanded, setIsExpanded] = useState(false);
+
+//   const toggleExpansion = () => {
+//     setIsExpanded(!isExpanded);
+//     if (onToggle) {
+//       onToggle(!isExpanded);
+//     }
+//   };
+
+//   const renderIcon = (iconName) => {
+//     switch (iconName) {
+//       case "dashboard":
+//         return <IconDashboardMenu className="text-white" />;
+//       case "users":
+//         return <IconUsersMenu className="text-white" />;
+//       default:
+//         return null;
+//     }
+//   };
+
+//   return (
+//     <div className={`menu ${isExpanded ? "expanded" : "}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
+//       <div className="menu-content">
+//       <ul className="flex flex-col space-y-4 text-white">
+//           <li>
+//             <Link href="/">
+//               <span className="flex items-center">
+//                 oi
+//                 {renderIcon("dashboard")}
+//                 <span className="menu-text">{isExpanded && "Dashboard"}</span>
+//               </span>
+//             </Link>
+//           </li>
+//           <li>
+//             <Link href="/users">
+//               <span className="flex items-center">
+//                 {renderIcon("users")}
+//                 <span className="menu-text">{isExpanded && "Usuários"}</span>
+//               </span>
+//             </Link>
+//           </li>
+//           {/* ... outros itens do menu ... */}
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// });
+
+// export default Menu;
+
+
+// components/Menu.js
+import React, { useState, memo } from "react";
+import Link from "next/link";
+import { IconDashboardMenu, IconUsersMenu } from "./Icons";
+
+const Menu = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpansion = () => {
@@ -299,35 +356,34 @@ const Menu = memo(({ onToggle }) => {
     }
   };
 
-  const renderIcon = (iconName) => {
-    switch (iconName) {
-      case "dashboard":
-        return <IconDashboardMenu className="text-white" />;
-      case "users":
-        return <IconUsersMenu className="text-white" />;
-      default:
-        return null;
-    }
-  };
+  const DashboardIcon = memo(() => (
+    <IconDashboardMenu className="text-white" />
+  ));
+  
+  const UsersIcon = memo(() => (
+    <IconUsersMenu className="text-white" />
+  ));
 
   return (
-    <div className={`menu ${isExpanded ? 'expanded' : ''}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
+    <div className={`menu ${isExpanded ? "expanded" : ""}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
       <div className="menu-content">
         <ul className="flex flex-col space-y-4 text-white">
           <li>
-            <Link href="/">
-              <span className="flex items-center">
-                {renderIcon("dashboard")}
-                {isExpanded && <span className="ml-2">Dashboard</span>}
+            
+          </li>
+          <li>
+          <Link href="/users">
+            <div className="inline-flex items-center">
+              <UsersIcon className="text-white" />
+              <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                Usuários
               </span>
-            </Link>
+            </div>
+          </Link>
           </li>
           <li>
             <Link href="/users">
-              <span className="flex items-center">
-                {renderIcon("users")}
-                {isExpanded && <span className="ml-2">Usuários</span>}
-              </span>
+              <UsersIcon className="text-white" />
             </Link>
           </li>
           {/* ... outros itens do menu ... */}
@@ -335,6 +391,6 @@ const Menu = memo(({ onToggle }) => {
       </div>
     </div>
   );
-});
+};
 
 export default Menu;
