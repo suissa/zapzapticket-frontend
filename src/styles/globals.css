@@ -110,3 +110,7 @@ body .tb-connections tr{
   visibility: visible;
   display: inline-block; /* Mostra o texto quando a barra está expandida */
 }
+
+body .h-600px {
+  height: 600px;
+}
