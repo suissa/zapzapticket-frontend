@@ -79,9 +79,6 @@ body .icon-purple {
 body .tb-connections tr{
   cursor: pointer;
 }
-body .menu-nav {
-  transition: width 10s ease-linear;
-}
 
 .menu {
   position: fixed;
@@ -99,6 +96,14 @@ body .menu-nav {
   width: 256px;
 }
 
-.menu-content {
-  height: 100%;
+.menu-text {
+  display: none;
+  visibility: hidden;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.menu.expanded .menu-text {
+  visibility: visible;
+  display: inline-block; /* Mostra o texto quando a barra está expandida */
 }
