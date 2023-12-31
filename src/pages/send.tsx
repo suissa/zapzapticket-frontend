@@ -59,6 +59,12 @@ export default function Home() {
     setList
   } = useSending()
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
+  const handleToggleSidebar = (isExpanded) => {
+    setIsSidebarExpanded(isExpanded);
+  };
+
   const handleSendMessage = async () => {
     setLoading(true);
 
@@ -152,21 +158,20 @@ export default function Home() {
     );
   };
   return (
-    <div>
-      <Menu />
-      <div className={`flex justify-center items-center h-screen bg text-white`}>
-        <Layout title="Envios" width="w-3/3">
-          <div>
-            <div className="flex justify-end">
+
+    <div className="flex">
+      <Menu onToggle={setIsSidebarExpanded} />
+      <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+          <div className="h-screen bg text-black p-10">
+            <div className="flex justify-end text-white">
               <Button
-                color="green"
                 className="mb-4"
                 onClick={handleSendMessage}
                 >
                 {loading ? 'Enviando...' : 'Novo Envio'}
               </Button>
             </div>
-            <div className="flex h-80">
+            <div className="flex h-80 text-white">
               <div className="flex-1 overflow-auto">
                 <TableMessages
                   messages={messages}
@@ -210,8 +215,7 @@ export default function Home() {
                 />
               </div>
             </div>
-          </div>
-        </Layout>
+            </div>
       </div>
     </div>
   )
