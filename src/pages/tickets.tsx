@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import ContactsList from '../components/ContactsList';
 import Chat from '../components/Chat';
+import Menu from '../components/Menu';
 import styles from '../styles/Chat.module.css';
 import useTickets from '../hooks/useTickets';
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
   const { listContacts } = useTickets();
+
+  const handleToggleSidebar = (isExpanded) => {
+    setIsSidebarExpanded(isExpanded);
+  };
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -24,13 +31,13 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.mainLayout}>
-      <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
-      <Chat messages={selectedContact ? selectedContact.messages : [{
-        id: 1, text: "Olá, como você está?", sender: "received"
-      },
-      { id: 2, text: "Bem e vc?", sender: "sent" }
-      ]} />
+    <div className="flex">
+      <Menu onToggle={setIsSidebarExpanded} />
+      <div className={styles.mainLayout}>
+        <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
+        <Chat messages={selectedContact ? selectedContact.messages : []} />
+      </div>
     </div>
   );
+  
 }
