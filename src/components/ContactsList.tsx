@@ -17,7 +17,7 @@ const truncateString = (str, num) => {
 
 const ContactsList = ({ contacts, onContactSelect }) => {
   return (
-    <div className={styles.contactsList}>
+    <div className={`${styles.contactsList} rounded`}>
       {contacts.map(contact => {
 
         const isoDate = contact.messages[0].createdAt
@@ -25,29 +25,38 @@ const ContactsList = ({ contacts, onContactSelect }) => {
 
         return (
           <div key={contact._id} className={styles.contactItem} onClick={() => onContactSelect(contact)}>
-            <div className={styles.contactName}>{contact.name}</div>
-            <div>
-              <Image 
-                src={contact.profilePictureUrl}
-                alt={contact.name}
-                width={50}
-                height={50}
-                className="{styles.contactPicture}"
-              />
+            <Image 
+              src={contact.profilePictureUrl}
+              alt={contact.name}
+              width={40}
+              height={40}
+              className={styles.contactPicture}
+            />
+            <div className={styles.contactInfo}>
+              <div className={styles.contactName}>{contact.name}</div>
+              <div className={styles.lastMessage}>
+              <div className={styles.lastMessage}>
+                {contact.messages && contact.messages.length > 0 
+                  ? truncateString(contact.messages[0].text, 30)
+                  : "Sem mensagem"}
+                </div>
+                <div className={styles.contactDate}>
+                  {contact.messages && contact.messages.length > 0 
+                    ? formattedDate
+                    : ""}
+                </div>
 
-            </div>
-            <div className={styles.lastMessage}>
-              {contact.messages && contact.messages.length > 0 
-                ? truncateString(contact.messages[0].text, 30)
-                : "Sem mensagem"}
-            </div>
-            <div className={styles.contactDate}>
-              {contact.messages && contact.messages.length > 0 
-                ? formattedDate
-                : ""}
+                <div className={styles.badgeWrapper}>
+                  {contact.badges && contact.badges.length > 0 &&
+                    contact.badges.map((badge, i) => (
+                      <span key={i} className={styles.badge}>{badge}</span>
+                    ))
+                  }
+                </div>
+              </div>
             </div>
           </div>
-        )
+        );
       })}
     </div>
   )

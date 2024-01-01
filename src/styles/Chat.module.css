@@ -10,6 +10,8 @@
   background: url("/images/chat-whatsapp-bege.png") no-repeat top center fixed;
   background-size: inherit;
   overflow-x: hidden;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 
@@ -39,22 +41,23 @@
 
 .contactsList {
   width: 400px;
-  height: auto;
-  min-height: 738px;
+  height: 758px;
   background-color: #f0f0f0;
   overflow-y: auto;
   padding: 10px;
   padding-left: 0px;
   overflow-x: hidden;
+  overflow-y: auto;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
-
 .contactItem {
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente no centro */
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   border-bottom: 1px solid #ccc;
-  width: 100%;
-  height: 100px;
 }
 
 .contactName {
@@ -71,10 +74,35 @@
 }
 
 .contactPicture {
-  border-radius: 50%;
-  background-color: #ccc;
-  background-size: cover;
-  background-position: center;
-  margin-right: 10px;
-  display: block;
+  flex-shrink: 0; /* Evita que a imagem seja encolhida */
+  border-radius: 50%; /* Opcional: para fazer a imagem redonda */
+  margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column; /* Organiza os elementos em uma coluna */
+}
+
+.contactName {
+  font-weight: bold;
+}
+
+.lastMessage {
+  color: #666;
+}
+
+.badgeWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.badge {
+  background-color: #8b65c2;
+  color: #fff;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+  margin-left: auto;
+  margin: 0px 2px;
 }
