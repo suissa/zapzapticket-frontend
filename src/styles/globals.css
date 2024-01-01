@@ -92,7 +92,7 @@ body .text-blue {
   top: 0;
   left: 0;
   bottom: 0;
-  transition: width 0.3s ease;
+  transition: width 0.5s ease;
   overflow: hidden;
   width: 60px;
   padding: 18px;
@@ -136,3 +136,17 @@ body .h-600px {
     display: none;
   }
 }
+
+
+.menu-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0; /* Colapsa o texto quando o menu está fechado */
+  transition: width 0.5s ease;
+}
+
+.menu.expanded .menu-text {
+  width: auto; /* Expande o texto quando o menu está aberto */
+}
+
