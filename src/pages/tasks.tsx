@@ -52,7 +52,6 @@ export default function Home() {
                   tasks={tasks}
                   taskSelected={getTask}
                   taskDeleted={deleteTask}
-                  showCheckboxes={true}
                   listTasks={listTasks}
                 />
               </div>

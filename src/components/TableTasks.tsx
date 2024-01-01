@@ -58,12 +58,18 @@ export default function Table({
 
 
   const slideUpEffect = (taskId) => {
-    console.log("slideUpEffect taskId", taskId);
     const taskRow = taskRefs.current[taskId];
     if (taskRow) {
       taskRow.classList.add('slide-up');
+
+      // Adicionar ouvinte para o fim da animação
+      taskRow.addEventListener('animationend', () => {
+        const tasksList = tasks.filter(t => t._id !== taskId);
+        setTasks(tasksList); // Atualizar o estado após a animação
+      }, { once: true }); // Garantir que o evento seja removido após ser acionado
     }
   };
+
   useEffect(() => {
     taskRefs.current = {};
     tasks.forEach(task => {
@@ -115,7 +121,11 @@ export default function Table({
       };
 
       return (
-        <tr ref={ref} key={task._id} className={`text-black ${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
+        <tr ref={ref} key={task._id} 
+        className={`text-black ${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}
+        onClick={() => handleCheckboxChange(task)}
+        style={{ cursor: 'pointer' }}
+        >
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
