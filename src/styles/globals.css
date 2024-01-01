@@ -116,3 +116,18 @@ body .tb-connections tr{
 body .h-600px {
   height: 600px;
 }
+.slide-up {
+  animation: slideUp 0.5s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+    display: none;
+  }
+}
