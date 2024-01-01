@@ -34,7 +34,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentScheduleMessage) {
       scheduleMessageDeleted?.(currentScheduleMessage);
-      console.log("Usuário excluído:", currentScheduleMessage);
+      console.log("Campanha excluída:", currentScheduleMessage);
     }
     setIsModalOpen(false);
   };
