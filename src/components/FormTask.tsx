@@ -1,25 +1,24 @@
 import { useState } from "react";
-import Message from "../core/Message";
+import Task from "../core/Task";
 import Button from "./Button";
 import Entry from "./Entry";
 
 interface FormProps {
-  message: Message
-  messageModified?: (message: Message) => void
+  task: Task
+  taskModified?: (task: Task) => void
   canceled?: () => void
 }
 
-export default function Form({ message, canceled, messageModified }: FormProps) {
-  const [title, setTitle] = useState(message?.title ?? "")
-  const [text, setText] = useState(message?.text ?? "")
-  const [isActive, setIsActive] = useState(message?.isActive ?? "")
-  const [instanceStatus, setInstanceStatus] = useState(message?.instanceStatus ?? false)
+export default function Form({ task, canceled, taskModified }: FormProps) {
+  const [text, setText] = useState(task?.text ?? "")
 
-  const _id = message?._id
+  const _id = task?._id
+
   const handleSubmit = () => {
-    console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
-    messageModified?.(new Message(title, text, _id));
-  }
+    const updatedTask = new Task(text, task?._id); // Supondo que Task aceite estes parâmetros
+    taskModified?.(updatedTask); // Passa a tarefa atualizada
+  };
+
   return (
     <div>
       {_id ? (
@@ -27,26 +26,13 @@ export default function Form({ message, canceled, messageModified }: FormProps) 
           text="ID"
           value={_id}
           readOnly
-          className="mb-4"
+          className="mb-4 text-white"
         />
       ) : false}
       <Entry
-        text="Título"
-        value={title}
-        onChange={e => setTitle((e.target as HTMLInputElement).value)}
-        className="mb-4 text-white"
-      />
-      <Entry
-        text="Texto"
+        text="Tarefa"
         value={text}
         onChange={e => setText((e.target as HTMLInputElement).value)}
-        className="mb-4 text-white"
-      />
-      <Entry
-        text="isActive"
-        type="checkbox"
-        checked={true}
-        onChange={e => setIsActive(e.target.checked)}
         className="mb-4 text-white"
       />
       <div className="flex justify-end mt-7">

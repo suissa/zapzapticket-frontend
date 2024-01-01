@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import Form from "../components/FormMessage";
+import Form from "../components/FormTask";
 import Layout from "../components/Layout";
-import Table from "../components/TableMessages";
+import Table from "../components/TableTasks";
 import Menu from '../components/Menu';
-import useMessages from "../hooks/useMessages";
+import useTasks from "../hooks/useTasks";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const {
-    message,
-    messages,
-    createMessage,
-    saveMessage,
-    criarMessage,
-    deleteMessage,
-    getMessage,
-    listMessages,
+    task,
+    tasks,
+    createTask,
+    saveTask,
+    setTask,
+    deleteTask,
+    getTask,
+    listTasks,
     showTable,
     tableVisible
-  } = useMessages()
+  } = useTasks()
 
   useEffect(() => {
     if (tableVisible) {
-      listMessages();
+      listTasks();
     }
   }, [tableVisible]);
 
@@ -43,21 +43,23 @@ export default function Home() {
                 <div className="flex justify-end">
                   <Button
                     className="mb-4"
-                    onClick={createMessage}
+                    onClick={createTask}
                   >
-                    Novo Usuário
+                    Nova Tarefa
                   </Button>
                 </div>
                 <Table
-                  messages={messages}
-                  messageSelected={getMessage}
-                  messageDeleted={deleteMessage}
+                  tasks={tasks}
+                  taskSelected={getTask}
+                  taskDeleted={deleteTask}
+                  showCheckboxes={true}
+                  listTasks={listTasks}
                 />
               </div>
             ) : (
               <Form
-              message={message}
-              messageModified={saveMessage}
+              task={task}
+              taskModified={saveTask}
               canceled={showTable}
               />
             )}

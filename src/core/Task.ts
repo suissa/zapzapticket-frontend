@@ -1,15 +1,12 @@
 export default class Message {
   #_id: string
-  #title: string
   #text: string
   #isActive: boolean
-  #isSelected: boolean
 
-  constructor(title: string, text: string, id: string = null) {
+  constructor(text: string, id: string = null) {
     this.#_id = id
-    this.#title = title
     this.#text = text
-    this.#isActive = false
+    this.#isActive = true
   }
 
   static empty() {
@@ -20,10 +17,6 @@ export default class Message {
     return this.#_id
   }
 
-  get title() {
-    return this.#title
-  }
-
   get text() {
     return this.#text
   }
@@ -32,7 +25,4 @@ export default class Message {
     return this.#isActive
   }
 
-  get isSelected() {
-    return this.#isSelected
-  }
 }
