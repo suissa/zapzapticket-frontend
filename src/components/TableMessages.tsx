@@ -34,7 +34,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentMessage) {
       messageDeleted?.(currentMessage);
-      console.log("Usuário excluído:", currentMessage);
+      console.log("Mensagem excluída:", currentMessage);
     }
     setIsModalOpen(false);
   };
