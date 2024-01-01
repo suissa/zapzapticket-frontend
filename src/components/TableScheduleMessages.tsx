@@ -81,8 +81,9 @@ export default function Table({
     return (
       <tr>
         {showCheckboxes && <th className="text-center p-4 w-1/10">Selecionar</th>}
-        <th className="text-left p-4 w-1/4">Título</th>
         <th className="text-left p-4">Texto</th>
+        <th className="text-center p-4">Conexão</th>
+        <th className="text-center p-4">Contato</th>
         {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
       </tr>
     )
@@ -102,8 +103,9 @@ export default function Table({
               />
             </td>
           )}
-          <td className="text-left p-4">{scheduleMessage.title}</td>
           <td className="text-left p-4">{scheduleMessage.text}</td>
+          <td className="text-center p-4">{scheduleMessage.from}</td>
+          <td className="text-center p-4">{scheduleMessage.to}</td>
           {showActions ? renderActions(scheduleMessage) : false}
         </tr>
       )
