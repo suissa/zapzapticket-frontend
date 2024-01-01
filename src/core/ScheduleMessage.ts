@@ -5,6 +5,7 @@ export default class ScheduleMessage {
   #to: string
   #isActive: boolean
   #sended: boolean
+  #dateToSend: string
 
   constructor(text: string, id: string = null, from: string = null, to: string = null, isActive: boolean = false, sended: boolean = false) {
     this.#_id = id
@@ -41,5 +42,9 @@ export default class ScheduleMessage {
 
   get sended() {
     return this.#sended
+  }
+
+  get dateToSend() {
+    return this.#dateToSend
   }
 }

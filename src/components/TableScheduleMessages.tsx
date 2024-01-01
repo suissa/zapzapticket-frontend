@@ -1,4 +1,5 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
+import moment from "moment"
 import ScheduleMessage from "../core/ScheduleMessage"
 import { IconEdit, IconThrash } from "./Icons"
 import styled from 'styled-components';
@@ -50,7 +51,6 @@ export default function Table({
     // Chamar onSelectionChange com o texto da mensagem
     onSelectionChange?.(scheduleMessage.text);
   };
-  
 
   const Modal = ({ onClose, onConfirm, scheduleMessage }) => {
     return (
@@ -92,6 +92,9 @@ export default function Table({
 
   function renderData() {
     return scheduleMessages?.map((scheduleMessage, i) => {
+      const isoDate = scheduleMessage.dateToSend;
+      const formattedDate = moment(isoDate).format('HH:mm DD/MM/YYYY');
+
       return (
         <tr key={scheduleMessage._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
@@ -107,7 +110,7 @@ export default function Table({
           <td className="text-left p-4">{scheduleMessage.text}</td>
           <td className="text-center p-4">{scheduleMessage.from}</td>
           <td className="text-center p-4">{scheduleMessage.to}</td>
-          <td className="text-center p-4">{scheduleMessage.dateToSend}</td>
+          <td className="text-center p-4">{formattedDate}</td>
           {showActions ? renderActions(scheduleMessage) : false}
         </tr>
       )
