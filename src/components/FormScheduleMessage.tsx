@@ -10,15 +10,16 @@ interface FormProps {
 }
 
 export default function Form({ scheduleMessage, canceled, scheduleMessageModified }: FormProps) {
-  const [title, setTitle] = useState(scheduleMessage?.title ?? "")
   const [text, setText] = useState(scheduleMessage?.text ?? "")
-  const [isActive, setIsActive] = useState(scheduleMessage?.isActive ?? "")
-  const [instanceStatus, setInstanceStatus] = useState(scheduleMessage?.instanceStatus ?? false)
+  const [from, setFrom] = useState(scheduleMessage?.from ?? "")
+  const [to, setTo] = useState(scheduleMessage?.to ?? "")
+  const [dateToSend, setDateToSend] = useState(scheduleMessage?.dateToSend ?? "")
+
 
   const _id = scheduleMessage?._id
   const handleSubmit = () => {
     console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
-    scheduleMessageModified?.(new ScheduleMessage(title, text, _id));
+    scheduleMessageModified?.(new ScheduleMessage(text, _id, from, to, true, false));
   }
   return (
     <div>
@@ -31,9 +32,15 @@ export default function Form({ scheduleMessage, canceled, scheduleMessageModifie
         />
       ) : false}
       <Entry
-        text="Título"
-        value={title}
-        onChange={e => setTitle((e.target as HTMLInputElement).value)}
+        text="Texto"
+        value={text}
+        onChange={e => setText((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
+      />
+      <Entry
+        text="Conexão"
+        value={text}
+        onChange={e => setText((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
       <Entry
