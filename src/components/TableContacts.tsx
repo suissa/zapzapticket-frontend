@@ -137,7 +137,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentContact) {
       contactDeleted?.(currentContact);
-      console.log("Usuário excluído:", currentContact);
+      console.log("Contato excluído:", currentContact);
     }
     setIsModalOpen(false);
   };
