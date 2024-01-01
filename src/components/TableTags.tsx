@@ -55,7 +55,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentTag) {
       tagDeleted?.(currentTag);
-      console.log("Usuário excluído:", currentTag);
+      console.log("Tag excluída:", currentTag);
     }
     setIsModalOpen(false);
   };
