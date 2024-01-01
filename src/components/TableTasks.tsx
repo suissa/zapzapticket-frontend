@@ -39,7 +39,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentTask) {
       taskDeleted?.(currentTask);
-      console.log("Usuário excluído:", currentTask);
+      console.log("Tarefa excluída:", currentTask);
     }
     setIsModalOpen(false);
   };
