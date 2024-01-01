@@ -81,7 +81,12 @@ body .icon-purple {
 body .tb-connections tr{
   cursor: pointer;
 }
-
+body .text-purple {
+  color: #6b21a8;
+}
+body .text-blue {
+  color: #1e40af;
+}
 .menu {
   position: fixed;
   top: 0;
