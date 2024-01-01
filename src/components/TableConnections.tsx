@@ -193,7 +193,7 @@ export default function Table({
               text-green-600 rounded-md p-2 m-1
               hover:bg-purple-50
             `}>
-            {IconShow}
+            <IconShow className="text-purple" />
           </button>
         ) : false}
       </td>
