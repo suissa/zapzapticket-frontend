@@ -4,7 +4,7 @@ export default class Message {
   #color: string
   #isActive: boolean
 
-  constructor(name: string, color: string, id: string = null) {
+  constructor(color: string, name: string, id: string = null) {
     this.#_id = id
     this.#name = name
     this.#color = color

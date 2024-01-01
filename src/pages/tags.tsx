@@ -45,7 +45,7 @@ export default function Home() {
                     className="mb-4"
                     onClick={createTag}
                   >
-                    Novo Usuário
+                    Nova Tag
                   </Button>
                 </div>
                 <Table
