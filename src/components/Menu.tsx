@@ -1,8 +1,8 @@
 import React, { useState, memo } from "react";
 import Link from "next/link";
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
-IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage,
-IconTasks, IconTags, IconFastSend, IconQueues, IconFastAnswers, IconWhatsapp} from "./Icons";
+IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage, IconTasks, IconTags, IconFastSend, 
+IconQueues, IconFastAnswers, IconWhatsapp, IconLogout} from "./Icons";
 
 const Menu = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -17,6 +17,11 @@ const Menu = ({ onToggle }) => {
   const WhatsappIcon = memo(() => (
     <IconWhatsapp className="text-white" />
   ))
+
+  const LogoutIcon = memo(() => (
+    <IconLogout className="text-white" />
+  ))
+
   const DashboardIcon = memo(() => (
     <IconDashboardMenu className="text-white" />
   ));
@@ -203,6 +208,16 @@ const Menu = ({ onToggle }) => {
                 <UsersIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
                   Usuários
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/logout">
+              <div className="inline-flex items-center">
+                <LogoutIcon className="text-white" />
+                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                  Sair
                 </span>
               </div>
             </Link>
