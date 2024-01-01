@@ -39,11 +39,11 @@ export default function Home() {
         <Layout title="Tickets">
           <div className={styles.mainLayout}>
             <div className={styles.contactsList}>
-                <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
+              <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
             </div>
 
             <div className={styles.chatContainer}>
-                <Chat messages={selectedContact ? selectedContact.messages : []} />
+              <Chat messages={selectedContact ? selectedContact.messages : []} />
             </div>
           </div>
         </Layout>
