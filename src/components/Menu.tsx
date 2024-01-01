@@ -1,11 +1,27 @@
 import React, { useState, memo } from "react";
 import Link from "next/link";
+import { debounce } from 'lodash';
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage, IconTasks, IconTags, IconFastSend, 
 IconQueues, IconFastAnswers, IconWhatsapp, IconLogout} from "./Icons";
 
 const Menu = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+
+  const handleMouseEnter = debounce(() => {
+    setIsExpanded(true);
+    if (onToggle) {
+      onToggle(true);
+    }
+  }, 100); // 100ms de delay
+
+  const handleMouseLeave = debounce(() => {
+    setIsExpanded(false);
+    if (onToggle) {
+      onToggle(false);
+    }
+  }, 100); // 100ms de delay
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
