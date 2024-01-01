@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ContactsList from '../components/ContactsList';
 import Chat from '../components/Chat';
 import Menu from '../components/Menu';
+import Layout from "../components/Layout";
 import styles from '../styles/Chat.module.css';
 import useTickets from '../hooks/useTickets';
 
@@ -29,15 +30,38 @@ export default function Home() {
     setSelectedContact(contact);
     // Aqui você pode carregar as mensagens do contato selecionado
   };
-
+  
   return (
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
-      <div className={styles.mainLayout}>
-        <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
-        <Chat messages={selectedContact ? selectedContact.messages : []} />
+      <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+        <div className="h-screen bg text-white p-10">
+        <Layout title="Tickets">
+          <div className={styles.mainLayout}>
+            <div className={styles.contactsList}>
+                <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
+            </div>
+
+            <div className={styles.chatContainer}>
+                <Chat messages={selectedContact ? selectedContact.messages : []} />
+            </div>
+          </div>
+        </Layout>
+      </div>
       </div>
     </div>
+  )
+
+  return (
+    <div className="flex">
+      <div className="menu">
+      <Menu onToggle={setIsSidebarExpanded} />
+      </div>
+
+      
+    </div>
   );
-  
 }
+
+
+// </div>
