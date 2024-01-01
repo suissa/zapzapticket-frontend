@@ -84,6 +84,7 @@ export default function Table({
         <th className="text-left p-4">Texto</th>
         <th className="text-center p-4">Conexão</th>
         <th className="text-center p-4">Contato</th>
+        <th className="text-center p-4">Data</th>
         {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
       </tr>
     )
@@ -106,6 +107,7 @@ export default function Table({
           <td className="text-left p-4">{scheduleMessage.text}</td>
           <td className="text-center p-4">{scheduleMessage.from}</td>
           <td className="text-center p-4">{scheduleMessage.to}</td>
+          <td className="text-center p-4">{scheduleMessage.dateToSend}</td>
           {showActions ? renderActions(scheduleMessage) : false}
         </tr>
       )
