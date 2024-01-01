@@ -47,7 +47,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentGroup) {
       groupDeleted?.(currentGroup);
-      console.log("Usuário excluído:", currentGroup);
+      console.log("Grupo excluído:", currentGroup);
     }
     setIsModalOpen(false);
   };
