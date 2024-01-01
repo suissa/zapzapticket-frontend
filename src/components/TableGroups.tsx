@@ -1,7 +1,7 @@
 import { useState, MutableRefObject, useRef, useEffect, useCallback } from "react"
 import React from "react";
 import Group from "../core/Group"
-import { IconEdit, IconThrash, IconUsers } from "./Icons"
+import { IconEdit, IconThrash, IconContactsMenu } from "./Icons"
 import styled from "styled-components";
 
 interface TableProps {
@@ -47,7 +47,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentGroup) {
       groupDeleted?.(currentGroup);
-      console.log("Grupo excluído:", currentGroup);
+      console.log("Usuário excluído:", currentGroup);
     }
     setIsModalOpen(false);
   };
@@ -264,7 +264,7 @@ export default function Table({
           text-green-600 rounded-md p-2 m-1
           hover:bg-purple-50
         `}>
-          {IconUsers}
+          <IconContactsMenu className="text-blue" />
         </button>
         {groupSelected ? (
           <button title="Editar"
@@ -292,7 +292,7 @@ export default function Table({
 
   return (
     <div>
-      <table className="w-full rounded-md overflow-hidden">
+      <table className="w-full rounded-xl overflow-hidden">
         <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800
