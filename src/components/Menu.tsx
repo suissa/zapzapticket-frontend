@@ -95,7 +95,9 @@ const Menu = ({ onToggle }) => {
   ));
 
   return (
-    <div className={`menu ${isExpanded ? "expanded" : ""}`} onMouseEnter={toggleExpansion} onMouseLeave={toggleExpansion}>
+    <div className={`menu ${isExpanded ? "expanded" : ""}`} 
+      onMouseEnter={handleMouseEnter} 
+      onMouseLeave={handleMouseLeave}>
       <div className="menu-content">
         <ul className="flex flex-col space-y-4 text-white">
           <li>
