@@ -1,0 +1,53 @@
+.chatContainer {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #e5ddd5;
+}
+
+.message {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.sent {
+    background-color: #daf8cb;
+    margin-left: auto;
+    text-align: right;
+}
+
+.received {
+    background-color: #ffffff;
+}
+
+
+ .mainLayout {
+    display: flex;
+    height: 100vh;
+}
+
+.contactsList {
+    width: 30%;
+    background-color: #f0f0f0;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.contactItem {
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.contactName {
+    font-weight: bold;
+}
+
+.lastMessage {
+    color: #666;
+}
+
+/* Estilos para .chatContainer e outros já definidos anteriormente */
