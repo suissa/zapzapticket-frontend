@@ -8,20 +8,20 @@ const TopBar = () => {
       <div className={styles.topBarItem}>
         <button>
           <p className={`${styles.topBarIcon}`}>
-            <IconInbox className="text-purple-600" />
+            <IconResolved className="text-purple-600" />
           </p>
           <p>
-            Caixa de Entrada
+            Resolvidos
           </p>
           </button>
       </div>
       <div className={styles.topBarItem}>
         <button>
           <p className={`${styles.topBarIcon}`}>
-            <IconResolved className="text-purple-600" />
+            <IconInbox className="text-purple-600" />
           </p>
           <p>
-            Resolvidos
+            Caixa de Entrada
           </p>
           </button>
       </div>

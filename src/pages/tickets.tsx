@@ -3,7 +3,7 @@ import ContactsList from '../components/ContactsList';
 import Chat from '../components/Chat';
 import Menu from '../components/Menu';
 import Layout from "../components/Layout";
-import styles from '../styles/Chat.module.css';
+import styles from '../styles/Ticket.module.css';
 import useTickets from '../hooks/useTickets';
 
 export default function Home() {

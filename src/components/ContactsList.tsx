@@ -1,9 +1,9 @@
 import React from "react"
 import moment from "moment"
 import Image from "next/image"
-import styles from "../styles/Chat.module.css"
+import styles from "../styles/Ticket.module.css"
 import { IconWhatsapp } from "./Icons"
-
+import TopBar from "./TopBar"
 const truncateString = (str, num) => {
   if (!str) {
     return ""
@@ -18,6 +18,7 @@ const truncateString = (str, num) => {
 const ContactsList = ({ contacts, onContactSelect }) => {
   return (
     <div className={`${styles.contactsList} rounded`}>
+      <TopBar />
       {contacts.map(contact => {
 
         const isoDate = contact.messages[contact.messages.length - 1].createdAt
@@ -36,7 +37,8 @@ const ContactsList = ({ contacts, onContactSelect }) => {
         }
 
         return (
-          <div key={contact._id} className={styles.contactItem} onClick={() => onContactSelect(contact)}>
+          <div key={contact._id} className={`${styles.contactItem} cursor-pointer`} onClick={() => onContactSelect(contact)}>
+            
             <Image 
               src={contact.profilePictureUrl}
               alt={contact.name}

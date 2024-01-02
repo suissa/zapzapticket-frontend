@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Chat.module.css';
+import styles from '../styles/Ticket.module.css';
 
 const TicketMessage = ({ text, sender }) => {
     console.log("TicketMessage: ", text, sender);

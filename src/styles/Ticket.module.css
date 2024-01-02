@@ -181,18 +181,22 @@ body .chatInput input {
 }
 
 .topBar {
-  display: flex; /* Isso alinha os itens horizontalmente */
-  justify-content: space-between; /* Espaçamento igual entre os itens */
-  padding: 10px;
-  background-color: #f0f0f0; /* Escolha a cor de fundo desejada */
+  display: flex;
+  justify-content: space-between;
+  background-color: #f0f0f0;
 }
 
 .topBarItem {
-  flex-grow: 1; /* Cada item cresce igualmente para preencher o espaço */
+  flex-grow: 1;
   text-align: center;
   padding: 5px;
-  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  cursor: pointer;
   width: 33.3%;
+  padding: 20px 10px;
+}
+
+.topBarItem:hover {
+  background-color: #fff; /* Muda a cor de fundo ao passar o mouse */
 }
 
 body .topBarIcon svg {

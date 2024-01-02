@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Message from "./TicketMessage";
-import styles from "../styles/Chat.module.css";
+import styles from "../styles/Ticket.module.css";
 
 const Chat = ({ messages }) => {
   const endOfMessagesRef = useRef(null);

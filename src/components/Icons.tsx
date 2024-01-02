@@ -1,6 +1,9 @@
 import { TbBrandWhatsapp } from "react-icons/tb";
 import { SlEye } from "react-icons/sl";
 import { AiOutlinePoweroff } from "react-icons/ai";
+import { FaInbox } from "react-icons/fa";
+import { IoMdCheckboxOutline } from "react-icons/io";
+import { IoSearchSharp } from "react-icons/io5";
 
 // Heroicons: https://heroicons.com/
 
@@ -105,3 +108,6 @@ export const IconFastAnswers = (props) => (
 export const IconWhatsapp = (props) => (<TbBrandWhatsapp  className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
 export const IconShow = (props) => (<SlEye  className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
 export const IconLogout = (props) => (<AiOutlinePoweroff  className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
+export const IconInbox = props => (<FaInbox className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
+export const IconResolved = props => (<IoMdCheckboxOutline className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
+export const IconSearch = props => (<IoSearchSharp className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
