@@ -123,6 +123,7 @@ body .menu-dropdown-item {
 }
 body .btn-border {
   border: 1px solid #666;
+  background-color: #fff;
 }
 
 .menu {

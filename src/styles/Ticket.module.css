@@ -184,7 +184,7 @@ body .chatInput input {
 .topBar {
   display: flex;
   justify-content: space-between;
-  background-color: #f2f2f2;
+  background-color: #e8e8e8;
   font-size: 13px;
 }
 
@@ -194,7 +194,7 @@ body .chatInput input {
   padding: 5px;
   cursor: pointer;
   width: 33.3%;
-  padding: 20px 10px;
+  padding: 10px 10px;
   text-transform: uppercase;
 
 }
@@ -214,8 +214,8 @@ body .topBarIcon svg {
 .topBarButtonWrapper {
   display: flex;
   justify-content: space-between;
-  background-color: #fafafa;
-  padding: 10px;
+  background-color: #f3f3f3;
+  /* padding: 10px; */
 }
 
 .topBarButtonItem {
@@ -226,11 +226,25 @@ body .topBarIcon svg {
   padding: 20px 10px;
 }
 
+
+.topBarButtonItem {
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  width: 33.3%;
+  padding: 20px 10px;
+  text-transform: uppercase;
+
+}
+
+
 .topBarOptionWrapper {
   display: flex;
   justify-content: space-between;
   background-color: #fff;
-  padding: 10px;
+  padding: 4px;
+  border-bottom: 1px solid #ccc;
 }
 
 .topBarOptionText {
