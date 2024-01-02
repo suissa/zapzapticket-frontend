@@ -1,5 +1,6 @@
 import React from "react"
 import moment from "moment"
+import "moment/locale/pt-br"
 import Image from "next/image"
 import styles from "../styles/Ticket.module.css"
 import { IconWhatsapp } from "./Icons"
@@ -29,7 +30,6 @@ const ContactsList = ({ contacts, onContactSelect }) => {
         const isoDate = contact.messages[contact.messages.length - 1].createdAt
         const messageDate = moment(isoDate);
         const currentDate = moment();
-        
         let formattedDate;
 
         // Compara se a data da mensagem é a mesma que a data atual
@@ -43,7 +43,6 @@ const ContactsList = ({ contacts, onContactSelect }) => {
 
         return (
           <div key={contact._id} className={`${styles.contactItem} cursor-pointer font-extra-light`} onClick={() => onContactSelect(contact)}>
-            
             <Image 
               src={contact.profilePictureUrl}
               alt={contact.name}
@@ -70,6 +69,9 @@ const ContactsList = ({ contacts, onContactSelect }) => {
                   {contact.messages && contact.messages.length > 0 
                     ? formattedDate
                     : ""}
+                    <br />
+                  {moment(isoDate).fromNow()}
+
                 </div>
 
                 <div className={styles.badgeWrapper}>
