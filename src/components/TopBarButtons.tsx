@@ -1,25 +1,21 @@
 import styles from "../styles/Ticket.module.css"
-
+import ToggleSwitch from "./ToggleSwitch"
+import MenuDropdown from "./MenuDropdown"
 const TopBar = () => {
   
   return (
     <div className={styles.topBarButtonWrapper}>
       <div className={styles.topBarItem}>
-        <button>
-          novo
+        <button className="btn-border py-2 px-4 rounded text-purple hover:bg-purple-200">
+          NOVO
         </button>
       </div>
-      <div className={styles.topBarItem}>
-        <button>todos
-          </button>
+      <div className={`${styles.topBarItem} text-purple`}>
+        TODOS
+        <ToggleSwitch on={false} />
       </div>
       <div className={styles.topBarItem}>
-        <select name="selectQueues" id="selectQueues">
-          <option value="fila1">Fila 1</option>
-          <option value="fila2">Fila 2</option>
-          <option value="fila3">Fila 3</option>
-          <option value="fila4">Fila 4</option>
-        </select>
+        <MenuDropdown />
       </div>
     </div>
     )
