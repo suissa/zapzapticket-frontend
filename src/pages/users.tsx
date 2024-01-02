@@ -13,7 +13,6 @@ export default function Home() {
     users,
     createUser,
     saveUser,
-    criarUser,
     deleteUser,
     getUser,
     listUsers,

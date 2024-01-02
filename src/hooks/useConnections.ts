@@ -62,18 +62,12 @@ export default function useConnections(onConnectionSelected?: (connection: Conne
     showTable()
   }
 
-  function criarConnection() {
-    setConnection(Connection.empty())
-    showForm()
-  }
-
 
   return {
     connection,
     connections,
     createConnection,
     saveConnection,
-    criarConnection,
     deleteConnection,
     getConnection,
     listConnections,

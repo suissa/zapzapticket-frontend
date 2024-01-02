@@ -15,7 +15,6 @@ export default function Home() {
     connections,
     createConnection,
     saveConnection,
-    criarConnection,
     deleteConnection,
     getConnection,
     listConnections,

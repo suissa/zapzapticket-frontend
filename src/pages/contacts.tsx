@@ -13,7 +13,6 @@ export default function Home() {
     contacts,
     createContact,
     saveContact,
-    criarContact,
     deleteContact,
     getContact,
     listContacts,

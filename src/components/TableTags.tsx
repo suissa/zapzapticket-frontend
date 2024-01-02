@@ -24,7 +24,6 @@ export default function Table({
     tags,
     createTag,
     saveTag,
-    criarTag,
     deleteTag,
     getTag,
     listTags,

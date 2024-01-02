@@ -66,19 +66,12 @@ export default function useTasks() {
     ;
   }
 
-  function criarTask() {
-    setTask(Task.empty())
-    showForm()
-  }
-
-
   return {
     task,
     tasks,
     setTasks,
     createTask,
     saveTask,
-    criarTask,
     deleteTask,
     getTask,
     listTasks,

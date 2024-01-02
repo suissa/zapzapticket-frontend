@@ -66,18 +66,11 @@ export default function useMessages() {
     ;
   }
 
-  function criarMessage() {
-    setMessage(Message.empty())
-    showForm()
-  }
-
-
   return {
     message,
     messages,
     createMessage,
     saveMessage,
-    criarMessage,
     deleteMessage,
     getMessage,
     listMessages,

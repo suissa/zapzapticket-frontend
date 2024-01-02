@@ -98,18 +98,11 @@ export default function useUsers() {
     // const data = await response.json();
   }
 
-  function criarUser() {
-    setUser(User.empty())
-    showForm()
-  }
-
-
   return {
     user,
     users,
     createUser,
     saveUser,
-    criarUser,
     deleteUser,
     getUser,
     listUsers,

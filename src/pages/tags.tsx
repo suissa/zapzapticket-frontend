@@ -13,7 +13,6 @@ export default function Home() {
     tags,
     createTag,
     saveTag,
-    criarTag,
     deleteTag,
     getTag,
     listTags,

@@ -30,7 +30,23 @@ export default function Home() {
     setSelectedContact(contact);
     // Aqui você pode carregar as mensagens do contato selecionado
   };
-  
+
+  const handleMessageSent = (newMessage) => {
+    console.log("handleMessageSent newMessage:", newMessage);
+    // Atualiza o contato selecionado
+    const updatedSelectedContact = selectedContact?.id === newMessage.phone
+      ? { ...selectedContact, messages: [...selectedContact.messages, newMessage] }
+      : selectedContact;
+    setSelectedContact(updatedSelectedContact);
+
+    // Atualiza a lista de contatos
+    setContacts(contacts.map(contact => 
+      contact.id === newMessage.phone 
+      ? { ...contact, messages: [...contact.messages, newMessage] } 
+      : contact
+    ));
+  };
+
   return (
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
@@ -43,7 +59,7 @@ export default function Home() {
             </div>
 
             <div className={styles.chatContainer}>
-              <Chat messages={selectedContact ? selectedContact.messages : []} />
+            <Chat messages={selectedContact?.messages} onMessageSent={handleMessageSent} />
             </div>
           </div>
         {/* </Layout> */}
@@ -51,17 +67,4 @@ export default function Home() {
       </div>
     </div>
   )
-
-  return (
-    <div className="flex">
-      <div className="menu">
-      <Menu onToggle={setIsSidebarExpanded} />
-      </div>
-
-      
-    </div>
-  );
 }
-
-
-// </div>

@@ -64,18 +64,11 @@ export default function useTags() {
     ;
   }
 
-  function criarTag() {
-    setTag(Tag.empty())
-    showForm()
-  }
-
-
   return {
     tag,
     tags,
     createTag,
     saveTag,
-    criarTag,
     deleteTag,
     getTag,
     listTags,

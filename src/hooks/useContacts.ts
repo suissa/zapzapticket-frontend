@@ -86,21 +86,13 @@ export default function useContacts() {
     // const data = await response.json();
   }
 
-  function criarContact() {
-    setContact(Contact.empty())
-    showForm()
-  }
-
-
   return {
     contact,
     contacts,
     createContact,
     saveContact,
-    criarContact,
     deleteContact,
     getContact,
-    listContacts,
     listContacts,
     showTable,
     tableVisible

@@ -66,18 +66,11 @@ export default function useScheduleMessages() {
     ;
   }
 
-  function criarScheduleMessage() {
-    setScheduleMessage(ScheduleMessage.empty())
-    showForm()
-  }
-
-
   return {
     scheduleMessage,
     scheduleMessages,
     createScheduleMessage,
     saveScheduleMessage,
-    criarScheduleMessage,
     deleteScheduleMessage,
     getScheduleMessage,
     listScheduleMessages,

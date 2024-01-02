@@ -13,7 +13,6 @@ export default function Home() {
     messages,
     createMessage,
     saveMessage,
-    criarMessage,
     deleteMessage,
     getMessage,
     listMessages,
