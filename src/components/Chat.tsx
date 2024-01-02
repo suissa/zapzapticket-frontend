@@ -38,6 +38,12 @@ const Chat: React.FC<ChatProps> = ({ messages, onMessageSent }) => {
     onMessageSent(newMessage);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
   return (
     <div className={styles.chatWrapper}>
       <div className={styles.mainLayout}>
@@ -55,6 +61,7 @@ const Chat: React.FC<ChatProps> = ({ messages, onMessageSent }) => {
           placeholder="Digite uma mensagem..."
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
+          onKeyDown={handleKeyPress}  // Adicione esta linha
         />
         <button onClick={handleSendMessage}>Enviar</button>
       </div>
