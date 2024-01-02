@@ -60,8 +60,10 @@
   border-bottom: 1px solid #ccc;
 }
 
-.contactName {
-  font-weight: bold;
+.contactPhone {
+  display: flex;
+  align-items: center; /* Para centralizar verticalmente os itens */
+  gap: 10px; /* Espaçamento entre o ícone e o número de telefone */
 }
 
 .lastMessage {
@@ -97,6 +99,7 @@
   align-items: center;
   margin-top: 10px;
 }
+
 .badge {
   background-color: #8b65c2;
   color: #fff;
@@ -105,4 +108,14 @@
   font-size: 12px;
   margin-left: auto;
   margin: 0px 2px;
+}
+
+.iconWhatsappContactPhoneWrapper {
+  position: relative;
+  top: -2px;
+}
+
+.phoneContactWrapper {
+  position: relative;
+  left: -4px;
 }
