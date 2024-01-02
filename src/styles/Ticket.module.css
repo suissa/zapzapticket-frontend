@@ -53,8 +53,16 @@
 
 }
 
-
 body .chatInput input {
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+body .chatInput input:focus {
   flex-grow: 1;
   padding: 10px;
   margin-right: 10px;
