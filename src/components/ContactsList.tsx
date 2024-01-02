@@ -2,7 +2,7 @@ import React from "react"
 import moment from "moment"
 import Image from 'next/image'
 import styles from "../styles/Chat.module.css"
-
+import { IconWhatsapp } from "./Icons"
 
 const truncateString = (str, num) => {
   if (!str) {
@@ -33,11 +33,18 @@ const ContactsList = ({ contacts, onContactSelect }) => {
               className={styles.contactPicture}
             />
             <div className={styles.contactInfo}>
-              <div className={styles.contactName}>{contact.name}</div>
+              <div className={styles.contactPhone}>
+                <div className={styles.iconWhatsappContactPhoneWrapper}>
+                  <IconWhatsapp className="text-purple" />
+                </div>
+                <div className={styles.phoneContactWrapper}>
+                  {contact.phone}
+                </div>
+              </div>
               <div className={styles.lastMessage}>
               <div className={styles.lastMessage}>
                 {contact.messages && contact.messages.length > 0 
-                  ? truncateString(contact.messages[0].text, 30)
+                  ? truncateString(contact.messages.reverse()[0].text, 30)
                   : "Sem mensagem"}
                 </div>
                 <div className={styles.contactDate}>
