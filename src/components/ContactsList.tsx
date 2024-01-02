@@ -56,6 +56,7 @@ const ContactsList = ({ contacts, onContactSelect }) => {
                   <IconWhatsapp className="text-purple-600" />
                 </div>
                 <div className={styles.phoneContactWrapper}>
+                  {contact.name} <br />
                   {contact.phone}
                 </div>
               </div>
