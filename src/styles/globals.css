@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #ffffff;
+  color: #7415d4;
+}
 body .bg {
   background-image: url("/images/bg-02/bg-02.jpg");
   background-size: cover;
