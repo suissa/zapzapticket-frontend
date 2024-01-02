@@ -37,6 +37,7 @@
   display: flex;
   align-items: flex-start;
   height: auto;
+  font-size: 12px;
 }
 
 .contactsList {
@@ -51,19 +52,32 @@
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
+
 .contactItem {
   display: flex;
-  align-items: center; /* Alinha os itens verticalmente no centro */
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
   border-bottom: 1px solid #ccc;
 }
 
+.contactInfo {
+  flex-grow: 1;
+  position: relative;
+}
+
+.contactDate {
+  margin-left: auto;
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
+
 .contactPhone {
   display: flex;
-  align-items: center; /* Para centralizar verticalmente os itens */
-  gap: 10px; /* Espaçamento entre o ícone e o número de telefone */
+  align-items: center;
+  gap: 10px;
 }
 
 .lastMessage {

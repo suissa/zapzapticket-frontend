@@ -1,6 +1,6 @@
 import React from "react"
 import moment from "moment"
-import Image from 'next/image'
+import Image from "next/image"
 import styles from "../styles/Chat.module.css"
 import { IconWhatsapp } from "./Icons"
 
@@ -20,8 +20,20 @@ const ContactsList = ({ contacts, onContactSelect }) => {
     <div className={`${styles.contactsList} rounded`}>
       {contacts.map(contact => {
 
-        const isoDate = contact.messages[0].createdAt
-        const formattedDate = moment(isoDate).format("HH:mm DD/MM/YYYY")
+        const isoDate = contact.messages[contact.messages.length - 1].createdAt
+        const messageDate = moment(isoDate);
+        const currentDate = moment();
+        
+        let formattedDate;
+
+        // Compara se a data da mensagem é a mesma que a data atual
+        if (messageDate.isSame(currentDate, "day")) {
+          // Se for o mesmo dia, exibe apenas a hora
+          formattedDate = messageDate.format("HH:mm");
+        } else {
+          // Se for um dia diferente, exibe a data e a hora
+          formattedDate = messageDate.format("DD/MM/YYYY");
+        }
 
         return (
           <div key={contact._id} className={styles.contactItem} onClick={() => onContactSelect(contact)}>
@@ -35,7 +47,7 @@ const ContactsList = ({ contacts, onContactSelect }) => {
             <div className={styles.contactInfo}>
               <div className={styles.contactPhone}>
                 <div className={styles.iconWhatsappContactPhoneWrapper}>
-                  <IconWhatsapp className="text-purple" />
+                  <IconWhatsapp className="text-purple-600" />
                 </div>
                 <div className={styles.phoneContactWrapper}>
                   {contact.phone}
@@ -44,7 +56,7 @@ const ContactsList = ({ contacts, onContactSelect }) => {
               <div className={styles.lastMessage}>
               <div className={styles.lastMessage}>
                 {contact.messages && contact.messages.length > 0 
-                  ? truncateString(contact.messages.reverse()[0].text, 30)
+                  ? truncateString(contact.messages[contact.messages.length -1].text, 30)
                   : "Sem mensagem"}
                 </div>
                 <div className={styles.contactDate}>
