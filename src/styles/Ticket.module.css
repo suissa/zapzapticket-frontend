@@ -243,7 +243,7 @@ body .topBarIcon svg {
   display: flex;
   justify-content: space-between;
   background-color: #fff;
-  padding: 4px;
+  padding: 0px;
   border-bottom: 1px solid #ccc;
 }
 
@@ -253,10 +253,10 @@ body .topBarIcon svg {
   padding: 5px;
   cursor: pointer;
   width: 33.3%;
-  padding: 20px 10px;
+  padding: 15px 10px;
 }
 
 .badgeNotification {
-  top: 12px;
-  left: 130px;
+  top: 6px;
+  right: 36px;
 }
