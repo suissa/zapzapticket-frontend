@@ -35,8 +35,8 @@ export default function Home() {
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
-        <div className="h-screen bg text-white p-10">
-        <Layout title="Tickets">
+        <div className="h-screen bg text-black p-10">
+        {/* <Layout title="Tickets"> */}
           <div className={styles.mainLayout}>
             <div className={styles.contactsList}>
               <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
@@ -46,7 +46,7 @@ export default function Home() {
               <Chat messages={selectedContact ? selectedContact.messages : []} />
             </div>
           </div>
-        </Layout>
+        {/* </Layout> */}
       </div>
       </div>
     </div>

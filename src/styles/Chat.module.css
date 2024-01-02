@@ -1,9 +1,17 @@
+.mainLayout {
+  display: flex;
+  align-items: flex-start;
+  height: 700px;
+  font-size: 12px;
+  position: relative;
+}
+
 .chatContainer {
   background-color: #e5ddd5;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* Para rolagem se as mensagens excederem a altura */
-  height: 80vh;
+  overflow-y: auto;
+  height: 758px;
   max-width: 600px;
   min-width: 600px;
   background: url("/images/chat-whatsapp-bege.png") no-repeat top center fixed;
@@ -11,10 +19,52 @@
   overflow-x: hidden;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 70px;
+  /* height: 758px; */
 }
 
 .chatWrapper {
 }
+.chatList {
+  overflow: auto;
+}
+
+.chatInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #dfdfdf;
+  height: 70px;
+  padding: 0 10px;
+  position: absolute;
+  bottom: -80px;
+}
+
+
+body .chatInput input {
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.chatInput button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chatInput button:hover {
+  background-color: #45a049;
+}
+
 .message {
   padding: 10px;
   margin: 5px;
@@ -30,14 +80,6 @@
   background-color: #daf8cb;
   margin-left: auto;
   text-align: right;
-}
-
-
-.mainLayout {
-  display: flex;
-  align-items: flex-start;
-  height: auto;
-  font-size: 12px;
 }
 
 .contactsList {
@@ -134,39 +176,4 @@
 .phoneContactWrapper {
   position: relative;
   left: -4px;
-}
-
-.chatInput {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background-color: #ccc;
-  height: 70px;
-  padding: 0 10px;
-  position: relative;
-  top: 668px;
-  /* position: absolute;
-  bottom: 24px;
-  left: 422px; */
-}
-
-.chatInput input {
-  flex-grow: 1; /* Faz o input ocupar o espaço disponível */
-  padding: 10px;
-  margin-right: 10px; /* Espaço entre o input e o botão */
-  border: none; /* Remove a borda padrão do input */
-  border-radius: 5px; /* Adiciona bordas arredondadas ao input */
-}
-
-.chatInput button {
-  padding: 10px 20px;
-  border: none;
-  background-color: #4CAF50; /* Cor do botão */
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.chatInput button:hover {
-  background-color: #45a049; /* Cor do botão ao passar o mouse */
 }
