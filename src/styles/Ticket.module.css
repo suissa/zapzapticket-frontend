@@ -243,6 +243,6 @@ body .topBarIcon svg {
 }
 
 .badgeNotification {
-  top: 4px;
-  left: 20px;
+  top: 12px;
+  left: 130px;
 }

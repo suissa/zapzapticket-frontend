@@ -99,8 +99,30 @@ body .text-purple {
 body .text-blue {
   color: #1e40af;
 }
+body .bg-purple-200 {
+  background-color: #ddbff5;
+}
+body .bg-purple-400 {
+  background-color: #c797ed;
+}
+body .bg-purple-600 {
+  background-color: #9149c7;
+}
 body .position-relative {
   position: relative;
+}
+body .margin-0-auto {
+  margin: 0 auto;
+}
+body .menu-dropdown-button {
+  border: 1px solid #666;
+  width: 100%;
+}
+body .menu-dropdown-item {
+  font-size: 12px;
+}
+body .btn-border {
+  border: 1px solid #666;
 }
 
 .menu {
