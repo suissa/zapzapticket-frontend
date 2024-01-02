@@ -103,11 +103,13 @@
 .badge {
   background-color: #8b65c2;
   color: #fff;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 5px;
   font-size: 12px;
   margin-left: auto;
   margin: 0px 2px;
+  font-size: 10px;
+  letter-spacing: 0.5px;
 }
 
 .iconWhatsappContactPhoneWrapper {
