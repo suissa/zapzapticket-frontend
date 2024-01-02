@@ -1,10 +1,13 @@
 .mainLayout {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   height: 700px;
   font-size: 14px;
   font-weight: 400;
   position: relative;
+  /* padding-left: 100px; */
+  margin: 0 auto;
 }
 
 .chatContainer {
