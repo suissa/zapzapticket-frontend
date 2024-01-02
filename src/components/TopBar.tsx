@@ -10,8 +10,8 @@ const TopBar = () => {
           <p className={`${styles.topBarIcon}`}>
             <IconResolved className="text-purple-600" />
           </p>
-          <p>
-            Resolvidos
+          <p className={`${styles.topBarText} text-purple`}>
+            RESOLVIDOS
           </p>
           </button>
       </div>
@@ -20,8 +20,8 @@ const TopBar = () => {
           <p className={`${styles.topBarIcon}`}>
             <IconInbox className="text-purple-600" />
           </p>
-          <p>
-            Caixa de Entrada
+          <p className={`${styles.topBarText} text-purple`}>
+            ENTRADA
           </p>
           </button>
       </div>
@@ -30,8 +30,8 @@ const TopBar = () => {
           <p className={`${styles.topBarIcon}`}>
             <IconSearch className="text-purple-600" />
           </p>
-          <p>
-            Pesquisar
+          <p className={`${styles.topBarText} text-purple`}>
+            PESQUISAR
           </p>
           </button>
       </div>

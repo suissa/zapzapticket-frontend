@@ -1,10 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #ffffff;
-  color: #7415d4;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 0;
+  font-size: 0.875rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  background-color: #fafafa;
 }
 body .bg {
   background-image: url("/images/bg-02/bg-02.jpg");
@@ -92,6 +99,10 @@ body .text-purple {
 body .text-blue {
   color: #1e40af;
 }
+body .position-relative {
+  position: relative;
+}
+
 .menu {
   position: fixed;
   top: 0;

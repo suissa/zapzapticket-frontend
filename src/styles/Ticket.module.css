@@ -2,7 +2,8 @@
   display: flex;
   align-items: flex-start;
   height: 700px;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 400;
   position: relative;
 }
 
@@ -183,7 +184,8 @@ body .chatInput input {
 .topBar {
   display: flex;
   justify-content: space-between;
-  background-color: #f0f0f0;
+  background-color: #f2f2f2;
+  font-size: 13px;
 }
 
 .topBarItem {
@@ -193,6 +195,8 @@ body .chatInput input {
   cursor: pointer;
   width: 33.3%;
   padding: 20px 10px;
+  text-transform: uppercase;
+
 }
 
 .topBarItem:hover {
@@ -201,4 +205,44 @@ body .chatInput input {
 
 body .topBarIcon svg {
   margin: 0 auto;
+}
+
+.topBarText {
+  padding-top: 10px;
+}
+
+.topBarButtonWrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fafafa;
+  padding: 10px;
+}
+
+.topBarButtonItem {
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  padding: 20px 10px;
+}
+
+.topBarOptionWrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.topBarOptionText {
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  width: 33.3%;
+  padding: 20px 10px;
+}
+
+.badgeNotification {
+  top: 4px;
+  left: 20px;
 }
