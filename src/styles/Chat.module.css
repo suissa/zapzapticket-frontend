@@ -1,5 +1,4 @@
 .chatContainer {
-  padding: 20px;
   background-color: #e5ddd5;
   display: flex;
   flex-direction: column;
@@ -14,6 +13,8 @@
   border-bottom-right-radius: 8px;
 }
 
+.chatWrapper {
+}
 .message {
   padding: 10px;
   margin: 5px;
@@ -133,4 +134,39 @@
 .phoneContactWrapper {
   position: relative;
   left: -4px;
+}
+
+.chatInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #ccc;
+  height: 70px;
+  padding: 0 10px;
+  position: relative;
+  top: 668px;
+  /* position: absolute;
+  bottom: 24px;
+  left: 422px; */
+}
+
+.chatInput input {
+  flex-grow: 1; /* Faz o input ocupar o espaço disponível */
+  padding: 10px;
+  margin-right: 10px; /* Espaço entre o input e o botão */
+  border: none; /* Remove a borda padrão do input */
+  border-radius: 5px; /* Adiciona bordas arredondadas ao input */
+}
+
+.chatInput button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4CAF50; /* Cor do botão */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chatInput button:hover {
+  background-color: #45a049; /* Cor do botão ao passar o mouse */
 }

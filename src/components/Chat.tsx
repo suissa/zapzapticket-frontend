@@ -12,10 +12,21 @@ const Chat = ({ messages }) => {
 
   return (
     <div className={styles.chatContainer}>
-      {messages.map((message, i) => (
-        <Message key={i} text={message.text} sender={message.type} />
-      ))}
-      <div ref={endOfMessagesRef} />
+      <div className={styles.chatWrapper}>
+        <div className={styles.chatHeader}>
+
+        {messages.map((message, i) => (
+          <Message key={i} text={message.text} sender={message.type} />
+        ))}
+        <div ref={endOfMessagesRef} />
+      </div>
+
+        <div className={styles.chatInput}>
+          <input type="text" placeholder="Digite uma mensagem..." />
+          <button>Enviar</button>
+        </div>
+
+      </div>
     </div>
   );
 };
