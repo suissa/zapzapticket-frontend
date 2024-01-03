@@ -31,15 +31,25 @@ export const ContactProvider = ({ children }) => {
     console.log("ContactProvider updateContactMessages contacts", contacts);
     console.log("ContactProvider updateContactMessages _newMessage", newMessage);
     setContacts(currentContacts =>
-      currentContacts.map(contact => {
-        if (contact.phone === newMessage.phone) {
-          console.log("ACHOU O PHONE ContactProvider updateContactMessages contact", contact);
-          const newMessages = { ...contact, messages: [...contact.messages, newMessage] };
-          // setSelectedContact(newMessages);
-          return newMessages;
-        }
-        return contact;
-      })
+      currentContacts
+        .map(contact => {
+          if (contact.phone === newMessage.phone) {
+            console.log("ACHOU O PHONE ContactProvider updateContactMessages contact", contact);
+            const newMessages = { ...contact, messages: [...contact.messages, newMessage] };
+            // setSelectedContact(newMessages);
+            return newMessages;
+          }
+          return contact;
+        })
+        .sort((a, b) => {
+          // Convertendo as datas das últimas mensagens para timestamps
+          const lastMessageA = new Date(a.messages[a.messages.length - 1].createdAt).getTime();
+          const lastMessageB = new Date(b.messages[b.messages.length - 1].createdAt).getTime();
+          // console.log("\n\nlastMessageA", lastMessageA, a.name, a.messages[0]);
+          // console.log("lastMessageB", lastMessageB, b.name, b.messages[0]);
+          // console.log(" lastMessageB - lastMessageA",  lastMessageB - lastMessageA);
+          return lastMessageB - lastMessageA;
+        })
     );
 
   }
