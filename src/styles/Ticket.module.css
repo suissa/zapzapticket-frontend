@@ -93,13 +93,31 @@ body .chatInput input:focus {
 
 .sent {
   background-color: #ffffff;
+  position: relative;
 }
 
 .received {
   background-color: #daf8cb;
   margin-left: auto;
   text-align: right;
+  position: relative;
 }
+
+.ticketMessageDate {
+  text-align: right;
+  font-size: 10px;
+  color: #999;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+
+.ticketMessageText {
+  font-size: 14px;
+  color: #333;
+  margin-right: 40px;
+}
+
 
 .contactsList {
   width: 400px;
