@@ -49,10 +49,13 @@ export default function Table({
     // tirar implementacao daqui
     if (!instanceStatus) {
       console.log(connection._id)
-      const result = await fetch(`${API_URL}/connections/${connection._id}`, {
+      const url = `${API_URL}/connections/${connection._id}`
+      console.log(url)
+      const result = await fetch(url, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       })
+      console.log(result)
       const connectionAPI = await result.json();
       console.log(connectionAPI)
 

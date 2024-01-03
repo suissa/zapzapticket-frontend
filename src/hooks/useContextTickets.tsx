@@ -45,9 +45,13 @@ export const ContactProvider = ({ children }) => {
         .map(contact => {
           if (contact.phone === newMessage.phone) {
             console.log("ACHOU O PHONE ContactProvider updateContactMessages contact", contact);
-            const newMessages = { ...contact, messages: [...contact.messages, newMessage] };
-            // setSelectedContact(newMessages);
-            return newMessages;
+            const newContact = { ...contact, messages: [...contact.messages, newMessage] };
+            // setSelectedContact(newContact);
+            if (selectedContact && contact.phone === selectedContact.phone) {
+              console.log("ACHOU O PHONE ContactProvider updateContactMessages selectedContact", selectedContact);
+              setSelectedContact(newContact);
+            }
+            return newContact;
           }
           return contact;
         })
@@ -63,6 +67,26 @@ export const ContactProvider = ({ children }) => {
     );
 
   }
+
+  // funcionalidade caso o sort fique demorado por ter mtas mensagens
+  // function updateContactMessages(newMessage) {
+  //   setContacts(currentContacts => {
+  //     let updatedContacts = [...currentContacts];
+  //     let updatedContactIndex = updatedContacts.findIndex(contact => contact.phone === newMessage.phone);
+  
+  //     if (updatedContactIndex !== -1) {
+  //       let updatedContact = {
+  //         ...updatedContacts[updatedContactIndex],
+  //         messages: [...updatedContacts[updatedContactIndex].messages, newMessage],
+  //       };
+  //       updatedContacts.splice(updatedContactIndex, 1); // Remove o contato da posição atual
+  //       updatedContacts.unshift(updatedContact); // Insere o contato no início da lista
+  //     }
+  
+  //     return updatedContacts;
+  //   });
+  // }
+  
 
   const handleMessageReceived = (request) => {
     console.log("message:chat:receive adicionar na lista:", request);

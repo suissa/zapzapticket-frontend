@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import ContactsList from '../components/ContactsList';
 import Chat from '../components/Chat';
 import Menu from '../components/Menu';
@@ -44,9 +44,10 @@ export default function Home() {
     console.log("handleMessageSent selectedContact:", selectedContact);
     // Atualiza o contato selecionado
     if (selectedContact === null) return;
-    const updatedSelectedContact = selectedContact?.id === newMessage.phone
-      ? { ...selectedContact, messages: [...selectedContact.messages, newMessage] }
-      : selectedContact;
+    const updatedSelectedContact = { ...selectedContact, messages: [...selectedContact.messages, newMessage] }
+    // selectedContact?.phone === newMessage.phone
+    //   ? { ...selectedContact, messages: [...selectedContact.messages, newMessage] }
+    //   : selectedContact;
     setSelectedContact(updatedSelectedContact);
 
     // Atualiza a lista de contatos
@@ -62,6 +63,15 @@ export default function Home() {
     }
     ));
   };
+
+  const endOfMessagesRef = useRef(null);
+
+  useEffect(() => {
+    // Rola para a última mensagem quando as mensagens do contato selecionado mudam
+    if (endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [selectedContact?.messages]);
 
   useEffect(() => {
     console.log("selectedContact:", selectedContact);

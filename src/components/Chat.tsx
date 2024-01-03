@@ -60,7 +60,7 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
       <div className={styles.mainLayout}>
         <div className={styles.chatContainer}>
           {localMessages && localMessages.map((message, i) => (
-            <Message key={i} text={message.text} sender={message.type} />
+            <Message key={i} text={message.text} date={message.createdAt} sender={message.type} />
           ))}
           <div ref={endOfMessagesRef} />
         </div>
