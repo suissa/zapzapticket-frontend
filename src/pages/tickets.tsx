@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ContactsList from '../components/ContactsList';
 import Chat from '../components/Chat';
 import Menu from '../components/Menu';
 import Layout from "../components/Layout";
 import styles from '../styles/Ticket.module.css';
 import useTickets from '../hooks/useTickets';
+import { ContactContext } from '../hooks/useContextTickets';
 
 export default function Home() {
-  const [contacts, setContacts] = useState([]);
-  const [selectedContact, setSelectedContact] = useState(null);
+  // const [contacts, setContacts] = useState([]);
+  // const [selectedContact, setSelectedContact] = useState(null);
+  const { contacts, setContacts, selectedContact, setSelectedContact } = useContext(ContactContext);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const { listContacts, updateContactMessages } = useTickets(selectedContact, setSelectedContact);
 

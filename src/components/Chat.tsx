@@ -7,7 +7,7 @@ interface ChatProps {
   messages: any[];
   onMessageSent: (newMessage: any) => void;
   selectedContact: { id: string, messages: any[], phone: string } | null;
-
+  // contacts: any[];
 }
 
 export default function Chat({ messages, onMessageSent, selectedContact }: ChatProps) {
@@ -17,14 +17,13 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   const messagesRef = useRef(messages);
 
   useEffect(() => {
-    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-  useEffect(() => {
-
     messagesRef.current = messages;
     console.log("Estado atualizado da messages:", messages);
+    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+  }, [messages]);
 
   const handleSendMessage = () => {
     if (!selectedContact) {
