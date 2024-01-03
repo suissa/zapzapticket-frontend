@@ -7,22 +7,64 @@ import io from "socket.io-client";
 const socket = io("http://localhost:9000");
 const API_URL = "http://localhost:9000";
 
-export default function useTickets() {
+export default function useTickets(selectedContact, setSelectedContact) {
   const [contact, setContact] = useState<Contact>(Contact.empty())
   const [contacts, setContacts] = useState<Contact[]>([])
+  // const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+
   const { showForm, showTable, tableVisible } = useLayout()
   const contactsRef = useRef(contacts);
 
   const handleConnect = () => console.log("Conectado ao servidor Socket.io", new Date());
   const handleMessage = (data) => console.log("Dados recebidos:", data);
   const handleMessageSent = (phone) => {
-    console.log("message:sent eliminar da lista:", phone);
+    console.log("message:chat:send eliminar da lista:", phone);
 
   };
-  const handleMessageReceived = (phone) => {
-    console.log("message:sent eliminar da lista:", phone);
 
+  function updateContactMessages(newMessage) {
+    const _newMessage = { text: newMessage.message, type: "sent", typeMessage: "text" };
+    console.log("updateContactMessages contacts", contacts);
+    console.log("updateContactMessages _newMessage", _newMessage);
+    setContacts(currentContacts => currentContacts.map(contact => {
+      // console.log("updateContactMessages contact", contact);
+      // console.log("updateContactMessages contact.phone", contact.phone);
+      // console.log("updateContactMessages _newMessage.phone", _newMessage.phone);
+      // console.log("updateContactMessages contact.phone === _newMessage.phone", contact.phone === _newMessage.phone);
+      if (contact.phone === _newMessage.phone) {
+        const newMessages = { ...contact, messages: [...contact.messages, _newMessage] };
+        console.log("updateContactMessages newMessages", newMessages);
+        return newMessages;
+      }
+      return contact;
+    }));
+  
+    console.log("updateContactMessages selectedContact", selectedContact);
+    if (selectedContact && selectedContact?.phone === newMessage.phone) {
+      console.log("achou updateContactMessages selectedContact", selectedContact);
+      console.log("achou updateContactMessages selected _newMessage", _newMessage);
+      setSelectedContact(currentSelectedContact => {
+        console.log("updateContactMessages currentSelectedContact", currentSelectedContact);
+        const result = { ...currentSelectedContact, messages: [...currentSelectedContact?.messages, _newMessage] };
+        console.log("achou updateContactMessages result", result);
+        return result;
+      });
+    }
+  }
+
+  const handleMessageReceived = (request) => {
+    console.log("message:chat:receive adicionar na lista:", request);
+    const remoteJid = request.data.key.remoteJid.replace("@s.whatsapp.net", "");
+    const newMessage = {
+      phone: remoteJid,
+      message: request.data?.message?.conversation,
+    }
+    updateContactMessages(newMessage);
   };
+
+  useEffect(() => {
+    contactsRef.current = contacts;
+  }, [contacts]);
 
   useEffect(() => {
     socket.on("connect", handleConnect);
@@ -48,7 +90,18 @@ export default function useTickets() {
     const { message, phone, instanceName } = data;
     console.log("sendMessage data", data);
 
-    // fetch(`${API_URL}/contacts/messages/send`, {
+    fetch(`${API_URL}/contacts/message/send`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ message, phone, instanceName }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("then sendMessage data", data);
+      })
+      .catch((error) => {
+        console.error("Error sending message:", error);
+      });
   }
 
   const listContacts = useCallback(async () => {
@@ -76,6 +129,7 @@ export default function useTickets() {
     createContact,
     listContacts,
     showTable,
+    updateContactMessages,
     tableVisible
   }
 }

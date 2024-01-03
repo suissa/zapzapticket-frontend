@@ -1,3 +1,5 @@
+import { ContactMessage } from "./ContactMessage";
+
 export class Contact {
   #_id: string;
   #name: string;
@@ -8,9 +10,9 @@ export class Contact {
   #country: string;
   #ticketStatus: string;
   #ticketCreatedAt: string;
-  #ticketClosedAt: string;
+  #ticketClosedAt: string
   #badges: string[];
-  #messages: Message[]; // Assumindo que Message é uma classe ou interface definida
+  #messages: ContactMessage[]; // Assumindo que Message é uma classe ou interface definida
   #isSelected: boolean;
 
   constructor(
@@ -24,7 +26,7 @@ export class Contact {
     ticketCreatedAt: string = "",
     ticketClosedAt: string = "",
     badges: string[] = [],
-    messages: Message[] = [] // Assumindo que Message é uma classe ou interface definida
+    messages: ContactMessage[] = [] // Assumindo que Message é uma classe ou interface definida
   ) {
     this.#name = name;
     this.#phone = phone;

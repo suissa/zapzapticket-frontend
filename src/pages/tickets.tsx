@@ -10,8 +10,7 @@ export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-
-  const { listContacts } = useTickets();
+  const { listContacts, updateContactMessages } = useTickets(selectedContact, setSelectedContact);
 
   const handleToggleSidebar = (isExpanded) => {
     setIsSidebarExpanded(isExpanded);
@@ -31,9 +30,17 @@ export default function Home() {
     // Aqui você pode carregar as mensagens do contato selecionado
   };
 
+  
+  // const handleMessageSent = (newMessage) => {
+  //   console.log("handleMessageSent newMessage:", newMessage);
+  //   updateContactMessages(newMessage, newMessage.phone);
+  // };
+
+
   const handleMessageSent = (newMessage) => {
     console.log("handleMessageSent newMessage:", newMessage);
     // Atualiza o contato selecionado
+    if (selectedContact === null) return;
     const updatedSelectedContact = selectedContact?.id === newMessage.phone
       ? { ...selectedContact, messages: [...selectedContact.messages, newMessage] }
       : selectedContact;
@@ -47,6 +54,11 @@ export default function Home() {
     ));
   };
 
+  useEffect(() => {
+    console.log("selectedContact:", selectedContact);
+  }
+  , [selectedContact]);
+
   return (
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
@@ -59,7 +71,10 @@ export default function Home() {
             </div>
 
             <div className={styles.chatContainer}>
-            <Chat messages={selectedContact?.messages} onMessageSent={handleMessageSent} />
+            <Chat messages={selectedContact?.messages}
+              onMessageSent={handleMessageSent}
+              selectedContact={selectedContact}
+            />
             </div>
           </div>
         {/* </Layout> */}

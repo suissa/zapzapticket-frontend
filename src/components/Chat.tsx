@@ -6,9 +6,11 @@ import useTickets from "../hooks/useTickets";
 interface ChatProps {
   messages: any[];
   onMessageSent: (newMessage: any) => void;
+  selectedContact: { id: string, messages: any[], phone: string } | null;
+
 }
 
-const Chat: React.FC<ChatProps> = ({ messages, onMessageSent }) => {
+export default function Chat({ messages, onMessageSent, selectedContact }: ChatProps) {
   const { sendMessage } = useTickets();
   const [messageText, setMessageText] = useState("");
   const endOfMessagesRef = useRef(null);
@@ -25,16 +27,21 @@ const Chat: React.FC<ChatProps> = ({ messages, onMessageSent }) => {
 
 
   const handleSendMessage = () => {
+    if (!selectedContact) {
+      console.log("Nenhum contato selecionado.");
+      return;
+    }
+    console.log("selectedContact:", selectedContact);
     const newMessage = {
       text: messageText,
       type: "received",
     }
     sendMessage({
       message: messageText,
-      phone: "5515991957645",
+      phone: selectedContact.phone,
       instanceName: "Criptou_Onboarding-5511994649923",
     });
-    setMessageText(""); // Limpa o campo de texto após o envio
+    setMessageText("");
     onMessageSent(newMessage);
   };
 
@@ -61,12 +68,11 @@ const Chat: React.FC<ChatProps> = ({ messages, onMessageSent }) => {
           placeholder="Digite uma mensagem..."
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
-          onKeyDown={handleKeyPress}  // Adicione esta linha
+          onKeyDown={handleKeyPress}
+          disabled={!selectedContact}
         />
         <button onClick={handleSendMessage}>Enviar</button>
       </div>
     </div>
   );
 };
-
-export default Chat;
