@@ -41,6 +41,7 @@ export default function Home() {
 
   const handleMessageSent = (newMessage) => {
     console.log("handleMessageSent newMessage:", newMessage);
+    console.log("handleMessageSent selectedContact:", selectedContact);
     // Atualiza o contato selecionado
     if (selectedContact === null) return;
     const updatedSelectedContact = selectedContact?.id === newMessage.phone
@@ -49,10 +50,16 @@ export default function Home() {
     setSelectedContact(updatedSelectedContact);
 
     // Atualiza a lista de contatos
-    setContacts(contacts.map(contact => 
-      contact.id === newMessage.phone 
+    setContacts(contacts.map(contact => {
+      console.log("handleMessageSent contact:", contact);
+      console.log("handleMessageSent contact.phone:", contact.phone);
+      console.log("handleMessageSent newMessage.phone:", newMessage.phone);
+      console.log("handleMessageSent contact.phone === newMessage.phone:", contact.phone === newMessage.phone);
+
+      return contact.phone && newMessage.phone && contact.phone === newMessage.phone 
       ? { ...contact, messages: [...contact.messages, newMessage] } 
       : contact
+    }
     ));
   };
 

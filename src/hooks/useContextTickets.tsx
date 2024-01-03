@@ -27,14 +27,15 @@ export const ContactProvider = ({ children }) => {
 
   };
   function updateContactMessages(newMessage) {
-    const _newMessage = { text: newMessage.message, type: "sent", typeMessage: "text" };
+
     console.log("ContactProvider updateContactMessages contacts", contacts);
-    console.log("ContactProvider updateContactMessages _newMessage", _newMessage);
+    console.log("ContactProvider updateContactMessages _newMessage", newMessage);
     setContacts(currentContacts =>
       currentContacts.map(contact => {
         if (contact.phone === newMessage.phone) {
-          const newMessages = { ...contact, messages: [...contact.messages, _newMessage] };
-          setSelectedContact(newMessages);
+          console.log("ACHOU O PHONE ContactProvider updateContactMessages contact", contact);
+          const newMessages = { ...contact, messages: [...contact.messages, newMessage] };
+          // setSelectedContact(newMessages);
           return newMessages;
         }
         return contact;
@@ -45,10 +46,20 @@ export const ContactProvider = ({ children }) => {
 
   const handleMessageReceived = (request) => {
     console.log("message:chat:receive adicionar na lista:", request);
-    const remoteJid = request.data.key.remoteJid.replace("@s.whatsapp.net", "");
+
+    const { instance, data, sender } = request;
+    const { key, pushName, message, messageType, messageTimestamp, owner, source } = data;
+    const { remoteJid, fromMe, id } = key;
+    const { conversation, messageContextInfo, extendedTextMessage, ephemeralMessage  } = message;
+    const text = conversation || extendedTextMessage?.text || ephemeralMessage?.message?.extendedTextMessage?.text;
+
     const newMessage = {
-      phone: remoteJid,
-      message: request.data?.message?.conversation,
+      phone: remoteJid.replace("@s.whatsapp.net", ""),
+      message: text,
+      text: text,
+      type: "sent",
+      typeMessage: "text",
+      createdAt: new Date()
     }
     updateContactMessages(newMessage);
   };

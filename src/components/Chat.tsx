@@ -15,6 +15,7 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   const [messageText, setMessageText] = useState("");
   const endOfMessagesRef = useRef(null);
   const messagesRef = useRef(messages);
+  const [localMessages, setLocalMessages] = useState(messages);
 
   useEffect(() => {
     messagesRef.current = messages;
@@ -23,6 +24,7 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   }, [messages]);
 
   useEffect(() => {
+    setLocalMessages(messages);
   }, [messages]);
 
   const handleSendMessage = () => {
@@ -34,6 +36,9 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
     const newMessage = {
       text: messageText,
       type: "received",
+      typeMessage: "text",
+      createdAt: new Date(),
+      phone: selectedContact.phone,
     }
     sendMessage({
       message: messageText,
@@ -54,7 +59,7 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
     <div className={styles.chatWrapper}>
       <div className={styles.mainLayout}>
         <div className={styles.chatContainer}>
-          {messages && messages.map((message, i) => (
+          {localMessages && localMessages.map((message, i) => (
             <Message key={i} text={message.text} sender={message.type} />
           ))}
           <div ref={endOfMessagesRef} />
