@@ -24,10 +24,20 @@ export const ContactProvider = ({ children }) => {
   const handleMessage = (data) => console.log("Dados recebidos:", data);
   const handleMessageSent = (phone) => {
     console.log("message:chat:send eliminar da lista:", phone);
-
   };
-  function updateContactMessages(newMessage) {
 
+  setInterval(() => {
+    setContacts(currentContacts =>
+      currentContacts
+        .sort((a, b) => {
+          const lastMessageA = new Date(a.messages[a.messages.length - 1].createdAt).getTime();
+          const lastMessageB = new Date(b.messages[b.messages.length - 1].createdAt).getTime();
+          return lastMessageB - lastMessageA;
+        })
+    )
+    }, 60000);
+
+  function updateContactMessages(newMessage) {
     console.log("ContactProvider updateContactMessages contacts", contacts);
     console.log("ContactProvider updateContactMessages _newMessage", newMessage);
     setContacts(currentContacts =>
