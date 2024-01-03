@@ -30,23 +30,17 @@ export const ContactProvider = ({ children }) => {
     const _newMessage = { text: newMessage.message, type: "sent", typeMessage: "text" };
     console.log("ContactProvider updateContactMessages contacts", contacts);
     console.log("ContactProvider updateContactMessages _newMessage", _newMessage);
-    setContacts(currentContacts => currentContacts.map(contact => {
-      if (contact.phone === newMessage.phone) {
+    setContacts(currentContacts =>
+      currentContacts.map(contact => {
+        if (contact.phone === newMessage.phone) {
+          const newMessages = { ...contact, messages: [...contact.messages, _newMessage] };
+          setSelectedContact(newMessages);
+          return newMessages;
+        }
+        return contact;
+      })
+    );
 
-        // console.log("ContactProvider updateContactMessages selectedContact", selectedContact);
-        // if (selectedContact && selectedContact?.phone === newMessage.phone) {
-          console.log("ContactProvider achou updateContactMessages contact", contact);
-          console.log("ContactProvider achou updateContactMessages selected _newMessage", _newMessage);
-        const newMessages = { ...contact, messages: [...contact.messages, _newMessage] };
-
-        setSelectedContact(newMessages);
-        // }
-        console.log("ContactProvider updateContactMessages newMessages", newMessages);
-        return newMessages;
-      }
-      return contact;
-    }));
-  
   }
 
   const handleMessageReceived = (request) => {
