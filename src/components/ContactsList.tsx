@@ -21,7 +21,7 @@ const truncateString = (str, num) => {
 
 const ContactsList = ({ contacts, onContactSelect }) => {
   return (
-    <div className={`${styles.contactsList} rounded`}>
+    <div className={`${styles.contactsList} rounded h-screen`}>
       <TopBar />
       <TopBarButtons />
       <TopBarOptions />
