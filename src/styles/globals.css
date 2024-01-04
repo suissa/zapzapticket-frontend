@@ -125,7 +125,9 @@ body .btn-border {
   border: 1px solid #666;
   background-color: #fff;
 }
-
+body .w-90px {
+  width: 90px;
+}
 
 .qr-code-container {
   position: relative;
