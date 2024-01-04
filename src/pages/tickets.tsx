@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import ContactsList from '../components/ContactsList';
-import Chat from '../components/Chat';
-import Menu from '../components/Menu';
+import React, { useState, useEffect, useContext, useRef } from "react";
+import ContactsList from "../components/ContactsList";
+import Chat from "../components/Chat";
+import Menu from "../components/Menu";
 import Layout from "../components/Layout";
-import styles from '../styles/Ticket.module.css';
-import useTickets from '../hooks/useTickets';
-import { ContactContext } from '../hooks/useContextTickets';
+import styles from "../styles/Ticket.module.css";
+import useTickets from "../hooks/useTickets";
+import { ContactContext } from "../hooks/useContextTickets";
 
 export default function Home() {
   // const [contacts, setContacts] = useState([]);
@@ -84,7 +84,35 @@ export default function Home() {
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-black p-4">
         {/* <Layout title="Tickets"> */}
-          <div className={styles.mainLayout}>
+
+          <div className="testWrapper">
+            <div className="testContactList">
+              <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
+            </div>
+            <div className="testChatContainer">
+              <div className="testChatContainerMessages">
+                <Chat messages={selectedContact?.messages}
+                  onMessageSent={handleMessageSent}
+                  selectedContact={selectedContact}
+                />
+              </div>
+              <div className="testChatContainerInput">
+                
+
+                {/* <input
+                  type="text"
+                  placeholder="Digite uma mensagem..."
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  disabled={!selectedContact}
+                />
+                <button onClick={handleSendMessage}>Enviar</button> */}
+
+              </div>
+            </div>
+          </div>
+          {/* <div className={styles.mainLayout}>
             <div className={styles.contactsList}>
               <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
             </div>
@@ -95,7 +123,7 @@ export default function Home() {
               selectedContact={selectedContact}
             />
             </div>
-          </div>
+          </div> */}
         {/* </Layout> */}
       </div>
       </div>

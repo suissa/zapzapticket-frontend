@@ -63,9 +63,7 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   };
 
   return (
-    <div className={styles.chatWrapper}>
-      <div className={styles.mainLayout}>
-        <div className={styles.chatContainerMessages}>
+    <div>
           {localMessages && localMessages.map((message, i) => (
             <Message
               key={i}
@@ -76,19 +74,5 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
           ))}
           <div ref={endOfMessagesRef} />
         </div>
-      </div>
-
-      <div className={styles.chatInput}>
-        <input
-          type="text"
-          placeholder="Digite uma mensagem..."
-          value={messageText}
-          onChange={(e) => setMessageText(e.target.value)}
-          onKeyDown={handleKeyPress}
-          disabled={!selectedContact}
-        />
-        <button onClick={handleSendMessage}>Enviar</button>
-      </div>
-    </div>
   );
 };
