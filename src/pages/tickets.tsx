@@ -79,7 +79,7 @@ export default function Home() {
     };
 
     // Aqui você precisa chamar a função que realmente envia a mensagem
-    // sendMessage(...);
+    sendMessage(newMessage);
 
     setMessageText(""); // Limpar o campo de texto após enviar
     handleMessageSent(newMessage); // Atualizar a lista de mensagens

@@ -97,6 +97,7 @@ body .ticketChatContainerInput input:focus {
   margin: 5px;
   width: fit-content; /* Ajuste conforme necessário */
   margin-right: auto;
+  justify-content: flex-end;
 }
 
 .sent, .received {
@@ -105,7 +106,7 @@ body .ticketChatContainerInput input:focus {
 }
 
 .sent {
-  background-color: #ffffff;
+  background-color: #daf8cb;
   margin-left: auto; /* Alinha à direita */
   text-align: right;
   margin-right: 0;
@@ -113,11 +114,10 @@ body .ticketChatContainerInput input:focus {
 }
 
 .received {
-  background-color: #daf8cb;
+  background-color: #ffffff;
   margin-right: auto; /* Alinha à esquerda */
   text-align: left;
   /* margin-left: 0; */
-  justify-content: flex-end;
 
 }
 

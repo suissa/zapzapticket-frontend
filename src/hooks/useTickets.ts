@@ -32,6 +32,18 @@ export default function useTickets() {
     const { message, phone, instanceName } = data;
     console.log("sendMessage data", data);
 
+    if (!message) {
+      console.error("Error sending message: message is empty");
+      return;
+    }
+    if (!phone) {
+      console.error("Error sending phone: phone is empty");
+      return;
+    }
+    if (!instanceName) {
+      console.error("Error sending instanceName: instanceName is empty");
+      return;
+    }
     fetch(`${API_URL}/contacts/message/send`, {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -48,7 +60,7 @@ export default function useTickets() {
 
   const listContacts = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/contacts/messages/last/40`);
+      const response = await fetch(`${API_URL}/contacts/messages/last/`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

@@ -5,7 +5,7 @@ import { IconDoubleChecked } from "./Icons";
 
 const TicketMessage = ({ text, sender, date, read }) => {
   // console.log("TicketMessage: ", text, sender);
-  const messageClass = sender === "sent" ? styles.sent : styles.received;
+  const messageClass = sender === "sent" ? styles.received : styles.sent;
   const isoDate = date
   const messageDate = moment(isoDate);
   const formattedDate = messageDate.format("HH:mm");
