@@ -27,6 +27,12 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
     setLocalMessages(messages);
   }, [messages]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 1000); // Ajuste o tempo conforme necessário
+  }, [localMessages]);
+
   const handleSendMessage = () => {
     if (!selectedContact) {
       console.log("Nenhum contato selecionado.");

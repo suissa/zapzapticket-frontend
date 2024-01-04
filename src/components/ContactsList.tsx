@@ -25,7 +25,11 @@ const ContactsList = ({ contacts, onContactSelect }) => {
       <TopBar />
       <TopBarButtons />
       <TopBarOptions />
-      {contacts.map(contact => {
+      {contacts.sort((a, b) => {
+          const lastMessageA = new Date(a.messages[a.messages.length - 1].createdAt).getTime();
+          const lastMessageB = new Date(b.messages[b.messages.length - 1].createdAt).getTime();
+          return lastMessageB - lastMessageA;
+        }).map(contact => {
 
         const isoDate = contact.messages[contact.messages.length - 1].createdAt
         const messageDate = moment(isoDate);

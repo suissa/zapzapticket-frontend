@@ -27,6 +27,7 @@ export const ContactProvider = ({ children }) => {
   };
 
   setInterval(() => {
+    console.log("ContactProvider reorder contacts", contacts);
     setContacts(currentContacts =>
       currentContacts
         .sort((a, b) => {
