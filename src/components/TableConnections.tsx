@@ -109,23 +109,6 @@ export default function Table({
     );
   };
 
-
-  // const ModalQRCode64 = ({ qrCodeBase64 }) => {
-  //   console.log("ModalQRCode64: ", QRCODE)
-  //   ModalQRCode(QRCODE)
-  //   // const _qrCodeBase64 = QRCODE;
-  //   // return (
-  //   //   <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-  //   //     <div className="bg-white p-4 rounded">
-  //   //       <p>Leia com o WhatsApp o código abaixo</p>
-  //   //       <div className="flex justify-end mt-4">
-  //   //         <img src={`${_qrCodeBase64}`} alt="QR Code" />
-  //   //       </div>
-  //   //     </div>
-  //   //   </div>
-  //   // );
-  // };
-
   function renderHeader() {
     return (
       <tr>
@@ -177,7 +160,7 @@ export default function Table({
                   type="button"
                   className="
                   bg-gradient-to-t from-purple-500 to-purple-700 text-white
-                  px-4 py-2 rounded-md"
+                  px-4 py-2 rounded-md w-90px"
                   onClick={() => handleInstanceStatusCheckboxChange(connection)}>
                   Desativar
                 </button>
@@ -186,7 +169,7 @@ export default function Table({
                   type="button"
                   className="
                   bg-gradient-to-t from-purple-500 to-purple-700 text-white
-                  px-4 py-2 rounded-md"
+                  px-4 py-2 rounded-md w-90px"
                   onClick={() => handleInstanceStatusCheckboxChange(connection)}>
                   Ativar
                 </button>
