@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  height: 700px;
+  height: 90vh;
   font-size: 14px;
   font-weight: 400;
   position: relative;
@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  height: 688px;
+  height: calc(90vh - 69px);
   max-width: 600px;
   min-width: 600px;
   background: url("/images/chat-whatsapp-bege.png") no-repeat top center fixed;
@@ -48,7 +48,7 @@
   height: 70px;
   padding: 0 10px;
   position: fixed;
-  bottom: 150px;
+  bottom: 56px;
   z-index: 9999999;
   border-bottom-right-radius: 8px;
 }
@@ -121,7 +121,7 @@ body .chatInput input:focus {
 
 .contactsList {
   width: 400px;
-  height: 758px;
+  height: 90vh;
   background-color: #fff;
   overflow-y: auto;
   /* padding: 10px; */
@@ -150,6 +150,7 @@ body .chatInput input:focus {
   position: absolute;
   right: 0;
   top: 10px;
+  text-align: right;
 }
 
 
@@ -283,4 +284,22 @@ body .topBarIcon svg {
 .badgeNotification {
   top: 6px;
   right: 36px;
+}
+
+@media only screen and (min-width: 1300px) {
+  .chatInput {
+    bottom: 61px;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .chatInput {
+    bottom: 74px;
+  }
+}
+
+@media only screen and (min-width: 1900px) {
+  .chatInput {
+    bottom: 128px;
+  }
 }
