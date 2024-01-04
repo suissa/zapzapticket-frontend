@@ -3,6 +3,7 @@ import ColorPicker from "./ColorPicker"
 import Tag from "../core/Tag"
 import { IconEdit, IconThrash } from "./Icons"
 import useTags from "../hooks/useTags"
+import ModalDeleteConfirmation from './ModalDeleteConfirmation';
 
 interface TableProps {
   tags: Tag[]
@@ -52,6 +53,7 @@ export default function Table({
   };
 
   const handleDelete = () => {
+    console.log("Excluindo tag", currentTag);
     if (currentTag) {
       tagDeleted?.(currentTag);
       console.log("Tag excluída:", currentTag);
@@ -99,8 +101,10 @@ export default function Table({
               Excluir
             </button>
             <button
-              className="bg-gradient-to-r from-blue-400 to-purple-500 text-white
-              px-4 py-2 rounded-md"
+              type="button"
+              className="
+              bg-gradient-to-t from-purple-500 to-purple-700 text-white
+              px-4 py-2 rounded-md mb-4"
               onClick={onClose}
             >
               Cancelar
@@ -195,10 +199,10 @@ export default function Table({
         </tbody>
       </table>
       {isModalOpen && (
-        <Modal 
+        <ModalDeleteConfirmation
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
-          tag={currentTag}
+          entity={currentTag} // Certifique-se de passar a entidade correta
         />
       )}
     </div>
