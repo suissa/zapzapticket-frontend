@@ -12,7 +12,8 @@ export default function Home() {
   // const [selectedContact, setSelectedContact] = useState(null);
   const { contacts, setContacts, selectedContact, setSelectedContact } = useContext(ContactContext);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-  const { listContacts, updateContactMessages } = useTickets(selectedContact, setSelectedContact);
+  const { sendMessage,  listContacts } = useTickets();
+  const [messageText, setMessageText] = useState(""); // Estado para o texto da mensagem
 
   const handleToggleSidebar = (isExpanded) => {
     setIsSidebarExpanded(isExpanded);
@@ -37,7 +38,6 @@ export default function Home() {
   //   console.log("handleMessageSent newMessage:", newMessage);
   //   updateContactMessages(newMessage, newMessage.phone);
   // };
-
 
   const handleMessageSent = (newMessage) => {
     console.log("handleMessageSent newMessage:", newMessage);
@@ -64,6 +64,34 @@ export default function Home() {
     ));
   };
 
+  const handleSendMessage = () => {
+    if (!selectedContact) {
+      console.log("Nenhum contato selecionado.");
+      return;
+    }
+
+    const newMessage = {
+      text: messageText,
+      type: "received",
+      typeMessage: "text",
+      createdAt: new Date(),
+      phone: selectedContact.phone,
+    };
+
+    // Aqui você precisa chamar a função que realmente envia a mensagem
+    // sendMessage(...);
+
+    setMessageText(""); // Limpar o campo de texto após enviar
+    handleMessageSent(newMessage); // Atualizar a lista de mensagens
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
+
   const endOfMessagesRef = useRef(null);
 
   useEffect(() => {
@@ -85,21 +113,21 @@ export default function Home() {
         <div className="h-screen bg text-black p-4">
         {/* <Layout title="Tickets"> */}
 
-          <div className="testWrapper">
-            <div className="testContactList">
+          <div className={styles.ticketWrapper}>
+            <div className={styles.ticketContactList}>
               <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
             </div>
-            <div className="testChatContainer">
-              <div className="testChatContainerMessages">
+            <div className={styles.ticketChatContainer}>
+              <div className={styles.ticketChatContainerMessages}>
                 <Chat messages={selectedContact?.messages}
                   onMessageSent={handleMessageSent}
                   selectedContact={selectedContact}
                 />
               </div>
-              <div className="testChatContainerInput">
+              <div className={styles.ticketChatContainerInput}>
                 
 
-                {/* <input
+                <input
                   type="text"
                   placeholder="Digite uma mensagem..."
                   value={messageText}
@@ -107,7 +135,7 @@ export default function Home() {
                   onKeyDown={handleKeyPress}
                   disabled={!selectedContact}
                 />
-                <button onClick={handleSendMessage}>Enviar</button> */}
+                <button onClick={handleSendMessage}>Enviar</button>
 
               </div>
             </div>

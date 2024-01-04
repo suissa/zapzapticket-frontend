@@ -34,33 +34,33 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   }, [localMessages]);
 
 
-  const handleSendMessage = () => {
-    if (!selectedContact) {
-      console.log("Nenhum contato selecionado.");
-      return;
-    }
-    console.log("selectedContact:", selectedContact);
-    const newMessage = {
-      text: messageText,
-      type: "received",
-      typeMessage: "text",
-      createdAt: new Date(),
-      phone: selectedContact.phone,
-    }
-    sendMessage({
-      message: messageText,
-      phone: selectedContact.phone,
-      instanceName: "Criptou_Onboarding-5511994649923",
-    });
-    setMessageText("");
-    onMessageSent(newMessage);
-  };
+  // const handleSendMessage = () => {
+  //   if (!selectedContact) {
+  //     console.log("Nenhum contato selecionado.");
+  //     return;
+  //   }
+  //   console.log("selectedContact:", selectedContact);
+  //   const newMessage = {
+  //     text: messageText,
+  //     type: "received",
+  //     typeMessage: "text",
+  //     createdAt: new Date(),
+  //     phone: selectedContact.phone,
+  //   }
+  //   sendMessage({
+  //     message: messageText,
+  //     phone: selectedContact.phone,
+  //     instanceName: "Criptou_Onboarding-5511994649923",
+  //   });
+  //   setMessageText("");
+  //   onMessageSent(newMessage);
+  // };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
-  };
+  // const handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     handleSendMessage();
+  //   }
+  // };
 
   return (
     <div>

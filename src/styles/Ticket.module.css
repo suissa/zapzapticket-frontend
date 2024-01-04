@@ -1,73 +1,61 @@
-.mainLayout {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  height: 90vh;
-  font-size: 14px;
-  font-weight: 400;
-  position: relative;
-  /* padding-left: 100px; */
-  margin: 0 auto;
-}
 
-.chatContainer {
-  background-color: #e5ddd5;
+.ticketWrapper {
+  width: 90vw;
+  height: 90%;
+  margin: 40px auto;
+  display: flex;
+  align-items: stretch;
+  background: transparent;
+}
+.ticketContactList {
+  width: 30%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
-  height: calc(90vh - 69px);
-  max-width: 90%;
-  min-width: 600px;
-  background: url("/images/chat-whatsapp-bege.png") no-repeat top center fixed;
-  background-color: transparent;
-  background-size: inherit;
-  overflow-x: hidden;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  position: relative;
-  padding-top: 10px;
+  align-items: center;
 }
-
-.chatContainerMessages {
-  background-color: #e5ddd5;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  height: calc(90vh - 13px);
-  max-width: 90%;
-  min-width: 600px;
-  background: url("/images/chat-whatsapp-bege.png") no-repeat top center fixed;
-  background-color: transparent;
-  background-size: inherit;
-  overflow-x: hidden;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  position: relative;
-  padding-top: 10px;
-}
-.chatWrapper {
-  width: 600px;
-  height: auto;
-}
-
-.chatList {
+.ticketChatContainer {
+  width: 70%;
+  height: 100%;
   overflow: auto;
+  background-color: #000;
+  background: url("/images/chat-whatsapp-bege.png") repeat top center fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
 }
-
-.chatInput {
+.ticketChatContainerMessages {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow: auto;
+  background-color: #000;
+  background: url("/images/chat-whatsapp-bege.png") repeat top center fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 30px;
+}
+.ticketChatContainerInput {
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid #ddd;
   display: flex;
   align-items: center;
-  width: 600px;
+  justify-content: space-between;
+  padding: 0 10px;
+  position: absolute;
+  bottom: 0;
   background-color: #dfdfdf;
   height: 70px;
   padding: 0 10px;
-  position: fixed;
-  bottom: 48px;
-  z-index: 9999999;
   border-bottom-right-radius: 8px;
 }
 
-body .chatInput input {
+body .ticketChatContainerInput input {
   flex-grow: 1;
   padding: 10px;
   margin-right: 10px;
@@ -76,7 +64,7 @@ body .chatInput input {
   background-color: #fff;
 }
 
-body .chatInput input:focus {
+body .ticketChatContainerInput input:focus {
   flex-grow: 1;
   padding: 10px;
   margin-right: 10px;
@@ -85,7 +73,7 @@ body .chatInput input:focus {
   background-color: #fff;
 }
 
-.chatInput button {
+.ticketChatContainerInput button {
   padding: 10px 20px;
   border: none;
   background-color: #4CAF50;
@@ -94,7 +82,7 @@ body .chatInput input:focus {
   cursor: pointer;
 }
 
-.chatInput button:hover {
+.ticketChatContainerInput button:hover {
   background-color: #45a049;
 }
 
