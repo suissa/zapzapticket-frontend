@@ -63,16 +63,16 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   // };
 
   return (
-    <div>
-          {localMessages && localMessages.map((message, i) => (
-            <Message
-              key={i}
-              text={message.text}
-              date={message.createdAt}
-              sender={message.type}
-              read={message.read} />
-          ))}
-          <div ref={endOfMessagesRef} />
-        </div>
+    <div className={styles.ticketChatWrapperMessages}>
+      {localMessages && localMessages.map((message, i) => (
+        <Message
+          key={i}
+          text={message.text}
+          date={message.createdAt}
+          sender={message.type}
+          read={message.read} />
+      ))}
+      <div ref={endOfMessagesRef} />
+    </div>
   );
 };

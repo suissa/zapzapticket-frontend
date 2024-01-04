@@ -27,6 +27,9 @@
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
 }
+.ticketChatWrapperMessages {
+  width: 100%;
+}
 .ticketChatContainerMessages {
   width: 100%;
   height: calc(100% - 50px);
@@ -87,48 +90,55 @@ body .ticketChatContainerInput input:focus {
 }
 
 .message {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
   padding: 10px;
   margin: 5px;
-  border-radius: 10px;
-  max-width: 70%;
+  width: fit-content; /* Ajuste conforme necessário */
+  margin-right: auto;
+}
+
+.sent, .received {
+  flex-grow: 0; /* Previne que a mensagem ocupe todo o espaço disponível */
+  flex-shrink: 1; /* Permite que a mensagem encolha se necessário */
 }
 
 .sent {
   background-color: #ffffff;
-  position: relative;
-  margin-right: auto;
+  margin-left: auto; /* Alinha à direita */
+  text-align: right;
+  margin-right: 0;
+
 }
 
 .received {
   background-color: #daf8cb;
-  margin-left: auto;
-  text-align: right;
-  position: relative;
-  padding-right: 20px;
+  margin-right: auto; /* Alinha à esquerda */
+  text-align: left;
+  /* margin-left: 0; */
+  justify-content: flex-end;
+
 }
 
+/* Ajustes para a data e ícones (se necessário) */
 .ticketMessageDate {
-  text-align: right;
   font-size: 10px;
   color: #999;
-  position: relative;
-  bottom: 0;
-  right: 10px;
+  margin-left: 10px; /* Espaçamento após o texto da mensagem */
 }
 
 .ticketMessageText {
   font-size: 14px;
   color: #333;
-  margin-right: 40px;
 }
 
 .ticketMessageDoubleChecked {
-  position: absolute;
-  top: 10px;
-  right: 6px;
-  color: #999;
   font-size: 10px;
+  color: #999;
+  margin-left: 5px; /* Espaçamento após a data */
 }
+
 
 .contactsList {
   width: 100%;
