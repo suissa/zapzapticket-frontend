@@ -10,30 +10,14 @@ const API_URL = "http://localhost:9000";
 export default function useTickets() {
   const [contact, setContact] = useState<Contact>(Contact.empty())
   const [contacts, setContacts] = useState<Contact[]>([])
-  // const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
 
-  const { showForm, showTable, tableVisible } = useLayout()
-  const contactsRef = useRef(contacts);
-
-  const handleConnect = () => console.log("Conectado ao servidor Socket.io", new Date());
-  const handleMessage = (data) => console.log("Dados recebidos:", data);
-  const handleMessageSent = (phone) => {
-    console.log("message:chat:send eliminar da lista:", phone);
-
-  };
-
-
-  function createContact() {
-    setContact(Contact.empty())
-    showForm()
-  }
 
   function sendMessage(data) {
-    const { message, phone, instanceName } = data;
+    const { text, phone, instanceName } = data;
     console.log("sendMessage data", data);
 
-    if (!message) {
-      console.error("Error sending message: message is empty");
+    if (!text) {
+      console.error("Error sending text: text is empty");
       return;
     }
     if (!phone) {
@@ -47,7 +31,7 @@ export default function useTickets() {
     fetch(`${API_URL}/contacts/message/send`, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ message, phone, instanceName }),
+      body: JSON.stringify({ message: text, text, phone, instanceName }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -80,9 +64,6 @@ export default function useTickets() {
     sendMessage,
     contact,
     contacts,
-    createContact,
     listContacts,
-    showTable,
-    tableVisible
   }
 }

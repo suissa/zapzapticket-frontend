@@ -42,11 +42,15 @@ export default function Home() {
   const handleMessageSent = (newMessage) => {
     console.log("handleMessageSent newMessage:", newMessage);
     console.log("handleMessageSent selectedContact:", selectedContact);
+
+    // pega o instanceName de alguma forma
+    const instanceName = "Criptou_Onboarding-5511994649923";
+    const _newMessage = { ...newMessage, instanceName };
     // Atualiza o contato selecionado
     if (selectedContact === null) return;
-    const updatedSelectedContact = { ...selectedContact, messages: [...selectedContact.messages, newMessage] }
-    // selectedContact?.phone === newMessage.phone
-    //   ? { ...selectedContact, messages: [...selectedContact.messages, newMessage] }
+    const updatedSelectedContact = { ...selectedContact, messages: [...selectedContact.messages, _newMessage] }
+    // selectedContact?.phone === _newMessage.phone
+    //   ? { ...selectedContact, messages: [...selectedContact.messages, _newMessage] }
     //   : selectedContact;
     setSelectedContact(updatedSelectedContact);
 
@@ -54,17 +58,21 @@ export default function Home() {
     setContacts(contacts.map(contact => {
       console.log("handleMessageSent contact:", contact);
       console.log("handleMessageSent contact.phone:", contact.phone);
-      console.log("handleMessageSent newMessage.phone:", newMessage.phone);
-      console.log("handleMessageSent contact.phone === newMessage.phone:", contact.phone === newMessage.phone);
+      console.log("handleMessageSent _newMessage.phone:", _newMessage.phone);
+      console.log("handleMessageSent contact.phone === _newMessage.phone:", contact.phone === _newMessage.phone);
 
-      return contact.phone && newMessage.phone && contact.phone === newMessage.phone 
-      ? { ...contact, messages: [...contact.messages, newMessage] } 
+      return contact.phone && _newMessage.phone && contact.phone === _newMessage.phone 
+      ? { ...contact, messages: [...contact.messages, _newMessage] } 
       : contact
     }
     ));
+
+    sendMessage(_newMessage);
   };
 
   const handleSendMessage = () => {
+    console.log("handleSendMessage selectedContact:", selectedContact);
+    console.log("handleSendMessage messageText:", messageText);
     if (!selectedContact) {
       console.log("Nenhum contato selecionado.");
       return;
@@ -78,8 +86,8 @@ export default function Home() {
       phone: selectedContact.phone,
     };
 
+    console.log("handleSendMessage newMessage:", newMessage);
     // Aqui você precisa chamar a função que realmente envia a mensagem
-    sendMessage(newMessage);
 
     setMessageText(""); // Limpar o campo de texto após enviar
     handleMessageSent(newMessage); // Atualizar a lista de mensagens
