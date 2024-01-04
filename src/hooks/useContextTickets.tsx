@@ -27,7 +27,7 @@ export const ContactProvider = ({ children }) => {
   };
 
   setInterval(() => {
-    console.log("ContactProvider reorder contacts", contacts);
+    // console.log("ContactProvider reorder contacts", contacts);
     setContacts(currentContacts =>
       currentContacts
         .sort((a, b) => {
@@ -68,6 +68,25 @@ export const ContactProvider = ({ children }) => {
     );
 
   }
+
+  useEffect(() => {
+    if (selectedContact === null) return;
+  
+    // Verifica se todas as mensagens estão marcadas como lidas
+    const allMessagesRead = selectedContact.messages.every(m => m.read);
+    
+    // Se não, atualiza as mensagens para marcar como lidas
+    if (!allMessagesRead) {
+      console.log("Chat selectedContact:", selectedContact);
+      
+      const newMessages = selectedContact.messages.map(m => ({ ...m, read: true }));
+      const newContact = { ...selectedContact, messages: newMessages };
+  
+      console.log("Chat selectedContact:", selectedContact);
+      setSelectedContact(newContact);
+    }
+  }, [selectedContact]);
+
 
   // funcionalidade caso o sort fique demorado por ter mtas mensagens
   // function updateContactMessages(newMessage) {
@@ -142,4 +161,4 @@ export const ContactProvider = ({ children }) => {
     </ContactContext.Provider>
   );
 };
-``
+

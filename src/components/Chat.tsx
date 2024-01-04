@@ -33,6 +33,7 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
     }, 1000); // Ajuste o tempo conforme necessário
   }, [localMessages]);
 
+
   const handleSendMessage = () => {
     if (!selectedContact) {
       console.log("Nenhum contato selecionado.");
@@ -64,9 +65,14 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   return (
     <div className={styles.chatWrapper}>
       <div className={styles.mainLayout}>
-        <div className={styles.chatContainer}>
+        <div className={styles.chatContainerMessages}>
           {localMessages && localMessages.map((message, i) => (
-            <Message key={i} text={message.text} date={message.createdAt} sender={message.type} />
+            <Message
+              key={i}
+              text={message.text}
+              date={message.createdAt}
+              sender={message.type}
+              read={message.read} />
           ))}
           <div ref={endOfMessagesRef} />
         </div>

@@ -87,6 +87,9 @@ body .text-light-purple {
 body .icon-blue {
   stroke: blue;
 }
+body .icon-blue-whatsapp {
+  stroke: rgb(66, 176, 255);
+}
 body .icon-purple {
   stroke: rgb(150, 19, 176);
 }

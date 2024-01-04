@@ -14,23 +14,37 @@
   background-color: #e5ddd5;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: hidden;
   height: calc(90vh - 69px);
-  max-width: 600px;
+  max-width: 90%;
   min-width: 600px;
   background: url("/images/chat-whatsapp-bege.png") no-repeat top center fixed;
-  background-color: #000;
+  background-color: transparent;
   background-size: inherit;
   overflow-x: hidden;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   position: relative;
   padding-top: 10px;
-  /* padding-bottom: 70px; */
-  padding-right: 16px;
-  /* height: 758px; */
 }
 
+.chatContainerMessages {
+  background-color: #e5ddd5;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: calc(90vh - 69px);
+  max-width: 90%;
+  min-width: 600px;
+  background: url("/images/chat-whatsapp-bege.png") no-repeat top center fixed;
+  background-color: transparent;
+  background-size: inherit;
+  overflow-x: hidden;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  position: relative;
+  padding-top: 10px;
+}
 .chatWrapper {
   width: 600px;
   height: auto;
@@ -94,6 +108,7 @@ body .chatInput input:focus {
 .sent {
   background-color: #ffffff;
   position: relative;
+  margin-right: auto;
 }
 
 .received {
@@ -101,13 +116,14 @@ body .chatInput input:focus {
   margin-left: auto;
   text-align: right;
   position: relative;
+  padding-right: 20px;
 }
 
 .ticketMessageDate {
   text-align: right;
   font-size: 10px;
   color: #999;
-  position: absolute;
+  position: relative;
   bottom: 0;
   right: 10px;
 }
@@ -118,6 +134,13 @@ body .chatInput input:focus {
   margin-right: 40px;
 }
 
+.ticketMessageDoubleChecked {
+  position: absolute;
+  top: 10px;
+  right: 6px;
+  color: #999;
+  font-size: 10px;
+}
 
 .contactsList {
   width: 400px;
@@ -298,7 +321,19 @@ body .topBarIcon svg {
   }
 }
 
+@media only screen and (min-width: 1499px) {
+  .chatInput {
+    bottom: 61px;
+  }
+}
+
 @media only screen and (min-width: 1900px) {
+  .chatInput {
+    bottom: 92px;
+  }
+}
+
+@media only screen and (min-width: 2500px) {
   .chatInput {
     bottom: 128px;
   }
