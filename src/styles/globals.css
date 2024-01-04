@@ -93,9 +93,6 @@ body .icon-blue-whatsapp {
 body .icon-purple {
   stroke: rgb(150, 19, 176);
 }
-body .tb-connections tr{
-  cursor: pointer;
-}
 body .text-purple {
   color: #6b21a8;
 }
@@ -127,6 +124,30 @@ body .menu-dropdown-item {
 body .btn-border {
   border: 1px solid #666;
   background-color: #fff;
+}
+
+
+.qr-code-container {
+  position: relative;
+}
+
+/* .qr-code-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.5);
+  mix-blend-mode: multiply;
+} */
+
+.qr-code-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  filter: invert(1);
+  margin: 0 auto;
 }
 
 .menu {
