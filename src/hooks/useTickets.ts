@@ -60,7 +60,7 @@ export default function useTickets() {
 
   const listContacts = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/contacts/messages/last/`);
+      const response = await fetch(`${API_URL}/contacts/messages/last/40`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
