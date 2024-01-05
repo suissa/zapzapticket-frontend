@@ -31,7 +31,7 @@ export default function ChatTopBar({selectedContact}: any) {
               <IconAccept className={`${styles.ticketChatTopBarButtonsAcceptIcon} text-green w-6 h-6 mt-1 margin-0-auto`} />
             </div>
             <div className={styles.ticketChatTopBarButtonsMenu}>
-              <MenuDropdown className={`${styles.ticketChatTopBarButtonsMenuIcon} text-purple w-6 h-6 mt-1 margin-0-auto`} />
+              <MenuDropdown className={`${styles.ticketChatTopBarButtonsMenuIcon} text-purple w-6 h-6 margin-0-auto`} />
             </div>
             {/* </button> */}
           </div>
