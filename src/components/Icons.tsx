@@ -8,6 +8,8 @@ import { IoCheckmarkDone } from "react-icons/io5";
 import { TiArrowBackOutline } from "react-icons/ti";
 import { BiBarcode } from "react-icons/bi";
 import { IoPricetagsOutline } from "react-icons/io5";
+import { HiMenu } from "react-icons/hi";
+import { IoReturnUpBack } from "react-icons/io5";
 
 // Heroicons: https://heroicons.com/
 
@@ -113,3 +115,4 @@ export const IconResolved = props => (<IoMdCheckboxOutline className={`w-6 h-6 i
 export const IconSearch = props => (<IoSearchSharp className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
 export const IconDoubleChecked = props => (<IoCheckmarkDone className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
 export const IconReturn = props => (<TiArrowBackOutline className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
+export const IconMenuBurger = props => (<HiMenu className={`w-6 h-6 icon-white mt-1 ${props.className}`}/>)
