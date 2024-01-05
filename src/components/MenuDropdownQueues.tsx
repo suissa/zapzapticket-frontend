@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+
 const MenuDropdown = ({ list }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [checked, setChecked] = useState(true);
   const dropdownRef = useRef(null);
   const _list = list || ["Fila 1", "Fila 2", "Fila 3", "Fila 4"];
 
@@ -33,8 +35,11 @@ const MenuDropdown = ({ list }) => {
             <a
               key={index}
               href="#"
-              className="menu-dropdown-item block px-4 py-2 text-purple hover:bg-gray-100"
+              className="menu-dropdown-item text-left block px-4 py-2 text-purple hover:bg-gray-100"
             >
+              <label>
+                <input type="checkbox" className="mr-2" checked={checked} />
+              </label>
               {item}
             </a>
           ))}
