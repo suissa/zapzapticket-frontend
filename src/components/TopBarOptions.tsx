@@ -10,7 +10,7 @@ const TopBar = () => {
 
       </div>
       <div className={styles.topBarOptionText}>
-        <button className={`${styles.topBarButton} text-purple`}>AGUARDANDo</button>
+        <button className={`${styles.topBarButton} text-purple`}>AGUARDANDO</button>
       </div>
     </div>
     )
