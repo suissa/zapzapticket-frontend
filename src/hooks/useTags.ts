@@ -1,7 +1,7 @@
-import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Tag from "../core/Tag"
-import TagRepository from "../core/TagRepository"
-import useLayout from "./useLayout"
+import { useState, MutableRefObject, useRef, useEffect } from "react";
+import Tag from "../core/Tag";
+import TagRepository from "../core/TagRepository";
+import useLayout from "./useLayout";
 
 const API_URL = "http://localhost:9000/tags";
 
@@ -26,13 +26,31 @@ export default function useTags() {
       })
   }
 
+  async function listTagsAsync() {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      console.log("listTags then", data);
+      setTags(data);
+    } catch (error) {
+      console.error("Erro ao listar tags:", error);
+    }
+  }
+
   function getTag(tag: Tag) {
     setTag(tag)
     showForm()
   }
 
   async function deleteTag(tag: Tag) {
-    listTags()
+    console.log("deleteTag tag", tag)
+    const result = await fetch(`${API_URL}/${tag._id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    console.log("deleteTag result", result)
+    await listTagsAsync()
+    return result;
   }
 
   async function saveTag(tag: Tag) {

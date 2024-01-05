@@ -128,6 +128,12 @@ body .btn-border {
 body .w-90px {
   width: 90px;
 }
+body .h-40px {
+  height: 40px;
+}
+body .btn-danger {
+  background-color: rgb(239 68 68);
+}
 
 .qr-code-container {
   position: relative;

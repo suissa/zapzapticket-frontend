@@ -1,8 +1,12 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useState } from "react"
+import { Fragment, useState, useEffect } from "react"
 
 export default function ModalQRCode({ isOpen, closeModal, qrCodeBase64 }) {
 
+  useEffect(() => {
+    console.log("ModalQRCode montado");
+    return () => console.log("ModalQRCode desmontado");
+  }, []);
 
   console.log("ModalQRCode isOpen:", isOpen);
   console.log("ModalQRCode qrCodeBase64:", qrCodeBase64);
