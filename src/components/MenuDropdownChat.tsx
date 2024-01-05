@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { IconThreeDots } from './Icons';
+import styles from "../styles/Ticket.module.css";
 
 const MenuDropdown = ({ list }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const _list = list || ["Fila 1", "Fila 2", "Fila 3", "Fila 4"];
+  const _list = list || ["Agendamento", "Transferência", "Deletar"];
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -22,9 +24,9 @@ const MenuDropdown = ({ list }) => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="menu-dropdown-button px-4 py-2 text-purple bg-white rounded hover:bg-purple-200 focus:outline-none"
+        className="px-4 py-2 text-purple bg-white rounded hover:bg-purple-200 focus:outline-none"
       >
-        Filas
+        <IconThreeDots className={styles.ticketChatTopBarButtonsMenu} />
       </button>
 
       {isOpen && (

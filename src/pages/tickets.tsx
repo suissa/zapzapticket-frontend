@@ -4,6 +4,7 @@ import ContactsList from "../components/ContactsList";
 import Chat from "../components/Chat";
 import Menu from "../components/Menu";
 import Layout from "../components/Layout";
+import ChatTopBar from "../components/ChatTopBar";
 import styles from "../styles/Ticket.module.css";
 import useTickets from "../hooks/useTickets";
 import { ContactContext } from "../hooks/useContextTickets";
@@ -129,6 +130,7 @@ export default function Home() {
               <div className={styles.ticketChatContainer}>
                 {selectedContact ? (
                   <>
+                  <ChatTopBar selectedContact={selectedContact} />
                   <div className={styles.ticketChatContainerMessages}>
                     <Chat messages={selectedContact?.messages}
                       onMessageSent={handleMessageSent}
