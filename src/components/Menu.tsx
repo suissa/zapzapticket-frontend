@@ -161,7 +161,7 @@ const Menu = ({ onToggle }) => {
             </Link>
           </li>
           <li>
-            <Link href="/tags">
+            <Link href="/queues">
               <div className="inline-flex items-center">
                 <QueuesIcon className="text-white" />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
