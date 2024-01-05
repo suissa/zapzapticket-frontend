@@ -99,6 +99,9 @@ body .text-purple {
 body .text-blue {
   color: #1e40af;
 }
+body .text-green {
+  color: #1b9a2c;
+}
 body .bg-purple-200 {
   background-color: #ddbff5;
 }
