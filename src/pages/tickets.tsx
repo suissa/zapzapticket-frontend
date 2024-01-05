@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
+import Image from "next/image";
 import ContactsList from "../components/ContactsList";
 import Chat from "../components/Chat";
 import Menu from "../components/Menu";
@@ -125,41 +126,34 @@ export default function Home() {
             <div className={styles.ticketContactList}>
               <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
             </div>
-            <div className={styles.ticketChatContainer}>
-              <div className={styles.ticketChatContainerMessages}>
-                <Chat messages={selectedContact?.messages}
-                  onMessageSent={handleMessageSent}
-                  selectedContact={selectedContact}
-                />
-              </div>
-              <div className={styles.ticketChatContainerInput}>
-                
-
-                <input
-                  type="text"
-                  placeholder="Digite uma mensagem..."
-                  value={messageText}
-                  onChange={(e) => setMessageText(e.target.value)}
-                  onKeyDown={handleKeyPress}
-                  disabled={!selectedContact}
-                />
-                <button onClick={handleSendMessage}>Enviar</button>
-
-              </div>
+              <div className={styles.ticketChatContainer}>
+                {selectedContact ? (
+                  <>
+                  <div className={styles.ticketChatContainerMessages}>
+                    <Chat messages={selectedContact?.messages}
+                      onMessageSent={handleMessageSent}
+                      selectedContact={selectedContact}
+                    />
+                  </div>
+                  <div className={styles.ticketChatContainerInput}>
+                    <input
+                      type="text"
+                      placeholder="Digite uma mensagem..."
+                      value={messageText}
+                      onChange={(e) => setMessageText(e.target.value)}
+                      onKeyDown={handleKeyPress}
+                      disabled={!selectedContact}
+                    />
+                    <button onClick={handleSendMessage}>Enviar</button>
+                  </div>
+                  </>
+                ) : <div className="flex items-center justify-center h-screen"> {/* h-screen para ter altura total da tela */}
+                      <Image src={"/images/logo.png"} width={500} height={500} alt="Innovation Studios" />
+                    </div>
+              }
             </div>
+            
           </div>
-          {/* <div className={styles.mainLayout}>
-            <div className={styles.contactsList}>
-              <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
-            </div>
-
-            <div className={styles.chatContainer}>
-            <Chat messages={selectedContact?.messages}
-              onMessageSent={handleMessageSent}
-              selectedContact={selectedContact}
-            />
-            </div>
-          </div> */}
         {/* </Layout> */}
       </div>
       </div>
