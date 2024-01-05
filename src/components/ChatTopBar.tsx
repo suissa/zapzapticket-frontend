@@ -2,6 +2,7 @@ import styles from "../styles/Ticket.module.css";
 import Image from "next/image";
 import { IconReturn, IconAccept } from "./Icons";
 import MenuDropdown from "./MenuDropdownChat";
+import TagsInput from "./TagsInput";
 
 export default function ChatTopBar({selectedContact}: any) {
   console.log("ChatTopBar selectedContact:", selectedContact);
@@ -22,18 +23,6 @@ export default function ChatTopBar({selectedContact}: any) {
             </div>
           </div>
         </div>
-
-          {/* <div className={`${styles.ticketChatTopBarWrapper} flex items-center gap-x-2`}>
-            <div className={styles.ticketChatTopBarProfileImage}>
-              <Image src={selectedContact.profilePictureUrl} width={40} height={40} alt={selectedContact.name} />
-            </div>
-            <div className={styles.ticketChatTopBarName}>
-              Nome: {selectedContact.name}
-            </div>
-            <div>
-              Transferido para: {selectedContact.transferedTo || "Ninguém"}
-            </div>
-          </div> */}
           <div className={`${styles.ticketChatTopBarButtonsWrapper} grid grid-cols-3`}>
             <div className={`${styles.ticketChatTopBarButtonsReturn} px-4 py-2 text-purple bg-white rounded hover:bg-purple-200 focus:outline-none`}>
               <IconReturn className={`${styles.ticketChatTopBarButtonsReturnIcon} text-purple w-6 h-6 margin-0-auto`} />
@@ -46,6 +35,11 @@ export default function ChatTopBar({selectedContact}: any) {
             </div>
             {/* </button> */}
           </div>
+        </div>
+      </div>
+      <div className={styles.ticketChatTags}>
+        <div className={styles.ticketChatTagsWrapper}>
+          <TagsInput tags={selectedContact.badges} className={styles.ticketsTags} />
         </div>
       </div>
     </>
