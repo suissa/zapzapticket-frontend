@@ -89,6 +89,7 @@ export default function useQueues() {
     saveQueue,
     deleteQueue,
     getQueue,
+    setQueues,
     listQueues,
     showTable,
     tableVisible
