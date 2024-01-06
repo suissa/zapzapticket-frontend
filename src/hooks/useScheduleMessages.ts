@@ -3,7 +3,7 @@ import ScheduleMessage from "../core/ScheduleMessage"
 import ScheduleMessageRepository from "../core/ScheduleMessageRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/schedulemessages";
+const API_URL = "http://137.184.81.207:9000/schedulemessages";
 
 export default function useScheduleMessages() {
   const [scheduleMessage, setScheduleMessage] = useState<ScheduleMessage>(ScheduleMessage.empty())

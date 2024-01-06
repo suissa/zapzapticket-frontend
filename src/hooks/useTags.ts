@@ -3,7 +3,7 @@ import Tag from "../core/Tag";
 import TagRepository from "../core/TagRepository";
 import useLayout from "./useLayout";
 
-const API_URL = "http://localhost:9000/tags";
+const API_URL = "http://137.184.81.207:9000/tags";
 
 export default function useTags() {
   const [tag, setTag] = useState<Tag>(Tag.empty())

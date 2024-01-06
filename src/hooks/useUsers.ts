@@ -3,7 +3,7 @@ import User from "../core/User"
 import UserRepository from "../core/UserRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/users";
+const API_URL = "http://137.184.81.207:9000/users";
 
 export default function useUsers() {
   const [user, setUser] = useState<User>(User.empty())

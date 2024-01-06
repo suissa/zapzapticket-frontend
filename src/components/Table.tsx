@@ -18,7 +18,7 @@ interface TableProps {
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
   cursor: pointer;
 `;
-const API_URL = "http://localhost:9000";
+const API_URL = "http://137.184.81.207:9000";
 
 export default function Table({ 
   connections, connectionSelected, connectionDeleted, connectionSaved, showCheckboxes, onSelectionChange, 

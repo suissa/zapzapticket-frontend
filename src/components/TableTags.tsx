@@ -14,7 +14,7 @@ interface TableProps {
   onSelectionChange?: (selectedIds: string[]) => void;
 }
 
-const API_URL = "http://localhost:9000";
+const API_URL = "http://137.184.81.207:9000";
 
 export default function Table({
   tagSelected, tagDeleted, showCheckboxes, showActions = true, onSelectionChange 

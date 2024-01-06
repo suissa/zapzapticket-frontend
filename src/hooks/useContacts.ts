@@ -3,7 +3,7 @@ import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/contacts";
+const API_URL = "http://137.184.81.207:9000/contacts";
 
 export default function useContacts() {
   const [contact, setContact] = useState<Contact>(Contact.empty())

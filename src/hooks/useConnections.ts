@@ -3,7 +3,7 @@ import Connection from "../core/Connection"
 import ConnectionRepositorio from "../core/ConnectionRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://localhost:9000/connections";
+const API_URL = "http://137.184.81.207:9000/connections";
 
 export default function useConnections(onConnectionSelected?: (connection: Connection) => void) {
   const [connection, setConnection] = useState<Connection>(Connection.empty())

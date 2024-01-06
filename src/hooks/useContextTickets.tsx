@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect, useCallback, useRef } from 'react';
 import io from 'socket.io-client';
 
-const socket = io("http://localhost:9000");
+const socket = io("http://137.184.81.207:9000");
 
 const defaultValue = {
   contacts: [],

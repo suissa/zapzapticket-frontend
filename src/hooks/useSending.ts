@@ -3,8 +3,8 @@ import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 import io from "socket.io-client";
 
-const socket = io("http://localhost:9000");
-const API_URL = "http://localhost:9000/messages/send/batch";
+const socket = io("http://137.184.81.207:9000");
+const API_URL = "http://137.184.81.207:9000/messages/send/batch";
 
 export default function useSend() {
   const [list, setList] = useState([]);
