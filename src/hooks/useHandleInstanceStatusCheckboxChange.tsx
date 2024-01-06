@@ -57,8 +57,13 @@ export default function useHandleInstanceStatusCheckboxChange() {
       const resultUpdate = await fetch(urlCreate, dataBody);
       const connectionSaved = await resultUpdate.json()
       console.log(connectionSaved)
-      console.log("QRCODE: ", connectionSaved.qrcode.base64)
-      setQrCodeBase64(connectionSaved.qrcode.base64)
+      console.log("QRCODE: ", connectionSaved?.qrcode?.base64)
+      if (connectionSaved?.qrcode?.base64) {
+        setQrCodeBase64(connectionSaved.qrcode.base64)
+      } else {
+        console.log("caiu no else")
+        alert("Problema na conexão")
+      }
   
     } else {
       console.log("caiu no else")
