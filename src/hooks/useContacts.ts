@@ -2,8 +2,8 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
-import { API_URL } from "../config"
-
+// import { API_URL } from "../config"
+const API_URL = "http://137.184.81.207:9000"
 export default function useContacts() {
   const [contact, setContact] = useState<Contact>(Contact.empty())
   const [contacts, setContacts] = useState<Contact[]>([])
@@ -18,7 +18,7 @@ export default function useContacts() {
 
   function listContacts() {
 
-    fetch(`http://137.184.81.207:9000/contacts`)
+    fetch(`${API_URL}/contacts`)
       .then(response => response.json())
       .then(data => {
         console.log("listContacts then", data)

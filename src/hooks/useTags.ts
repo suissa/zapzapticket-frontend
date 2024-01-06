@@ -17,7 +17,7 @@ export default function useTags() {
   }
 
   function listTags() {
-    fetch(`${API_URL}/tagas`)
+    fetch(`${API_URL}/tags`)
       .then(response => response.json())
       .then(data => {
         console.log("listTags then", data)
