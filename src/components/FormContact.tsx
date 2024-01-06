@@ -90,18 +90,19 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
           text="ID"
           value={_id}
           readOnly
-          className="mb-4"
+          className="mb-4 text-white"
         />
       ) : false}
       <Entry
         text="Nome"
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
-        className="mb-4"
+        className="mb-4 text-white"
       />
       <Entry
         text="Telefone"
         value={phone}
+        className="mb-4 text-white"
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
       />
       <Entry
@@ -109,6 +110,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
         type="select"
         value={status} // Use o estado como valor
         onChange={handleStatusChange}
+        className="mb-4 text-white"
         selectOptions={[
           { value: "", label: "Escolha um status" },
           { value: "Lista fria", label: "Lista fria" },
@@ -129,11 +131,13 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
       <Entry
         text="Cidade"
         value={city}
+        className="mb-4 text-white"
         onChange={e => setCity((e.target as HTMLInputElement).value)}
       />
       <Entry
         text="Estado"
         type="select"
+        className="mb-4 text-white"
         onChange={handleStateChange}
         selectOptions={[
           { value: "", label: "Escolha um estado"},
@@ -171,6 +175,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
       <Entry
         text="País"
         value={country}
+        className="mb-4 text-white"
         onChange={e => setCountry((e.target as HTMLInputElement).value)}
       />
       <div className="flex justify-end mt-7">
