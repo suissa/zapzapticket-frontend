@@ -17,7 +17,7 @@ export default function useQueues() {
   }
 
   function listQueues() {
-    fetch(API_URL)
+    fetch(`${API_URL}/queues`)
       .then(response => response.json())
       .then(data => {
         console.log("listQueues then", data)
@@ -27,7 +27,7 @@ export default function useQueues() {
 
   async function listQueuesAsync() {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(`${API_URL}/queues`);
       const data = await response.json();
       console.log("listQueues then", data);
       setQueues(data);
