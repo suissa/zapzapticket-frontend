@@ -173,7 +173,7 @@ body .btn-danger {
   display: block;
   max-width: 100%;
   height: auto;
-  filter: invert(1);
+  /* filter: invert(1); */
   margin: 0 auto;
 }
 
