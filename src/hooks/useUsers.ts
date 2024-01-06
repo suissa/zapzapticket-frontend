@@ -2,8 +2,8 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import User from "../core/User"
 import UserRepository from "../core/UserRepository"
 import useLayout from "./useLayout"
+import { API_URL } from "../config"
 
-const API_URL = "http://137.184.81.207:9000";
 
 export default function useUsers() {
   const [user, setUser] = useState<User>(User.empty())
@@ -58,6 +58,7 @@ export default function useUsers() {
         _id: user._id,
         name: user.name,
         email: user.email,
+        password: user.password,
         phone: user.phone,
         city: user.city,
         state: user.state,
@@ -68,6 +69,7 @@ export default function useUsers() {
       : JSON.stringify({
         name: user.name,
         email: user.email,
+        password: user.password,
         phone: user.phone,
         city: user.city,
         state: user.state,

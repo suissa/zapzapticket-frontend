@@ -39,7 +39,7 @@ export default function Entry({ text, type = 'text', selectOptions, ...props }: 
           {...props}
           className={`
             border border-purple-500 rounded-md focus:outline-none
-            bg-gray-50 px-4 py-2
+            bg-password px-4 py-2
             ${props.readOnly ? '' : 'focus:bg-white'}
           `}
         />

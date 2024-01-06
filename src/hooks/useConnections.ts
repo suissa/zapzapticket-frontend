@@ -52,7 +52,7 @@ export default function useConnections(onConnectionSelected?: (connection: Conne
         headers: { 'Content-Type': 'application/json' },
         body: connectionStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/connections`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: connectionStr

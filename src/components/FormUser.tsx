@@ -12,6 +12,7 @@ interface FormProps {
 export default function Form({ user, canceled, userModified }: FormProps) {
   const [name, setName] = useState(user?.name ?? "")
   const [email, setEmail] = useState(user?.email ?? "")
+  const [password, setPassword] = useState(user?.password ?? "")
   const [phone, setPhone] = useState(user?.phone ?? "")
   const [city, setCity] = useState(user?.city ?? "")
   const [state, setState] = useState(user?.state ?? "")
@@ -95,6 +96,13 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         text="Email"
         value={email}
         onChange={e => setEmail((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
+      />
+      <Entry
+        text="Senha"
+        type="password"
+        value={password}
+        onChange={e => setPassword((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
       <Entry

@@ -52,6 +52,22 @@ body select.bg-gray-50:focus {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
+input[type="password"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+body input[type="pssword"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+body bg-password {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
 body .task {
   padding: 10px;
   backdrop-filter: blur(10px);
