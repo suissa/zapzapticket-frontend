@@ -7,7 +7,7 @@ const ColorPicker = ({ color, onChange, onOutsideClick }) => {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (ref.current && !ref.current?.contains(event.target)) {
         setShowPicker(false);
         onOutsideClick();
       }
