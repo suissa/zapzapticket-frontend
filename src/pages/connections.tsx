@@ -44,7 +44,7 @@ export default function Home() {
                   className="mb-4"
                   onClick={createConnection}
                 >
-                  Nova Mensagem
+                  Nova Conexão
                 </Button>
               </div>
               <Table
