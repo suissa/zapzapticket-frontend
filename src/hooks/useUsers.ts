@@ -18,7 +18,7 @@ export default function useUsers() {
   }
 
   function listUsers() {
-    fetch(`${API_URL}`)
+    fetch(`${API_URL}/users`)
       .then(response => response.json())
       .then(data => {
         console.log("listUsers then", data)

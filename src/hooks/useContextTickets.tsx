@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect, useCallback, useRef } from '
 import io from 'socket.io-client';
 import { API_URL } from '../config';
 
-// const socket = io(API_URL);
+const socket = io(API_URL);
 
 const defaultValue = {
   contacts: [],
@@ -21,7 +21,7 @@ export const ContactProvider = ({ children }) => {
   const [selectedContact, setSelectedContact] = useState(null);
   const contactsRef = useRef(contacts);
 
-  const handleConnect = () => console.log("Conectado ao servidor Socket.io", new Date());
+  const handleConnect = () => console.log("useContextTickets Conectado ao servidor Socket.io", new Date());
   const handleMessage = (data) => console.log("Dados recebidos:", data);
   const handleMessageSent = (phone) => {
     console.log("message:chat:send eliminar da lista:", phone);
@@ -133,20 +133,20 @@ export const ContactProvider = ({ children }) => {
     contactsRef.current = contacts;
   }, [contacts]);
 
-  // useEffect(() => {
-  //   socket.on("connect", handleConnect);
-  //   socket.on("message", handleMessage);
-  //   socket.on("message:chat:send", handleMessageReceived);
-  //   socket.on("message:chat:receive", handleMessageReceived);
+  useEffect(() => {
+    socket.on("connect", handleConnect);
+    socket.on("message", handleMessage);
+    socket.on("message:chat:send", handleMessageReceived);
+    socket.on("message:chat:receive", handleMessageReceived);
 
-  //   return () => {
-  //     socket.off("connect", handleConnect);
-  //     socket.off("message", handleMessage);
-  //     socket.off("message:chat:send", handleMessageReceived);
-  //     socket.off("message:chat:receive", handleMessageReceived);
-  //     // socket.disconnect();
-  //   };
-  // }, []);
+    return () => {
+      socket.off("connect", handleConnect);
+      socket.off("message", handleMessage);
+      socket.off("message:chat:send", handleMessageReceived);
+      socket.off("message:chat:receive", handleMessageReceived);
+      // socket.disconnect();
+    };
+  }, []);
   // Exemplo de função que você pode definir
   const listContacts = useCallback(async () => {
     // Lógica para listar contatos

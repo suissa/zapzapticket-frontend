@@ -31,7 +31,7 @@ export default function useContacts() {
   }
 
   async function deleteContact(contact: Contact) {
-    fetch(`${API_URL}/${contact._id}`, {
+    fetch(`${API_URL}/contacts/${contact._id}`, {
       method: 'DELETE',
     })
       .then(response => response.json())

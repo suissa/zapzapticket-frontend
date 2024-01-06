@@ -17,7 +17,7 @@ export default function useScheduleMessages() {
   }
 
   function listScheduleMessages() {
-    fetch(API_URL)
+    fetch(`${API_URL}/schedulemessages`)
       .then(response => response.json())
       .then(data => {
         console.log("listScheduleMessages then", data)
@@ -39,14 +39,14 @@ export default function useScheduleMessages() {
     const messageStr = message?._id
       ? JSON.stringify({
           _id: message._id,
-          title: message.title,
           text: message.text,
-          isActive: message.isActive
+          from: message.from
+          to: message.to
         })
       : JSON.stringify({
-        title: message.title,
         text: message.text,
-        isActive: message.isActive
+        from: message.from
+        to: message.to
       })
     console.log("saveScheduleMessage messageStr", messageStr)
     const response = message?._id

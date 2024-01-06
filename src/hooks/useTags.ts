@@ -17,7 +17,7 @@ export default function useTags() {
   }
 
   function listTags() {
-    fetch(API_URL)
+    fetch(`${API_URL}/tagas`)
       .then(response => response.json())
       .then(data => {
         console.log("listTags then", data)
@@ -27,7 +27,7 @@ export default function useTags() {
 
   async function listTagsAsync() {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(`${API_URL}/tagas`);
       const data = await response.json();
       console.log("listTags then", data);
       setTags(data);
