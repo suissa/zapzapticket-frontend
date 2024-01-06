@@ -44,7 +44,7 @@ export default function Home() {
                     className="mb-4"
                     onClick={createQueue}
                   >
-                    Novo Usuário
+                    Nova Fila
                   </Button>
                 </div>
                 <Table
