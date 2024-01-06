@@ -17,7 +17,8 @@ export default function useContacts() {
   }
 
   function listContacts() {
-    fetch(`${API_URL}/contacts`)
+
+    fetch(`http://137.184.81.207:9000/contacts`)
       .then(response => response.json())
       .then(data => {
         console.log("listContacts then", data)
