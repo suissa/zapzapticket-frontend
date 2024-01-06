@@ -17,7 +17,7 @@ export default function useMessages() {
   }
 
   function listMessages() {
-    fetch(API_URL)
+    fetch(`${API_URL}/messages`)
       .then(response => response.json())
       .then(data => {
         console.log("listMessages then", data)
