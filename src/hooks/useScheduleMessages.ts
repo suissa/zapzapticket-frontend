@@ -40,12 +40,12 @@ export default function useScheduleMessages() {
       ? JSON.stringify({
           _id: message._id,
           text: message.text,
-          from: message.from
+          from: message.from,
           to: message.to
         })
       : JSON.stringify({
         text: message.text,
-        from: message.from
+        from: message.from,
         to: message.to
       })
     console.log("saveScheduleMessage messageStr", messageStr)
