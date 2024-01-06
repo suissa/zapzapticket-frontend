@@ -66,13 +66,13 @@ export default function useHandleInstanceStatusCheckboxChange() {
       // atualiza pra connection.instanceStatus false
       // connectionSaved(connection)
   
-      const result = await fetch(`${API_URL}/connections/shutdown/${connection.instanceName}`, {
+      const response = await fetch(`${API_URL}/connections/shutdown/${connection.instanceName}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       })
-      const resultDelete = await result.json();
-      const connectionDeleted = await resultDelete.json()
-      console.log(connectionDeleted)
+      const resultDelete = await response.json();
+
+      console.log(resultDelete)
     }
   };
 
