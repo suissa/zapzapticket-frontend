@@ -2,8 +2,7 @@ import { useState, MutableRefObject, useRef, useEffect } from "react";
 import Tag from "../core/Tag";
 import TagRepository from "../core/TagRepository";
 import useLayout from "./useLayout";
-
-const API_URL = "http://137.184.81.207:9000/tags";
+import { API_URL } from "../config";
 
 export default function useTags() {
   const [tag, setTag] = useState<Tag>(Tag.empty())
@@ -44,7 +43,7 @@ export default function useTags() {
 
   async function deleteTag(tag: Tag) {
     console.log("deleteTag tag", tag)
-    const result = await fetch(`${API_URL}/${tag._id}`, {
+    const result = await fetch(`${API_URL}/tags/${tag._id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -67,12 +66,12 @@ export default function useTags() {
       })
     console.log("saveTag tagStr", tagStr)
     const response = tag?._id
-      ? await fetch(`${API_URL}/${tag._id}`, {
+      ? await fetch(`${API_URL}/tags/${tag._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: tagStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/tags`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: tagStr

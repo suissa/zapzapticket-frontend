@@ -2,8 +2,7 @@ import { useState, MutableRefObject, useRef, useEffect } from "react";
 import Queue from "../core/Queue";
 // import QueueRepository from "../core/QueueRepository";
 import useLayout from "./useLayout";
-
-const API_URL = "http://137.184.81.207:9000/queues";
+import { API_URL } from "../config";
 
 export default function useQueues() {
   const [queue, setQueue] = useState<Queue>(Queue.empty())
@@ -44,7 +43,7 @@ export default function useQueues() {
 
   async function deleteQueue(queue: Queue) {
     console.log("deleteQueue queue", queue)
-    const result = await fetch(`${API_URL}/${queue._id}`, {
+    const result = await fetch(`${API_URL}/queues/${queue._id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -67,12 +66,12 @@ export default function useQueues() {
       })
     console.log("saveQueue queueStr", queueStr)
     const response = queue?._id
-      ? await fetch(`${API_URL}/${queue._id}`, {
+      ? await fetch(`${API_URL}/queues/${queue._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: queueStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/queues`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: queueStr

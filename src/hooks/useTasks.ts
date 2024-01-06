@@ -3,7 +3,7 @@ import Task from "../core/Task"
 import TaskRepository from "../core/TaskRepository"
 import useLayout from "./useLayout"
 
-const API_URL = "http://137.184.81.207:9000/tasks";
+const API_URL = "http://137.184.81.207:9000";
 
 export default function useTasks() {
   const [task, setTask] = useState<Task>(Task.empty())
@@ -18,7 +18,7 @@ export default function useTasks() {
   }
 
   function listTasks() {
-    fetch(`${API_URL}/actives`)
+    fetch(`${API_URL}/tasks/actives`)
       .then(response => response.json())
       .then(data => {
         console.log("listTasks then", data)
@@ -51,12 +51,12 @@ export default function useTasks() {
       })
     console.log("saveTask taskStr", taskStr)
     const response = task?._id
-      ? await fetch(`${API_URL}/${task._id}`, {
+      ? await fetch(`${API_URL}/tasks/${task._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: taskStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: taskStr

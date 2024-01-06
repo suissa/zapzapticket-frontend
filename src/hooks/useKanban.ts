@@ -3,16 +3,17 @@ import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 import io from "socket.io-client";
 
-const socket = io("http://137.184.81.207:9000");
-const API_URL = "http://137.184.81.207:9000/contacts/messages";
-const API_URL_CONTACT = "http://137.184.81.207:9000/contacts/ticketStatus";
+import { API_URL } from "../config"
+const socket = io(API_URL);
+const API_URL_MESSAGES = `${API_URL}/contacts/messages`;
+const API_URL_STATUS = `${API_URL}/contacts/ticketStatus`;
 
 export default function useSend() {
   const [list, setList] = useState([]);
 
 
   function listTickets() {
-    fetch(`${API_URL}`)
+    fetch(`${API_URL_MESSAGES}`)
       .then(response => response.json())
       .then(data => {
         console.log("listTickets then", data)
@@ -26,7 +27,7 @@ export default function useSend() {
     const { ticketId, ticketStatus } = data;
     const body = { ticketStatus: ticketStatus.toLowerCase() }
 
-    fetch(`${API_URL_CONTACT}/${ticketId}`, {
+    fetch(`${API_URL_STATUS}/${ticketId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

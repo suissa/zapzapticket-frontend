@@ -1,8 +1,9 @@
 // ContactContext.tsx
 import React, { createContext, useState, useEffect, useCallback, useRef } from 'react';
 import io from 'socket.io-client';
+import { API_URL } from '../config';
 
-const socket = io("http://137.184.81.207:9000");
+const socket = io(API_URL);
 
 const defaultValue = {
   contacts: [],

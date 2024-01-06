@@ -3,9 +3,8 @@ import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 import io from "socket.io-client";
-
-const socket = io("http://137.184.81.207:9000");
-const API_URL = "http://137.184.81.207:9000";
+import { API_URL } from "../config"
+const socket = io(`API_URL`);
 
 export default function useTickets() {
   const [contact, setContact] = useState<Contact>(Contact.empty())

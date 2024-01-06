@@ -2,8 +2,7 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Message from "../core/Message"
 import MessageRepository from "../core/MessageRepository"
 import useLayout from "./useLayout"
-
-const API_URL = "http://137.184.81.207:9000/messages";
+import { API_URL } from "../config"
 
 export default function useMessages() {
   const [message, setMessage] = useState<Message>(Message.empty())
@@ -51,12 +50,12 @@ export default function useMessages() {
       })
     console.log("saveMessage messageStr", messageStr)
     const response = message?._id
-      ? await fetch(`${API_URL}/${message._id}`, {
+      ? await fetch(`${API_URL}/messages/${message._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: messageStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: messageStr

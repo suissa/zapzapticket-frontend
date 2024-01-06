@@ -2,9 +2,8 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 import io from "socket.io-client";
-
-const socket = io("http://137.184.81.207:9000");
-const API_URL = "http://137.184.81.207:9000/messages/send/batch";
+import { API_URL } from "../config";
+const socket = io(`${API_URL}`);
 
 export default function useSend() {
   const [list, setList] = useState([]);
@@ -58,8 +57,8 @@ export default function useSend() {
   async function sendMessage(text, phones, instanceName) {
     console.log("sendMessage: list", list);
     const data = {phones, text, instanceName}
-    console.log("data: ", data, `${API_URL}`);
-    return await fetch(`${API_URL}`, {
+    console.log("data: ", data, `${API_URL}/messages/send/batch`);
+    return await fetch(`${API_URL}/messages/send/batch`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

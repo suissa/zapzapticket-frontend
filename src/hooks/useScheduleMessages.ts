@@ -2,8 +2,7 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import ScheduleMessage from "../core/ScheduleMessage"
 import ScheduleMessageRepository from "../core/ScheduleMessageRepository"
 import useLayout from "./useLayout"
-
-const API_URL = "http://137.184.81.207:9000/schedulemessages";
+import { API_URL } from "../config"
 
 export default function useScheduleMessages() {
   const [scheduleMessage, setScheduleMessage] = useState<ScheduleMessage>(ScheduleMessage.empty())
@@ -51,12 +50,12 @@ export default function useScheduleMessages() {
       })
     console.log("saveScheduleMessage messageStr", messageStr)
     const response = message?._id
-      ? await fetch(`${API_URL}/${message._id}`, {
+      ? await fetch(`${API_URL}/schedulemessages/${message._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: messageStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/schedulemessages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: messageStr
