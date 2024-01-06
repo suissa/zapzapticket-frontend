@@ -44,7 +44,7 @@ export default function Home() {
                     className="mb-4"
                     onClick={createMessage}
                   >
-                    Novo Usuário
+                    Nova Mensagem
                   </Button>
                 </div>
                 <Table
