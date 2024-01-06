@@ -63,6 +63,7 @@ export default function useQueues() {
       : JSON.stringify({
         name: queue.name,
         color: queue.color,
+        adminEmail: "admin@admin.com",
       })
     console.log("saveQueue queueStr", queueStr)
     const response = queue?._id

@@ -42,12 +42,12 @@ export default function Form({ connection, canceled, connectionModified }: FormP
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      {/* <Entry
         text="Conexão"
         value={instanceName}
         onChange={e => setInstanceName((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
-      />
+      /> */}
       {/* <Entry
         text="instanceStatus"
         type="checkbox"
