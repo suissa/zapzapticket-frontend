@@ -17,7 +17,7 @@ export default function useContacts() {
   }
 
   function listContacts() {
-    fetch(`${API_URL}`)
+    fetch(`${API_URL}/contacts`)
       .then(response => response.json())
       .then(data => {
         console.log("listContacts then", data)
