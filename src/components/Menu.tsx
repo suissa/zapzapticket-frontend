@@ -120,7 +120,7 @@ const Menu = ({ onToggle }) => {
             </div>
           </Link>
           </li>
-          <li>
+          {/* <li>
           <Link href="/fastanswers">
             <div className="inline-flex items-center">
               <FastSendIcon className="text-white" />
@@ -129,7 +129,7 @@ const Menu = ({ onToggle }) => {
               </span>
             </div>
           </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/kanban">
               <div className="inline-flex items-center">
@@ -140,7 +140,7 @@ const Menu = ({ onToggle }) => {
               </div>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/schedulemessages">
               <div className="inline-flex items-center">
                 <ScheduleMessageIcon className="text-white" />
@@ -149,7 +149,7 @@ const Menu = ({ onToggle }) => {
                 </span>
               </div>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/groups">
               <div className="inline-flex items-center">
