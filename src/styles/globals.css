@@ -239,3 +239,13 @@ body .h-600px {
 .menu.expanded .menu-text {
   width: auto; /* Expande o texto quando o menu está aberto */
 }
+
+/* kanban */
+.smooth-dnd-container.horizontal article span[draggable=true] {
+  cursor: move;
+  color: #fff;
+}
+
+.smooth-dnd-container.horizontal article div {
+  color: #fff;
+}
