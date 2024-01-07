@@ -24,6 +24,8 @@ export default function useMessages() {
     showForm()
   }
 
+  const order = ['inativo', 'doing', 'done'];
+
   function listMessages() {
     fetch(`${API_URL_MESSAGES}`)
       .then(response => response.json())
@@ -32,7 +34,7 @@ export default function useMessages() {
           console.log("listMessages then key", key)
           console.log("listMessages then value", value)
           return {
-            id: "lane"+i,
+            id: key,
             title: key,
             label: `${value.length}/${value.length}`,
 
@@ -50,32 +52,10 @@ export default function useMessages() {
             })
           }
         })]
-        const obj = {lanes}
-        console.log("listMessages then", obj)
-        return setMessages(obj)
+        const objOrdened = {lanes : lanes.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))};
+        console.log("listMessages then", objOrdened)
+        return setMessages(objOrdened)
       })
-      // .then(data => {
-      //   console.log("listMessages then", data)
-      //   return setMessages( {
-      //     lanes: [
-      //       {
-      //         id: "lane1",
-      //         title: "Planned Tasks",
-      //         label: "2/2",
-      //         cards: [
-      //           {id: "Card1", title: "Write Blog", description: "Can AI make memes", label: "30 mins", draggable: false},
-      //           {id: "Card2", title: "Pay Rent", description: "Transfer via NEFT", label: "5 mins", metadata: {sha: "be312a1"}}
-      //         ]
-      //       },
-      //       {
-      //         id: "lane2",
-      //         title: "Completed",
-      //         label: "0/0",
-      //         cards: []
-      //       }
-      //     ]
-      //   })
-      // })
   }
 
   function getMessage(message: Message) {

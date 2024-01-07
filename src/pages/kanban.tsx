@@ -39,33 +39,10 @@ export default function Home() {
     tableVisible
   } = useMessages()
 
-  useEffect(() => {
-    listTickets();
-  
-    if (tableVisible) {
-      listMessages();
-    }
-  }, [tableVisible]);
 
   useEffect(() => {
     console.log("messages", messages);
-    console.log("list", list);
   }, [messages]); // Dependência do useEffect
-
-  // useEffect(() => {
-  //   fetch(`${API_URL_MESSAGES}`)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //         console.log("listTickets then", data)
-  //         return setList(data)
-  //       })
-  //       .catch(error => {
-  //         console.error("Erro em listTickets:", error);
-  //       });
-
-  //       setList(data)
-  // }, []);
-  
 
   useEffect(() => {
     if (messages) {
