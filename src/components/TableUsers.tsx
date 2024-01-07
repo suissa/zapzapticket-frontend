@@ -66,7 +66,7 @@ export default function Table({
   }
 
   function renderData() {
-    // console.log("renderData: ", users)
+    console.log("renderData: ", users)
     return users && users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>

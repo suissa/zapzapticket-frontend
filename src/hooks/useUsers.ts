@@ -90,7 +90,7 @@ export default function useUsers() {
         body: userStr
       });
 
-    fetch(`${API_URL}/all`)
+    fetch(`${API_URL}/users/all`)
       .then(response => response.json())
       .then(data => {
         // console.log("listUsers then", data)

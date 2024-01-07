@@ -63,6 +63,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
       _id: user?._id, // ou simplesmente _id, se já estiver no escopo
       name,
       email,
+      password,
       phone,
       city,
       state,
