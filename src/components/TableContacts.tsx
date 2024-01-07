@@ -5,9 +5,6 @@ import Form from "../components/FormContact"
 import { IconEdit, IconThrash } from "./Icons"
 import styled from 'styled-components';
 
-const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
-  cursor: pointer;
-`;
 interface TableProps {
   contacts: Contact[]
   contact: Contact
@@ -20,24 +17,51 @@ interface TableProps {
   onSelectionChange?: (selectedIds: string[]) => void;
 }
 
+const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  cursor: pointer;
+`;
 const API_URL = "http://137.184.81.207:9000";
 
-export default function Table({ 
-  contacts, contactSelected, contactDeleted, contactModified, showCheckboxes = false, showActions = true, canceled, contact, onSelectionChange
+export default function Table({
+  contacts, contactSelected, contactDeleted, showCheckboxes, showActions = true, onSelectionChange 
 }: TableProps) {
 
-  // const showActions = contactSelected || contactDeleted
-  const [selectedContactPhones, setSelectedContactPhones] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [currentContact, setCurrentContact] = useState(null);
+  const [selectedContact, setSelectedContact] = useState(null);
+
+  const confirmAndDelete = (user) => {
+    setCurrentContact(user);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = () => {
+    if (currentContact) {
+      contactDeleted?.(currentContact);
+      console.log("Mensagem excluída:", currentContact);
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleCheckboxChange = (contact) => {
+    if (selectedContact && selectedContact._id === contact._id) {
+      // Desmarcar se já está selecionada
+      setSelectedContact(null);
+    } else {
+      // Selecionar a nova mensagem
+      setSelectedContact(contact);
+    }
+    // Chamar onSelectionChange com o texto da mensagem
+    onSelectionChange?.(contact.text);
+  };
+  
 
   const Modal = ({ onClose, onConfirm, contact }) => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
         <div className="bg-white p-4 rounded">
-          <p>Tem certeza que deseja excluir o usuário {contact?.name}?</p>
+          <p>Tem certeza que deseja excluir a mensagem {contact?.title}?</p>
           <div className="flex justify-end mt-4">
             <button
               className="bg-red-500 text-white py-2 px-4 rounded mr-2"
@@ -58,120 +82,33 @@ export default function Table({
     );
   };
 
-  const ModalUpdate = ({ onClose, onConfirm, contact }) => {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-        <div className="flex flex-col w-2/3 rounded-md p-4
-            bg-white text-gray-800">
-          {isFormOpen ? (
-            <Form
-              contact={currentContact}
-              contactModified={(contact) => {
-                // Lógica para tratar o usuário modificado
-                console.log("Usuário modificado:", contact);
-
-                // Atualizar o objeto ContactObj com os estados atuais
-                const ContactObj = new Contact(
-                  contact._id,
-                  contact.name,
-                  contact.phone,
-                  contact.status,
-                  contact.city,
-                  contact.state,
-                  contact.country,
-                );
-
-                contactModified?.(ContactObj);
-                setIsFormOpen(false);
-              }}
-              canceled={() => setIsFormOpen(false)}
-            />
-          ) : (
-            children
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  const handleContactCheckboxChange = (contact) => {
-    setSelectedContactPhones((prevSelectedPhones) => {
-      if (prevSelectedPhones.includes(contact.phone)) {
-        return prevSelectedPhones.filter(phone => phone !== contact.phone);
-      } else {
-        return [...prevSelectedPhones, contact.phone];
-      }
-    });
-  };
-
-  useEffect(() => {
-    onSelectionChange?.(selectedContactPhones);
-  }, [selectedContactPhones, onSelectionChange]);
-
-
-  // const confirmAndDeleteContact = (contact) => {
-  //   // Confirmação de exclusão
-  //   if (window.confirm(`Tem certeza que deseja excluir o usuário ${contact.name}?`)) {
-  //     contactDeleted?.(contact);
-  //     console.log("confirmAndDeleteContact: ", contact)
-  //   }
-  // }
-  const openFormWithContact = (contact) => {
-    setCurrentContact(contact);
-    setIsFormOpen(true);
-  };
-
-  const confirmAndDeleteContact = (contact) => {
-    setCurrentContact(contact);
-    setIsModalOpen(true);
-  };
-
-  const handleUpdate = () => {
-    if (currentContact) {
-      contactSelected?.(currentContact);
-      console.log("Usuário atualizado:", currentContact);
-    }
-    setIsModalOpen(false);
-  };
-
-  const handleDelete = () => {
-    if (currentContact) {
-      contactDeleted?.(currentContact);
-      console.log("Contato excluído:", currentContact);
-    }
-    setIsModalOpen(false);
-  };
-
   function renderHeader() {
     return (
       <tr>
         {showCheckboxes && <th className="text-center p-4 w-1/10">Selecionar</th>}
-        <th className="text-left p-4 w-1/6">Nome</th>
-        <th className="text-left p-4 w-1/6">Telefone</th>
-        <th className="text-left p-4 w-1/8">Status</th>
-        {showActions ? <th className="p-4 w-1/8 text-center">Ações</th> : false}
+        <th className="text-left p-4 w-1/4">Nome</th>
+        <th className="text-left p-4">Telefone</th>
+        {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
       </tr>
     )
   }
 
   function renderData() {
-    // console.log("renderData: ", contacts)
     return contacts?.map((contact, i) => {
       return (
         <tr key={contact._id} className={`text-black ${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
-                type="checkbox"
-                className="cursorPointer"
-                checked={selectedContactPhones.includes(contact.phone)}
-                onChange={() => handleContactCheckboxChange(contact)}
+                  type="checkbox"
+                  className="cursorPointer"
+                  checked={selectedContact?._id === contact._id}
+                  onChange={() => handleCheckboxChange(contact)}
               />
             </td>
           )}
-          <td className="text-left p-4 w-1/6">{contact.name}</td>
-          <td className="text-left p-4 w-1/6">{contact.phone}</td>
-          <td className="text-left p-4 w-1/8">{contact.status}</td>
+          <td className="text-left p-4">{contact.name}</td>
+          <td className="text-left p-4">{contact.phone}</td>
           {showActions ? renderActions(contact) : false}
         </tr>
       )
@@ -180,23 +117,22 @@ export default function Table({
 
   function renderActions(contact: Contact) {
     return (
-      <td className="flex justify-right w-1/8 pl-14">
+      <td className="flex justify-center">
         {contactSelected ? (
-          <button onClick={() => openFormWithContact(contact)} className={`
-            flex justify-right items-right
-            text-green-600 rounded-md p-0 mt-4
-            hover:bg-purple-50
-          `}>
+          <button onClick={() => contactSelected?.(contact)} className={`
+                    flex justify-right items-right
+                    text-green-600 rounded-md p-2 m-1
+                    hover:bg-purple-50
+                `}>
             {IconEdit}
           </button>
         ) : false}
         {contactDeleted ? (
-          // <button onClick={() => contactDeleted?.(contact)} className={`
-          <button onClick={() => confirmAndDeleteContact(contact)} className={`
-            flex justify-right items-right
-            text-red-500 rounded-md p-0 mt-4 ml-2
-            hover:bg-purple-50
-          `}>
+          <button onClick={() => confirmAndDelete(contact)} className={`
+                    flex justify-right items-right
+                    text-red-500 rounded-md p-2 m-1
+                    hover:bg-purple-50
+                `}>
             {IconThrash}
           </button>
         ) : false}
@@ -205,12 +141,12 @@ export default function Table({
   }
 
   return (
-    <div className="h-600px overflow-auto">
-      <table className="w-full rounded-md overflow-hidden table-fixed">
+    <div>
+      <table className="w-full rounded-md overflow-hidden">
         <thead className={`
-            text-gray-100
-            bg-gradient-to-r from-purple-500 to-purple-800
-        `}>
+          text-gray-100
+          bg-gradient-to-r from-purple-500 to-purple-800
+      `}>
           {renderHeader()}
         </thead>
         <tbody>
@@ -219,13 +155,6 @@ export default function Table({
       </table>
       {isModalOpen && (
         <Modal 
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={handleDelete}
-          contact={currentContact}
-        />
-      )}
-      {isFormOpen && (
-        <ModalUpdate
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
           contact={currentContact}

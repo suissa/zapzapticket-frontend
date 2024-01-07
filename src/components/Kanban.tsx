@@ -71,66 +71,115 @@ function Kanban({ list }) {
 
   const { setUpdateTaskStatus } = useKanban();
 
+  // function onDragEnd(val) {
+  //   // Your version
+  //   // let result = helper.reorder(val.source, val.destination, taskList);
+  //   // setTasks(result);
+
+  //   /// A different way!
+  //   const { draggableId, source, destination } = val;
+
+  //   const [sourceGroup] = taskList.filter(
+  //     column => column.groupName === source.droppableId
+  //   );
+
+  //   // Destination might be `null`: when a task is
+  //   // dropped outside any drop area. In this case the
+  //   // task reamins in the same column so `destination` is same as `source`
+  //   console.log("onDragEnd destination", destination)
+  //   const [destinationGroup] = destination
+  //     ? taskList.filter(column => column.groupName === destination.droppableId)
+  //     : [{ ...sourceGroup }];
+
+  //   console.log("onDragEnd destinationGroup", destinationGroup)
+
+  //   setUpdateTaskStatus({
+  //     ticketId: draggableId,
+  //     ticketStatus: destination.droppableId,
+  //   });
+  //   // We save the task we are moving
+  //   const [movingTask] = sourceGroup.tasks.filter(t => t.id === draggableId);
+  //   console.log("onDragEnd movingTask", movingTask)
+
+  //   const newSourceGroupTasks = sourceGroup.tasks.splice(source.index, 1);
+  //   const newDestinationGroupTasks = destinationGroup.tasks.splice(
+  //     destination.index,
+  //     0,
+  //     movingTask
+  //   );
+
+  //   console.log("onDragEnd newSourceGroupTasks", newSourceGroupTasks)
+  //   console.log("onDragEnd newDestinationGroupTasks", newDestinationGroupTasks)
+  //   // Mapping over the task lists means that you can easily
+  //   // add new columns
+  //   const newTaskList = taskList.map(column => {
+  //     console.log("onDragEnd column", column)
+  //     if (column.groupName === source.groupName) {
+  //       return {
+  //         groupName: column.groupName,
+  //         tasks: newSourceGroupTasks
+  //       };
+  //     }
+  //     if (column.groupName === destination.groupName) {
+  //       return {
+  //         groupName: column.groupName,
+  //         tasks: newDestinationGroupTasks
+  //       };
+  //     }
+  //     return column;
+  //   });
+  //   console.log("onDragEnd newTaskList", newTaskList)
+  //   setTasks(newTaskList);
+  // }
+
+  // code by gpt
   function onDragEnd(val) {
-    // Your version
-    // let result = helper.reorder(val.source, val.destination, taskList);
-    // setTasks(result);
-
-    /// A different way!
     const { draggableId, source, destination } = val;
-
-    const [sourceGroup] = taskList.filter(
-      column => column.groupName === source.droppableId
-    );
-
-    // Destination might be `null`: when a task is
-    // dropped outside any drop area. In this case the
-    // task reamins in the same column so `destination` is same as `source`
-    console.log("onDragEnd destination", destination)
-    const [destinationGroup] = destination
-      ? taskList.filter(column => column.groupName === destination.droppableId)
-      : { ...sourceGroup };
-
-    console.log("onDragEnd destinationGroup", destinationGroup)
-
+  
+    // Se não há destino, não faça nada
+    if (!destination) return;
+  
+    // Se a origem e o destino são os mesmos (mesma coluna e mesma posição), não faça nada
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+  
+    // Encontrar a coluna de origem e de destino
+    const sourceColumn = taskList.find(column => column.groupName === source.droppableId);
+    const destinationColumn = taskList.find(column => column.groupName === destination.droppableId);
+  
+    // Clonar os arrays de tarefas das colunas de origem e destino
+    const sourceTasks = [...sourceColumn.tasks];
+    const destinationTasks = destinationColumn.groupName === sourceColumn.groupName
+      ? sourceTasks
+      : [...destinationColumn.tasks];
+  
+    // Mover a tarefa da origem para o destino
+    const [removed] = sourceTasks.splice(source.index, 1);
+    destinationTasks.splice(destination.index, 0, removed);
+  
+    // Criar um novo array de colunas com as tarefas atualizadas
+    const newTaskList = taskList.map(column => {
+      if (column.groupName === sourceColumn.groupName) {
+        return { ...column, tasks: sourceTasks };
+      } else if (column.groupName === destinationColumn.groupName) {
+        return { ...column, tasks: destinationTasks };
+      }
+      return column;
+    });
+  
+    setTasks(newTaskList);
+  
+    // Atualize o status da tarefa, se necessário
     setUpdateTaskStatus({
       ticketId: draggableId,
       ticketStatus: destination.droppableId,
     });
-    // We save the task we are moving
-    const [movingTask] = sourceGroup.tasks.filter(t => t.id === draggableId);
-    console.log("onDragEnd movingTask", movingTask)
-
-    const newSourceGroupTasks = sourceGroup.tasks.splice(source.index, 1);
-    const newDestinationGroupTasks = destinationGroup.tasks.splice(
-      destination.index,
-      0,
-      movingTask
-    );
-
-    console.log("onDragEnd newSourceGroupTasks", newSourceGroupTasks)
-    console.log("onDragEnd newDestinationGroupTasks", newDestinationGroupTasks)
-    // Mapping over the task lists means that you can easily
-    // add new columns
-    const newTaskList = taskList.map(column => {
-      console.log("onDragEnd column", column)
-      if (column.groupName === source.groupName) {
-        return {
-          groupName: column.groupName,
-          tasks: newSourceGroupTasks
-        };
-      }
-      if (column.groupName === destination.groupName) {
-        return {
-          groupName: column.groupName,
-          tasks: newDestinationGroupTasks
-        };
-      }
-      return column;
-    });
-    console.log("onDragEnd newTaskList", newTaskList)
-    setTasks(newTaskList);
   }
+  
 
   return (
     <div>
