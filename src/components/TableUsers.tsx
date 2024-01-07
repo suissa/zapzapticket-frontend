@@ -67,7 +67,7 @@ export default function Table({
 
   function renderData() {
     // console.log("renderData: ", users)
-    return users?.map((user, i) => {
+    return users && users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           <td className="text-left p-4 w-1/6">{user.name}</td>
