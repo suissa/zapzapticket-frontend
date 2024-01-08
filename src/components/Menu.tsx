@@ -101,7 +101,7 @@ const Menu = ({ onToggle }) => {
       <div className="menu-content">
         <ul className="flex flex-col space-y-4 text-white">
           <li>
-          <Link href="/">
+          <Link href="/connections">
             <div className="inline-flex items-center">
               <DashboardIcon className="text-white" />
               <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
