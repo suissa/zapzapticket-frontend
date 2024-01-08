@@ -67,11 +67,14 @@ export default function Home() {
 
   const handleSendMessage = async () => {
     setLoading(true);
-
-    if (selectedMessage && selectedConnection) {
+    
+    console.log('selectedMessage:', selectedMessage);
+    console.log('selectedConnection:', selectedConnection);
+    console.log('selectedContacts:', selectedContacts);
+    if (selectedMessage && selectedConnection && selectedContacts) {
       try {
         // Use selectedContacts diretamente
-        if (selectedContacts.length > 0) {  
+        if (selectedContacts?.length > 0) {  
           // console.log('selectedContacts:', selectedContacts);
           // const newContacts = selectedContacts.filter(contact => 
           //   !list.some(item => item.contact === contact)
@@ -83,11 +86,11 @@ export default function Home() {
             message: selectedMessage
           }));
 
-          // console.log('list:', list);
-          // console.log('newEntries:', newEntries);
+          console.log('list:', list);
+          console.log('newEntries:', newEntries);
           setList([...list, ...newEntries]);
 
-          // console.log('sendingsList:', selectedMessage);
+          console.log('sendingsList:', selectedMessage);
           await sendMessage(selectedMessage, selectedContacts, selectedConnection);
         } else {
           // Trate o caso em que nenhum contato foi selecionado
