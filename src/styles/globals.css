@@ -153,7 +153,9 @@ body .h-40px {
 body .btn-danger {
   background-color: rgb(239 68 68);
 }
-
+body .h-70vh {
+  height: 70vh;
+}
 .qr-code-container {
   position: relative;
 }
