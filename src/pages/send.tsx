@@ -68,11 +68,13 @@ export default function Home() {
   const handleSendMessage = async () => {
     setLoading(true);
 
-    if (selectedMessage && selectedConnection) {
+    console.log('selectedMessage:', selectedMessage);
+    console.log('selectedConnection:', selectedConnection);
+    console.log('selectedContacts:', selectedContacts);
+    if (selectedMessage && selectedConnection && selectedContacts) {
       try {
         // Use selectedContacts diretamente
         if (selectedContacts.length > 0) {  
-          console.log('selectedContacts:', selectedContacts);
           // const newContacts = selectedContacts.filter(contact => 
           //   !list.some(item => item.contact === contact)
           // );
@@ -172,7 +174,7 @@ export default function Home() {
               </Button>
             </div>
             <div className="flex h-80 text-white">
-              <div className="flex-1 overflow-auto">
+              <div className="flex-1 overflow-auto mr-2">
                 <TableMessages
                   messages={messages}
                   messageSelected={getMessage}
@@ -197,8 +199,8 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="flex h-80">
-              <div className="flex-1 overflow-auto">
+            <div className="flex h-80 m-2">
+              <div className="flex-1 overflow-auto mr-2">
 
               <TableConnections
                   connections={connections}
