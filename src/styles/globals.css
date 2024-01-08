@@ -155,6 +155,7 @@ body .btn-danger {
 }
 body .h-70vh {
   height: 70vh;
+  overflow: auto;
 }
 .qr-code-container {
   position: relative;
