@@ -1,9 +1,16 @@
-import { InputHTMLAttributes } from "react"
+import { InputHTMLAttributes, SelectHTMLAttributes } from "react"
 
-interface EntryProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   text: string;
-  selectOptions?: { value: string; label: string }[];
+  type?: string;
 }
+
+interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+  text: string;
+  selectOptions: { value: string; label: string }[];
+}
+
+type EntryProps = InputProps | SelectProps;
 
 export default function Entry({ text, type = 'text', selectOptions, ...props }: EntryProps) {
   return (

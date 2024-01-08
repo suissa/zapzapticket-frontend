@@ -2,8 +2,8 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
-
-const API_URL = "http://137.184.81.207:9000/contacts";
+import { API_URL } from "../config"
+// const API_URL = "http://137.184.81.207:9000/contacts";
 
 export default function useContacts() {
   const [contact, setContact] = useState<Contact>(Contact.empty())
@@ -18,7 +18,7 @@ export default function useContacts() {
   }
 
   function listContacts() {
-    fetch(`${API_URL}`)
+    fetch(`${API_URL}/contacts`)
       .then(response => response.json())
       .then(data => {
         console.log("listContacts then", data)
@@ -32,7 +32,7 @@ export default function useContacts() {
   }
 
   async function deleteContact(contact: Contact) {
-    fetch(`${API_URL}/${contact._id}`, {
+    fetch(`${API_URL}/contacts/${contact._id}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
@@ -65,12 +65,12 @@ export default function useContacts() {
       })
     console.log("saveContact contactStr", contactStr)
     const response = contact?._id
-      ? await fetch(`${API_URL}/${contact._id}`, {
+      ? await fetch(`${API_URL}/contacts/${contact._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: contactStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/contacts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: contactStr

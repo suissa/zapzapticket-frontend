@@ -38,7 +38,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
     console.log("handleStatusChange: ", event.target.value)
     setStatus(event.target.value); // Atualiza o estado com o valor selecionado
   };
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
@@ -49,7 +49,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
       console.log("ContactObj", ContactObj)
       // saveContact(contactUpdated);
     }
-  }, [status]);
+  }, [status, contact]);
   const handleStateChange = (event) => {
     setState(event.target.value);
     console.log("state", state)

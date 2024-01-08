@@ -39,6 +39,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
     setStatus(event.target.value); // Atualiza o estado com o valor selecionado
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (status) { // Verifica se o status não está vazio
       // Preparar o objeto contact com o status atualizado
