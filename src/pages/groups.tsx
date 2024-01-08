@@ -76,11 +76,11 @@ export default function Home() {
           />
           {selectedConnection && selectedConnection.instanceName && (
             <div>
-              <div className="flex justify-end">
+              {/* <div className="flex justify-end">
                 <Button className="mb-4 mt-4" onClick={createGroup}>
                   Novo Grupo
                 </Button>
-              </div>
+              </div> */}
               <Table
                 groups={groups}
                 groupSelected={getGroup}
