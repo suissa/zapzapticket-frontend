@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const TagsInput = () => {
-  const [tags, setTags] = useState([]);
+const TagsInput = ({ tags: initialTags, onChange, className }) => {
+  const [tags, setTags] = useState(initialTags || []);
   const [input, setInput] = useState("");
 
   const handleInputChange = (e) => {
@@ -18,6 +18,12 @@ const TagsInput = () => {
   const removeTag = (indexToRemove) => {
     setTags(tags.filter((_, index) => index !== indexToRemove));
   };
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(tags);
+    }
+  }, [tags, onChange]);
 
   return (
     <div className="flex items-center">
@@ -37,7 +43,7 @@ const TagsInput = () => {
         style={{ width: '200px' }}
         onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
-        className="flex-1 ml-2 focus:outline-none focus:border-none bg-gray-200 rounded-xl py-1 px-2 mt-2"
+        className={`flex-1 ml-2 focus:outline-none focus:border-none bg-gray-200 rounded-xl py-1 px-2 mt-2 ${className}`}
         placeholder="Pressione Enter para adicionar uma tag"
       />
     </div>

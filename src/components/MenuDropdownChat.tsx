@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IconThreeDots } from './Icons';
 import styles from "../styles/Ticket.module.css";
+type MenuDropdownProps = {
+  list: any; // Outras propriedades existentes
+  className?: string; // Adicionando className como propriedade opcional
+};
 
-const MenuDropdown = ({ list }) => {
+const MenuDropdown: React.FC<MenuDropdownProps> = ({ list, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const _list = list || ["Agendamento", "Transferência", "Deletar"];

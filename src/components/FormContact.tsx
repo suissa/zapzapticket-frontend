@@ -40,11 +40,13 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     if (status) { // Verifica se o status não está vazio
-      // Preparar o objeto contact com o status atualizado
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       const ContactObj = { ...contact, status };
       console.log("ContactObj", ContactObj)
-      // Chamar a função saveContact com o contact atualizado
       // saveContact(contactUpdated);
     }
   }, [status]);

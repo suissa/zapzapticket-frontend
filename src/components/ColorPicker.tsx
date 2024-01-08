@@ -3,7 +3,7 @@ import { SketchPicker } from "react-color";
 
 const ColorPicker = ({ color, onChange, onOutsideClick }) => {
   const [showPicker, setShowPicker] = useState(false);
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null); // Definindo o tipo da referência
 
   useEffect(() => {
     function handleClickOutside(event) {
