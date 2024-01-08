@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Task from "../core/Task";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 
 interface FormProps {
   task: Task
@@ -22,14 +22,14 @@ export default function Form({ task, canceled, taskModified }: FormProps) {
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4 text-white"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Tarefa"
         value={text}
         onChange={e => setText((e.target as HTMLInputElement).value)}

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Contact } from "../core/Contact";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
+import EntrySelect from "./EntrySelect";
 
 interface FormProps {
   contact: Contact
@@ -67,49 +68,52 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
   // }, [level]);
 
   const _id = contact?._id
-  const handleSubmit = () => {
-    // Atualizar o objeto ContactObj com os estados atuais
-    const ContactObj = {
-      _id: contact?._id, // ou simplesmente _id, se já estiver no escopo
-      name,
-      phone,
-      status,
-      city,
-      state,
-      country,
-    };
+  // const handleSubmit = () => {
+  //   // Atualizar o objeto ContactObj com os estados atuais
+  //   const ContactObj = {
+  //     ...contact,
+  //     _id: contact?._id, // ou simplesmente _id, se já estiver no escopo
+  //     name,
+  //     phone,
+  //     status,
+  //     city,
+  //     state,
+  //     country,
+  //     badges: [], // Adicione esta linha
+  //     messages: [], // Adicione esta linha
+  //     isSelected: false, // Adicione esta linha
+  //   };
   
-    console.log("Objeto Contact a ser salvo:", ContactObj);
-    contactModified?.(ContactObj);
-  }
+  //   console.log("Objeto Contact a ser salvo:", ContactObj);
+  //   contactModified?.(ContactObj);
+  // }
   
   // Restante do seu código...
   
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4 text-white"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Nome"
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Telefone"
         value={phone}
         className="mb-4 text-white"
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
       />
-      <Entry
+      <EntrySelect
         text="Status"
-        type="select"
         value={status} // Use o estado como valor
         onChange={handleStatusChange}
         className="mb-4 text-white"
@@ -130,15 +134,14 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
           { value: "Cliente", label: "Cliente" },
         ]}
       />
-      <Entry
+      <EntryInput
         text="Cidade"
         value={city}
         className="mb-4 text-white"
         onChange={e => setCity((e.target as HTMLInputElement).value)}
       />
-      <Entry
+      <EntrySelect
         text="Estado"
-        type="select"
         className="mb-4 text-white"
         onChange={handleStateChange}
         selectOptions={[
@@ -174,7 +177,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
         ]}
       />
 
-      <Entry
+      <EntryInput
         text="País"
         value={country}
         className="mb-4 text-white"
@@ -183,7 +186,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
       <div className="flex justify-end mt-7">
         <Button
           className="mr-2"
-          onClick={handleSubmit}
+          // onClick={handleSubmit}
         >
           {_id ? "Alterar" : "Salvar"}
         </Button>

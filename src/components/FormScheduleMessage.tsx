@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ScheduleMessage from "../core/ScheduleMessage";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 
 interface FormProps {
   scheduleMessage: ScheduleMessage
@@ -24,32 +24,32 @@ export default function Form({ scheduleMessage, canceled, scheduleMessageModifie
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Texto"
         value={text}
         onChange={e => setText((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Conexão"
         value={text}
         onChange={e => setText((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Texto"
         value={text}
         onChange={e => setText((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="isActive"
         type="checkbox"
         checked={true}

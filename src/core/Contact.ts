@@ -8,12 +8,6 @@ export class Contact {
   #city: string;
   #state: string;
   #country: string;
-  #ticketStatus: string;
-  #ticketCreatedAt: string;
-  #ticketClosedAt: string
-  #badges: string[];
-  #messages: ContactMessage[]; // Assumindo que Message é uma classe ou interface definida
-  #isSelected: boolean;
 
   constructor(
     name: string = "",
@@ -22,9 +16,6 @@ export class Contact {
     city: string = "",
     state: string = "",
     country: string = "",
-    ticketStatus: string = "inativo",
-    ticketCreatedAt: string = "",
-    ticketClosedAt: string = "",
     badges: string[] = [],
     messages: ContactMessage[] = [] // Assumindo que Message é uma classe ou interface definida
   ) {
@@ -34,11 +25,6 @@ export class Contact {
     this.#city = city;
     this.#state = state;
     this.#country = country;
-    this.#ticketStatus = ticketStatus;
-    this.#ticketCreatedAt = ticketCreatedAt;
-    this.#ticketClosedAt = ticketClosedAt;
-    this.#badges = badges;
-    this.#messages = messages;
   }
 
   static empty() {
@@ -73,29 +59,19 @@ export class Contact {
     return this.#country;
   }
 
-  get ticketStatus() {
-    return this.#ticketStatus;
-  }
-
-  get ticketCreatedAt() {
-    return this.#ticketCreatedAt;
-  }
-
-  get ticketClosedAt() {
-    return this.#ticketClosedAt;
-  }
 
 
-  get badges() {
-    return this.#badges;
-  }
+  update(data: Partial<Contact>) {
+    if (data.name !== undefined) this.#name = data.name;
+    if (data.phone !== undefined) this.#phone = data.phone;
+    if (data.status !== undefined) this.#status = data.status;
+    if (data.city !== undefined) this.#city = data.city;
+    if (data.state !== undefined) this.#state = data.state;
+    if (data.country !== undefined) this.#country = data.country;
+    if (data.badges !== undefined) this.#badges = data.badges;
+    if (data.messages !== undefined) this.#messages = data.messages;
+    if (data.isSelected !== undefined) this.#isSelected = data.isSelected;
 
-  get messages() {
-    return this.#messages;
-  }
-
-  get isSelected() {
-    return this.#isSelected;
   }
 }
 

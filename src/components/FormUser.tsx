@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import User from "../core/User";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
+import EntrySelect from "./EntrySelect";
 
 interface FormProps {
   user: User
@@ -80,47 +81,46 @@ export default function Form({ user, canceled, userModified }: FormProps) {
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4 text-white"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Nome"
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Email"
         value={email}
         onChange={e => setEmail((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Senha"
         type="password"
         value={password}
         onChange={e => setPassword((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Telefone"
         value={phone}
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Cidade"
         value={city}
         onChange={e => setCity((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntrySelect
         text="Estado"
-        type="select"
         onChange={handleStateChange}
         className="mb-4 text-white"
         selectOptions={[
@@ -156,13 +156,13 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         ]}
       />
 
-      <Entry
+      <EntryInput
         text="País"
         value={country}
         onChange={e => setCountry((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Nível"
         type="select"
         onChange={handleLevelChange}

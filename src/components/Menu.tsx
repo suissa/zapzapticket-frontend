@@ -5,7 +5,7 @@ import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage, IconTasks, IconTags, IconFastSend, 
 IconQueues, IconFastAnswers, IconWhatsapp, IconLogout} from "./Icons";
 
-const Menu = ({ onToggle }) => {
+const Menu = memo(({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
 
@@ -33,66 +33,82 @@ const Menu = ({ onToggle }) => {
   const WhatsappIcon = memo(() => (
     <IconWhatsapp className="text-white" />
   ))
+  WhatsappIcon.displayName = "WhatsappIcon";
 
   const LogoutIcon = memo(() => (
     <IconLogout className="text-white" />
   ))
+  LogoutIcon.displayName = "LogoutIcon";
 
   const DashboardIcon = memo(() => (
     <IconDashboardMenu className="text-white" />
   ));
+  DashboardIcon.displayName = "DashboardIcon";
 
   const UsersIcon = memo(() => (
     <IconUsersMenu className="text-white" />
   ));
+  UsersIcon.displayName = "UsersIcon";
 
   const ConnectionsIcon = memo(() => (
     <IconConnectionsMenu className="text-white" />
   ));
+  ConnectionsIcon.displayName = "ConnectionsIcon";
 
   const ContactsIcon = memo(() => (
     <IconContactsMenu className="text-white" />
   ));
+  ContactsIcon.displayName = "ContactsIcon";
 
   const GroupsIcon = memo(() => (
     <IconGroupsMenu className="text-white" />
   ));
+  GroupsIcon.displayName = "GroupsIcon";
 
   const KanbanIcon = memo(() => (
     <IconKanban className="text-white" />
   ));
+  KanbanIcon.displayName = "KanbanIcon";
 
   const SendIcon = memo(() => (
     <IconSend className="text-white" />
   ));
+  SendIcon.displayName = "SendIcon";
 
   const MessageIcon = memo(() => (
     <IconMessage className="text-white" />
   ));
+  MessageIcon.displayName = "MessageIcon";
 
   const ScheduleMessageIcon = memo(() => (
     <IconScheduleMessage className="text-white" />
   ));
+  ScheduleMessageIcon.displayName = "ScheduleMessageIcon";
 
   const TasksIcon = memo(() => (
     <IconTasks className="text-white" />
   ));
+  TasksIcon.displayName = "TasksIcon";
 
   const TagsIcon = memo(() => (
     <IconTags className="text-white" />
   ));
+  TagsIcon.displayName = "TagsIcon";
 
   const FastSendIcon = memo(() => (
     <IconFastSend className="text-white" />
   ));
+  FastSendIcon.displayName = "FastSendIcon";
 
   const QueuesIcon = memo(() => (
     <IconQueues className="text-white" />
   ));
+  QueuesIcon.displayName = "QueuesIcon";
 
   const FastAnswersIcon = memo(() => (
     <IconFastAnswers className="text-white" />
   ));
+  FastAnswersIcon.displayName = "FastAnswersIcon";
 
   return (
     <div className={`menu ${isExpanded ? "expanded" : ""}`} 
@@ -255,6 +271,8 @@ const Menu = ({ onToggle }) => {
       </div>
     </div>
   );
-};
+});
+
+Menu.displayName = "Menu";
 
 export default Menu;

@@ -8,7 +8,7 @@ const socket = io(API_URL);
 const API_URL_MESSAGES = `${API_URL}/contacts/messages`;
 const API_URL_STATUS = `${API_URL}/contacts/ticketStatus`;
 
-export default function useSend() {
+export default function useKanban() {
 
   function setUpdateTaskStatus(data: any) {
     // console.log("useKanban setUpdateTaskStatus data", data)

@@ -4,6 +4,9 @@ import Tag from "../core/Tag"
 import { IconEdit, IconThrash } from "./Icons"
 import useTags from "../hooks/useTags"
 import ModalDeleteConfirmation from './ModalDeleteConfirmation';
+import styled from "styled-components";
+import { API_URL } from "../config";
+
 
 interface TableProps {
   tags: Tag[]
@@ -14,7 +17,9 @@ interface TableProps {
   onSelectionChange?: (selectedIds: string[]) => void;
 }
 
-const API_URL = "http://137.184.81.207:9000";
+const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
+  cursor: pointer;
+`;
 
 export default function Table({
   tagSelected, tagDeleted, showCheckboxes, showActions = true, onSelectionChange 

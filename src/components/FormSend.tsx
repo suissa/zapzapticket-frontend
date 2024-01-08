@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Contact } from "../core/Contact";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 
 interface FormProps {
   contact: Contact
@@ -87,25 +87,25 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Nome"
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
         className="mb-4"
       />
-      <Entry
+      <EntryInput
         text="Telefone"
         value={phone}
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
       />
-      <Entry
+      <EntryInput
         text="Status"
         type="select"
         value={status} // Use o estado como valor
@@ -127,12 +127,12 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
           { value: "Cliente", label: "Cliente" },
         ]}
       />
-      <Entry
+      <EntryInput
         text="Cidade"
         value={city}
         onChange={e => setCity((e.target as HTMLInputElement).value)}
       />
-      <Entry
+      <EntryInput
         text="Estado"
         type="select"
         onChange={handleStateChange}
@@ -169,7 +169,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
         ]}
       />
 
-      <Entry
+      <EntryInput
         text="País"
         value={country}
         onChange={e => setCountry((e.target as HTMLInputElement).value)}

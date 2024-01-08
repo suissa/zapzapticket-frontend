@@ -42,29 +42,30 @@ export default function useContacts() {
       })
   }
 
-  async function saveContact(contact: Contact) {
+  async function saveContact(contact: Partial<Contact>) {
     console.log("saveContact contact", contact)
     console.log("status: ", contact.status)
-    const contactStr = contact?._id
+    const newContact = Contact.empty()
+    const contactStr = newContact?._id
       ? JSON.stringify({
-        _id: contact._id,
-        name: contact.name,
-        phone: contact.phone,
-        status: contact.status,
-        city: contact.city,
-        state: contact.state,
-        country: contact.country,
+        _id: newContact._id,
+        name: newContact.name,
+        phone: newContact.phone,
+        status: newContact.status,
+        city: newContact.city,
+        state: newContact.state,
+        country: newContact.country,
       })
       : JSON.stringify({
-        name: contact.name,
-        phone: contact.phone,
-        status: contact.status,
-        city: contact.city,
-        state: contact.state,
-        country: contact.country,
+        name: newContact.name,
+        phone: newContact.phone,
+        status: newContact.status,
+        city: newContact.city,
+        state: newContact.state,
+        country: newContact.country,
       })
-    console.log("saveContact contactStr", contactStr)
-    const response = contact?._id
+    console.log("saveContact newContactStr", newContactStr)
+    const response = newContact?._id
       ? await fetch(`${API_URL}/contacts/${contact._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },

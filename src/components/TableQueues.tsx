@@ -4,6 +4,9 @@ import Queue from "../core/Queue"
 import { IconEdit, IconThrash } from "./Icons"
 import useQueues from "../hooks/useQueues"
 import ModalDeleteConfirmation from './ModalDeleteConfirmation';
+import styled from "styled-components";
+import { API_URL } from "../config";
+
 
 interface TableProps {
   queues: Queue[]
@@ -14,8 +17,9 @@ interface TableProps {
   onSelectionChange?: (selectedIds: string[]) => void;
 }
 
-const API_URL = "http://137.184.81.207:9000";
-
+const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
+  cursor: pointer;
+`;
 export default function Table({
   queueSelected, queueDeleted, showCheckboxes, showActions = true, onSelectionChange 
 }: TableProps) {

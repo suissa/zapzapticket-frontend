@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { Fragment, useState, useEffect } from "react"
+import Image from "next/image"
 
 export default function ModalQRCode({ isOpen, closeModal, qrCodeBase64 }) {
 
@@ -46,7 +47,10 @@ export default function ModalQRCode({ isOpen, closeModal, qrCodeBase64 }) {
                     Leia o QR Code abaixo com o WhatsApp
                   </Dialog.Title>
                   <div className="qr-code-container">
-                    <img src={`${qrCodeBase64}`} alt="QR Code" className="qr-code-img" />
+                    {!qrCodeBase64
+                      ? <Image src="images/loading.gif" alt="Carregando" className="qr-code-img" />
+                      : <Image src={`${qrCodeBase64}`} alt="QR Code" className="qr-code-img" />
+                    }
                   </div>
                   <div className="flex justify-end mt-4">
 

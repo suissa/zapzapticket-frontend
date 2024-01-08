@@ -139,13 +139,13 @@ export default function Table({
           {renderData()}
         </tbody>
       </table>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal 
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
           user={currentUser}
         />
-      )}
+      )} */}
     </div>
   )
 }

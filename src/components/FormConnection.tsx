@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Connection from "../core/Connection";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 
 interface FormProps {
   connection: Connection
@@ -23,32 +23,32 @@ export default function Form({ connection, canceled, connectionModified }: FormP
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4 text-white"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Nome"
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Telefone"
         value={phone}
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      {/* <Entry
+      {/* <EntryInput
         text="Conexão"
         value={instanceName}
         onChange={e => setInstanceName((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       /> */}
-      {/* <Entry
+      {/* <EntryInput
         text="instanceStatus"
         type="checkbox"
         checked={instanceStatus}

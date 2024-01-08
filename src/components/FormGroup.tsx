@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Group from "../core/Group";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 
 interface FormProps {
   group: Group
@@ -10,39 +10,32 @@ interface FormProps {
 }
 
 export default function Form({ group, canceled, groupModified }: FormProps) {
-  const [title, setTitle] = useState(group?.title ?? "")
-  const [text, setText] = useState(group?.text ?? "")
-  const [isActive, setIsActive] = useState(group?.isActive ?? "")
-  const [instanceStatus, setInstanceStatus] = useState(group?.instanceStatus ?? false)
+  const [subject, setSubject] = useState(group?.subject ?? "")
+  const [isActive, setIsActive] = useState(group?.isActive ?? true)
+  // const [instanceStatus, setInstanceStatus] = useState(group?.instanceStatus ?? false)
 
   const _id = group?._id
   const handleSubmit = () => {
     console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
-    groupModified?.(new Group(title, text, _id));
+    groupModified?.(new Group(subject, _id, 0, isActive));
   }
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Título"
-        value={title}
-        onChange={e => setTitle((e.target as HTMLInputElement).value)}
+        value={subject}
+        onChange={e => setSubject((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
-        text="Texto"
-        value={text}
-        onChange={e => setText((e.target as HTMLInputElement).value)}
-        className="mb-4 text-white"
-      />
-      <Entry
+      <EntryInput
         text="isActive"
         type="checkbox"
         checked={true}

@@ -2,6 +2,7 @@ import { useState, MutableRefObject, useRef, useEffect, useCallback } from "reac
 import React from "react";
 import Group from "../core/Group"
 import { IconEdit, IconThrash, IconContactsMenu } from "./Icons"
+import Image from "next/image";
 import styled from "styled-components";
 
 interface TableProps {
@@ -146,7 +147,7 @@ export default function Table({
                       </td>
                       <td className="text-left p-4">{participant.admin ? participant.admin : "participante"}</td>
                       <td className="text-center">
-                      {pictureUrl && <img src={pictureUrl} alt="Profile" style={{ width: "50px", height: "50px", margin: "0 auto" }} />}
+                      {pictureUrl && <Image src={pictureUrl} alt="Profile" width="50" height="50" style={{ margin: "0 auto" }} />}
                       </td>
                     </tr>
                   )

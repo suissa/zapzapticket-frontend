@@ -1,6 +1,6 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Group from "../core/Group"
-import { IconEdit, IconThrash, IconUsers } from "./Icons"
+import { IconEdit, IconThrash, IconUsersMenu } from "./Icons"
 import styled from 'styled-components';
 
 interface TableProps {
@@ -191,7 +191,7 @@ export default function Table({
           text-green-600 rounded-md p-2 m-1
           hover:bg-purple-50
         `}>
-          {IconUsers}
+          {IconUsersMenu}
         </button>
         {groupSelected ? (
           <button onClick={() => groupSelected?.(group)} className={`

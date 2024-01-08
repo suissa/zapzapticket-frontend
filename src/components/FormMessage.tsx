@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Message from "../core/Message";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 
 interface FormProps {
   message: Message
@@ -23,26 +23,26 @@ export default function Form({ message, canceled, messageModified }: FormProps) 
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Título"
         value={title}
         onChange={e => setTitle((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Texto"
         value={text}
         onChange={e => setText((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="isActive"
         type="checkbox"
         checked={true}

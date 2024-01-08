@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Queue from "../core/Queue";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 import ColorPicker from "./ColorPicker"
 import useQueues from "../hooks/useQueues"
 
@@ -37,7 +37,7 @@ export default function Form({ queue, canceled, queueModified }: FormProps) {
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
@@ -45,7 +45,7 @@ export default function Form({ queue, canceled, queueModified }: FormProps) {
         />
       ) : null}
 
-      <Entry
+      <EntryInput
         text="Nome"
         value={name}
         onChange={e => setName(e.target.value)}
