@@ -10,7 +10,7 @@ export default function useGroups() {
   const { showForm, showTable, tableVisible } = useLayout()
 
   useEffect(() => {
-    // getProfileImage("Criptou_Onboarding-5511994649923", "5511994458797")
+    // getProfileImage("Victor-4199953916", "5511994458797")
     //   .then(result => {
     //     console.log("useGroups useEffect result", result)
     //   })
@@ -21,9 +21,9 @@ export default function useGroups() {
     showForm()
   }
 
-  function listGroups(instanceName = "Criptou_Onboarding-5511994649923") {
+  function listGroups(instanceName = "Victor-4199953916") {
     console.log("useGroups listGroups instanceName", instanceName)
-    // const instanceName = selectedConnection ? selectedConnection.instanceName : "Criptou_Onboarding-5511994649923";
+    // const instanceName = selectedConnection ? selectedConnection.instanceName : "Victor-4199953916";
     console.log("useGroups listGroups instanceName", instanceName)
     fetch(`${API_URL}/evolution/groups/${instanceName}`)
       .then(response => response.json())

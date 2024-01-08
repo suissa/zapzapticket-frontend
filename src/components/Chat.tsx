@@ -50,7 +50,7 @@ export default function Chat({ messages, onMessageSent, selectedContact }: ChatP
   //   sendMessage({
   //     message: messageText,
   //     phone: selectedContact.phone,
-  //     instanceName: "Criptou_Onboarding-5511994649923",
+  //     instanceName: "Victor-4199953916",
   //   });
   //   setMessageText("");
   //   onMessageSent(newMessage);

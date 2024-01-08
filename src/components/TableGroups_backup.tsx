@@ -70,7 +70,7 @@ export default function Table({
     useEffect(() => {
       if(group) {
         group.participants.forEach(participant => {
-          getProfileImage("Criptou_Onboarding-5511994649923", participant.id)
+          getProfileImage("Victor-4199953916", participant.id)
             .then(pictureUrl => {
               // Faça algo com a pictureUrl
             });
