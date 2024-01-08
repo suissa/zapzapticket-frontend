@@ -67,19 +67,16 @@ export default function Home() {
 
   const handleSendMessage = async () => {
     setLoading(true);
-    
-    console.log('selectedMessage:', selectedMessage);
-    console.log('selectedConnection:', selectedConnection);
-    console.log('selectedContacts:', selectedContacts);
-    if (selectedMessage && selectedConnection && selectedContacts) {
+
+    if (selectedMessage && selectedConnection) {
       try {
         // Use selectedContacts diretamente
-        if (selectedContacts?.length > 0) {  
-          // console.log('selectedContacts:', selectedContacts);
+        if (selectedContacts.length > 0) {  
+          console.log('selectedContacts:', selectedContacts);
           // const newContacts = selectedContacts.filter(contact => 
           //   !list.some(item => item.contact === contact)
           // );
-          // // console.log('newContacts:', newContacts);
+          // console.log('newContacts:', newContacts);
           const newEntries = selectedContacts.map(contact => ({
             connection: selectedConnection,
             contact: contact,
@@ -117,23 +114,23 @@ export default function Home() {
   };
 
   const handleConnectionsSelectionChange = (selectedId) => {
-    // console.log("handleConnectionsSelectionChange selectedId", selectedId)
+    console.log("handleConnectionsSelectionChange selectedId", selectedId)
     setSelectedConnection(selectedId);
   };
 
   useEffect(() => {
     if (list) {
-      // console.log('list if:', list);
+      console.log('list if:', list);
     } else {
-      // console.log('list else:', list);
+      console.log('list else:', list);
     }
   }, [list]); // Dependência do useEffect
 
   useEffect(() => {
     if (loading) {
-      // console.log('loading if:', loading);
+      console.log('loading if:', loading);
     } else {
-      // console.log('loading else:', loading);
+      console.log('loading else:', loading);
     }
   }, [loading]); // Dependência do useEffect
 
@@ -175,7 +172,7 @@ export default function Home() {
               </Button>
             </div>
             <div className="flex h-80 text-white">
-              <div className="flex-1 overflow-auto mr-1">
+              <div className="flex-1 overflow-auto">
                 <TableMessages
                   messages={messages}
                   messageSelected={getMessage}
@@ -200,8 +197,8 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="flex h-80 mt-4">
-              <div className="flex-1 overflow-auto mr-1">
+            <div className="flex h-80">
+              <div className="flex-1 overflow-auto">
 
               <TableConnections
                   connections={connections}
