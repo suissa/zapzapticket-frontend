@@ -172,7 +172,7 @@ export default function Home() {
               </Button>
             </div>
             <div className="flex h-80 text-white">
-              <div className="flex-1 overflow-auto">
+              <div className="flex-1 overflow-auto mr-1">
                 <TableMessages
                   messages={messages}
                   messageSelected={getMessage}
@@ -197,8 +197,8 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="flex h-80">
-              <div className="flex-1 overflow-auto">
+            <div className="flex h-80 mt-4">
+              <div className="flex-1 overflow-auto mr-1">
 
               <TableConnections
                   connections={connections}
