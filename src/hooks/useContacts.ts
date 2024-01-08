@@ -2,9 +2,9 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
-// import { API_URL } from "../config"
-const API_URL = "http://137.184.81.207:9000"
-// const API_URL = "http://localhost:9000"
+
+const API_URL = "http://localhost:9000/contacts";
+
 export default function useContacts() {
   const [contact, setContact] = useState<Contact>(Contact.empty())
   const [contacts, setContacts] = useState<Contact[]>([])
@@ -18,11 +18,10 @@ export default function useContacts() {
   }
 
   function listContacts() {
-
-    fetch(`${API_URL}/contacts`)
+    fetch(`${API_URL}`)
       .then(response => response.json())
       .then(data => {
-        // console.log("listContacts then", data)
+        console.log("listContacts then", data)
         return setContacts(data)
       })
   }
@@ -33,19 +32,19 @@ export default function useContacts() {
   }
 
   async function deleteContact(contact: Contact) {
-    fetch(`${API_URL}/contacts/${contact._id}`, {
+    fetch(`${API_URL}/${contact._id}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
       .then(data => {
-        // console.log("DELETE then", data)
+        console.log("DELETE then", data)
         return listContacts()
       })
   }
 
   async function saveContact(contact: Contact) {
-    // console.log("saveContact contact", contact)
-    // console.log("status: ", contact.status)
+    console.log("saveContact contact", contact)
+    console.log("status: ", contact.status)
     const contactStr = contact?._id
       ? JSON.stringify({
         _id: contact._id,
@@ -64,14 +63,14 @@ export default function useContacts() {
         state: contact.state,
         country: contact.country,
       })
-    // console.log("saveContact contactStr", contactStr)
+    console.log("saveContact contactStr", contactStr)
     const response = contact?._id
-      ? await fetch(`${API_URL}/contacts/${contact._id}`, {
+      ? await fetch(`${API_URL}/${contact._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: contactStr
       })
-      : await fetch(`${API_URL}/contacts`, {
+      : await fetch(`${API_URL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: contactStr
@@ -81,7 +80,7 @@ export default function useContacts() {
     // fetch(`${API_URL}`)
     //   .then(response => response.json())
     //   .then(data => {
-    //     // // console.log("listContacts then", data)
+    //     // console.log("listContacts then", data)
     //     listContacts()
     //   })
     // const data = await response.json();
