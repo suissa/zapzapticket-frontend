@@ -231,7 +231,7 @@ export default function Table({
 
   function renderData() {
     console.log("TableGroups renderData groups", groups);
-    if (!Array.isArray(groups)) {
+    if (!Array.isArray(groups) || groups.length === 0) {
       return <tr><td colSpan="100%" className="text-white">Nenhum grupo encontrado</td></tr>;
     }
     return groups?.map((group, i) => {
