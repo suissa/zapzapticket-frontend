@@ -107,9 +107,9 @@ export default function Home() {
           //   //   title: "Work In Progress"
           //   // }
           // }), "ticketStatus"))
-          // console.log("listTickets then", {lanes})
+          // // console.log("listTickets then", {lanes})
           
-          console.log("listTickets then", data)
+          // console.log("listTickets then", data)
           return setList(data)
         })
         .catch(error => {
@@ -122,9 +122,9 @@ export default function Home() {
 
   useEffect(() => {
     if (list) {
-      console.log("list if:", list);
+      // console.log("list if:", list);
     } else {
-      console.log("list else:", list);
+      // console.log("list else:", list);
     }
   }, [list]); // Dependência do useEffect
 
@@ -132,7 +132,7 @@ export default function Home() {
 
   return (
     <>
-    {console.log("list return :", list)}
+    {// console.log("list return :", list)}
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>

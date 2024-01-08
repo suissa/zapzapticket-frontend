@@ -33,7 +33,7 @@ export default function Table({
   const [selectedGroupForParticipants, setSelectedGroupForParticipants] = useState(null);
   const [participantImages, setParticipantImages] = useState({});
 
-  console.log("TableGroups rodei 1x");
+  // console.log("TableGroups rodei 1x");
   const handleParticipantsClick = useCallback((group) => {
     setSelectedGroupForParticipants(group);
     setIsParticipantsModalOpen(true);
@@ -47,7 +47,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentGroup) {
       groupDeleted?.(currentGroup);
-      console.log("Usuário excluído:", currentGroup);
+      // console.log("Usuário excluído:", currentGroup);
     }
     setIsModalOpen(false);
   };
@@ -66,8 +66,8 @@ export default function Table({
 
   
   const ParticipantsModal = ({ onClose, onConfirm, group, importContacts, selectedConnection }) => {
-    console.log("TableGroups ParticipantsModal group", group);
-    console.log("TableGroups ParticipantsModal selectedConnection", selectedConnection);
+    // console.log("TableGroups ParticipantsModal group", group);
+    // console.log("TableGroups ParticipantsModal selectedConnection", selectedConnection);
     const { participants } = group;
     participants.sort((a, b) => {
       if (a.admin === b.admin) {
@@ -75,14 +75,14 @@ export default function Table({
       }
       return a.admin ? -1 : 1;
     });
-    console.log("Rodei 1x")
+    // console.log("Rodei 1x")
     useEffect(() => {
       const loadImages = async () => {
         const imageMap = {};
     
         for (const participant of group.participants) {
           const pictureUrl = await getProfileImage(selectedConnection.instanceName, participant.id.replace("@s.whatsapp.net", ""));
-          console.log("TableGroups ParticipantsModal pictureUrl", pictureUrl);
+          // console.log("TableGroups ParticipantsModal pictureUrl", pictureUrl);
           if (!participantImages[participant.id]) {
             imageMap[participant.id] = pictureUrl || "/images/avatar-01.png";
           }
@@ -103,17 +103,17 @@ export default function Table({
       const numbers = group.participants.map(p => p.id.replace("@s.whatsapp.net", "")); // Supondo que id seja o número do telefone
       const groupId = group.id;
       const { instanceName } = selectedConnection;
-      console.log("TableGroups ParticipantsModal handleImportContacts instanceName", instanceName);
-      console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
-      console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
-      console.log("TableGroups ParticipantsModal handleImportContacts participantImages", participantImages);
+      // console.log("TableGroups ParticipantsModal handleImportContacts instanceName", instanceName);
+      // console.log("TableGroups ParticipantsModal handleImportContacts numbers", numbers);
+      // console.log("TableGroups ParticipantsModal handleImportContacts groupId", groupId);
+      // console.log("TableGroups ParticipantsModal handleImportContacts participantImages", participantImages);
       importContacts(instanceName, groupId, participantImages)
         .then(response => {
-            console.log("TableGroups ParticipantsModal handleImportContacts response", response);
+            // console.log("TableGroups ParticipantsModal handleImportContacts response", response);
             alert("Contatos importados com sucesso!")
         })
         .catch(error => {
-          console.log("TableGroups ParticipantsModal handleImportContacts error", error);
+          // console.log("TableGroups ParticipantsModal handleImportContacts error", error);
           alert("Erro ao importar contatos!")
         });
     };
@@ -230,7 +230,7 @@ export default function Table({
   }
 
   function renderData() {
-    console.log("TableGroups renderData groups", groups);
+    // console.log("TableGroups renderData groups", groups);
     if (!Array.isArray(groups) || groups.length === 0) {
       return <tr><td colSpan="100%" className="text-white">Nenhum grupo encontrado</td></tr>;
     }

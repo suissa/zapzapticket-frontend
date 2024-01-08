@@ -41,14 +41,14 @@ export default function Home() {
 
 
   useEffect(() => {
-    console.log("messages", messages);
+    // console.log("messages", messages);
   }, [messages]); // Dependência do useEffect
 
   useEffect(() => {
     if (messages) {
-      console.log("messages if:", messages);
+      // console.log("messages if:", messages);
     } else {
-      console.log("messages else:", messages);
+      // console.log("messages else:", messages);
     }
   }, [messages]); // Dependência do useEffect
 

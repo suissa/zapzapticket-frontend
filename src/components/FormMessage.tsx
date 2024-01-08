@@ -17,7 +17,7 @@ export default function Form({ message, canceled, messageModified }: FormProps) 
 
   const _id = message?._id
   const handleSubmit = () => {
-    console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
+    // console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
     messageModified?.(new Message(title, text, _id));
   }
   return (

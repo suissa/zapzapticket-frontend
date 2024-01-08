@@ -34,7 +34,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentUser) {
       userDeleted?.(currentUser);
-      console.log("Usuário excluído:", currentUser);
+      // console.log("Usuário excluído:", currentUser);
     }
     setIsModalOpen(false);
   };
@@ -66,7 +66,7 @@ export default function Table({
   }
 
   function renderData() {
-    console.log("renderData: ", users)
+    // console.log("renderData: ", users)
     return users && users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>

@@ -11,7 +11,7 @@ const API_URL_STATUS = `${API_URL}/contacts/ticketStatus`;
 export default function useSend() {
 
   function setUpdateTaskStatus(data: any) {
-    console.log("useKanban setUpdateTaskStatus data", data)
+    // console.log("useKanban setUpdateTaskStatus data", data)
     // socket.emit("updateTaskStatus", data);
     const { ticketId, ticketStatus } = data;
     const body = { ticketStatus: ticketStatus.toLowerCase() }
@@ -23,9 +23,9 @@ export default function useSend() {
     })
       .then(response => response.json())
       // .then(data => {
-      //   console.log("listTickets then", data)
+      //   // console.log("listTickets then", data)
       //   setList(data)
-      //   console.log("listTickets then", list)
+      //   // console.log("listTickets then", list)
       // })
   }
   return {

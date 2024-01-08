@@ -22,7 +22,7 @@ export default function useContacts() {
     fetch(`${API_URL}/contacts`)
       .then(response => response.json())
       .then(data => {
-        console.log("listContacts then", data)
+        // console.log("listContacts then", data)
         return setContacts(data)
       })
   }
@@ -38,14 +38,14 @@ export default function useContacts() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("DELETE then", data)
+        // console.log("DELETE then", data)
         return listContacts()
       })
   }
 
   async function saveContact(contact: Contact) {
-    console.log("saveContact contact", contact)
-    console.log("status: ", contact.status)
+    // console.log("saveContact contact", contact)
+    // console.log("status: ", contact.status)
     const contactStr = contact?._id
       ? JSON.stringify({
         _id: contact._id,
@@ -64,7 +64,7 @@ export default function useContacts() {
         state: contact.state,
         country: contact.country,
       })
-    console.log("saveContact contactStr", contactStr)
+    // console.log("saveContact contactStr", contactStr)
     const response = contact?._id
       ? await fetch(`${API_URL}/contacts/${contact._id}`, {
         method: 'PATCH',
@@ -81,7 +81,7 @@ export default function useContacts() {
     // fetch(`${API_URL}`)
     //   .then(response => response.json())
     //   .then(data => {
-    //     // console.log("listContacts then", data)
+    //     // // console.log("listContacts then", data)
     //     listContacts()
     //   })
     // const data = await response.json();

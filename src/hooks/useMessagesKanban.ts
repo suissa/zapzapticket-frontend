@@ -31,8 +31,8 @@ export default function useMessages() {
       .then(response => response.json())
       .then(data => {
         const lanes = [ ...Object.entries(groupBy(data, "ticketStatus")).map(([key, value], i) => {
-          console.log("listMessages then key", key)
-          console.log("listMessages then value", value)
+          // console.log("listMessages then key", key)
+          // console.log("listMessages then value", value)
           return {
             id: key,
             title: key,
@@ -41,7 +41,7 @@ export default function useMessages() {
             style: { backgroundColor: "rgba(255, 255, 255, 0.1)", color: "#fff" },  // Style of Lane
             cardStyle: { backgroundColor: "rgba(255, 255, 255, 0.1)", color: "#6b21a8" }, // Style of Card
             cards: value.map((item: any) => {
-              console.log("value.map item", item)
+              // console.log("value.map item", item)
               return {
                 id: item._id,
                 title: item.name,
@@ -53,7 +53,7 @@ export default function useMessages() {
           }
         })]
         const objOrdened = {lanes : lanes.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))};
-        console.log("listMessages then", objOrdened)
+        // console.log("listMessages then", objOrdened)
         return setMessages(objOrdened)
       })
   }
@@ -68,7 +68,7 @@ export default function useMessages() {
   }
 
   async function saveMessage(message: Message) {
-    console.log("saveMessage message", message)
+    // console.log("saveMessage message", message)
     const messageStr = message?._id
       ? JSON.stringify({
           _id: message._id,
@@ -81,7 +81,7 @@ export default function useMessages() {
         text: message.text,
         isActive: message.isActive
       })
-    console.log("saveMessage messageStr", messageStr)
+    // console.log("saveMessage messageStr", messageStr)
     const response = message?._id
       ? await fetch(`${API_URL}/messages/${message._id}`, {
         method: "PATCH",

@@ -38,11 +38,11 @@ export default function Form({ user, canceled, userModified }: FormProps) {
 
   const handleStateChange = (event) => {
     setState(event.target.value);
-    console.log("state", state)
+    // console.log("state", state)
   };
 
   const handleLevelChange = (event) => {
-    console.log("handleStatusChange: ", event.target.value)
+    // console.log("handleStatusChange: ", event.target.value)
     setLevel(event.target.value);
   };
 
@@ -50,7 +50,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
     if (level) { // Verifica se o level não está vazio
       // Preparar o objeto user com o level atualizado
       const UserObj = { ...user, level };
-      console.log("UserObj", UserObj)
+      // console.log("UserObj", UserObj)
       // Chamar a função saveUser com o user atualizado
       // saveUser(userUpdated);
     }
@@ -71,7 +71,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
       level
     };
   
-    console.log("Objeto User a ser salvo:", UserObj);
+    // console.log("Objeto User a ser salvo:", UserObj);
     userModified?.(UserObj);
   }
   

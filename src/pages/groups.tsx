@@ -18,7 +18,7 @@ export default function Home() {
   };
   const handleConnectionSelected = (connection) => {
     setSelectedConnection(connection);
-    console.log("Groups Page handleConnectionSelected Conexão selecionada:", connection);
+    // console.log("Groups Page handleConnectionSelected Conexão selecionada:", connection);
     // Outras ações, se necessário
   };
   const {
@@ -47,7 +47,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("Groups Page useEffect selectedConnection:", selectedConnection);
+    // console.log("Groups Page useEffect selectedConnection:", selectedConnection);
     if (selectedConnection && selectedConnection.instanceName) {
       listGroups(selectedConnection.instanceName);
     }

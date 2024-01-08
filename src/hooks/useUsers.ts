@@ -21,7 +21,7 @@ export default function useUsers() {
     fetch(`${API_URL}/users`)
       .then(response => response.json())
       .then(data => {
-        console.log("listUsers then", data)
+        // console.log("listUsers then", data)
         return setUsers(data)
       })
   }
@@ -30,7 +30,7 @@ export default function useUsers() {
     fetch(`${API_URL}/users/all`)
       .then(response => response.json())
       .then(data => {
-        // console.log("listUsers then", data)
+        // // console.log("listUsers then", data)
         return setUsers(data)
       })
   }
@@ -46,13 +46,13 @@ export default function useUsers() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("DELETE then", data)
+        // console.log("DELETE then", data)
         return listUsers()
       })
   }
 
   async function saveUser(user: User) {
-    console.log("saveUser user", user)
+    // console.log("saveUser user", user)
     const userStr = user?._id
       ? JSON.stringify({
         _id: user._id,
@@ -77,7 +77,7 @@ export default function useUsers() {
         level: user.level,
         isActive: true
       })
-    console.log("saveUser userStr", userStr)
+    // console.log("saveUser userStr", userStr)
     const response = user?._id
       ? await fetch(`${API_URL}/users/${user._id}`, {
         method: 'PATCH',
@@ -93,7 +93,7 @@ export default function useUsers() {
     fetch(`${API_URL}/users/all`)
       .then(response => response.json())
       .then(data => {
-        // console.log("listUsers then", data)
+        // // console.log("listUsers then", data)
         setUsers(data)
         showTable()
       })
