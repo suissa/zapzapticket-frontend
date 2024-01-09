@@ -48,8 +48,8 @@ export default function ModalQRCode({ isOpen, closeModal, qrCodeBase64 }) {
                   </Dialog.Title>
                   <div className="qr-code-container">
                     {!qrCodeBase64
-                      ? <Image src="images/loading.gif" alt="Carregando" className="qr-code-img" />
-                      : <Image src={`${qrCodeBase64}`} alt="QR Code" className="qr-code-img" />
+                      ? <Image src="/images/loading.gif" width={50} height={50} alt="Carregando" className="qr-code-img" />
+                      : <Image src={`${qrCodeBase64}`} width={300} height={300} alt="QR Code" className="qr-code-img" />
                     }
                   </div>
                   <div className="flex justify-end mt-4">
