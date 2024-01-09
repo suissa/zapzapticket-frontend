@@ -21,23 +21,33 @@ const truncateString = (str, num) => {
 
 const ContactsList = ({ contacts, onContactSelect }) => {
   const [search, setSearch] = useState("");
+  const [filteredContacts, setFilteredContacts] = useState(contacts);
 
-  const handleSearch = (e) => {
-    console.log("event", e.key);
-    setSearch(search + e.key);
-  }
+  // Atualiza o estado de pesquisa com base no valor do input
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  // Filtra contatos sempre que o estado de pesquisa muda
+  useEffect(() => {
+    const filtered = contacts.filter(contact =>
+      contact.messages.some(message =>
+        message?.text?.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+    setFilteredContacts(filtered);
+  }, [search, contacts]);
 
   useEffect(() => {
-    console.log("search", search)
-  }, [search]);
-
+    console.log("filteredContacts", filteredContacts)
+  }, [filteredContacts])
   return (
     <div className={`${styles.contactsList} rounded h-screen`}>
       <TopBar />
-      <TopBarSearch onKeyDown={handleSearch} />
+      <TopBarSearch onKeyDown={handleSearchChange} />
       <TopBarButtons />
       <TopBarOptions />
-      {contacts.sort((a, b) => {
+      {filteredContacts.sort((a, b) => {
           const lastMessageA = new Date(a.messages[a.messages.length - 1].createdAt).getTime();
           const lastMessageB = new Date(b.messages[b.messages.length - 1].createdAt).getTime();
           return lastMessageB - lastMessageA;
