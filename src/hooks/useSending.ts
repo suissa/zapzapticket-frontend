@@ -1,14 +1,12 @@
-import { useState, MutableRefObject, useRef, useEffect, useContext } from "react"
+import { useState, MutableRefObject, useRef, useEffect } from "react"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
-// import io from "socket.io-client";
+import io from "socket.io-client";
 import { API_URL } from "../config";
-// const socket = io(`${API_URL}`);
-import { useWebSocket } from "./useWebSocketContext";
+const socket = io(`${API_URL}`);
 
 export default function useSend() {
   const [list, setList] = useState([]);
-  const socket = useWebSocket();
 
   useEffect(() => {
     const handleConnect = () => console.log("useSendings Conectado ao servidor Socket.io");
@@ -30,6 +28,31 @@ export default function useSend() {
   useEffect(() => {
     console.log("Estado atualizado da list:", list);
   }, [list]);
+
+  // useEffect(() => {
+  //   console.log("Estado atualizado da list:", list);
+
+  //   // Registra ouvintes de eventos
+  //   const handleMessageSent = (data) => console.log("message:sent eliminar da lista:", data);
+  //   const handleMessageReceived = (data) => {
+  //     console.log("Mensagem recebida:", data, new Date())
+  //     console.log("handleMessageReceived list", list);
+  //     // setList(currentList => []);
+  //     setList(currentList => currentList.filter(item => item.phone !== data.phone));
+  //     console.log("handleMessageReceived depois list", list);
+  //   };
+
+  //   socket.on("message:sent", handleMessageSent);
+  //   socket.on("message:received", handleMessageReceived);
+
+  //   // Limpa os ouvintes ao desmontar
+  //   return () => {
+  //     socket.off("connect", handleConnect);
+  //     socket.off("message", handleMessage);
+  //     socket.off("message:sent", handleMessageSent);
+  //     socket.off("message:received", handleMessageReceived);
+  //   };
+  // }, [list]);
 
   async function sendMessage(text, phones, instanceName) {
     console.log("sendMessage: list", list);

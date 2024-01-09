@@ -13,7 +13,7 @@ export default function Home() {
     tasks,
     createTask,
     saveTask,
-    setTask,
+    // setTask,
     deleteTask,
     getTask,
     listTasks,
@@ -37,7 +37,7 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <Layout title="Tarefas">
+          <Layout title="Tarefas" width="w3/3">
             {tableVisible ? (
               <div>
                 <div className="flex justify-end">

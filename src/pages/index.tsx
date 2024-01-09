@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import Botao from "../components/Button";
-import Form from "../components/Form";
+import { useEffect, useState } from "react";
+import Button from "../components/Button";
+import Form from "../components/FormConnection";
 import Layout from "../components/Layout";
-import Table from "../components/Table";
+import Table from "../components/TableConnections";
 import Menu from '../components/Menu';
 import Head from 'next/head';
 import useConnections from "../hooks/useConnections";
@@ -22,38 +22,39 @@ export default function Home() {
     tableVisible
   } = useConnections()
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
+  const handleToggleSidebar = (isExpanded) => {
+    setIsSidebarExpanded(isExpanded);
+  };
   return (
     <>
       <Head>
-        <title>ZapCRM</title>
+        <title>Conexões</title>
       </Head>
       <div>
-        <Menu />
-        <div className={`
-          flex justify-center items-center
-          h-screen bg
-          text-white
-        `}>
-          <Layout title="Conexões">
+        <Menu onToggle={setIsSidebarExpanded} />
+        <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+        <div className="h-screen bg p-10">
+          <Layout title="Conexões" width="w-3/3">
             {tableVisible ? (
-              <div>
-                <div className="flex justify-end">
-                  <Botao
-                    color="green"
-                    className="mb-4"
-                    onClick={createConnection}
-                  >
-                    Nova Conexão
-                  </Botao>
-                </div>
-                <Table
-                  connections={connections}
-                  connectionSelected={getConnection}
-                  connectionSaved={saveConnection}
-                  connectionDeleted={deleteConnection}
-                />
+            <div>
+              <div className="flex justify-end">
+                <Button
+                  className="mb-4"
+                  onClick={createConnection}
+                >
+                  Nova Conexão
+                </Button>
               </div>
-            ) : (
+              <Table
+                connections={connections}
+                connectionSelected={getConnection}
+                connectionSaved={saveConnection}
+                connectionDeleted={deleteConnection}
+              />
+              </div>
+              ) : (
               <Form
                 connection={connection}
                 connectionModified={saveConnection}
@@ -62,6 +63,8 @@ export default function Home() {
             )}
           </Layout>
         </div>
+      </div>
+
       </div>
     </>
   )

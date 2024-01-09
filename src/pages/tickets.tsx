@@ -121,8 +121,6 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-black p-4">
-        {/* <Layout title="Tickets"> */}
-
           <div className={styles.ticketWrapper}>
             <div className={styles.ticketContactList}>
               <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
@@ -154,9 +152,7 @@ export default function Home() {
                     </div>
               }
             </div>
-            
           </div>
-        {/* </Layout> */}
       </div>
       </div>
     </div>

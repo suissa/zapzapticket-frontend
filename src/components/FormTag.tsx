@@ -9,9 +9,10 @@ interface FormProps {
   tag: Tag
   tagModified?: (tag: Tag) => void
   canceled?: () => void
+  initialColor?: string; // Add initialColor property
 }
 
-export default function Form({ tag, canceled, tagModified }: FormProps) {
+export default function Form({ tag, canceled, tagModified, initialColor }: FormProps) {
   const [name, setName] = useState(tag?.name ?? "");
   const [color, setColor] = useState(tag?.color ?? "#fff");
 
