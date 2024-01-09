@@ -59,7 +59,7 @@ input[type="password"] {
   -webkit-backdrop-filter: blur(4px);
 }
 
-body bg-password {
+body .bg-password, .input-form {
   background-color: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
