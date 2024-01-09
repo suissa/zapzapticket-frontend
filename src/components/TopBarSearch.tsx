@@ -1,15 +1,15 @@
 import styles from "../styles/Ticket.module.css";
 import EntryInputSearch from "./EntryInputSearch";
 
-const TopBar = () => {
+const TopBarSearch = ({ onKeyDown }) => {
   
   return (
     <div className={styles.topBarButtonWrapper}>
       <div className={styles.topBarButtonItem}>
-        <EntryInputSearch text="Pesquisar" />
+        <EntryInputSearch text="Pesquisar" onKeyDown={onKeyDown} />
       </div>
     </div>
     )
 }
 
-export default TopBar;
+export default TopBarSearch;

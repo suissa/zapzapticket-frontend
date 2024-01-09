@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "moment/locale/pt-br";
 import Image from "next/image";
@@ -10,20 +10,31 @@ import TopBarOptions from "./TopBarOptions";
 import TopBarSearch from "./TopBarSearch";
 const truncateString = (str, num) => {
   if (!str) {
-    return ""
+    return "";
   }
   if (str.length <= num) {
-    return str
+    return str;
   }
 
-  return str.slice(0, num) + "..."
+  return str.slice(0, num) + "...";
 }
 
 const ContactsList = ({ contacts, onContactSelect }) => {
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+    console.log("event", e.key);
+    setSearch(search + e.key);
+  }
+
+  useEffect(() => {
+    console.log("search", search)
+  }, [search]);
+
   return (
     <div className={`${styles.contactsList} rounded h-screen`}>
       <TopBar />
-      <TopBarSearch />
+      <TopBarSearch onKeyDown={handleSearch} />
       <TopBarButtons />
       <TopBarOptions />
       {contacts.sort((a, b) => {

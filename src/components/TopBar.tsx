@@ -13,7 +13,7 @@ const TopBar = () => {
           <p className={`${styles.topBarText} text-purple`}>
             RESOLVIDOS
           </p>
-          </button>
+        </button>
       </div>
       <div className={styles.topBarItem}>
         <button>
