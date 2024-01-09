@@ -79,7 +79,7 @@ export default function Table({
                   type="checkbox"
                   className="cursorPointer"
                   checked={user.isActive ? true : false}
-                  onChange={() => handleCheckboxChange(user.isActive, user)}
+                  onChange={() => handleCheckboxChange(user)}
                   // onChange={handleCheckboxChange}
                   />
             </label>
@@ -90,7 +90,7 @@ export default function Table({
                 <input
                   type="checkbox"
                   checked={user.isConnected ? true : false}
-                  onChange={() => handleCheckboxChange(user.isActive, user._id)}
+                  onChange={() => handleCheckboxChange(user)}
                   // onChange={handleCheckboxChange}
                   />
             </label>

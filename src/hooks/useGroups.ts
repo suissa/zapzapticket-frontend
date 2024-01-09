@@ -47,13 +47,13 @@ export default function useGroups() {
     const groupStr = group?._id
       ? JSON.stringify({
           _id: group._id,
-          title: group.title,
-          text: group.text,
+          subject: group.subject,
+          size: group.size,
           isActive: group.isActive
         })
       : JSON.stringify({
-        title: group.title,
-        text: group.text,
+        subject: group.subject,
+        size: group.size,
         isActive: group.isActive
       })
     console.log("saveGroup groupStr", groupStr)

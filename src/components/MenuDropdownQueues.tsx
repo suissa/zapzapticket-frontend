@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import useQueues from '../hooks/useQueues';
 
-const MenuDropdown = ({ list }) => {
+const MenuDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState(true);
   // const [listQueues, setListQueues] = useState(["Fila 1", "Fila 2", "Fila 3", "Fila 4"]);
