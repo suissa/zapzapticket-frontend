@@ -73,7 +73,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
     };
   
     // console.log("Objeto User a ser salvo:", UserObj);
-    userModified?.(UserObj);
+    // userModified?.(UserObj);
   }
   
   // Restante do seu código...
@@ -162,9 +162,8 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         onChange={e => setCountry((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <EntryInput
+      <EntrySelect
         text="Nível"
-        type="select"
         onChange={handleLevelChange}
         className="mb-4 text-white"
         selectOptions={[

@@ -21,6 +21,9 @@ export default function Form({ scheduleMessage, canceled, scheduleMessageModifie
     console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
     scheduleMessageModified?.(new ScheduleMessage(text, _id, from, to, true, false));
   }
+  const setIsActive = (isActive) => {
+    console.log("setIsActive", isActive)
+  }
   return (
     <div>
       {_id ? (

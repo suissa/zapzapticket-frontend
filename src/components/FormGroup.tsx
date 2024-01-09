@@ -12,7 +12,6 @@ interface FormProps {
 export default function Form({ group, canceled, groupModified }: FormProps) {
   const [subject, setSubject] = useState(group?.subject ?? "")
   const [isActive, setIsActive] = useState(group?.isActive ?? true)
-  // const [instanceStatus, setInstanceStatus] = useState(group?.instanceStatus ?? false)
 
   const _id = group?._id
   const handleSubmit = () => {

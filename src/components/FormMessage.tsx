@@ -13,7 +13,6 @@ export default function Form({ message, canceled, messageModified }: FormProps) 
   const [title, setTitle] = useState(message?.title ?? "")
   const [text, setText] = useState(message?.text ?? "")
   const [isActive, setIsActive] = useState(message?.isActive ?? "")
-  const [instanceStatus, setInstanceStatus] = useState(message?.instanceStatus ?? false)
 
   const _id = message?._id
   const handleSubmit = () => {
