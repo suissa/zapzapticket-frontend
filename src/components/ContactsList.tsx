@@ -1,13 +1,13 @@
-import React from "react"
-import moment from "moment"
-import "moment/locale/pt-br"
-import Image from "next/image"
-import styles from "../styles/Ticket.module.css"
-import { IconWhatsapp } from "./Icons"
-import TopBar from "./TopBar"
-import TopBarButtons from "./TopBarButtons"
-import TopBarOptions from "./TopBarOptions"
-
+import React from "react";
+import moment from "moment";
+import "moment/locale/pt-br";
+import Image from "next/image";
+import styles from "../styles/Ticket.module.css";
+import { IconWhatsapp } from "./Icons";
+import TopBar from "./TopBar";
+import TopBarButtons from "./TopBarButtons";
+import TopBarOptions from "./TopBarOptions";
+import TopBarSearch from "./TopBarSearch";
 const truncateString = (str, num) => {
   if (!str) {
     return ""
@@ -23,6 +23,7 @@ const ContactsList = ({ contacts, onContactSelect }) => {
   return (
     <div className={`${styles.contactsList} rounded h-screen`}>
       <TopBar />
+      <TopBarSearch />
       <TopBarButtons />
       <TopBarOptions />
       {contacts.sort((a, b) => {

@@ -25,7 +25,7 @@ const TopBar = () => {
           </p>
           </button>
       </div>
-      <div className={styles.topBarItem}>
+      {/* <div className={styles.topBarItem}>
         <button>
           <p className={`${styles.topBarIcon}`}>
             <IconSearch className="text-purple-600" />
@@ -34,7 +34,7 @@ const TopBar = () => {
             PESQUISAR
           </p>
           </button>
-      </div>
+      </div> */}
     </div>
     )
 }

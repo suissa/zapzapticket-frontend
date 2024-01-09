@@ -12,7 +12,7 @@ const TopBar = () => {
       </div>
       <div className={`${styles.topBarButtonItem} text-purple`}>
         TODOS
-        <ToggleSwitch on={false} />
+        <ToggleSwitch on={true} />
       </div>
       <div className={styles.topBarButtonItem}>
         <MenuDropdown />
