@@ -68,9 +68,9 @@ export class Contact {
     if (data.city !== undefined) this.#city = data.city;
     if (data.state !== undefined) this.#state = data.state;
     if (data.country !== undefined) this.#country = data.country;
-    if (data.badges !== undefined) this.#badges = data.badges;
-    if (data.messages !== undefined) this.#messages = data.messages;
-    if (data.isSelected !== undefined) this.#isSelected = data.isSelected;
+    // if (data.badges !== undefined) this.#badges = data.badges;
+    // if (data.messages !== undefined) this.#messages = data.messages;
+    // if (data.isSelected !== undefined) this.#isSelected = data.isSelected;
 
   }
 }
