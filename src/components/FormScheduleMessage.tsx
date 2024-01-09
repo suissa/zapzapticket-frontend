@@ -15,12 +15,16 @@ export default function Form({ scheduleMessage, canceled, scheduleMessageModifie
   const [to, setTo] = useState(scheduleMessage?.to ?? "")
   const [dateToSend, setDateToSend] = useState(scheduleMessage?.dateToSend ?? "")
 
-
   const _id = scheduleMessage?._id
   const handleSubmit = () => {
     console.log("ID on button click:", _id); // Isso vai mostrar o ID no console
     scheduleMessageModified?.(new ScheduleMessage(text, _id, from, to, true, false));
   }
+
+  const setIsActive = (checked: boolean) => {
+    console.log("checked", checked)
+  }
+
   return (
     <div>
       {_id ? (

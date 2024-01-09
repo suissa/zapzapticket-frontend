@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Contact } from "../core/Contact";
 import Button from "./Button";
 import EntryInput from "./EntryInput";
+import EntrySelect from "./EntrySelect";
 
 interface FormProps {
   contact: Contact
@@ -79,7 +80,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
     };
   
     console.log("Objeto Contact a ser salvo:", ContactObj);
-    contactModified?.(ContactObj);
+    // contactModified?.(ContactObj);
   }
   
   // Restante do seu código...
@@ -105,9 +106,8 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
         value={phone}
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
       />
-      <EntryInput
+      <EntrySelect
         text="Status"
-        type="select"
         value={status} // Use o estado como valor
         onChange={handleStatusChange}
         selectOptions={[
@@ -132,9 +132,8 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
         value={city}
         onChange={e => setCity((e.target as HTMLInputElement).value)}
       />
-      <EntryInput
+      <EntrySelect
         text="Estado"
-        type="select"
         onChange={handleStateChange}
         selectOptions={[
           { value: "", label: "Escolha um estado"},

@@ -5,9 +5,11 @@ import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage, IconTasks, IconTags, IconFastSend, 
 IconQueues, IconFastAnswers, IconWhatsapp, IconLogout} from "./Icons";
 
-const Menu = memo(({ onToggle }) => {
+interface MenuProps {
+  onToggle?: (isExpanded: boolean) => void; // Define a propriedade onToggle como opcional
+}
+const Menu = memo(({ onToggle }: MenuProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
 
   const handleMouseEnter = debounce(() => {
     setIsExpanded(true);
