@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import Form from "../components/FormMessage";
+import Form from "../components/FormScheduleMessage";
 import Layout from "../components/Layout";
 import Menu from '../components/Menu';
 import Table from "../components/TableScheduleMessages";

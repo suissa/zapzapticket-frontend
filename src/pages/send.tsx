@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import FormContact from "../components/FormContact";
-import Layout from "../components/Layout";
 import TableContacts from "../components/TableContacts";
 import TableMessages from "../components/TableMessages";
 import TableSendings from "../components/TableSendings";
@@ -11,8 +9,6 @@ import useContacts from "../hooks/useContacts";
 import useMessages from "../hooks/useMessages";
 import useConnections from "../hooks/useConnections";
 import useSending from "../hooks/useSending";
-import useLayout from "../hooks/useLayout";
-import constructWithOptions from "styled-components/dist/constructors/constructWithOptions";
 
 export default function Home() {
   // const [list, setList] = useState([]);
@@ -175,12 +171,12 @@ export default function Home() {
             </div>
             <div className="flex h-80 text-white">
               <div className="flex-1 overflow-auto mr-2">
+
                 <TableMessages
                   messages={messages}
                   messageSelected={getMessage}
                   messageDeleted={deleteMessage}
-                  messageModified={saveMessage}
-                  canceled={showTable}
+                  messageModified={saveMessage} // Add the messageModified property
                   showCheckboxes={true}
                   showActions={false}
                   onSelectionChange={handleMessagesSelectionChange}
@@ -195,7 +191,7 @@ export default function Home() {
                   showCheckboxes={true}
                   canceled={showTable}
                   showActions={false}
-                  onSelectionChange={handleContactsSelectionChange}
+                  onSelectionChange={handleContactsSelectionChange} contact={undefined}
                 />
               </div>
             </div>

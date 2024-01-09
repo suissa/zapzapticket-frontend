@@ -6,6 +6,7 @@ import Table from "../components/TableMessages";
 import Menu from '../components/Menu';
 import useMessages from "../hooks/useMessages";
 import useLayout from "../hooks/useLayout";
+import ScheduleMessage from "../core/ScheduleMessage";
 
 export default function Home() {
   const {
@@ -55,9 +56,9 @@ export default function Home() {
               </div>
             ) : (
               <Form
-              message={message}
-              messageModified={saveMessage}
-              canceled={showTable}
+                message={message}
+                messageModified={saveMessage}
+                canceled={showTable}
               />
             )}
           </Layout>

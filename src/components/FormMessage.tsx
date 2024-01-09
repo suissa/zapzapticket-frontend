@@ -2,12 +2,16 @@ import { useState } from "react";
 import Message from "../core/Message";
 import Button from "./Button";
 import EntryInput from "./EntryInput";
+import ScheduleMessage from "../core/ScheduleMessage";
 
 interface FormProps {
   message: Message
   messageModified?: (message: Message) => void
   canceled?: () => void
-}
+  // scheduleMessage: ScheduleMessage;
+  // scheduleMessageModified: (message: ScheduleMessage) => Promise<void>;
+};
+
 
 export default function Form({ message, canceled, messageModified }: FormProps) {
   const [title, setTitle] = useState(message?.title ?? "")
