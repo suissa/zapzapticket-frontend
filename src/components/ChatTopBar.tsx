@@ -5,7 +5,7 @@ import MenuDropdown from "./MenuDropdownChat";
 import TagsInput from "./TagsInput";
 
 export default function ChatTopBar({selectedContact}: any) {
-  console.log("ChatTopBar selectedContact:", selectedContact);
+  // console.log("ChatTopBar selectedContact:", selectedContact);
   return (
     <>
       <div className={styles.ticketChatTopBar}>

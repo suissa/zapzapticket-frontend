@@ -32,7 +32,7 @@ const ContactsList = ({ contacts, onContactSelect }) => {
   // Filtra contatos sempre que o estado de pesquisa muda
   useEffect(() => {
     const filtered = contacts.filter(contact =>{
-      console.log("contact", contact)
+      // console.log("contact", contact)
       // return contact.messages.reverse().some(message =>
         return contact.messages.reverse()[0]?.text?.toLowerCase().includes(search.toLowerCase())
       // )

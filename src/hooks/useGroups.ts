@@ -21,7 +21,7 @@ export default function useGroups() {
     showForm()
   }
 
-  function listGroups(instanceName = "Victor-4199953916") {
+  function listGroups(instanceName = "Suissa_2-5511978210616") {
     console.log("useGroups listGroups instanceName", instanceName)
     // const instanceName = selectedConnection ? selectedConnection.instanceName : "Victor-4199953916";
     console.log("useGroups listGroups instanceName", instanceName)
