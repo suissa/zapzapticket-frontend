@@ -106,14 +106,18 @@ export default function Table({
     return (
       <tr>
         {showCheckboxes && <th className="text-center p-4 w-1/10">Selecionar</th>}
-        <th className="text-left p-4">Tarefa</th>
+        <th className="text-left p-4">Plano</th>
+        <th className="text-left p-4">Usuários</th>
+        <th className="text-left p-4">Conexões</th>
+        <th className="text-left p-4">Filas</th>
+        <th className="text-left p-4">Valor</th>
         {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
       </tr>
     )
   }
 
   function renderData() {
-    return plans?.map((plan, i) => {
+    return plans && plans?.map((plan, i) => {
       const ref = el => {
         if (el) {
           planRefs.current[plan._id] = el;

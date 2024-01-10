@@ -39,14 +39,20 @@ export default function usePlans() {
     const planStr = plan?._id
       ? JSON.stringify({
           _id: plan._id,
-          text: plan.text,
+          name: plan.name,
+          users: Number(plan.users),
+          connections: Number(plan.connections),
+          queues: Number(plan.queues),
+          value: Number(plan.value),
           isActive: plan.isActive,
-          userEmail: "admin@admin.com",
         })
       : JSON.stringify({
-        text: plan.text,
+        name: plan.name,
+        users: Number(plan.users),
+        connections: Number(plan.connections),
+        queues: Number(plan.queues),
+        value: Number(plan.value),
         isActive: plan.isActive,
-        userEmail: "admin@admin.com",
       })
     console.log("savePlan planStr", planStr)
     const response = plan?._id

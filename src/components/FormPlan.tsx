@@ -11,18 +11,19 @@ interface FormProps {
 
 export default function Form({ plan, canceled, planModified }: FormProps) {
   const [name, setName] = useState(plan?.name ?? "")
-  const [users, setUsers] = useState(plan?.users ?? "")
-  const [connections, setConnections] = useState(plan?.connections ?? "")
-  const [queues, setQueues] = useState(plan?.queues ?? "")
-  const [value, setValue] = useState(plan?.value ?? "")
+  const [users, setUsers] = useState(plan?.users ?? 0)
+  const [connections, setConnections] = useState(plan?.connections ?? 0)
+  const [queues, setQueues] = useState(plan?.queues ?? 0)
+  const [value, setValue] = useState(plan?.value ?? 0)
 
 
   const _id = plan?._id
 
   const handleSubmit = () => {
-    const updatedPlan = new Plan(text, plan?._id); // Supondo que Plan aceite estes parâmetros
+    const updatedPlan = new Plan(_id, name, users, connections, queues, value);
     planModified?.(updatedPlan); // Passa a tarefa atualizada
   };
+
 
   return (
     <div>
@@ -37,31 +38,31 @@ export default function Form({ plan, canceled, planModified }: FormProps) {
       <EntryInput
         text="Nome"
         value={name}
-        onChange={e => setText((e.target as HTMLInputElement).value)}
+        onChange={e => setName((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
       <EntryInput
         text="Usuários"
         value={users}
-        onChange={e => setText((e.target as HTMLInputElement).value)}
+        onChange={e => setUsers((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
       <EntryInput
         text="Conexões"
         value={connections}
-        onChange={e => setText((e.target as HTMLInputElement).value)}
+        onChange={e => setConnections((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
       <EntryInput
         text="Filas"
         value={queues}
-        onChange={e => setText((e.target as HTMLInputElement).value)}
+        onChange={e => setQueues((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
       <EntryInput
         text="Valor"
         value={value}
-        onChange={e => setText((e.target as HTMLInputElement).value)}
+        onChange={e => setValue((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
       <div className="flex justify-end mt-7">
