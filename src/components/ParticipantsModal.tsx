@@ -6,7 +6,7 @@ const ParticipantsModal = ({ group, onClose, getProfileImage }) => {
   useEffect(() => {
     if (group) {
       group.participants.forEach(participant => {
-        getProfileImage("Victor-4199953916", participant.id)
+        getProfileImage("Suissa_2-5511978210616", participant.id)
           .then(pictureUrl => {
             // Faça algo com a pictureUrl, como adicionar a uma lista de URLs de imagens
           });

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { IconReturn, IconAccept } from "./Icons";
 import MenuDropdown from "./MenuDropdownChat";
 import TagsInput from "./TagsInput";
+import TicketAccept from "./TickerAccept";
 
 export default function ChatTopBar({selectedContact}: any) {
   // console.log("ChatTopBar selectedContact:", selectedContact);
@@ -28,7 +29,7 @@ export default function ChatTopBar({selectedContact}: any) {
               <IconReturn className={`${styles.ticketChatTopBarButtonsReturnIcon} text-purple w-6 h-6 margin-0-auto`} />
             </div>
             <div className={`${styles.ticketChatTopBarButtonsAccept} px-4 py-2 text-purple bg-white rounded hover:bg-purple-200 focus:outline-none`}>
-              <IconAccept className={`${styles.ticketChatTopBarButtonsAcceptIcon} text-green w-6 h-6 mt-1 margin-0-auto`} />
+              <TicketAccept selectedContact={selectedContact} />
             </div>
             <div className={styles.ticketChatTopBarButtonsMenu}>
               <MenuDropdown 

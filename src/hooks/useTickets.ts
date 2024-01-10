@@ -13,9 +13,9 @@ export default function useTickets() {
 
 
   function sendMessage(data) {
-    const { text, phone, instanceName } = data;
+    const { text, phone,  } = data;
     console.log("sendMessage data", data);
-
+    const instanceName = "Suissa_2-5511978210616";
     if (!text) {
       console.error("Error sending text: text is empty");
       return;

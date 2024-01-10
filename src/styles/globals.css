@@ -18,7 +18,7 @@ body .bg {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  overflow: auto;
+  overflow: hidden;
 }
 body .bg-glass {
   background-color: rgba(255, 255, 255, 0.1);

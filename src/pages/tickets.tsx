@@ -46,7 +46,7 @@ export default function Home() {
     console.log("handleMessageSent selectedContact:", selectedContact);
 
     // pega o instanceName de alguma forma
-    const instanceName = "Victor-4199953916";
+    const instanceName = "Suissa_2-5511978210616";
     const _newMessage = { ...newMessage, instanceName };
     // Atualiza o contato selecionado
     if (selectedContact === null) return;

@@ -1,4 +1,4 @@
-export default class Message {
+export default class Task {
   #_id: string
   #text: string
   #isActive: boolean
@@ -10,7 +10,7 @@ export default class Message {
   }
 
   static empty() {
-    return new Message("", "")
+    return new Task("", "")
   }
 
   get _id() {
