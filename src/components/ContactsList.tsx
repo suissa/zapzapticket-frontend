@@ -8,6 +8,7 @@ import TopBar from "./TopBar";
 import TopBarButtons from "./TopBarButtons";
 import TopBarOptions from "./TopBarOptions";
 import TopBarSearch from "./TopBarSearch";
+import { log } from "console";
 const truncateString = (str, num) => {
   if (!str) {
     return "";
@@ -30,11 +31,14 @@ const ContactsList = ({ contacts, onContactSelect }) => {
 
   // Filtra contatos sempre que o estado de pesquisa muda
   useEffect(() => {
-    const filtered = contacts.filter(contact =>
-      contact.messages.some(message =>
-        message?.text?.toLowerCase().includes(search.toLowerCase())
-      )
-    );
+    const filtered = contacts.filter(contact =>{
+      console.log("contact", contact)
+      // return contact.messages.reverse().some(message =>
+        return contact.messages.reverse()[0]?.text?.toLowerCase().includes(search.toLowerCase())
+      // )
+    }).
+    map(contact => ({...contact, ["messages"]: contact.messages.reverse()}));
+
     setFilteredContacts(filtered);
   }, [search, contacts]);
 

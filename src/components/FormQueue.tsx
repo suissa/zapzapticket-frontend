@@ -14,6 +14,7 @@ interface FormProps {
 export default function Form({ queue, canceled, queueModified }: FormProps) {
   const [name, setName] = useState(queue?.name ?? "");
   const [color, setColor] = useState(queue?.color ?? "#fff");
+  const [greeting, setGreeting] = useState(queue?.greeting ?? "");
 
   const { saveQueue } = useQueues()
 
@@ -48,6 +49,12 @@ export default function Form({ queue, canceled, queueModified }: FormProps) {
       <EntryInput
         text="Nome"
         value={name}
+        onChange={e => setName(e.target.value)}
+        className="mb-4 text-white"
+      />
+      <EntryInput
+        text="Saudação"
+        value={greeting}
         onChange={e => setName(e.target.value)}
         className="mb-4 text-white"
       />

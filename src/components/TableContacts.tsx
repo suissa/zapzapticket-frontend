@@ -4,6 +4,7 @@ import Button from "../components/Button"
 import Form from "../components/FormContact"
 import { IconEdit, IconThrash } from "./Icons"
 import styled from 'styled-components';
+import Loading from './Loading'; // Importe o componente Loading
 
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
   cursor: pointer;

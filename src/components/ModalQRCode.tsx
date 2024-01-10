@@ -1,6 +1,7 @@
-import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useState, useEffect } from "react"
-import Image from "next/image"
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState, useEffect } from "react";
+import Image from "next/image";
+import Loading from "./Loading";
 
 export default function ModalQRCode({ isOpen, closeModal, qrCodeBase64 }) {
 
@@ -48,7 +49,8 @@ export default function ModalQRCode({ isOpen, closeModal, qrCodeBase64 }) {
                   </Dialog.Title>
                   <div className="qr-code-container">
                     {!qrCodeBase64
-                      ? <Image src="/images/loading.gif" width={50} height={50} alt="Carregando" className="qr-code-img" />
+                      ? <Loading />
+                      // ? <Image src="/images/loading.gif" width={50} height={50} alt="Carregando" className="qr-code-img" />
                       : <Image src={`${qrCodeBase64}`} width={300} height={300} alt="QR Code" className="qr-code-img" />
                     }
                   </div>
