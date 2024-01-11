@@ -1,14 +1,16 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Plan from "../core/Plan"
+import Company from "../core/Company"
 import { IconEdit, IconThrash } from "./Icons"
 import styled from 'styled-components';
-import usePlans from "../hooks/usePlans";
+import useCompanies from "../hooks/useCompanies";
+import moment from "moment";
+moment.locale('pt-br');
 
 interface TableProps {
-  companies: Plan[]
-  companySelected?: (company: Plan) => void
-  companyDeleted?: (company: Plan) => void
-  listPlans?: () => void
+  companies: Company[]
+  companySelected?: (company: Company) => void
+  companyDeleted?: (company: Company) => void
+  listCompanies?: () => void
   showCheckboxes?: boolean
   showActions?: boolean
   onSelectionChange?: (selectedIds: string[]) => void;
@@ -20,36 +22,36 @@ const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
 ;
 
 export default function Table({
-  companies, companySelected, companyDeleted, listPlans, showCheckboxes, showActions = true, onSelectionChange 
+  companies, companySelected, companyDeleted, listCompanies, showCheckboxes, showActions = true, onSelectionChange 
 }: TableProps) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [currentPlan, setCurrentPlan] = useState(null);
-  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [currentCompany, setCurrentCompany] = useState(null);
+  const [selectedCompany, setSelectedCompany] = useState(null);
   const companyRefs = useRef({});
 
-  const { savePlan, setPlans } = usePlans();
+  const { saveCompany, setCompanies } = useCompanies();
   
   const confirmAndDelete = (user) => {
-    setCurrentPlan(user);
+    setCurrentCompany(user);
     setIsModalOpen(true);
   };
 
   const handleDelete = () => {
-    if (currentPlan) {
-      companyDeleted?.(currentPlan);
-      console.log("Tarefa excluída:", currentPlan);
+    if (currentCompany) {
+      companyDeleted?.(currentCompany);
+      console.log("Tarefa excluída:", currentCompany);
     }
     setIsModalOpen(false);
   };
 
   const handleCheckboxChange = (company) => {
     setTimeout(() => {
-      const updatedPlan = { ...company, isActive: false };
-      // savePlan(updatedPlan);
+      const updatedCompany = { ...company, isActive: false };
+      // saveCompany(updatedCompany);
       const companiesList = companies.filter(t => t._id !== company._id);
-      setPlans(companiesList);
+      setCompanies(companiesList);
     }, 500);
   };
 
@@ -65,7 +67,7 @@ export default function Table({
     return (
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
         <div className="bg-white p-4 rounded">
-          <p>Tem certeza que deseja excluir o Plano {company?.name}?</p>
+          <p>Tem certeza que deseja excluir o Companyo {company?.name}?</p>
           <div className="flex justify-end mt-4">
             <button
               className="bg-red-500 text-white py-2 px-4 rounded mr-2"
@@ -90,11 +92,12 @@ export default function Table({
     return (
       <tr>
         {showCheckboxes && <th className="text-center p-4 w-1/10">Selecionar</th>}
+        <th className="text-left p-4">Nome</th>
+        <th className="text-left p-4">Telefone</th>
+        <th className="text-left p-4">Status</th>
         <th className="text-left p-4">Plano</th>
-        <th className="text-left p-4">Usuários</th>
-        <th className="text-left p-4">Conexões</th>
-        <th className="text-left p-4">Filas</th>
-        <th className="text-left p-4">Valor</th>
+        <th className="text-center p-4">Data Vencimento</th>
+        <th className="text-center p-4">Recorrente</th>
         {showActions ? <th className="p-4 w-1/8">Ações</th> : false}
       </tr>
     )
@@ -119,23 +122,29 @@ export default function Table({
               <CursorPointerCheckbox
                   type="checkbox"
                   className="cursorPointer"
-                  checked={selectedPlan?._id === company._id}
+                  checked={selectedCompany?._id === company._id}
                   onChange={() => handleCheckboxChange(company)}
               />
             </td>
           )}
           <td className="text-left p-4">{company.name}</td>
-          <td className="text-left p-4">{company.users}</td>
-          <td className="text-left p-4">{company.connections}</td>
-          <td className="text-left p-4">{company.queues}</td>
-          <td className="text-left p-4">{company.value}</td>
+          <td className="text-left p-4">{company.phone}</td>
+          <td className="text-left p-4">{company.status}</td>
+          <td className="text-left p-4">{company.planId.name}</td>
+          <td className="text-center p-4">{moment(company.dueDate).format('DD/MM/YYYY')}</td>
+          <td className="text-center p-4"><input 
+            type="checkbox" 
+            checked={company.recurrence} 
+            onChange={e => {/* handle the change if needed */}}
+            disabled // Adicione esta linha se o checkbox não deve ser interativo
+          /></td>
           {showActions ? renderActions(company) : false}
         </tr>
       )
     })
   }
 
-  function renderActions(company: Plan) {
+  function renderActions(company: Company) {
     return (
       <td className="flex justify-center">
         {companySelected ? (
@@ -177,7 +186,7 @@ export default function Table({
         <Modal 
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
-          company={currentPlan}
+          company={currentCompany}
         />
       )}
     </div>

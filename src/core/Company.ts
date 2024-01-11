@@ -5,6 +5,7 @@ export default class Company {
   #password: string
   #status: string
   #planId: string
+  #campaignsEnabled: boolean
   #dueDate: Date
   #recurrence: boolean
   #isActive: boolean
@@ -17,6 +18,7 @@ export default class Company {
     this.#password = password;
     this.#status = status;
     this.#planId = planId;
+    this.#campaignsEnabled = true;
     this.#dueDate = dueDate || new Date(); // Definindo valor padrão aqui, caso dueDate seja null/undefined
     this.#recurrence = recurrence;
     this.#isActive = true;
@@ -48,6 +50,10 @@ export default class Company {
 
   get planId() {
     return this.#planId
+  }
+
+  get campaignsEnabled() {
+    return this.#campaignsEnabled
   }
 
   get dueDate() {

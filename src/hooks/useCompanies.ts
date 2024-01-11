@@ -21,7 +21,7 @@ export default function useCompanies() {
   }
 
   function listCompanies() {
-    fetch(`${API_URL}/companies/actives`)
+    fetch(`${API_URL}/companies`)
       .then(response => response.json())
       .then(data => {
         console.log("listCompanies then", data)
@@ -88,8 +88,8 @@ export default function useCompanies() {
         headers: { 'Content-Type': 'application/json' },
         body: companyStr
       });
-      // listCompanies()
-      // showTable()
+      listCompanies()
+      showTable()
     ;
   }
 
