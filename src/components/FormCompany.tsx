@@ -55,27 +55,30 @@ export default function Form({ company, canceled, companyModified, plans }: Form
     const updatedCompany = new Company(_id, name, phone, password, status, planId, dueDate, recurrence);
     companyModified?.(updatedCompany); // Passa a tarefa atualizada
   }, [planId, name, phone, password, status, dueDate, recurrence, companyModified, _id]);
-
+  
   useEffect(() => {
     listPlans();
-    console.log("useEffect planId", planId)
+    console.log("useEffect dueDate", dueDate);
+    console.log("useEffect planId", planId);
     if (company?._id) {
-      setName(company.name)
-      setPhone(company.phone)
-      setPassword(company.password)
-      setPlanId(company.planId)
-      setDueDate(company.dueDate)
-      setRecurrence(company.recurrence)
+      setName(company.name);
+      setPhone(company.phone);
+      setPassword(company.password);
+      setPlanId(company.planId);
+      console.log("company.dueDate", company.dueDate)
+      setDueDate(company.dueDate);
+      setRecurrence(company.recurrence);
     } else {
-      setName("")
-      setPhone("")
-      setPassword("")
-      setStatus("Inativo")
-      setPlanId("")
-      setDueDate(new Date())
-      setRecurrence(false)
+      setName("");
+      setPhone("");
+      setPassword("");
+      setStatus("Inativo");
+      setPlanId("");
+      setDueDate(new Date());
+      setRecurrence(false);
     }
-  }, [])
+  }, [company]); // Adicione 'company' às dependências do useEffect
+  
 
   
   useEffect(() => {
@@ -136,7 +139,7 @@ export default function Form({ company, canceled, companyModified, plans }: Form
       <EntryCalendar
         text="Data de Vencimento"
         selected={dueDate}
-        onChange={date => setDueDate(date)}
+        onChange={date => setDueDate(date)} // date é a data selecionada
         className="mb-4 text-white"
       />
 

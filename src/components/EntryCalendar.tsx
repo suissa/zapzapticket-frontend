@@ -5,21 +5,21 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 registerLocale('pt-BR', ptBR);
 
-interface EntryCheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+interface CalendarInputProps {
+  onChange?: (date: Date) => void; // Função para lidar com mudança de data
   text: string;
-  selected: Date;
-  className?: string;
+  selected: Date; // Data selecionada
+  className?: string; // Classe CSS opcional
 }
 
-const CalendarInput = ({ text, selected, onChange, className }: EntryCheckboxProps) => {
+const CalendarInput = ({ text, selected, onChange, className }: CalendarInputProps) => {
   console.log("selected", selected);
   return (
     <div className={`flex flex-col ${className}`}>
       <label className="mb-2 flex items-center gap-2">
         {text}
         <DatePicker 
-          selected={selected} 
+          selected={new Date(selected)} 
           onChange={onChange}
           className="border border-purple-500 rounded-md focus:outline-none input-form px-4 py-2"
         />
