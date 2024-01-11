@@ -1,7 +1,9 @@
 import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Connection from "../core/Connection"
-import { IconEdit, IconThrash } from "./Icons"
-import styled from 'styled-components';
+import { IconEdit, IconThrash, IconShow } from "./Icons"
+import styled from "styled-components";
+import useHandleInstanceStatusCheckboxChange from "../hooks/useHandleInstanceStatusCheckboxChange";
+import ModalQRCode from "./ModalQRCode";
 
 interface TableProps {
   connections: Connection[]
@@ -13,28 +15,50 @@ interface TableProps {
   onSelectionChange?: (selectedIds: string[]) => void;
   hideCertainColumns?: boolean;
   filterActiveInstances?: boolean;
+  showButton?: boolean;
 }
 
-const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
   cursor: pointer;
 `;
-const API_URL = "http://localhost:9000";
 
 export default function Table({ 
   connections, connectionSelected, connectionDeleted, connectionSaved, showCheckboxes, onSelectionChange, 
-  showActions = true, hideCertainColumns = false, filterActiveInstances = false }: TableProps) {
+  showActions = true, hideCertainColumns = false, filterActiveInstances = false, showButton = false }: TableProps) {
 
   const [checked, setChecked] = useState(false);
-  const [qrCodeBase64, setQrCodeBase64] = useState("");
+  // const [qrCodeBase64, setQrCodeBase64] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [currentConnection, setCurrentConnection] = useState(null);
+  // const [currentConnection, setCurrentConnection] = useState(null);
   const [selectedConnection, setSelectedConnection] = useState(null);
+  // const [isQRCodeModalOpen, setIsQRCodeModalOpen] = useState(false);
 
-  const confirmAndDelete = (user) => {
-    setCurrentConnection(user);
-    setIsModalOpen(true);
-  };
+  const {
+    qrCodeBase64,
+    isQRCodeModalOpen,
+    closeQRCodeModal,
+    handleInstanceStatusCheckboxChange,
+    currentConnection,
+    openQRCodeModal
+  } = useHandleInstanceStatusCheckboxChange();
+
+
+  // const confirmAndDelete = (user) => {
+  //   setCurrentConnection(user);
+  //   setIsModalOpen(true);
+  // };
+
+  // Função para abrir o modal do QR Code
+  // const openQRCodeModal = () => {
+  //   setIsQRCodeModalOpen(true);
+  // };
+
+  // // Função para fechar o modal do QR Code
+  // const closeQRCodeModal = () => {
+  //   setIsQRCodeModalOpen(false);
+  // };
+
 
   const handleDelete = () => {
     if (currentConnection) {
@@ -43,48 +67,9 @@ export default function Table({
     }
     setIsModalOpen(false);
   };
-  const handleIntanceStatusCheckboxChange = async (instanceStatus, connection) => {
-    console.log("handleIntanceStatusCheckboxChange instanceStatus:", instanceStatus);
-    // tirar implementacao daqui
-    if (!instanceStatus) {
-      console.log(connection._id)
-      const result = await fetch(`${API_URL}/connections/${connection._id}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const connectionAPI = await result.json();
-      console.log(connectionAPI)
-
-      const instanceName = connectionAPI.name.replace(" ", "_") + "-" + connectionAPI.phone;
-      console.log(instanceName)
-      const data = {
-        instanceName: instanceName,
-        token: "tokenMaroto_872983_" + Date.now(),
-        qrcode: true
-      }
-      const resultUpdate = await fetch(`${API_URL}/evolution/instances`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const connectionSAVED = await resultUpdate.json()
-      console.log(connectionSAVED)
-      setQrCodeBase64(connectionSAVED.qrcode.base64)
-
-    } else {
-      console.log("caiu no else")
-      connection.isActive = !connection.isActive
-      // atualiza pra instanceStatus false
-      // connectionSaved(connection)
-
-      const result = await fetch(`${API_URL}/connections/shutdown/${connection.instanceName}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const connectionAPI = await result.json();
-      console.log(connectionAPI)
-    }
-  };
+  // const _handleIntanceStatusCheckboxChange = (connection) => {
+  //   setIsQRCodeModalOpen(true);
+  // }
 
   const handleCheckboxChange = (connection) => {
     console.log("handleCheckboxChange connection:", connection);
@@ -133,6 +118,7 @@ export default function Table({
         {!hideCertainColumns && <th className="text-left p-4">Instância</th>}
         {!hideCertainColumns && <th className="text-center p-4">Ativa</th>}
         {showActions ? <th className="p-4">Ações</th> : false}
+        {showButton ? <th className="p-4">Selecionar</th> : false}
       </tr>
     )
   }
@@ -143,7 +129,11 @@ export default function Table({
       : connections;
     return filteredConnections?.map((connection, i) => {
       return (
-        <tr key={connection._id} className={`${i % 2 === 0 ? 'bg-purple-300' : 'bg-purple-200'}`}>
+        <tr key={connection._id} 
+            // onClick={() => {
+            //   connectionSelected(connection)
+            // }}
+            className={`${i % 2 === 0 ? "bg-purple-300" : "bg-purple-200"}`}>
           {showCheckboxes && (
             <td className="text-center p-4 w-1/10">
               <CursorPointerCheckbox
@@ -159,38 +149,91 @@ export default function Table({
           {!hideCertainColumns && <td className="text-left p-4">{connection.instanceName}</td>}
           {!hideCertainColumns && <td className="text-center p-4">
             <label>
-              <CursorPointerCheckbox
+              {/* <CursorPointerCheckbox
                 type="checkbox"
                 checked={connection.instanceStatus ? true : false}
-                onChange={() => handleIntanceStatusCheckboxChange(connection.instanceStatus, connection)}
+                onChange={() => handleInstanceStatusCheckboxChange(connection)}
               // onChange={handleIntanceStatusCheckboxChange}
-              />
-            </label></td>}
+              /> */}
+              {connection.instanceStatus ?
+                <button
+                  type="button"
+                  className="
+                  btn-danger text-white
+                  px-4 py-2 rounded-md w-90px"
+                  onClick={() => handleInstanceStatusCheckboxChange(connection)}>
+                  Desativar
+                </button>
+                :
+                <button
+                  type="button"
+                  className="
+                  bg-gradient-to-t from-purple-500 to-purple-700 text-white
+                  px-4 py-2 rounded-md w-90px"
+                  onClick={() => handleInstanceStatusCheckboxChange(connection)}>
+                  Ativar
+                </button>
+              }
+            </label>
+          </td>}
+            {showButton ? renderShow(connection) : false}
           {showActions ? renderActions(connection) : false}
         </tr>
       )
     })
   }
 
+  function renderShow(connection: Connection) {
+    return (
+      <td className="flex justify-center">
+        {connectionSelected ? (
+          <button title="Selecionar"
+            onClick={(e) =>{ 
+              e.stopPropagation();
+              connectionSelected(connection)}
+            } 
+            className={`
+              flex justify-center items-center
+              text-green-600 rounded-md p-2 m-1
+              hover:bg-purple-50
+            `}>
+            <IconShow className="text-purple" />
+          </button>
+        ) : false}
+      </td>
+    )
+  }
+
   function renderActions(connection: Connection) {
     return (
       <td className="flex justify-center">
         {connectionSelected ? (
-          <button onClick={() => connectionSelected?.(connection)} className={`
-                    flex justify-center items-center
-                    text-green-600 rounded-md p-2 m-1
-                    hover:bg-purple-50
-                `}>
+          <button 
+            onClick={(e) =>{ 
+              e.stopPropagation();
+              connectionSelected?.(connection)}
+            } 
+            className={`
+              flex justify-center items-center
+              text-green-600 rounded-md p-2 m-1
+              hover:bg-purple-50
+            `}>
             {IconEdit}
           </button>
         ) : false}
         {connectionDeleted ? (
-          <button onClick={() => connectionDeleted?.(connection)} className={`
-                    flex justify-center items-center
-                    text-red-500 rounded-md p-2 m-1
-                    hover:bg-purple-50
-                `}>
-            {IconThrash}
+          <button 
+          onClick={(e) =>{ 
+            e.stopPropagation();
+            connectionDeleted?.(connection)
+          }} 
+          className={`
+            flex justify-center items-center
+            text-red-500 rounded-md p-2 m-1
+            hover:bg-purple-50
+          `}>
+          {IconThrash}
+
           </button>
         ) : false}
       </td>
@@ -199,11 +242,22 @@ export default function Table({
 
   return (
     <div>
-      {qrCodeBase64 && (
-        <img src={`${qrCodeBase64}`} alt="QR Code" />
-      )}
+      {/* {qrCodeBase64 && <ModalQRCode64 qrCodeBase64={qrCodeBase64} />} */}
+      {/* Botão para abrir o modal do QR Code */}
 
-      <table className="w-full rounded-xl overflow-hidden">
+      {/* Modal do QR Code */}
+      {true && (
+        <ModalQRCode
+          isOpen={isQRCodeModalOpen}
+          closeModal={closeQRCodeModal}
+          qrCodeBase64={qrCodeBase64}
+        />
+      )}
+{/* {qrCodeBase64 && <ModalQRCode qrcode= (
+        <img src={`${qrCodeBase64}`} alt="QR Code" />
+      )} */}
+
+      <table className="w-full rounded-md overflow-hidden tb-connections">
         <thead className={`
           text-gray-100
           bg-gradient-to-r from-purple-500 to-purple-800

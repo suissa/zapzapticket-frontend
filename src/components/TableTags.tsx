@@ -4,6 +4,9 @@ import Tag from "../core/Tag"
 import { IconEdit, IconThrash } from "./Icons"
 import useTags from "../hooks/useTags"
 import ModalDeleteConfirmation from './ModalDeleteConfirmation';
+import styled from "styled-components";
+import { API_URL } from "../config";
+
 
 interface TableProps {
   tags: Tag[]
@@ -14,7 +17,9 @@ interface TableProps {
   onSelectionChange?: (selectedIds: string[]) => void;
 }
 
-const API_URL = "http://localhost:9000";
+const CursorPointerCheckbox = styled.input.attrs({ type: "checkbox" })`
+  cursor: pointer;
+`;
 
 export default function Table({
   tagSelected, tagDeleted, showCheckboxes, showActions = true, onSelectionChange 
@@ -95,7 +100,7 @@ export default function Table({
           <p>Tem certeza que deseja excluir a mensagem {tag?.title}?</p>
           <div className="flex justify-end mt-4">
             <button
-              className="bg-red-500 text-white py-2 px-4 rounded mr-2"
+              className="btn-danger text-white py-2 px-4 rounded mr-2"
               onClick={onConfirm}
             >
               Excluir
@@ -104,7 +109,7 @@ export default function Table({
               type="button"
               className="
               bg-gradient-to-t from-purple-500 to-purple-700 text-white
-              px-4 py-2 rounded-md mb-4"
+              px-4 py-4 rounded-md mb-4"
               onClick={onClose}
             >
               Cancelar
@@ -202,7 +207,7 @@ export default function Table({
         <ModalDeleteConfirmation
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
-          entity={currentTag} // Certifique-se de passar a entidade correta
+          name={currentTag.name} // Certifique-se de passar a entidade correta
         />
       )}
     </div>

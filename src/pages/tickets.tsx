@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
+import Image from "next/image";
 import ContactsList from "../components/ContactsList";
 import Chat from "../components/Chat";
 import Menu from "../components/Menu";
 import Layout from "../components/Layout";
+import ChatTopBar from "../components/ChatTopBar";
 import styles from "../styles/Ticket.module.css";
 import useTickets from "../hooks/useTickets";
 import { ContactContext } from "../hooks/useContextTickets";
@@ -44,7 +46,7 @@ export default function Home() {
     console.log("handleMessageSent selectedContact:", selectedContact);
 
     // pega o instanceName de alguma forma
-    const instanceName = "Criptou_Onboarding-5511994649923";
+    const instanceName = "Suissa_2-5511978210616";
     const _newMessage = { ...newMessage, instanceName };
     // Atualiza o contato selecionado
     if (selectedContact === null) return;
@@ -119,48 +121,38 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-black p-4">
-        {/* <Layout title="Tickets"> */}
-
           <div className={styles.ticketWrapper}>
             <div className={styles.ticketContactList}>
               <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
             </div>
-            <div className={styles.ticketChatContainer}>
-              <div className={styles.ticketChatContainerMessages}>
-                <Chat messages={selectedContact?.messages}
-                  onMessageSent={handleMessageSent}
-                  selectedContact={selectedContact}
-                />
-              </div>
-              <div className={styles.ticketChatContainerInput}>
-                
-
-                <input
-                  type="text"
-                  placeholder="Digite uma mensagem..."
-                  value={messageText}
-                  onChange={(e) => setMessageText(e.target.value)}
-                  onKeyDown={handleKeyPress}
-                  disabled={!selectedContact}
-                />
-                <button onClick={handleSendMessage}>Enviar</button>
-
-              </div>
+              <div className={styles.ticketChatContainer}>
+                {selectedContact ? (
+                  <>
+                  <ChatTopBar selectedContact={selectedContact} />
+                  <div className={styles.ticketChatContainerMessages}>
+                    <Chat messages={selectedContact?.messages}
+                      onMessageSent={handleMessageSent}
+                      selectedContact={selectedContact}
+                    />
+                  </div>
+                  <div className={styles.ticketChatContainerInput}>
+                    <input
+                      type="text"
+                      placeholder="Digite uma mensagem..."
+                      value={messageText}
+                      onChange={(e) => setMessageText(e.target.value)}
+                      onKeyDown={handleKeyPress}
+                      disabled={!selectedContact}
+                    />
+                    <button onClick={handleSendMessage}>Enviar</button>
+                  </div>
+                  </>
+                ) : <div className="flex items-center justify-center h-screen"> {/* h-screen para ter altura total da tela */}
+                      <Image src={"/images/logo.png"} width={500} height={500} alt="Innovation Studios" />
+                    </div>
+              }
             </div>
           </div>
-          {/* <div className={styles.mainLayout}>
-            <div className={styles.contactsList}>
-              <ContactsList contacts={contacts} onContactSelect={handleContactSelect} />
-            </div>
-
-            <div className={styles.chatContainer}>
-            <Chat messages={selectedContact?.messages}
-              onMessageSent={handleMessageSent}
-              selectedContact={selectedContact}
-            />
-            </div>
-          </div> */}
-        {/* </Layout> */}
       </div>
       </div>
     </div>

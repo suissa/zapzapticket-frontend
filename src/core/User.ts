@@ -2,6 +2,7 @@ export default class User {
   #_id: string
   #name: string
   #email: string
+  #password: string
   #phone: string
   #city: string
   #state: string
@@ -15,6 +16,7 @@ export default class User {
     city: string = "", state: string = "", country: string = "", level: string = "") {
     this.#_id = id
     this.#email = email
+    this.#password = ""
     this.#name = name
     this.#phone = phone
     this.#city = city
@@ -26,7 +28,7 @@ export default class User {
   }
 
   static empty() {
-    return new User("", "")
+    return new User("", "", "", "", "", "", "")
   }
 
   get _id() {
@@ -39,6 +41,10 @@ export default class User {
 
   get email() {
     return this.#email
+  }
+
+  get password() {
+    return this.#password
   }
 
   get phone() {

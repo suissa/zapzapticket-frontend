@@ -37,7 +37,7 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-        <Layout title="Contatos">
+        <Layout title="Contatos" width="w-3/3">
           {tableVisible ? (
             <div>
               <div className="flex justify-end">
@@ -50,12 +50,12 @@ export default function Home() {
                 </Button>
               </div>
               <Table
-                contacts={contacts}
-                contactSelected={getContact}
-                contactDeleted={deleteContact}
-                contactModified={saveContact}
-                canceled={showTable}
-              />
+                  contacts={contacts}
+                  contactSelected={getContact}
+                  contactDeleted={deleteContact}
+                  contactModified={saveContact}
+                  canceled={showTable} 
+                  contact={undefined}              />
             </div>
           ) : (
             <Form

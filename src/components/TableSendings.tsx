@@ -1,7 +1,11 @@
-interface TableProps {
-  list: string[];
+interface SendingItem {
   connection: string;
+  contact: string;
   message: string;
+}
+
+interface TableProps {
+  list: SendingItem[];
 }
 
 export default function Table({ list }: TableProps) {

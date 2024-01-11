@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import User from "../core/User";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
+import EntrySelect from "./EntrySelect";
 
 interface FormProps {
   user: User
@@ -12,6 +13,7 @@ interface FormProps {
 export default function Form({ user, canceled, userModified }: FormProps) {
   const [name, setName] = useState(user?.name ?? "")
   const [email, setEmail] = useState(user?.email ?? "")
+  const [password, setPassword] = useState(user?.password ?? "")
   const [phone, setPhone] = useState(user?.phone ?? "")
   const [city, setCity] = useState(user?.city ?? "")
   const [state, setState] = useState(user?.state ?? "")
@@ -37,11 +39,11 @@ export default function Form({ user, canceled, userModified }: FormProps) {
 
   const handleStateChange = (event) => {
     setState(event.target.value);
-    console.log("state", state)
+    // console.log("state", state)
   };
 
   const handleLevelChange = (event) => {
-    console.log("handleStatusChange: ", event.target.value)
+    // console.log("handleStatusChange: ", event.target.value)
     setLevel(event.target.value);
   };
 
@@ -49,7 +51,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
     if (level) { // Verifica se o level não está vazio
       // Preparar o objeto user com o level atualizado
       const UserObj = { ...user, level };
-      console.log("UserObj", UserObj)
+      // console.log("UserObj", UserObj)
       // Chamar a função saveUser com o user atualizado
       // saveUser(userUpdated);
     }
@@ -62,6 +64,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
       _id: user?._id, // ou simplesmente _id, se já estiver no escopo
       name,
       email,
+      password,
       phone,
       city,
       state,
@@ -69,8 +72,8 @@ export default function Form({ user, canceled, userModified }: FormProps) {
       level
     };
   
-    console.log("Objeto User a ser salvo:", UserObj);
-    userModified?.(UserObj);
+    // console.log("Objeto User a ser salvo:", UserObj);
+    // userModified?.(UserObj);
   }
   
   // Restante do seu código...
@@ -78,40 +81,46 @@ export default function Form({ user, canceled, userModified }: FormProps) {
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
           className="mb-4 text-white"
         />
       ) : false}
-      <Entry
+      <EntryInput
         text="Nome"
         value={name}
         onChange={e => setName((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Email"
         value={email}
         onChange={e => setEmail((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
+        text="Senha"
+        type="password"
+        value={password}
+        onChange={e => setPassword((e.target as HTMLInputElement).value)}
+        className="mb-4 text-white"
+      />
+      <EntryInput
         text="Telefone"
         value={phone}
         onChange={e => setPhone((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntryInput
         text="Cidade"
         value={city}
         onChange={e => setCity((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntrySelect
         text="Estado"
-        type="select"
         onChange={handleStateChange}
         className="mb-4 text-white"
         selectOptions={[
@@ -147,15 +156,14 @@ export default function Form({ user, canceled, userModified }: FormProps) {
         ]}
       />
 
-      <Entry
+      <EntryInput
         text="País"
         value={country}
         onChange={e => setCountry((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
-      <Entry
+      <EntrySelect
         text="Nível"
-        type="select"
         onChange={handleLevelChange}
         className="mb-4 text-white"
         selectOptions={[

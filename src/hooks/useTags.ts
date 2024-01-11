@@ -1,9 +1,8 @@
-import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Tag from "../core/Tag"
-import TagRepository from "../core/TagRepository"
-import useLayout from "./useLayout"
-
-const API_URL = "http://localhost:9000/tags";
+import { useState, MutableRefObject, useRef, useEffect } from "react";
+import Tag from "../core/Tag";
+import TagRepository from "../core/TagRepository";
+import useLayout from "./useLayout";
+import { API_URL } from "../config";
 
 export default function useTags() {
   const [tag, setTag] = useState<Tag>(Tag.empty())
@@ -18,12 +17,23 @@ export default function useTags() {
   }
 
   function listTags() {
-    fetch(API_URL)
+    fetch(`${API_URL}/tags`)
       .then(response => response.json())
       .then(data => {
         console.log("listTags then", data)
         return setTags(data)
       })
+  }
+
+  async function listTagsAsync() {
+    try {
+      const response = await fetch(`${API_URL}/tagas`);
+      const data = await response.json();
+      console.log("listTags then", data);
+      setTags(data);
+    } catch (error) {
+      console.error("Erro ao listar tags:", error);
+    }
   }
 
   function getTag(tag: Tag) {
@@ -32,7 +42,14 @@ export default function useTags() {
   }
 
   async function deleteTag(tag: Tag) {
-    listTags()
+    console.log("deleteTag tag", tag)
+    const result = await fetch(`${API_URL}/tags/${tag._id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    console.log("deleteTag result", result)
+    await listTagsAsync()
+    return result;
   }
 
   async function saveTag(tag: Tag) {
@@ -49,12 +66,12 @@ export default function useTags() {
       })
     console.log("saveTag tagStr", tagStr)
     const response = tag?._id
-      ? await fetch(`${API_URL}/${tag._id}`, {
+      ? await fetch(`${API_URL}/tags/${tag._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: tagStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/tags`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: tagStr

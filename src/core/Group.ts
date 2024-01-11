@@ -6,19 +6,21 @@ type Participant = {
 export default class Group {
   #_id: string
   #subject: string
-  #size: string
+  #size: number
   #desc: boolean
   #participants: Participant[];
+  #isActive: boolean;
 
-  constructor(subject: string, size: string, id: string = null) {
+  constructor(id: string = null, subject: string, size: number, isActive: boolean = true) {
     this.#_id = id
     this.#subject = subject
     this.#size = size
     this.#desc = false
+    this.#isActive = isActive
   }
 
   static empty() {
-    return new Group("", "")
+    return new Group("", "", 0, false)
   }
 
   get _id() {
@@ -39,5 +41,9 @@ export default class Group {
 
   get participants() {
     return this.#participants
+  }
+
+  get isActive() {
+    return this.#isActive
   }
 }

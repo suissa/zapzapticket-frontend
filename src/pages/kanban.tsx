@@ -1,48 +1,69 @@
 import { useEffect, useState } from "react";
 import Kanban from "../components/Kanban";
+import Button from "../components/Button";
+import Form from "../components/FormMessage";
+import Layout from "../components/Layout";
+import Table from "../components/TableMessages";
 import Menu from '../components/Menu';
+import useMessages from "../hooks/useMessagesKanban";
 import useKanban from "../hooks/useKanban";
 
-export default function Home() {
-  const [selectedContacts, setSelectedContacts] = useState([]);
-  const [selectedMessage, setSelectedMessage] = useState();
-  const [selectedConnection, setSelectedConnection] = useState();
-  const [loading, setLoading] = useState(false);
+const API_URL_MESSAGES = `http://localhost:9000/contacts/messages`;
 
+const groupBy = (xs, key) => xs.reduce((rv, x) => ({
+  ...rv, [x[key]]: [...(rv[x[key]] || []), x]
+}), {});
+
+export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   const handleToggleSidebar = (isExpanded) => {
     setIsSidebarExpanded(isExpanded);
   };
+  
   const {
-    list,
-    setList,
-    listTickets
-  } = useKanban()
+    message,
+    messages,
+    createMessage,
+    saveMessage,
+    deleteMessage,
+    getMessage,
+    listMessages,
+    showTable,
+    tableVisible
+  } = useMessages()
+
 
   useEffect(() => {
-    listTickets();
-    console.log("kanban page list", list);
-  }, []);
+    // console.log("messages", messages);
+  }, [messages]); // Dependência do useEffect
 
   useEffect(() => {
-    if (list) {
-      console.log('list if:', list);
+    if (messages) {
+      // console.log("messages if:", messages);
     } else {
-      console.log('list else:', list);
+      // console.log("messages else:", messages);
     }
-  }, [list]); // Dependência do useEffect
+  }, [messages]); // Dependência do useEffect
+
+ 
 
   return (
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <Kanban
-            list={list}
-          />
+          {/* <Layout title="Tickets"> */}
+            <Kanban
+              key={Date.now()}
+              list={messages}
+            />
+          {/* </Layout> */}
         </div>
       </div>
     </div>
+
+
   )
 }

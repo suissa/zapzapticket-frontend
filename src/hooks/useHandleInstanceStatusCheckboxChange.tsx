@@ -57,8 +57,13 @@ export default function useHandleInstanceStatusCheckboxChange() {
       const resultUpdate = await fetch(urlCreate, dataBody);
       const connectionSaved = await resultUpdate.json()
       console.log(connectionSaved)
-      console.log("QRCODE: ", connectionSaved.qrcode.base64)
-      setQrCodeBase64(connectionSaved.qrcode.base64)
+      console.log("QRCODE: ", connectionSaved?.qrcode?.base64)
+      if (connectionSaved?.qrcode?.base64) {
+        setQrCodeBase64(connectionSaved.qrcode.base64)
+      } else {
+        console.log("caiu no else")
+        alert("Problema na conexão")
+      }
   
     } else {
       console.log("caiu no else")
@@ -66,13 +71,13 @@ export default function useHandleInstanceStatusCheckboxChange() {
       // atualiza pra connection.instanceStatus false
       // connectionSaved(connection)
   
-      const result = await fetch(`${API_URL}/connections/shutdown/${connection.instanceName}`, {
+      const response = await fetch(`${API_URL}/connections/shutdown/${connection.instanceName}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       })
-      const resultDelete = await result.json();
-      const connectionDeleted = await resultDelete.json()
-      console.log(connectionDeleted)
+      const resultDelete = await response.json();
+
+      console.log(resultDelete)
     }
   };
 

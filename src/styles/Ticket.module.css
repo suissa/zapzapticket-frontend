@@ -18,8 +18,7 @@
   width: 70%;
   height: 100%;
   overflow: auto;
-  background-color: #000;
-  background: url("/images/chat-whatsapp-bege.png") repeat top center fixed;
+  background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,12 +26,47 @@
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
 }
+.ticketChatTopBar {
+  width: 100%;
+  height: 100px;
+  background-color: #fff;
+}
+.ticketChatTopBarProfileImage {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+.ticketChatTags {
+  width: 100%;
+  height: 70px;
+  background-color: #fff;
+  box-shadow: #cccccc 0px 0px 10px 0px;
+}
+.ticketsTags {
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.ticketChatTagsWrapper input {
+  width: 90%;
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border: none;
+  font-size: 16px;
+}
+.ticketChatTagsWrapper input:focus {
+  border: none;
+}
 .ticketChatWrapperMessages {
   width: 100%;
 }
 .ticketChatContainerMessages {
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 240px);
   overflow: auto;
   background-color: #000;
   background: url("/images/chat-whatsapp-bege.png") repeat top center fixed;
@@ -64,7 +98,7 @@ body .ticketChatContainerInput input {
   margin-right: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: #fff !important;
 }
 
 body .ticketChatContainerInput input:focus {
@@ -103,6 +137,8 @@ body .ticketChatContainerInput input:focus {
 .sent, .received {
   flex-grow: 0; /* Previne que a mensagem ocupe todo o espaço disponível */
   flex-shrink: 1; /* Permite que a mensagem encolha se necessário */
+  border-radius: 8px;
+  border-top-left-radius: 0px;
 }
 
 .sent {
@@ -110,14 +146,16 @@ body .ticketChatContainerInput input:focus {
   margin-left: auto; /* Alinha à direita */
   text-align: right;
   margin-right: 0;
-
+  border-radius: 8px;
+  border-bottom-right-radius: 0px;
+  margin-right: 20px;
 }
 
 .received {
   background-color: #ffffff;
   margin-right: auto; /* Alinha à esquerda */
   text-align: left;
-  /* margin-left: 0; */
+  margin-left: 20px;
 
 }
 

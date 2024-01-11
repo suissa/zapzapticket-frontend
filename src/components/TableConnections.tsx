@@ -159,7 +159,7 @@ export default function Table({
                 <button
                   type="button"
                   className="
-                  bg-gradient-to-t from-purple-500 to-purple-700 text-white
+                  btn-danger text-white
                   px-4 py-2 rounded-md w-90px"
                   onClick={() => handleInstanceStatusCheckboxChange(connection)}>
                   Desativar

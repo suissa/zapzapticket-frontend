@@ -2,10 +2,10 @@ import { useState, createContext, useRef, useEffect, useCallback } from "react"
 import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
-import io from "socket.io-client";
-
-const socket = io("http://localhost:9000");
-const API_URL = "http://localhost:9000";
+import { useWebSocket } from "./useWebSocketContext"
+import { API_URL } from "../config"
+// const socket = io(API_URL);
+// const socket = useWebSocket();
 
 export default function useTickets() {
   const [contact, setContact] = useState<Contact>(Contact.empty())
@@ -13,9 +13,9 @@ export default function useTickets() {
 
 
   function sendMessage(data) {
-    const { text, phone, instanceName } = data;
+    const { text, phone,  } = data;
     console.log("sendMessage data", data);
-
+    const instanceName = "Suissa_2-5511978210616";
     if (!text) {
       console.error("Error sending text: text is empty");
       return;

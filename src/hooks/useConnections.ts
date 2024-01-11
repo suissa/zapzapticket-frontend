@@ -2,8 +2,7 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Connection from "../core/Connection"
 import ConnectionRepositorio from "../core/ConnectionRepository"
 import useLayout from "./useLayout"
-
-const API_URL = "http://localhost:9000/connections";
+import { API_URL } from "../config"
 
 export default function useConnections(onConnectionSelected?: (connection: Connection) => void) {
   const [connection, setConnection] = useState<Connection>(Connection.empty())
@@ -18,7 +17,7 @@ export default function useConnections(onConnectionSelected?: (connection: Conne
   }
 
   function listConnections() {
-    fetch(API_URL)
+    fetch(`${API_URL}/connections`)
       .then(response => response.json())
       .then(data => {
         console.log("useConnection listConnections then", data)
@@ -48,12 +47,12 @@ export default function useConnections(onConnectionSelected?: (connection: Conne
     })
     console.log("saveConnection connectionStr", connectionStr)
     const response = connection?._id
-      ? await fetch(`${API_URL}/${connection._id}`, {
+      ? await fetch(`${API_URL}/connections/${connection._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: connectionStr
       })
-      : await fetch(`${API_URL}`, {
+      : await fetch(`${API_URL}/connections`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: connectionStr

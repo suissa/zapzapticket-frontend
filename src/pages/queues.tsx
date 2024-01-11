@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import Form from "../components/FormMessage";
+import Form from "../components/FormQueue";
 import Layout from "../components/Layout";
-import Table from "../components/TableMessages";
+import Table from "../components/TableQueues";
 import Menu from '../components/Menu';
-import useMessages from "../hooks/useMessages";
+import useQueues from "../hooks/useQueues";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const {
-    message,
-    messages,
-    createMessage,
-    saveMessage,
-    deleteMessage,
-    getMessage,
-    listMessages,
+    queue,
+    queues,
+    createQueue,
+    saveQueue,
+    deleteQueue,
+    getQueue,
+    listQueues,
     showTable,
     tableVisible
-  } = useMessages()
+  } = useQueues()
 
   useEffect(() => {
     if (tableVisible) {
-      listMessages();
+      listQueues();
     }
   }, [tableVisible]);
 
@@ -36,27 +36,27 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <Layout title="Mensagens">
+          <Layout title="Filas" width="w3/3">
             {tableVisible ? (
               <div>
                 <div className="flex justify-end">
                   <Button
                     className="mb-4"
-                    onClick={createMessage}
+                    onClick={createQueue}
                   >
-                    Novo Usuário
+                    Nova Fila
                   </Button>
                 </div>
                 <Table
-                  messages={messages}
-                  messageSelected={getMessage}
-                  messageDeleted={deleteMessage}
+                  queues={queues}
+                  queueSelected={getQueue}
+                  queueDeleted={deleteQueue}
                 />
               </div>
             ) : (
               <Form
-              message={message}
-              messageModified={saveMessage}
+              queue={queue}
+              queueModified={saveQueue}
               canceled={showTable}
               />
             )}

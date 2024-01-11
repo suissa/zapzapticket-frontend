@@ -15,7 +15,7 @@ interface TableProps {
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
   cursor: pointer;
 `;
-const API_URL = "http://localhost:9000";
+const API_URL = "http://137.184.81.207:9000";
 
 export default function Table({
   users, userSelected, userDeleted, showCheckboxes, showActions = true, onSelectionChange 
@@ -34,7 +34,7 @@ export default function Table({
   const handleDelete = () => {
     if (currentUser) {
       userDeleted?.(currentUser);
-      console.log("Usuário excluído:", currentUser);
+      // console.log("Usuário excluído:", currentUser);
     }
     setIsModalOpen(false);
   };
@@ -67,7 +67,7 @@ export default function Table({
 
   function renderData() {
     // console.log("renderData: ", users)
-    return users?.map((user, i) => {
+    return users && users?.map((user, i) => {
       return (
         <tr key={user._id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
           <td className="text-left p-4 w-1/6">{user.name}</td>
@@ -79,7 +79,7 @@ export default function Table({
                   type="checkbox"
                   className="cursorPointer"
                   checked={user.isActive ? true : false}
-                  onChange={() => handleCheckboxChange(user.isActive, user)}
+                  onChange={() => handleCheckboxChange(user)}
                   // onChange={handleCheckboxChange}
                   />
             </label>
@@ -90,7 +90,7 @@ export default function Table({
                 <input
                   type="checkbox"
                   checked={user.isConnected ? true : false}
-                  onChange={() => handleCheckboxChange(user.isActive, user._id)}
+                  onChange={() => handleCheckboxChange(user)}
                   // onChange={handleCheckboxChange}
                   />
             </label>
@@ -139,13 +139,13 @@ export default function Table({
           {renderData()}
         </tbody>
       </table>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal 
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
           user={currentUser}
         />
-      )}
+      )} */}
     </div>
   )
 }

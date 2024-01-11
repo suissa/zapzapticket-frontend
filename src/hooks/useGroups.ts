@@ -2,8 +2,7 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Group from "../core/Group"
 import GroupRepository from "../core/GroupRepository"
 import useLayout from "./useLayout"
-
-const API_URL = "http://localhost:9000";
+import { API_URL } from "../config"
 
 export default function useGroups() {
   const [group, setGroup] = useState<Group>(Group.empty())
@@ -11,7 +10,7 @@ export default function useGroups() {
   const { showForm, showTable, tableVisible } = useLayout()
 
   useEffect(() => {
-    // getProfileImage("Criptou_Onboarding-5511994649923", "5511994458797")
+    // getProfileImage("Victor-4199953916", "5511994458797")
     //   .then(result => {
     //     console.log("useGroups useEffect result", result)
     //   })
@@ -22,9 +21,9 @@ export default function useGroups() {
     showForm()
   }
 
-  function listGroups(instanceName = "Criptou_Onboarding-5511994649923") {
+  function listGroups(instanceName = "Suissa_2-5511978210616") {
     console.log("useGroups listGroups instanceName", instanceName)
-    // const instanceName = selectedConnection ? selectedConnection.instanceName : "Criptou_Onboarding-5511994649923";
+    // const instanceName = selectedConnection ? selectedConnection.instanceName : "Victor-4199953916";
     console.log("useGroups listGroups instanceName", instanceName)
     fetch(`${API_URL}/evolution/groups/${instanceName}`)
       .then(response => response.json())
@@ -48,13 +47,13 @@ export default function useGroups() {
     const groupStr = group?._id
       ? JSON.stringify({
           _id: group._id,
-          title: group.title,
-          text: group.text,
+          subject: group.subject,
+          size: group.size,
           isActive: group.isActive
         })
       : JSON.stringify({
-        title: group.title,
-        text: group.text,
+        subject: group.subject,
+        size: group.size,
         isActive: group.isActive
       })
     console.log("saveGroup groupStr", groupStr)

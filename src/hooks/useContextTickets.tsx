@@ -1,10 +1,19 @@
 // ContactContext.tsx
-import React, { createContext, useState, useEffect, useCallback, useRef } from 'react';
+import React, { createContext, useState, useEffect, useCallback, useRef, Dispatch, SetStateAction } from 'react';
 import io from 'socket.io-client';
+import { API_URL } from '../config';
 
-const socket = io("http://localhost:9000");
+const socket = io(API_URL);
 
-const defaultValue = {
+interface ContactContextType {
+  contacts: any[]; // Substitua 'any' pelo tipo adequado dos seus contatos
+  setContacts: Dispatch<SetStateAction<any[]>>; // Substitua 'any' pelo tipo adequado dos seus contatos
+  selectedContact: any; // Substitua 'any' pelo tipo adequado do contato selecionado
+  setSelectedContact: Dispatch<SetStateAction<any>>; // Substitua 'any' pelo tipo adequado do contato selecionado
+  listContacts: () => Promise<void>; // Ajuste conforme a assinatura da sua função
+}
+
+const defaultValue: ContactContextType = {
   contacts: [],
   setContacts: () => {},
   selectedContact: null,
@@ -20,7 +29,7 @@ export const ContactProvider = ({ children }) => {
   const [selectedContact, setSelectedContact] = useState(null);
   const contactsRef = useRef(contacts);
 
-  const handleConnect = () => console.log("Conectado ao servidor Socket.io", new Date());
+  const handleConnect = () => console.log("useContextTickets Conectado ao servidor Socket.io", new Date());
   const handleMessage = (data) => console.log("Dados recebidos:", data);
   const handleMessageSent = (phone) => {
     console.log("message:chat:send eliminar da lista:", phone);

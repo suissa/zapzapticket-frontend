@@ -18,7 +18,7 @@ export default function Home() {
   };
   const handleConnectionSelected = (connection) => {
     setSelectedConnection(connection);
-    console.log("Groups Page handleConnectionSelected Conexão selecionada:", connection);
+    // console.log("Groups Page handleConnectionSelected Conexão selecionada:", connection);
     // Outras ações, se necessário
   };
   const {
@@ -47,7 +47,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("Groups Page useEffect selectedConnection:", selectedConnection);
+    // console.log("Groups Page useEffect selectedConnection:", selectedConnection);
     if (selectedConnection && selectedConnection.instanceName) {
       listGroups(selectedConnection.instanceName);
     }
@@ -60,44 +60,46 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-        <Layout title="Grupos">
-          <h1 className="text-white text-xl">
-            Conexões
-          </h1>
-            <p className="text-white text-sm">  *selecione uma conexão para ver seus grupos</p>
+        <Layout title="Grupos" width="w-3/3">
+          <div>
+            <h1 className="text-white text-xl">
+              Conexões
+            </h1>
+              <p className="text-white text-sm">  *selecione uma conexão para ver seus grupos</p>
 
-          <TableConnections
-            connections={connections}
-            connectionSelected={handleConnectionSelected}
-            hideCertainColumns={true}
-            filterActiveInstances={true}
-            showActions={false}
-            showButton={true}
-          />
-          {selectedConnection && selectedConnection.instanceName && (
-            <div>
-              <div className="flex justify-end">
-                <Button className="mb-4 mt-4" onClick={createGroup}>
-                  Novo Grupo
-                </Button>
-              </div>
-              <Table
-                groups={groups}
-                groupSelected={getGroup}
-                groupDeleted={deleteGroup}
-                selectedConnection={selectedConnection}
-                getProfileImage={getProfileImage}
-                importContacts={importContacts}
-              />
-            </div>
-          )}
-          {!tableVisible && !selectedConnection && (
-            <Form
-              group={group}
-              groupModified={saveGroup}
-              canceled={showTable}
+            <TableConnections
+              connections={connections}
+              connectionSelected={handleConnectionSelected}
+              hideCertainColumns={true}
+              filterActiveInstances={true}
+              showActions={false}
+              showButton={true}
             />
-          )}
+            {selectedConnection && selectedConnection.instanceName && (
+              <div className="mt-4">
+                {/* <div className="flex justify-end">
+                  <Button className="mb-4 mt-4" onClick={createGroup}>
+                    Novo Grupo
+                  </Button>
+                </div> */}
+                <Table
+                  groups={groups}
+                  groupSelected={getGroup}
+                  groupDeleted={deleteGroup}
+                  selectedConnection={selectedConnection}
+                  getProfileImage={getProfileImage}
+                  importContacts={(instanceName, groupId, participants) => importContacts(instanceName, groupId, [participants])}
+                />
+              </div>
+            )}
+            {!tableVisible && !selectedConnection && (
+              <Form
+                group={group}
+                groupModified={saveGroup}
+                canceled={showTable}
+              />
+            )}
+          </div>
         </Layout>
         </div>
       </div>

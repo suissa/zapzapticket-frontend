@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Tag from "../core/Tag";
 import Button from "./Button";
-import Entry from "./Entry";
+import EntryInput from "./EntryInput";
 import ColorPicker from "./ColorPicker"
 import useTags from "../hooks/useTags"
 
@@ -9,9 +9,10 @@ interface FormProps {
   tag: Tag
   tagModified?: (tag: Tag) => void
   canceled?: () => void
+  initialColor?: string; // Add initialColor property
 }
 
-export default function Form({ tag, canceled, tagModified }: FormProps) {
+export default function Form({ tag, canceled, tagModified, initialColor }: FormProps) {
   const [name, setName] = useState(tag?.name ?? "");
   const [color, setColor] = useState(tag?.color ?? "#fff");
 
@@ -37,7 +38,7 @@ export default function Form({ tag, canceled, tagModified }: FormProps) {
   return (
     <div>
       {_id ? (
-        <Entry
+        <EntryInput
           text="ID"
           value={_id}
           readOnly
@@ -45,7 +46,7 @@ export default function Form({ tag, canceled, tagModified }: FormProps) {
         />
       ) : null}
 
-      <Entry
+      <EntryInput
         text="Nome"
         value={name}
         onChange={e => setName(e.target.value)}

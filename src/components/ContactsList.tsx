@@ -1,31 +1,57 @@
-import React from "react"
-import moment from "moment"
-import "moment/locale/pt-br"
-import Image from "next/image"
-import styles from "../styles/Ticket.module.css"
-import { IconWhatsapp } from "./Icons"
-import TopBar from "./TopBar"
-import TopBarButtons from "./TopBarButtons"
-import TopBarOptions from "./TopBarOptions"
-
+import React, { useState, useEffect } from "react";
+import moment from "moment";
+import "moment/locale/pt-br";
+import Image from "next/image";
+import styles from "../styles/Ticket.module.css";
+import { IconWhatsapp } from "./Icons";
+import TopBar from "./TopBar";
+import TopBarButtons from "./TopBarButtons";
+import TopBarOptions from "./TopBarOptions";
+import TopBarSearch from "./TopBarSearch";
+import { log } from "console";
 const truncateString = (str, num) => {
   if (!str) {
-    return ""
+    return "";
   }
   if (str.length <= num) {
-    return str
+    return str;
   }
 
-  return str.slice(0, num) + "..."
+  return str.slice(0, num) + "...";
 }
 
 const ContactsList = ({ contacts, onContactSelect }) => {
+  const [search, setSearch] = useState("");
+  const [filteredContacts, setFilteredContacts] = useState(contacts);
+
+  // Atualiza o estado de pesquisa com base no valor do input
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  // Filtra contatos sempre que o estado de pesquisa muda
+  useEffect(() => {
+    const filtered = contacts.filter(contact =>{
+      // console.log("contact", contact)
+      // return contact.messages.reverse().some(message =>
+        return contact.messages.reverse()[0]?.text?.toLowerCase().includes(search.toLowerCase())
+      // )
+    }).
+    map(contact => ({...contact, ["messages"]: contact.messages.reverse()}));
+
+    setFilteredContacts(filtered);
+  }, [search, contacts]);
+
+  useEffect(() => {
+    console.log("filteredContacts", filteredContacts)
+  }, [filteredContacts])
   return (
     <div className={`${styles.contactsList} rounded h-screen`}>
       <TopBar />
+      <TopBarSearch onKeyDown={handleSearchChange} />
       <TopBarButtons />
       <TopBarOptions />
-      {contacts.sort((a, b) => {
+      {filteredContacts.sort((a, b) => {
           const lastMessageA = new Date(a.messages[a.messages.length - 1].createdAt).getTime();
           const lastMessageB = new Date(b.messages[b.messages.length - 1].createdAt).getTime();
           return lastMessageB - lastMessageA;
