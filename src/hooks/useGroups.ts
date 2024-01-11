@@ -21,7 +21,7 @@ export default function useGroups() {
     showForm()
   }
 
-  function listGroups(instanceName = "Victor-4199953916") {
+  function listGroups(instanceName = "Suissa_2-5511978210616") {
     console.log("useGroups listGroups instanceName", instanceName)
     // const instanceName = selectedConnection ? selectedConnection.instanceName : "Victor-4199953916";
     console.log("useGroups listGroups instanceName", instanceName)
@@ -47,13 +47,13 @@ export default function useGroups() {
     const groupStr = group?._id
       ? JSON.stringify({
           _id: group._id,
-          title: group.title,
-          text: group.text,
+          subject: group.subject,
+          size: group.size,
           isActive: group.isActive
         })
       : JSON.stringify({
-        title: group.title,
-        text: group.text,
+        subject: group.subject,
+        size: group.size,
         isActive: group.isActive
       })
     console.log("saveGroup groupStr", groupStr)

@@ -7,6 +7,7 @@ interface TableProps {
   messages: Message[]
   messageSelected?: (message: Message) => void
   messageDeleted?: (message: Message) => void
+  messageModified?: (message: Message) => void
   showCheckboxes?: boolean
   showActions?: boolean
   onSelectionChange?: (selectedIds: string[]) => void;

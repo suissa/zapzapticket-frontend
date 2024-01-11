@@ -4,6 +4,7 @@ import Button from "../components/Button"
 import Form from "../components/FormContact"
 import { IconEdit, IconThrash } from "./Icons"
 import styled from 'styled-components';
+import Loading from './Loading'; // Importe o componente Loading
 
 const CursorPointerCheckbox = styled.input.attrs({ type: 'checkbox' })`
   cursor: pointer;
@@ -27,7 +28,7 @@ export default function Table({
 }: TableProps) {
 
   // const showActions = contactSelected || contactDeleted
-  const [selectedContactPhones, setSelectedContactPhones] = useState([]);
+  const [selectedContactPhones, setSelectedContactPhones] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -58,41 +59,42 @@ export default function Table({
     );
   };
 
-  const ModalUpdate = ({ onClose, onConfirm, contact }) => {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-        <div className="flex flex-col w-2/3 rounded-md p-4
-            bg-white text-gray-800">
-          {isFormOpen ? (
-            <Form
-              contact={currentContact}
-              contactModified={(contact) => {
-                // Lógica para tratar o usuário modificado
-                console.log("Usuário modificado:", contact);
 
-                // Atualizar o objeto ContactObj com os estados atuais
-                const ContactObj = new Contact(
-                  contact._id,
-                  contact.name,
-                  contact.phone,
-                  contact.status,
-                  contact.city,
-                  contact.state,
-                  contact.country,
-                );
+  // const ModalUpdate = ({ onClose, onConfirm, contact }) => {
+  //   return (
+  //     <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+  //       <div className="flex flex-col w-2/3 rounded-md p-4
+  //           bg-white text-gray-800">
+  //         {isFormOpen ? (
+  //           <Form
+  //             contact={currentContact}
+  //             contactModified={(contact) => {
+  //               // Lógica para tratar o usuário modificado
+  //               console.log("Usuário modificado:", contact);
 
-                contactModified?.(ContactObj);
-                setIsFormOpen(false);
-              }}
-              canceled={() => setIsFormOpen(false)}
-            />
-          ) : (
-            children
-          )}
-        </div>
-      </div>
-    );
-  };
+  //               // Atualizar o objeto ContactObj com os estados atuais
+  //               const ContactObj = new Contact(
+  //                 contact._id,
+  //                 contact.name,
+  //                 contact.phone,
+  //                 contact.status,
+  //                 contact.city,
+  //                 contact.state,
+  //                 [contact.country],
+  //               );
+
+  //               contactModified?.(ContactObj);
+  //               setIsFormOpen(false);
+  //             }}
+  //             canceled={() => setIsFormOpen(false)}
+  //           />
+  //         ) : (
+  //           children
+  //         )}
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   const handleContactCheckboxChange = (contact) => {
     setSelectedContactPhones((prevSelectedPhones) => {
@@ -224,13 +226,13 @@ export default function Table({
           contact={currentContact}
         />
       )}
-      {isFormOpen && (
+      {/* {isFormOpen && (
         <ModalUpdate
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
           contact={currentContact}
         />
-      )}
+      )} */}
     </div>
   )
 }

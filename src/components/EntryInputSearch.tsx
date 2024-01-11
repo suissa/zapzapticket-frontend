@@ -5,12 +5,10 @@ interface EntryInputProps extends InputHTMLAttributes<HTMLInputElement> {
   text: string;
 }
 
-export default function EntryInput(props: EntryInputProps) {
-  const { text, ...rest } = props;
-
+export default function EntryInputSearch(props: EntryInputProps) {
+  const { text, onKeyDown, ...rest } = props;
   return (
     <div className={`flex flex-col ${props.className}`}>
-      <label className="mb-2">{text}</label>
       <input
         {...rest}
         className={`
@@ -18,6 +16,8 @@ export default function EntryInput(props: EntryInputProps) {
           input-form px-4 py-2
           ${props.readOnly ? "" : "focus:bg-white"}
         `}
+        placeholder={text}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

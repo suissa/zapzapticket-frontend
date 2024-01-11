@@ -6,6 +6,7 @@ import Table from "../components/TableMessages";
 import Menu from '../components/Menu';
 import useMessages from "../hooks/useMessages";
 import useLayout from "../hooks/useLayout";
+import ScheduleMessage from "../core/ScheduleMessage";
 
 export default function Home() {
   const {
@@ -36,7 +37,7 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <Layout title="Mensagens">
+          <Layout title="Mensagens" width="w3/3">
             {tableVisible ? (
               <div>
                 <div className="flex justify-end">
@@ -55,9 +56,9 @@ export default function Home() {
               </div>
             ) : (
               <Form
-              message={message}
-              messageModified={saveMessage}
-              canceled={showTable}
+                message={message}
+                messageModified={saveMessage}
+                canceled={showTable}
               />
             )}
           </Layout>

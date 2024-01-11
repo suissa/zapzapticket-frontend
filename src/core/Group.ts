@@ -6,7 +6,7 @@ type Participant = {
 export default class Group {
   #_id: string
   #subject: string
-  #size: string
+  #size: number
   #desc: boolean
   #participants: Participant[];
   #isActive: boolean;
@@ -20,7 +20,7 @@ export default class Group {
   }
 
   static empty() {
-    return new Group("", "")
+    return new Group("", "", 0, false)
   }
 
   get _id() {

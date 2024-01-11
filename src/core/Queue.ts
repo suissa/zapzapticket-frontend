@@ -1,12 +1,14 @@
 export default class Message {
   #_id: string
   #name: string
+  #greeting: string
   #color: string
   #isActive: boolean
 
-  constructor(color: string, name: string, id: string = null) {
+  constructor(color: string, name: string, id: string = null, greeting: string = "") {
     this.#_id = id
     this.#name = name
+    this.#greeting = greeting
     this.#color = color
     this.#isActive = false
   }
@@ -21,6 +23,10 @@ export default class Message {
 
   get name() {
     return this.#name
+  }
+
+  get greeting() {
+    return this.#greeting
   }
 
   get color() {

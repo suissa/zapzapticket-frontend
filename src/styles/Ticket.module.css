@@ -98,7 +98,7 @@ body .ticketChatContainerInput input {
   margin-right: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: #fff !important;
 }
 
 body .ticketChatContainerInput input:focus {

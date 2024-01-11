@@ -33,14 +33,16 @@ export default function useMessages() {
         const lanes = [ ...Object.entries(groupBy(data, "ticketStatus")).map(([key, value], i) => {
           // console.log("listMessages then key", key)
           // console.log("listMessages then value", value)
+          const length = Array.isArray(value) ? value.length : 0;
+
           return {
             id: key,
             title: key,
-            label: `${value.length}/${value.length}`,
+            label: `${length}/${length}`,
 
             style: { backgroundColor: "rgba(255, 255, 255, 0.1)", color: "#fff" },  // Style of Lane
             cardStyle: { backgroundColor: "rgba(255, 255, 255, 0.1)", color: "#6b21a8" }, // Style of Card
-            cards: value.map((item: any) => {
+            cards: (value as any[]).map((item: any) => {
               // console.log("value.map item", item)
               return {
                 id: item._id,
@@ -52,9 +54,9 @@ export default function useMessages() {
             })
           }
         })]
-        const objOrdened = {lanes : lanes.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))};
+        const objOrdened = { lanes: lanes.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id)) } as unknown as { lanes: Lane[] };
         // console.log("listMessages then", objOrdened)
-        return setMessages(objOrdened)
+        return setMessages(objOrdened);
       })
   }
 

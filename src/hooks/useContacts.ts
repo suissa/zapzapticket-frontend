@@ -46,7 +46,7 @@ export default function useContacts() {
     console.log("saveContact contact", contact)
     console.log("status: ", contact.status)
     const newContact = Contact.empty()
-    const contactStr = newContact?._id
+    const newContactStr = newContact?._id
       ? JSON.stringify({
         _id: newContact._id,
         name: newContact.name,
@@ -69,12 +69,12 @@ export default function useContacts() {
       ? await fetch(`${API_URL}/contacts/${contact._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: contactStr
+        body: newContactStr
       })
       : await fetch(`${API_URL}/contacts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: contactStr
+        body: newContactStr
       });
 
       showTable()

@@ -1,4 +1,4 @@
-export default class Message {
+export default class Tag {
   #_id: string
   #name: string
   #color: string
@@ -12,7 +12,7 @@ export default class Message {
   }
 
   static empty() {
-    return new Message("", "")
+    return new Tag("", "")
   }
 
   get _id() {

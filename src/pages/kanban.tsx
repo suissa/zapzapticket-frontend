@@ -23,11 +23,6 @@ export default function Home() {
   };
   
   const {
-    list,
-    setList,
-    listTickets
-  } = useKanban()
-  const {
     message,
     messages,
     createMessage,

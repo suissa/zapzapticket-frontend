@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import Form from "../components/FormMessage";
+import Form from "../components/FormScheduleMessage";
 import Layout from "../components/Layout";
 import Menu from '../components/Menu';
 import Table from "../components/TableScheduleMessages";
@@ -37,7 +37,7 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <Layout title="Campanha">
+          <Layout title="Campanha" width="w3/3">
             {tableVisible ? (
               <div>
                 <div className="flex justify-end">

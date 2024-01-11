@@ -1,28 +1,32 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import Form from "../components/FormContact";
+import Form from "../components/FormCompany";
 import Layout from "../components/Layout";
-import Table from "../components/TableContacts";
+import Table from "../components/TableCompanies";
 import Menu from '../components/Menu';
-import useContacts from "../hooks/useContacts";
+import useCompanies from "../hooks/useCompanies";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
   const {
-    contact,
-    contacts,
-    createContact,
-    saveContact,
-    deleteContact,
-    getContact,
-    listContacts,
+    plans,
+    listPlans,
+    company,
+    companies,
+    setCompanies,
+    createCompany,
+    saveCompany,
+    deleteCompany,
+    getCompany,
+    listCompanies,
     showTable,
     tableVisible
-  } = useContacts()
+  } = useCompanies()
 
   useEffect(() => {
     if (tableVisible) {
-      listContacts();
+      listPlans();
+      listCompanies();
     }
   }, [tableVisible]);
 
@@ -36,27 +40,29 @@ export default function Home() {
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg text-white p-10">
-          <Layout title="Mensagens">
+          <Layout title="Empresas" width="w3/3">
             {tableVisible ? (
               <div>
                 <div className="flex justify-end">
                   <Button
                     className="mb-4"
-                    onClick={createContact}
+                    onClick={createCompany}
                   >
-                    Nova Mensagem
+                    Nova Empresa
                   </Button>
                 </div>
                 <Table
-                  contacts={contacts}
-                  contactSelected={getContact}
-                  contactDeleted={deleteContact}
+                  companies={companies}
+                  companySelected={getCompany}
+                  companyDeleted={deleteCompany}
+                  listCompanies={listCompanies}
                 />
               </div>
             ) : (
               <Form
-              contact={contact}
-              contactModified={saveContact}
+              plans={plans}
+              company={company}
+              companyModified={saveCompany}
               canceled={showTable}
               />
             )}
