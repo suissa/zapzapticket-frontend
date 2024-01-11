@@ -5,7 +5,6 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 registerLocale('pt-BR', ptBR);
 
-
 interface EntryCheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   text: string;
@@ -13,9 +12,8 @@ interface EntryCheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-const CalendarInput = ({ text, selected, onChange, className }: CalendarInputProps) => {
-  // const [selected, setSelected] = useState(new Date());  zzZ
-  console.log("selected", selected)
+const CalendarInput = ({ text, selected, onChange, className }: EntryCheckboxProps) => {
+  console.log("selected", selected);
   return (
     <div className={`flex flex-col ${className}`}>
       <label className="mb-2 flex items-center gap-2">

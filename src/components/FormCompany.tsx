@@ -43,13 +43,18 @@ export default function Form({ company, canceled, companyModified, plans }: Form
 
   const _id = company?._id
 
+  const onPlanChange = useCallback((e) => {
+    console.log("e.target.value", e.target.value)
+    setPlanId((e.target as unknown as HTMLInputElement).value);
+  }, []);
+
   const handleSubmit = useCallback(() => {
     console.log("handleSubmit planId", planId)
     console.log("name:", name, "phone:", phone, "password:", password)
 
     const updatedCompany = new Company(_id, name, phone, password, status, planId, dueDate, recurrence);
     companyModified?.(updatedCompany); // Passa a tarefa atualizada
-  });
+  }, [planId, name, phone, password, status, dueDate, recurrence, companyModified, _id]);
 
   useEffect(() => {
     listPlans();
@@ -83,10 +88,6 @@ export default function Form({ company, canceled, companyModified, plans }: Form
     { value: "Inativo", label: "Inativo" },
   ];
 
-  const onPlanChange = (e) => {
-    console.log("e.target.value", e.target.value)
-    setPlanId((e.target as unknown as HTMLInputElement).value);
-  };
   return (
     <div>
       {_id ? (
