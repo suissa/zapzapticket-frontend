@@ -136,9 +136,10 @@ export default function Form({ company, canceled, companyModified, plans }: Form
       <EntryCalendar
         text="Data de Vencimento"
         selected={dueDate}
-        onChange={e => setDueDate(new Date(e.target.value))}
+        onChange={date => setDueDate(date)}
         className="mb-4 text-white"
       />
+
 
       <EntryCheckbox
         text="Recorrente"
