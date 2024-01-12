@@ -10,12 +10,12 @@ import useCompanies from "../hooks/useCompanies";
 
 export interface FormProps {
   company: Company;
-  companies: Company[]; // Add the missing 'companies' property
+  // companies: Company[]; // Add the missing 'companies' property
   canceled?: () => void;
   companyModified: (company: Company) => void;
-  companySelected: (company: Company) => void;
-  companyDeleted: (company: Company) => Promise<void>;
-  listCompanies: () => void;
+  // companySelected: (company: Company) => void;
+  // companyDeleted: (company: Company) => Promise<void>;
+  // listCompanies: () => void;
   plans: Plan[];
 }
 
