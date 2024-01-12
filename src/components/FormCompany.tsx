@@ -24,7 +24,7 @@ export default function Form({ company, canceled, companyModified, plans }: Form
   const [phone, setPhone] = useState(company?.phone ?? "")
   const [status, setStatus] = useState(company?.status ?? "Ativo");
   const [password, setPassword] = useState(company?.password ?? "")
-  const [planId, setPlanId] = useState(company?.planId ?? "")
+  const [planId, setPlanId] = useState(company?.planId ?? {} as Plan)
   // const [plans, setPlans] = useState([])
   const [dueDate, setDueDate] = useState(company?.dueDate ?? new Date())
   const [recurrence, setRecurrence] = useState(company?.recurrence ?? true)
@@ -43,10 +43,18 @@ export default function Form({ company, canceled, companyModified, plans }: Form
 
   const _id = company?._id
 
+  // const onPlanChange = useCallback((e) => {
+  //   console.log("e.target.value", e.target.value)
+  //   setPlanId((e.target as unknown as HTMLInputElement).value);
+  // }, []);
+  
+
   const onPlanChange = useCallback((e) => {
-    console.log("e.target.value", e.target.value)
-    setPlanId((e.target as unknown as HTMLInputElement).value);
-  }, []);
+    const selectedPlanId = e.target.value;
+    const selectedPlan = plans.find(plan => plan._id === selectedPlanId);
+    setPlanId(selectedPlan); // Armazenar o objeto Plan, não apenas o ID
+    console.log("selectedPlan", selectedPlan)
+  }, [plans]);
 
   const handleSubmit = useCallback(() => {
     console.log("handleSubmit planId", planId)
@@ -61,6 +69,7 @@ export default function Form({ company, canceled, companyModified, plans }: Form
     console.log("useEffect dueDate", dueDate);
     console.log("useEffect planId", planId);
     if (company?._id) {
+      console.log("useEffect company", company)
       setName(company.name);
       setPhone(company.phone);
       setPassword(company.password);
@@ -68,14 +77,17 @@ export default function Form({ company, canceled, companyModified, plans }: Form
       console.log("company.dueDate", company.dueDate)
       setDueDate(company.dueDate);
       setRecurrence(company.recurrence);
+      const currentPlan = plans.find(plan => plan._id === company.planId._id);
+      setPlanId(currentPlan);
     } else {
       setName("");
       setPhone("");
       setPassword("");
       setStatus("Inativo");
-      setPlanId("");
       setDueDate(new Date());
       setRecurrence(false);
+      setPlanId(plans[0]); // Defina como o primeiro plano ou algum valor padrão
+
     }
   }, [company]); // Adicione 'company' às dependências do useEffect
   
@@ -129,6 +141,7 @@ export default function Form({ company, canceled, companyModified, plans }: Form
       />
       <EntrySelect
         text="Plano"
+        value={planId?._id ?? ""}
         selectOptions={[{ value: "Escolha um Plano", label: "Escolha um Plano" },...plans.map(plan => {
           // console.log("plan map", plan)
           return { value: plan._id, label: plan.name }
