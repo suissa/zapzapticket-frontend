@@ -247,13 +247,16 @@ body .h-600px {
 /* kanban */
 .smooth-dnd-container.horizontal article span[draggable=true] {
   cursor: move;
-  color: #fff;
+  color: #f3beff;
 }
 
 .smooth-dnd-container.horizontal article div {
   color: #fff;
 }
 
+.smooth-dnd-container.horizontal article header {
+  color: #f6a5e1;
+}
 /* loading */
 .loader {
   border: 5px solid #f3f3f3; /* Cor do fundo */
