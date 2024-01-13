@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import Kanban from "../components/Kanban";
-import Button from "../components/Button";
-import Form from "../components/FormMessage";
-import Layout from "../components/Layout";
-import Table from "../components/TableMessages";
 import Menu from '../components/Menu';
 import useMessages from "../hooks/useMessagesKanban";
+import useAuth from "../hooks/useAuth";
 import useKanban from "../hooks/useKanban";
 
 const API_URL_MESSAGES = `http://localhost:9000/contacts/messages`;
@@ -15,6 +12,9 @@ const groupBy = (xs, key) => xs.reduce((rv, x) => ({
 }), {});
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+  isAuthenticated();
+
   const [loading, setLoading] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
