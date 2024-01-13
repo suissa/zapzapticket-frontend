@@ -5,9 +5,13 @@ import Layout from "../components/Layout";
 import Table from "../components/TableTasks";
 import Menu from '../components/Menu';
 import useTasks from "../hooks/useTasks";
+import useAuth from "../hooks/useAuth";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+  isAuthenticated();
+
   const {
     task,
     tasks,
