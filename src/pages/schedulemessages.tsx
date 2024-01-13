@@ -5,11 +5,11 @@ import Layout from "../components/Layout";
 import Menu from '../components/Menu';
 import Table from "../components/TableScheduleMessages";
 import useScheduleMessages from "../hooks/useScheduleMessages";
-import useAuth from "../hooks/useAuth";
+import { useIsAuthenticated } from "../hooks/useAuth";
+
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
-  isAuthenticated();
+  useIsAuthenticated();
 
   const {
     scheduleMessage,

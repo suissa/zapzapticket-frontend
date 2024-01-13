@@ -64,3 +64,31 @@ export default function useAuth() {
     getAuthHeader
   }
 }
+
+export function useIsAuthenticated() {
+  const router = useRouter();
+
+  useEffect(() => {
+    let token = null;
+    if (typeof window !== "undefined") {
+      token = localStorage.getItem("token");
+    }
+
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+        if (decoded.exp < currentTime) {
+          // Token expirado
+          localStorage.removeItem("token");
+          router.push("/login");
+        }
+      } catch (e) {
+        router.push("/login");
+      }
+    } else {
+      // Token não existe
+      router.push("/login");
+    }
+  }, [router]);
+}

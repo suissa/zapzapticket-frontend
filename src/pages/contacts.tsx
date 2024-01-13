@@ -5,12 +5,13 @@ import Layout from "../components/Layout";
 import Table from "../components/TableContacts";
 import Menu from '../components/Menu';
 import useContacts from "../hooks/useContacts";
-import useAuth from "../hooks/useAuth";
+import { useIsAuthenticated } from "../hooks/useAuth";
+
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
-  isAuthenticated();
+  useIsAuthenticated();
+
 
   const {
     contact,

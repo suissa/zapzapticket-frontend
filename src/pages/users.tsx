@@ -6,9 +6,11 @@ import Table from "../components/TableUsers";
 import Menu from '../components/Menu';
 import useUsers from "../hooks/useUsers";
 import useLayout from "../hooks/useLayout";
-import useAuth from "../hooks/useAuth";
+import { useIsAuthenticated } from "../hooks/useAuth";
 
 export default function Home() {
+  useIsAuthenticated();
+
   const {
     user,
     users,
@@ -22,8 +24,6 @@ export default function Home() {
   } = useUsers()
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-  const { isAuthenticated } = useAuth();
-  isAuthenticated();
   const handleToggleSidebar = (isExpanded) => {
     setIsSidebarExpanded(isExpanded);
   };
@@ -35,7 +35,7 @@ export default function Home() {
   }, [tableVisible]);
 
   return (
-   
+
     <div className="flex">
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>

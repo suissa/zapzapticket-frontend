@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import EntryInput from "../components/EntryInput";
-import useAuth from "../hooks/useAuth";
+import { useIsAuthenticated } from "../hooks/useAuth";
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

@@ -8,11 +8,11 @@ import ChatTopBar from "../components/ChatTopBar";
 import styles from "../styles/Ticket.module.css";
 import useTickets from "../hooks/useTickets";
 import { ContactContext } from "../hooks/useContextTickets";
-import useAuth from "../hooks/useAuth";
+import { useIsAuthenticated } from "../hooks/useAuth";
+
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
-  isAuthenticated();
+  useIsAuthenticated();
 
   // const [contacts, setContacts] = useState([]);
   // const [selectedContact, setSelectedContact] = useState(null);

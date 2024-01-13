@@ -5,12 +5,13 @@ import Layout from "../components/Layout";
 import Table from "../components/TableTags";
 import Menu from '../components/Menu';
 import useTags from "../hooks/useTags";
-import useAuth from "../hooks/useAuth";
+import { useIsAuthenticated } from "../hooks/useAuth";
+
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
-  isAuthenticated();
+  useIsAuthenticated();
+
 
   const {
     tag,
