@@ -44,25 +44,25 @@ export default function Form({ plan, canceled, planModified }: FormProps) {
       <EntryInput
         text="Usuários"
         value={users}
-        onChange={e => setUsers((e.target as HTMLInputElement).value)}
+        onChange={e => setUsers(parseInt(e.target.value))}
         className="mb-4 text-white"
       />
       <EntryInput
         text="Conexões"
         value={connections}
-        onChange={e => setConnections((e.target as HTMLInputElement).value)}
+        onChange={e => setConnections(parseInt(e.target.value))}
         className="mb-4 text-white"
       />
       <EntryInput
         text="Filas"
         value={queues}
-        onChange={e => setQueues((e.target as HTMLInputElement).value)}
+        onChange={e => setQueues(parseInt(e.target.value))}
         className="mb-4 text-white"
       />
       <EntryInput
         text="Valor"
         value={value}
-        onChange={e => setValue((e.target as HTMLInputElement).value)}
+        onChange={e => setValue(parseInt(e.target.value))}
         className="mb-4 text-white"
       />
       <div className="flex justify-end mt-7">
@@ -79,5 +79,4 @@ export default function Form({ plan, canceled, planModified }: FormProps) {
       </div>
     </div>
   )
-
 }

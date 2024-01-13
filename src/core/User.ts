@@ -12,11 +12,11 @@ export default class User {
   #isConnected: boolean
 
   constructor(
-    id: string = null, name: string, phone: string, email= "", 
+    id: string = null, name: string, phone: string, email= "", password: string = "",
     city: string = "", state: string = "", country: string = "", level: string = "") {
     this.#_id = id
     this.#email = email
-    this.#password = ""
+    this.#password = password
     this.#name = name
     this.#phone = phone
     this.#city = city

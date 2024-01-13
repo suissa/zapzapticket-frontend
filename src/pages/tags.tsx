@@ -5,9 +5,14 @@ import Layout from "../components/Layout";
 import Table from "../components/TableTags";
 import Menu from '../components/Menu';
 import useTags from "../hooks/useTags";
+import { useIsAuthenticated } from "../hooks/useAuth";
+
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
+  useIsAuthenticated();
+
+
   const {
     tag,
     tags,

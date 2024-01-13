@@ -13,7 +13,7 @@ interface CalendarInputProps {
 }
 
 const CalendarInput = ({ text, selected, onChange, className }: CalendarInputProps) => {
-  console.log("selected", selected);
+  // console.log("selected", selected);
   return (
     <div className={`flex flex-col ${className}`}>
       <label className="mb-2 flex items-center gap-2">

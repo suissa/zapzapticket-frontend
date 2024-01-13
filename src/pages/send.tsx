@@ -9,8 +9,12 @@ import useContacts from "../hooks/useContacts";
 import useMessages from "../hooks/useMessages";
 import useConnections from "../hooks/useConnections";
 import useSending from "../hooks/useSending";
+import { useIsAuthenticated } from "../hooks/useAuth";
+
 
 export default function Home() {
+  useIsAuthenticated();
+
   // const [list, setList] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState();

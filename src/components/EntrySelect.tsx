@@ -7,12 +7,14 @@ interface EntrySelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 export default function EntrySelect(props: EntrySelectProps) {
-  const { text, selectOptions, ...rest } = props;
-  console.log("selectOptions", selectOptions)
+  const { text, selectOptions, value, ...rest } = props;
+  // console.log("selectOptions", selectOptions);
+
   return (
     <div className={`flex flex-col ${props.className}`}>
       <label className="mb-2">{text}</label>
       <select
+        value={value}
         {...rest}
         className={`
           border border-purple-500 rounded-md focus:outline-none

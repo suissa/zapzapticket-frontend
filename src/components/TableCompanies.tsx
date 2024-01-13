@@ -67,7 +67,7 @@ export default function Table({
     return (
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
         <div className="bg-white p-4 rounded">
-          <p>Tem certeza que deseja excluir o Companyo {company?.name}?</p>
+          <p>Tem certeza que deseja excluir a Empresa {company?.name}?</p>
           <div className="flex justify-end mt-4">
             <button
               className="bg-red-500 text-white py-2 px-4 rounded mr-2"
@@ -130,7 +130,7 @@ export default function Table({
           <td className="text-left p-4">{company.name}</td>
           <td className="text-left p-4">{company.phone}</td>
           <td className="text-left p-4">{company.status}</td>
-          <td className="text-left p-4">{company.planId.name}</td>
+          <td className="text-left p-4">{company.planName}</td>
           <td className="text-center p-4">{moment(company.dueDate).format('DD/MM/YYYY')}</td>
           <td className="text-center p-4"><input 
             type="checkbox" 
