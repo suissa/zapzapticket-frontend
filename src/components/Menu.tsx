@@ -12,19 +12,19 @@ const Menu = memo(({ onToggle }: MenuProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [className, setClassName] = useState("text-white");
 
-  const handleMouseEnter = useCallback(() => {
+  const handleMouseEnter = useCallback(debounce(() => {
     setIsExpanded(true);
     if (onToggle) {
       onToggle(true);
     }
-  }, [])
+  }, 100), []); // dependências vazias significam que isso só é criado uma vez
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = useCallback(debounce(() => {
     setIsExpanded(false);
     if (onToggle) {
       onToggle(false);
     }
-  }, [])
+  }, 100), []);
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
