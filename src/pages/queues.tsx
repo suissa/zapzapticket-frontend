@@ -5,9 +5,13 @@ import Layout from "../components/Layout";
 import Table from "../components/TableQueues";
 import Menu from '../components/Menu';
 import useQueues from "../hooks/useQueues";
+import useAuth from "../hooks/useAuth";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+  isAuthenticated();
+
   const {
     queue,
     queues,
