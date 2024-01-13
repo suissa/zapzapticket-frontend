@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useCallback, memo } from "react";
 import Link from "next/link";
 import { debounce } from 'lodash';
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
@@ -12,19 +12,19 @@ const Menu = memo(({ onToggle }: MenuProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [className, setClassName] = useState("text-white");
 
-  const handleMouseEnter = debounce(() => {
+  const handleMouseEnter = useCallback(debounce(() => {
     setIsExpanded(true);
     if (onToggle) {
       onToggle(true);
     }
-  }, 100); // 100ms de delay
+  }, 100), []); // dependências vazias significam que isso só é criado uma vez
 
-  const handleMouseLeave = debounce(() => {
+  const handleMouseLeave = useCallback(debounce(() => {
     setIsExpanded(false);
     if (onToggle) {
       onToggle(false);
     }
-  }, 100); // 100ms de delay
+  }, 100), []);
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);

@@ -52,7 +52,11 @@ export default function useUsers() {
   }
 
   async function saveUser(user: User) {
-    // console.log("saveUser user", user)
+    console.log("saveUser user", user)
+    if (user.password === "") {
+      console.log("saveUser user.password === ''")
+      return false;
+    }
     const userStr = user?._id
       ? JSON.stringify({
         _id: user._id,
@@ -77,7 +81,7 @@ export default function useUsers() {
         level: user.level,
         isActive: true
       })
-    // console.log("saveUser userStr", userStr)
+    console.log("saveUser userStr", userStr)
     const response = user?._id
       ? await fetch(`${API_URL}/users/${user._id}`, {
         method: 'PATCH',
@@ -95,7 +99,7 @@ export default function useUsers() {
       .then(data => {
         // // console.log("listUsers then", data)
         setUsers(data)
-        showTable()
+        // showTable()
       })
     // const data = await response.json();
   }

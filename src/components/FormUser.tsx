@@ -60,24 +60,26 @@ export default function Form({ user, canceled, userModified }: FormProps) {
   const _id = user?._id
   const handleSubmit = () => {
     // Atualizar o objeto UserObj com os estados atuais
-    const UserObj = {
-      _id: user?._id, // ou simplesmente _id, se já estiver no escopo
+    const UserObj = new User(
+      user?._id, // ou simplesmente _id, se já estiver no escopo
       name,
+      phone,
       email,
       password,
-      phone,
       city,
       state,
       country,
       level
-    };
-  
+    );
+    console.log("Objeto User a ser salvo:", UserObj);
     // console.log("Objeto User a ser salvo:", UserObj);
-    // userModified?.(UserObj);
+    userModified?.(UserObj);
   }
   
-  // Restante do seu código...
-  
+  useEffect(() => {
+    console.log("useEffect: password", password)
+  ,[password]})
+
   return (
     <div>
       {_id ? (
@@ -158,7 +160,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
 
       <EntryInput
         text="País"
-        value={country}
+        value={country || "Brasil"}
         onChange={e => setCountry((e.target as HTMLInputElement).value)}
         className="mb-4 text-white"
       />
