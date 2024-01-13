@@ -7,9 +7,13 @@ import TableConnections from "../components/TableConnections";
 import Menu from '../components/Menu';
 import useGroups from "../hooks/useGroups";
 import useConnections from "../hooks/useConnections";
+import useAuth from "../hooks/useAuth";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+  isAuthenticated();
+
   const [selectedConnection, setSelectedConnection] = useState(null);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   
