@@ -5,10 +5,14 @@ import Layout from "../components/Layout";
 import Table from "../components/TableMessages";
 import Menu from '../components/Menu';
 import useMessages from "../hooks/useMessages";
+import useAuth from "../hooks/useAuth";
 import useLayout from "../hooks/useLayout";
 import ScheduleMessage from "../core/ScheduleMessage";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+  isAuthenticated();
+
   const {
     message,
     messages,
