@@ -6,6 +6,7 @@ import Table from "../components/TableUsers";
 import Menu from '../components/Menu';
 import useUsers from "../hooks/useUsers";
 import useLayout from "../hooks/useLayout";
+import useAuth from "../hooks/useAuth";
 
 export default function Home() {
   const {
@@ -21,7 +22,8 @@ export default function Home() {
   } = useUsers()
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-
+  const { isAuthenticated } = useAuth();
+  isAuthenticated();
   const handleToggleSidebar = (isExpanded) => {
     setIsSidebarExpanded(isExpanded);
   };

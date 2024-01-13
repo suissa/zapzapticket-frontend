@@ -221,8 +221,8 @@ const Menu = memo(({ onToggle }: MenuProps) => {
           </li>
           <li>
             <Link href="/contacts">
+              <UsersIcon />
               <div className="inline-flex items-center">
-                <ContactsIcon />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
                   Contatos
                 </span>
@@ -252,7 +252,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
           <li>
             <Link href="/users">
               <div className="inline-flex items-center">
-                <UsersIcon />
+                <ContactsIcon />
                 <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
                   Usuários
                 </span>

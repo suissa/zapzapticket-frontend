@@ -53,6 +53,7 @@ body select.bg-gray-50:focus {
   -webkit-backdrop-filter: blur(4px);
 }
 body input[type="text"],
+input[type="email"],
 input[type="password"] {
   background-color: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(4px);
