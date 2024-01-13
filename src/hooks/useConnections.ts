@@ -63,6 +63,7 @@ export default function useConnections(onConnectionSelected?: (connection: Conne
         body: connectionStr
       });
 
+    listConnections()
     showTable()
   }
 
