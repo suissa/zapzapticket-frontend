@@ -3,7 +3,7 @@ import Link from "next/link";
 import { debounce } from 'lodash';
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage, IconTasks, IconTags, IconFastSend, 
-IconQueues, IconFastAnswers, IconWhatsapp, IconLogout} from "./Icons";
+IconQueues, IconFastAnswers, IconWhatsapp, IconLogout, } from "./Icons";
 
 interface MenuProps {
   onToggle: (isExpanded: boolean) => void;
@@ -12,19 +12,19 @@ const Menu = memo(({ onToggle }: MenuProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [className, setClassName] = useState("text-white");
 
-  const handleMouseEnter = useCallback(debounce(() => {
+  const handleMouseEnter = useCallback(() => {
     setIsExpanded(true);
     if (onToggle) {
       onToggle(true);
     }
-  }, 100), []); // dependências vazias significam que isso só é criado uma vez
+  }, [])
 
-  const handleMouseLeave = useCallback(debounce(() => {
+  const handleMouseLeave = useCallback(() => {
     setIsExpanded(false);
     if (onToggle) {
       onToggle(false);
     }
-  }, 100), []);
+  }, [])
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
