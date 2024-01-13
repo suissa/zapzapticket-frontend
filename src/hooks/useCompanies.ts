@@ -1,10 +1,10 @@
-import { useState, MutableRefObject, useRef, useEffect } from "react"
-import Company from "../core/Company"
-import Plan from "../core/Plan"
-import CompanyRepository from "../core/CompanyRepository"
-import useLayout from "./useLayout"
-import useAuth from "./useAuth"
-import moment from "moment"
+import { useState, MutableRefObject, useRef, useEffect } from "react";
+import Company from "../core/Company";
+import Plan from "../core/Plan";
+import CompanyRepository from "../core/CompanyRepository";
+import useLayout from "./useLayout";
+import useAuth from "./useAuth";
+import moment from "moment";
 
 import { API_URL } from "../config"
 
