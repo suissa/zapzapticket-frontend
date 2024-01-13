@@ -3,8 +3,10 @@ import Company from "../core/Company"
 import Plan from "../core/Plan"
 import CompanyRepository from "../core/CompanyRepository"
 import useLayout from "./useLayout"
-import { API_URL } from "../config"
+import useAuth from "./useAuth"
 import moment from "moment"
+
+import { API_URL } from "../config"
 
 export default function useCompanies() {
   const [company, setCompany] = useState<Company>(Company.empty())
@@ -12,6 +14,7 @@ export default function useCompanies() {
   const [plans, setPlans] = useState<Plan[]>([])
   const [planId, setPlanId] = useState<Plan[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listCompanies, [])
 
@@ -21,7 +24,9 @@ export default function useCompanies() {
   }
 
   function listCompanies() {
-    fetch(`${API_URL}/companies`)
+    fetch(`${API_URL}/companies`, {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listCompanies then", data)
@@ -80,12 +85,12 @@ export default function useCompanies() {
     const response = company?._id
       ? await fetch(`${API_URL}/companies/${company._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: companyStr
       })
       : await fetch(`${API_URL}/companies`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: companyStr
       });
       listCompanies()

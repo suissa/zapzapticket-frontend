@@ -2,12 +2,14 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Message from "../core/Message"
 import MessageRepository from "../core/MessageRepository"
 import useLayout from "./useLayout"
+import useAuth from "./useAuth"
 import { API_URL } from "../config"
 
 export default function useMessages() {
   const [message, setMessage] = useState<Message>(Message.empty())
   const [messages, setMessages] = useState<Message[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listMessages, [])
 
@@ -17,7 +19,10 @@ export default function useMessages() {
   }
 
   function listMessages() {
-    fetch(`${API_URL}/messages`)
+    fetch(`${API_URL}/messages`,
+    {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listMessages then", data)
@@ -52,12 +57,12 @@ export default function useMessages() {
     const response = message?._id
       ? await fetch(`${API_URL}/messages/${message._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: messageStr
       })
       : await fetch(`${API_URL}/messages`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: messageStr
       });
       // listMessages()

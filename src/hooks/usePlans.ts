@@ -2,12 +2,14 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Plan from "../core/Plan"
 import PlanRepository from "../core/PlanRepository"
 import useLayout from "./useLayout"
+import useAuth from "./useAuth"
 import { API_URL } from "../config"
 
 export default function usePlans() {
   const [plan, setPlan] = useState<Plan>(Plan.empty())
   const [plans, setPlans] = useState<Plan[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listPlans, [])
 
@@ -17,7 +19,10 @@ export default function usePlans() {
   }
 
   function listPlans() {
-    fetch(`${API_URL}/plans/actives`)
+    fetch(`${API_URL}/plans/actives`,
+    {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listPlans then", data)
@@ -58,12 +63,12 @@ export default function usePlans() {
     const response = plan?._id
       ? await fetch(`${API_URL}/plans/${plan._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: planStr
       })
       : await fetch(`${API_URL}/plans`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: planStr
       });
       listPlans()

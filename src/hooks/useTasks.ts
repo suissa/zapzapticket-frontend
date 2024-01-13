@@ -2,13 +2,14 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Task from "../core/Task"
 import TaskRepository from "../core/TaskRepository"
 import useLayout from "./useLayout"
-
-const API_URL = "http://137.184.81.207:9000";
+import useAuth from "./useAuth"
+import { API_URL } from "../config"
 
 export default function useTasks() {
   const [task, setTask] = useState<Task>(Task.empty())
   const [tasks, setTasks] = useState<Task[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listTasks, [])
 
@@ -18,7 +19,9 @@ export default function useTasks() {
   }
 
   function listTasks() {
-    fetch(`${API_URL}/tasks/actives`)
+    fetch(`${API_URL}/tasks/actives`, {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listTasks then", data)
@@ -53,12 +56,12 @@ export default function useTasks() {
     const response = task?._id
       ? await fetch(`${API_URL}/tasks/${task._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: taskStr
       })
       : await fetch(`${API_URL}/tasks`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: taskStr
       });
       listTasks()
