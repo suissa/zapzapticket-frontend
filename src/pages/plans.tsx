@@ -5,9 +5,13 @@ import Layout from "../components/Layout";
 import Table from "../components/TablePlans";
 import Menu from '../components/Menu';
 import usePlans from "../hooks/usePlans";
+import useAuth from "../hooks/useAuth";
 import useLayout from "../hooks/useLayout";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+  isAuthenticated();
+
   const {
     plan,
     plans,
