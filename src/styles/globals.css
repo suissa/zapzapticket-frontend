@@ -69,31 +69,6 @@ body .bg-password, .input-form {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
-body .task {
-  padding: 10px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 999999;
-  background-color: #6b21a8;
-}
-body .task-content {
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-body .kanban-column{
-  background-color: rgba(255, 255, 255, .05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 5px;
-  padding: 10px;
-  width: 33%;
-  min-width: 250px;
-  margin: 10px;
-  margin-top: 20px;
-  z-index: 1;
-}
 body .text-ssm {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -245,6 +220,32 @@ body .h-600px {
 }
 
 /* kanban */
+
+body .task {
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 999999;
+  background-color: #6b21a8;
+}
+body .task-content {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+body .kanban-column{
+  background-color: rgba(255, 255, 255, .05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 5px;
+  padding: 10px;
+  width: 33%;
+  min-width: 250px;
+  margin: 10px;
+  margin-top: 20px;
+  z-index: 1;
+}
 .smooth-dnd-container.horizontal article span[draggable=true] {
   cursor: move;
   color: #f3beff;
