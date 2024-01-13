@@ -3,6 +3,7 @@ import Message from "../core/Message"
 import Lane from "../core/Lane"
 import MessageRepository from "../core/MessageRepository"
 import useLayout from "./useLayout"
+import useAuth from "./useAuth"
 import { API_URL } from "../config"
 
 const API_URL_MESSAGES = `${API_URL}/contacts/messages`;
@@ -16,6 +17,7 @@ export default function useMessages() {
   const [messages, setMessages] = useState<{ lanes: Lane[] } | null>(null);
   const [list, setList] = useState({});
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listMessages, [])
 
@@ -27,7 +29,10 @@ export default function useMessages() {
   const order = ['inativo', 'doing', 'done'];
 
   function listMessages() {
-    fetch(`${API_URL_MESSAGES}`)
+    fetch(`${API_URL_MESSAGES}`,
+    {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         const lanes = [ ...Object.entries(groupBy(data, "ticketStatus")).map(([key, value], i) => {
@@ -87,12 +92,12 @@ export default function useMessages() {
     const response = message?._id
       ? await fetch(`${API_URL}/messages/${message._id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeader(),
         body: messageStr
       })
       : await fetch(`${API_URL}/messages`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeader(),
         body: messageStr
       });
       // listMessages()

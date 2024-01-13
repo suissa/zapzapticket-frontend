@@ -2,12 +2,15 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Connection from "../core/Connection"
 import ConnectionRepositorio from "../core/ConnectionRepository"
 import useLayout from "./useLayout"
+import useAuth from "./useAuth"
+
 import { API_URL } from "../config"
 
 export default function useConnections(onConnectionSelected?: (connection: Connection) => void) {
   const [connection, setConnection] = useState<Connection>(Connection.empty())
   const [connections, setConnections] = useState<Connection[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listConnections, [])
 
@@ -17,7 +20,9 @@ export default function useConnections(onConnectionSelected?: (connection: Conne
   }
 
   function listConnections() {
-    fetch(`${API_URL}/connections`)
+    fetch(`${API_URL}/connections`, {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("useConnection listConnections then", data)
@@ -49,12 +54,12 @@ export default function useConnections(onConnectionSelected?: (connection: Conne
     const response = connection?._id
       ? await fetch(`${API_URL}/connections/${connection._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: connectionStr
       })
       : await fetch(`${API_URL}/connections`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: connectionStr
       });
 

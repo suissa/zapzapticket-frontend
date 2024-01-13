@@ -2,12 +2,14 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import ScheduleMessage from "../core/ScheduleMessage"
 import ScheduleMessageRepository from "../core/ScheduleMessageRepository"
 import useLayout from "./useLayout"
+import useAuth from "./useAuth"
 import { API_URL } from "../config"
 
 export default function useScheduleMessages() {
   const [scheduleMessage, setScheduleMessage] = useState<ScheduleMessage>(ScheduleMessage.empty())
   const [scheduleMessages, setScheduleMessages] = useState<ScheduleMessage[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listScheduleMessages, [])
 
@@ -17,7 +19,9 @@ export default function useScheduleMessages() {
   }
 
   function listScheduleMessages() {
-    fetch(`${API_URL}/schedulemessages`)
+    fetch(`${API_URL}/schedulemessages`, {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listScheduleMessages then", data)
@@ -52,12 +56,12 @@ export default function useScheduleMessages() {
     const response = message?._id
       ? await fetch(`${API_URL}/schedulemessages/${message._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: messageStr
       })
       : await fetch(`${API_URL}/schedulemessages`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: messageStr
       });
       // listScheduleMessages()

@@ -2,12 +2,14 @@ import { useState, MutableRefObject, useRef, useEffect } from "react"
 import Group from "../core/Group"
 import GroupRepository from "../core/GroupRepository"
 import useLayout from "./useLayout"
+import useAuth from "./useAuth"
 import { API_URL } from "../config"
 
 export default function useGroups() {
   const [group, setGroup] = useState<Group>(Group.empty())
   const [groups, setGroups] = useState<Group[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(() => {
     // getProfileImage("Victor-4199953916", "5511994458797")
@@ -25,7 +27,11 @@ export default function useGroups() {
     console.log("useGroups listGroups instanceName", instanceName)
     // const instanceName = selectedConnection ? selectedConnection.instanceName : "Victor-4199953916";
     console.log("useGroups listGroups instanceName", instanceName)
-    fetch(`${API_URL}/evolution/groups/${instanceName}`)
+    fetch(`${API_URL}/evolution/groups/${instanceName}`,
+    {
+      headers: getAuthHeader(),
+
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listGroups then", data)
@@ -60,12 +66,12 @@ export default function useGroups() {
     const response = group?._id
       ? await fetch(`${API_URL}/evolution/groups/${group._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: groupStr
       })
       : await fetch(`${API_URL}/evolution/groups`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: groupStr
       });
       // listGroups()

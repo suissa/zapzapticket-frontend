@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import EntryInput from "../components/EntryInput";
-import { useIsAuthenticated } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 
 const LoginPage = () => {

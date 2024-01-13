@@ -14,29 +14,6 @@ export default function useAuth() {
       body: JSON.stringify({ email, password }),
     })
   }
-  function isAuthenticated() {
-    const router = useRouter();
-    let token = null;
-    if (typeof window !== "undefined") {
-      // Verifica se estamos no lado do cliente antes de acessar o localStorage
-      token = localStorage.getItem("token");
-    }
-
-    useEffect(() => {
-      if (token) {
-        const decoded = jwtDecode(token); // Alteração aqui
-        const currentTime = Date.now() / 1000;
-        if (decoded.exp < currentTime) {
-          // Token expirado
-          localStorage.removeItem("token");
-          router.push("/login");
-        }
-      } else {
-        // Token não existe
-        router.push("/login");
-      }
-    }, [router]);
-  }
 
   function getToken() {
     return localStorage.getItem("token");
@@ -59,7 +36,6 @@ export default function useAuth() {
 
   return {
     login,
-    isAuthenticated,
     getToken,
     getAuthHeader
   }

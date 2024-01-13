@@ -2,12 +2,14 @@ import { useState, MutableRefObject, useRef, useEffect } from "react";
 import Queue from "../core/Queue";
 // import QueueRepository from "../core/QueueRepository";
 import useLayout from "./useLayout";
+import useAuth from "./useAuth"
 import { API_URL } from "../config";
 
 export default function useQueues() {
   const [queue, setQueue] = useState<Queue>(Queue.empty())
   const [queues, setQueues] = useState<Queue[]>([])
   const { showForm, showTable, tableVisible } = useLayout()
+  const { getAuthHeader } = useAuth()
 
   useEffect(listQueues, [])
 
@@ -17,7 +19,10 @@ export default function useQueues() {
   }
 
   function listQueues() {
-    fetch(`${API_URL}/queues`)
+    fetch(`${API_URL}/queues`,
+    {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listQueues then", data)
@@ -27,7 +32,10 @@ export default function useQueues() {
 
   async function listQueuesAsync() {
     try {
-      const response = await fetch(`${API_URL}/queues`);
+      const response = await fetch(`${API_URL}/queues`,
+      {
+        headers: getAuthHeader(),
+      });
       const data = await response.json();
       console.log("listQueues then", data);
       setQueues(data);
@@ -45,7 +53,7 @@ export default function useQueues() {
     console.log("deleteQueue queue", queue)
     const result = await fetch(`${API_URL}/queues/${queue._id}`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getAuthHeader(),
     })
     console.log("deleteQueue result", result)
     await listQueuesAsync()
@@ -69,12 +77,12 @@ export default function useQueues() {
     const response = queue?._id
       ? await fetch(`${API_URL}/queues/${queue._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: queueStr
       })
       : await fetch(`${API_URL}/queues`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeader(),
         body: queueStr
       });
       // listQueues()

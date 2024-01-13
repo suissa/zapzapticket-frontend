@@ -3,6 +3,7 @@ import { Contact } from "../core/Contact"
 import ContactRepository from "../core/ContactRepository"
 import useLayout from "./useLayout"
 import { useWebSocket } from "./useWebSocketContext"
+import useAuth from "./useAuth"
 import { API_URL } from "../config"
 // const socket = io(API_URL);
 // const socket = useWebSocket();
@@ -10,6 +11,7 @@ import { API_URL } from "../config"
 export default function useTickets() {
   const [contact, setContact] = useState<Contact>(Contact.empty())
   const [contacts, setContacts] = useState<Contact[]>([])
+  const { getAuthHeader } = useAuth()
 
 
   function sendMessage(data) {
@@ -30,7 +32,7 @@ export default function useTickets() {
     }
     fetch(`${API_URL}/contacts/message/send`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: getAuthHeader(),
       body: JSON.stringify({ message: text, text, phone, instanceName }),
     })
       .then((response) => response.json())
@@ -44,7 +46,9 @@ export default function useTickets() {
 
   const listContacts = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/contacts/messages/last/40`);
+      const response = await fetch(`${API_URL}/contacts/messages/last/40`, {
+        headers: getAuthHeader(),
+      });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
