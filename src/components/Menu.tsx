@@ -3,7 +3,7 @@ import Link from "next/link";
 import { debounce } from 'lodash';
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage, IconTasks, IconTags, IconFastSend, 
-IconQueues, IconFastAnswers, IconWhatsapp, IconLogout, IconContacts, IconCompanies } from "./Icons";
+IconQueues, IconFastAnswers, IconWhatsapp, IconLogout, IconContacts, IconCompanies, IconPlans } from "./Icons";
 
 interface MenuProps {
   onToggle: (isExpanded: boolean) => void;
@@ -32,6 +32,12 @@ const Menu = memo(({ onToggle }: MenuProps) => {
       onToggle(!isExpanded);
     }
   };
+
+  const PlansIcon = memo(() => (
+    <IconPlans className="icon-companies text-white icon-white" />
+  ))
+  PlansIcon.displayName = "PlansIcon";
+
 
   const CompaniesIcon = memo(() => (
     <IconCompanies className="icon-companies text-white icon-white" />
@@ -271,11 +277,21 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             </Link>
           </li>
           <li>
-            <Link href="/users">
+            <Link href="/companies">
               <div className="inline-flex items-center">
                 <CompaniesIcon />
                 <span className={`menu-text-icon transition-all duration-300`}>
                   Empresas
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/plans">
+              <div className="inline-flex items-center">
+                <PlansIcon />
+                <span className={`menu-text-icon transition-all duration-300`}>
+                  Planos
                 </span>
               </div>
             </Link>
