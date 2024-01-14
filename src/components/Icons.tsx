@@ -14,6 +14,8 @@ import { BiCheckCircle } from "react-icons/bi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { TbUserSquareRounded } from "react-icons/tb";
 import { FiUsers } from "react-icons/fi";
+import { BiBriefcaseAlt2 } from "react-icons/bi";
+import { BsBank } from "react-icons/bs";
 
 
 // Heroicons: https://heroicons.com/
@@ -125,3 +127,4 @@ export const IconAccept = props => (<BiCheckCircle className={`w-8 h-8 mt-1 ${pr
 export const IconThreeDots = props => (<BiDotsVerticalRounded className={`w-8 h-8 mt-1 ${props.className}`}/>)
 export const IconUserSquareRounded = props => (<TbUserSquareRounded className={`w-8 h-8 mt-1 ${props.className}`}/>)
 export const IconContacts = props => (<FiUsers className={`w-8 h-8 mt-1 ${props.className}`}/>)
+export const IconCompanies = props => (<BsBank className={`w-6 h-6 mt-1 ${props.className}`}/>)

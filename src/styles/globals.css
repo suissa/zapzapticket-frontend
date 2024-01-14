@@ -160,23 +160,22 @@ body .h-70vh {
   min-height: 100vh;
   background-color: #fafafa;
   transition: margin-left 0.3s ease;
-  padding-left: 60px;
+  padding-left: 0px;
 }
 .menu {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  transition: width 0.5s ease;
+  transition: width 0.3s ease;
   overflow: hidden;
   width: 60px;
-  transition: width 0.3s ease;
   padding: 18px;
   background-color: #6b21a8;
 }
 
 .menu:hover {
-  width: 256px;
+  width: 210px;
 }
 
 .menu-text {

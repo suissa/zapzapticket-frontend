@@ -3,7 +3,7 @@ import Link from "next/link";
 import { debounce } from 'lodash';
 import { IconDashboardMenu, IconUsersMenu, IconConnectionsMenu, IconContactsMenu,
 IconGroupsMenu, IconKanban, IconSend, IconMessage, IconScheduleMessage, IconTasks, IconTags, IconFastSend, 
-IconQueues, IconFastAnswers, IconWhatsapp, IconLogout, IconContacts } from "./Icons";
+IconQueues, IconFastAnswers, IconWhatsapp, IconLogout, IconContacts, IconCompanies } from "./Icons";
 
 interface MenuProps {
   onToggle: (isExpanded: boolean) => void;
@@ -32,6 +32,11 @@ const Menu = memo(({ onToggle }: MenuProps) => {
       onToggle(!isExpanded);
     }
   };
+
+  const CompaniesIcon = memo(() => (
+    <IconCompanies className="icon-companies text-white icon-white" />
+  ))
+  CompaniesIcon.displayName = "CompaniesIcon";
 
   const ContactSquareIcon = memo(() => (
     <IconContacts className="text-white icon-white" />
@@ -261,6 +266,16 @@ const Menu = memo(({ onToggle }: MenuProps) => {
                 <ContactsIcon />
                 <span className={`menu-text-icon transition-all duration-300`}>
                   Usuários
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/users">
+              <div className="inline-flex items-center">
+                <CompaniesIcon />
+                <span className={`menu-text-icon transition-all duration-300`}>
+                  Empresas
                 </span>
               </div>
             </Link>
