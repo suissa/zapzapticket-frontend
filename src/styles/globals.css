@@ -155,7 +155,13 @@ body .h-70vh {
   /* filter: invert(1); */
   margin: 0 auto;
 }
-
+.page-container {
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fafafa;
+  transition: margin-left 0.3s ease;
+  padding-left: 60px;
+}
 .menu {
   position: fixed;
   top: 0;
@@ -164,27 +170,56 @@ body .h-70vh {
   transition: width 0.5s ease;
   overflow: hidden;
   width: 60px;
+  transition: width 0.3s ease;
   padding: 18px;
   background-color: #6b21a8;
 }
 
-.menu.expanded {
+.menu:hover {
   width: 256px;
 }
 
 .menu-text {
   display: none;
-  visibility: hidden;
+  /* visibility: hidden;
   overflow: hidden;
   white-space: nowrap;
   position: relative;
   top: 2px;
-  left: 10px;
+  left: 10px; */
 }
 
+.menu:hover .menu-text {
+  display: block;
+}
+
+.menu:hover .menu-text {
+  opacity: 1;
+  max-width: 100px; /* Ajuste conforme necessário */
+}
+/* .menu:hover .menu-text,
 .menu.expanded .menu-text {
   visibility: visible;
-  display: inline-block; /* Mostra o texto quando a barra está expandida */
+  display: inline-block;
+} */
+
+.menu:hover + .page-container {
+  display: flex;
+  margin-left: 196px;;
+  min-height: 100vh; 
+}
+
+.menu .menu-text-icon {overflow: hidden; /* Oculta o texto quando o menu está colapsado */
+  white-space: nowrap; /* Impede a quebra de linha */
+  max-width: 0; /* Inicia com largura máxima de 0 */
+  transition: max-width 0.3s ease, opacity 0.3s ease; /* Transição suave */
+  opacity: 0; /* Inicia oculto */
+  margin-left: 10px; /* Espaçamento entre o ícone e o texto */
+  font-size: 16px;
+}
+.menu:hover .menu-text-icon {
+  max-width: 200px; /* Aumenta a largura máxima quando o menu é expandido */
+  opacity: 1; /* Torna o texto visível */
 }
 
 body .h-600px {

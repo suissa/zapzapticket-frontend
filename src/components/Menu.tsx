@@ -12,19 +12,19 @@ const Menu = memo(({ onToggle }: MenuProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [className, setClassName] = useState("text-white");
 
-  const handleMouseEnter = useCallback(debounce(() => {
-    setIsExpanded(true);
-    if (onToggle) {
-      onToggle(true);
-    }
-  }, 100), []); // dependências vazias significam que isso só é criado uma vez
+  // const handleMouseEnter = useCallback(debounce(() => {
+  //   setIsExpanded(true);
+  //   if (onToggle) {
+  //     onToggle(true);
+  //   }
+  // }, 100), []); // dependências vazias significam que isso só é criado uma vez
 
-  const handleMouseLeave = useCallback(debounce(() => {
-    setIsExpanded(false);
-    if (onToggle) {
-      onToggle(false);
-    }
-  }, 100), []);
+  // const handleMouseLeave = useCallback(debounce(() => {
+  //   setIsExpanded(false);
+  //   if (onToggle) {
+  //     onToggle(false);
+  //   }
+  // }, 100), []);
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
@@ -114,16 +114,17 @@ const Menu = memo(({ onToggle }: MenuProps) => {
   FastAnswersIcon.displayName = "FastAnswersIcon";
 
   return (
-    <div className={`menu ${isExpanded ? "expanded" : ""}`} 
-      onMouseEnter={handleMouseEnter} 
-      onMouseLeave={handleMouseLeave}>
+    <div className={`menu`} 
+      // onMouseEnter={handleMouseEnter} 
+      // onMouseLeave={handleMouseLeave}
+      >
       <div className="menu-content">
         <ul className="flex flex-col space-y-4 text-white">
           <li>
           <Link href="/connections">
             <div className="inline-flex items-center">
               <DashboardIcon />
-              <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+              <span className={`menu-text-icon transition-all duration-300`}>
                 Dashboard
               </span>
             </div>
@@ -133,7 +134,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
           <Link href="/tickets">
             <div className="inline-flex items-center">
               <WhatsappIcon />
-              <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+              <span className={`menu-text-icon transition-all duration-300`}>
                 Tickets
               </span>
             </div>
@@ -153,7 +154,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/kanban">
               <div className="inline-flex items-center">
                 <KanbanIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Funil
                 </span>
               </div>
@@ -173,7 +174,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/groups">
               <div className="inline-flex items-center">
                 <GroupsIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Grupos
                 </span>
               </div>
@@ -183,7 +184,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/queues">
               <div className="inline-flex items-center">
                 <QueuesIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Filas
                 </span>
               </div>
@@ -193,7 +194,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/tags">
               <div className="inline-flex items-center">
                 <TagsIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Tags
                 </span>
               </div>
@@ -203,7 +204,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/tasks">
               <div className="inline-flex items-center">
                 <TasksIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Tarefas
                 </span>
               </div>
@@ -213,7 +214,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/connections">
               <div className="inline-flex items-center">
                 <ConnectionsIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Conexões
                 </span>
               </div>
@@ -223,7 +224,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/contacts">
               <UsersIcon />
               <div className="inline-flex items-center">
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Contatos
                 </span>
               </div>
@@ -233,7 +234,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/messages">
               <div className="inline-flex items-center">
                 <MessageIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Mensagens
                 </span>
               </div>
@@ -243,7 +244,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/send">
               <div className="inline-flex items-center">
                 <SendIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Enviar Mensagem
                 </span>
               </div>
@@ -253,7 +254,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/users">
               <div className="inline-flex items-center">
                 <ContactsIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Usuários
                 </span>
               </div>
@@ -263,7 +264,7 @@ const Menu = memo(({ onToggle }: MenuProps) => {
             <Link href="/logout">
               <div className="inline-flex items-center">
                 <LogoutIcon />
-                <span className={`menu-text transition-all duration-300 ${isExpanded ? 'w-auto visible' : 'w-0 invisible'}`}>
+                <span className={`menu-text-icon transition-all duration-300`}>
                   Sair
                 </span>
               </div>
