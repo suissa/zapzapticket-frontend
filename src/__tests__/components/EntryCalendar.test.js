@@ -41,7 +41,6 @@ describe('CalendarInput Component', () => {
     expect(labelElement).toBeInTheDocument();
     expect(datePickerInput.value).toBe('06/15/2020'); // Verifica o formato DD/MM/YYYY
   });
-  
 
   test('applies className', () => {
     render(<CalendarInput text="Select Date" selected={new Date()} className="custom-class" />);
