@@ -209,17 +209,20 @@ body .h-70vh {
   min-height: 100vh; 
 }
 
-.menu .menu-text-icon {overflow: hidden; /* Oculta o texto quando o menu está colapsado */
-  white-space: nowrap; /* Impede a quebra de linha */
-  max-width: 0; /* Inicia com largura máxima de 0 */
-  transition: max-width 0.3s ease, opacity 0.3s ease; /* Transição suave */
-  opacity: 0; /* Inicia oculto */
-  margin-left: 10px; /* Espaçamento entre o ícone e o texto */
+.menu .menu-text-icon {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  transition: max-width 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  margin-left: 10px;
   font-size: 16px;
 }
 .menu:hover .menu-text-icon {
-  max-width: 200px; /* Aumenta a largura máxima quando o menu é expandido */
-  opacity: 1; /* Torna o texto visível */
+  max-width: 200px;
+  opacity: 1;
+  position: relative;
+  top: 2px;
 }
 
 body .h-600px {

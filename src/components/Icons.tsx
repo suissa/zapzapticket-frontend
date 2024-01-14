@@ -13,6 +13,7 @@ import { IoReturnUpBack } from "react-icons/io5";
 import { BiCheckCircle } from "react-icons/bi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { TbUserSquareRounded } from "react-icons/tb";
+import { FiUsers } from "react-icons/fi";
 
 
 // Heroicons: https://heroicons.com/
@@ -123,3 +124,4 @@ export const IconMenuBurger = props => (<HiMenu className={`w-8 h-8 mt-1 ${props
 export const IconAccept = props => (<BiCheckCircle className={`w-8 h-8 mt-1 ${props.className}`}/>)
 export const IconThreeDots = props => (<BiDotsVerticalRounded className={`w-8 h-8 mt-1 ${props.className}`}/>)
 export const IconUserSquareRounded = props => (<TbUserSquareRounded className={`w-8 h-8 mt-1 ${props.className}`}/>)
+export const IconContacts = props => (<FiUsers className={`w-8 h-8 mt-1 ${props.className}`}/>)
