@@ -1,12 +1,17 @@
+
+import { InputHTMLAttributes } from "react";
+
+interface EntryInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  text: string;
+}
+
 export default function EntryInput(props: EntryInputProps) {
   const { text, ...rest } = props;
-  const inputId = rest.id || 'entry-input'; // Gerar um ID único ou usar um fornecido
 
   return (
     <div className={`flex flex-col ${props.className}`}>
-      <label htmlFor={inputId} className="mb-2">{text}</label>
+      <label className="mb-2">{text}</label>
       <input
-        id={inputId}
         {...rest}
         className={`
           border border-purple-500 rounded-md focus:outline-none
