@@ -65,6 +65,7 @@ export function useIsAuthenticated() {
     } else {
       // Token não existe
       router.push("/login");
+      alert("Usuário não existe")
     }
   }, [router]);
 }
