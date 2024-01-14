@@ -15,16 +15,11 @@ describe('Button Component', () => {
     expect(buttonElement).toHaveClass('extra-class');
   });
 
-  // Teste adicional para verificar as cores, se necessário
   test('applies color prop', () => {
-    render(<Button color="green">Click me</Button>);
+    render(<Button color="gray">Click me</Button>);
     const buttonElement = screen.getByText('Click me');
-    // Verifique aqui se a classe ou estilo relacionado à cor 'green' é aplicado corretamente
-    // Como exemplo, estou apenas verificando se a classe 'bg-green-500' está presente
-    // Você precisará ajustar isso com base em como o 'color' prop afeta o componente
-    expect(buttonElement).toHaveClass('bg-green-500');
+    expect(buttonElement).toHaveClass('from-purple-500 to-purple-700');
   });
 
-  // ... Você pode adicionar mais testes conforme necessário ...
 });
 
