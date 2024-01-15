@@ -1,45 +1,116 @@
+//  FUNCIONANDO
+// describe("Página de Login", () => {
+//   it("deve logar com sucesso", () => {
+//     cy.visit("http://localhost:3000/login");
+//     cy.get("input[type=\"email\"]").type("a@a.com");
+//     cy.get("input[type=\"password\"]").type("a");
+//     cy.get("button").contains("Entrar").click();
+//     cy.url().should("include", "/");
+
+//     // Verificar se o token existe apenas após redirecionar para a página '/'
+//     cy.window().then((window) => {
+//       // Aguarde até que o token exista no localStorage
+//       cy.wrap(null, { timeout: 10000 }).should(() => {
+//         const token = window.localStorage.getItem('token');
+//         expect(token).to.exist;
+//         // Realize outras verificações conforme necessário, por exemplo, se o token possui um formato específico
+//       });
+//     });
+//   });
+// });
 describe("Página de Login", () => {
   it("deve logar com sucesso", () => {
     cy.visit("http://localhost:3000/login");
-    cy.get("input[type=\"email\"]").type("a@a.com");
-    cy.get("input[type=\"password\"]").type("a");
+    cy.get("input[type='email']").type("a@a.com");
+    cy.get("input[type='password']").type("a");
     cy.get("button").contains("Entrar").click();
     cy.url().should("include", "/");
 
-    // Verificar se o token existe apenas após redirecionar para a página '/'
-    cy.window().then((window) => {
-      // Aguarde até que o token exista no localStorage
-      cy.wrap(null, { timeout: 10000 }).should(() => {
-        const token = window.localStorage.getItem('token');
-        expect(token).to.exist;
-        // Realize outras verificações conforme necessário, por exemplo, se o token possui um formato específico
+    // Função para aguardar o token estar disponível
+    const waitForToken = () => {
+      return new Cypress.Promise((resolve, reject) => {
+        let attempts = 0;
+        const maxAttempts = 20; // Número máximo de tentativas
+
+        const checkToken = () => {
+          console.log("cy.window");
+          cy.window().then((window) => {
+            console.log("cy.window");
+            const token = window.localStorage.getItem('token');
+            console.log("token", token);
+            if (token) {
+              console.log("resolve token", token);
+              resolve(token);
+            } else if (attempts < maxAttempts) {
+              attempts++;
+              console.log("resolve attempts", attempts);
+              setTimeout(checkToken, 1000); // Verifica novamente após 1 segundo
+            } else {
+              reject(new Error("Token não encontrado após várias tentativas"));
+            }
+          });
+        };
+        checkToken();
       });
+    };
+
+    // Aguarde o token e então escreva no arquivo
+    waitForToken().then((token) => {
+      console.log("cy.writeFile", token);
+      cy.writeFile('cypress/fixtures/token.json', { token: token });
+    }).catch((error) => {
+      // Tratar erro se o token não for encontrado
+      console.error(error);
     });
+
   });
 });
 
+
 // describe("Página de Login", () => {
-//   it("deve logar com sucesso e acessar páginas protegidas", () => {
-//     // Suponha que você tenha um endpoint de login no seu aplicativo.
-//     cy.request("POST", "localhost:9000/auth/login/", {
-//       email: "a@a.com",
-//       senha: "a",
-//     }).then((response) => {
-//       // Verifique se a solicitação de login foi bem-sucedida (status code 200, por exemplo).
-//       expect(response.status).to.equal(200);
+//   it("deve logar com sucesso", () => {
+//     cy.visit("http://localhost:3000/login");
+//     cy.get("input[type='email']").type("a@a.com");
+//     cy.get("input[type='password']").type("a");
+//     cy.get("button").contains("Entrar").click();
+//     cy.url().should("include", "/");
 
-//       // Verifique se o token JWT é retornado na resposta.
-//       expect(response.body).to.have.property("access_token");
+//     // Função para aguardar o token estar disponível
+//     const waitForToken = () => {
+//       return new Cypress.Promise((resolve, reject) => {
+//         let attempts = 0;
+//         const maxAttempts = 20; // Número máximo de tentativas
 
-//       // Guarde o token JWT para usar em futuras solicitações.
-//       const token = response.body.access_token;
+//         const checkToken = () => {
+//           console.log("checkToken");
+//           cy.window().then((window) => {
+//             console.log("cy.window then");
+//             const token = window.localStorage.getItem('token');
+//             console.log("cy.window then token", token);
+//             if (token) {
+//               console.log("cy.window then token if resolve", token);
+//               resolve(token);
+//             } else if (attempts < maxAttempts) {
+//               console.log("cy.window then else if", attempts);
+//               attempts++;
+//               setTimeout(checkToken, 1000); // Verifica novamente após 1 segundo
+//             } else {
+//               reject(new Error("Token não encontrado após várias tentativas"));
+//             }
+//           });
+//         };
+//         checkToken();
+//       });
+//     };
 
-//       // Realize qualquer ação adicional necessária, como navegar para uma página protegida.
-//       // Por exemplo:
-//       // cy.visit("/pagina-protegida", { headers: { Authorization: `Bearer ${token}` } });
-
-//       // Agora você pode realizar testes nas páginas protegidas usando o token JWT.
-//       // Certifique-se de incluir o token JWT nos cabeçalhos de suas solicitações para autenticar o acesso.
+//     // Aguarde o token e então escreva no arquivo
+//     waitForToken().then((token) => {
+//       console.log("cy.writeFile", token);
+//       cy.writeFile('cypress/fixtures/token.json', { token: token });
+//     }).catch((error) => {
+//       // Tratar erro se o token não for encontrado
+//       console.error(error);
 //     });
+
 //   });
 // });
