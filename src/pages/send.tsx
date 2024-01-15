@@ -161,9 +161,9 @@ export default function Home() {
   };
   return (
 
-    <div className="flex">
+    <div className="flex parent-container">
       <Menu onToggle={setIsSidebarExpanded} />
-      <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+      <div className={`page-container flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
           <div className="h-screen bg text-black p-10">
             <div className="flex justify-end text-white">
               <Button

@@ -241,7 +241,7 @@ export default function Table({
   }
 
   return (
-    <div>
+    <div className="h-70vh">
       {/* {qrCodeBase64 && <ModalQRCode64 qrCodeBase64={qrCodeBase64} />} */}
       {/* Botão para abrir o modal do QR Code */}
 

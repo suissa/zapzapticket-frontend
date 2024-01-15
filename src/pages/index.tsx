@@ -36,9 +36,9 @@ export default function Home() {
       <Head>
         <title>Conexões</title>
       </Head>
-      <div>
+      <div className=" parent-container">
         <Menu onToggle={setIsSidebarExpanded} />
-        <div className={`flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
+        <div className={`page-container flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
         <div className="h-screen bg p-10">
           <Layout title="Conexões" width="w-3/3">
             {tableVisible ? (
