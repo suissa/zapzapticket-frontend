@@ -8,12 +8,10 @@ describe("Página de Mensagens", () => {
       }
     });
 
-    // Mock da resposta da API de listagem de tarefas
     cy.intercept("GET", "http://localhost:9000/messages", {
       statusCode: 200,
       body: [
         { _id: "1", title: "Mensagem 1", text: "mensagem 1" },
-        // Adicione mais tarefas mockados conforme necessário
       ]
     }).as("getMessages");
 
