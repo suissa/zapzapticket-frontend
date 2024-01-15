@@ -8,20 +8,16 @@ describe("Página de Tarefas", () => {
       }
     });
 
-    // Mock da resposta da API de listagem de contatos
     cy.intercept("GET", "http://localhost:9000/contacts", {
       statusCode: 200,
       body: [
         { _id: "1", name: "Contato 1", phone: "123456789"},
-        // Adicione mais contatos mockados conforme necessário
       ]
     }).as("getContacts");
 
-    // Define o token JWT mockado no localStorage antes de visitar a página
     localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyODg0NTMsImV4cCI6MTcwNTI5MjA1M30.DK4dDoDEH4UO9NPrE4V5sjsy7uL_15aYaFg-hZBmxQE");
     cy.visit("http://localhost:3000/contacts");
 
-    // Espera a requisição GET /api/contacts ser chamada
     cy.wait("@getContacts");
   });
 
@@ -35,6 +31,4 @@ describe("Página de Tarefas", () => {
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
-
-  // Adicione mais testes conforme necessário...
 });
