@@ -26,7 +26,7 @@ export default function Form({ plan, canceled, planModified }: FormProps) {
 
 
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -77,6 +77,6 @@ export default function Form({ plan, canceled, planModified }: FormProps) {
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 }

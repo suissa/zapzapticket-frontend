@@ -19,7 +19,7 @@ export default function Form({ group, canceled, groupModified }: FormProps) {
     groupModified?.(new Group(subject, _id, 0, isActive));
   }
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -53,7 +53,7 @@ export default function Form({ group, canceled, groupModified }: FormProps) {
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }

@@ -20,7 +20,7 @@ export default function Form({ task, canceled, taskModified }: FormProps) {
   };
 
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -47,7 +47,7 @@ export default function Form({ task, canceled, taskModified }: FormProps) {
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }

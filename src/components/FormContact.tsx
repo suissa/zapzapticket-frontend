@@ -91,7 +91,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
   // Restante do seu código...
   
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -194,7 +194,7 @@ export default function Form({ contact, canceled, contactModified }: FormProps) 
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }

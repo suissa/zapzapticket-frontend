@@ -36,7 +36,7 @@ export default function Form({ queue, canceled, queueModified }: FormProps) {
   console.log("Cor atual:", color);
 
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -76,6 +76,6 @@ export default function Form({ queue, canceled, queueModified }: FormProps) {
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   );
 }

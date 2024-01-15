@@ -104,7 +104,7 @@ export default function Form({ company, canceled, companyModified, plans }: Form
   ];
 
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -175,7 +175,7 @@ export default function Form({ company, canceled, companyModified, plans }: Form
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }

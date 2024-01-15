@@ -24,7 +24,7 @@ export default function Form({ scheduleMessage, canceled, scheduleMessageModifie
     console.log("setIsActive", isActive)
   }
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -70,7 +70,7 @@ export default function Form({ scheduleMessage, canceled, scheduleMessageModifie
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }

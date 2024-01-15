@@ -24,7 +24,7 @@ export default function Form({ message, canceled, messageModified }: FormProps) 
     messageModified?.(new Message(title, text, _id));
   }
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -64,7 +64,7 @@ export default function Form({ message, canceled, messageModified }: FormProps) 
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }
