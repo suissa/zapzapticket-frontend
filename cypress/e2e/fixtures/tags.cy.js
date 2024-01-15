@@ -1,6 +1,5 @@
 describe("Página de tags", () => {
   beforeEach(() => {
-    // Mock da resposta da API de login (se necessário)
     cy.intercept("POST", "http://localhost:9000/login", {
       statusCode: 200,
       body: {
@@ -32,5 +31,4 @@ describe("Página de tags", () => {
     cy.get("table").should("not.exist");
   });
 
-  // Adicione mais testes conforme necessário...
 });
