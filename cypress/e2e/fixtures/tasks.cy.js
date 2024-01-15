@@ -8,30 +8,30 @@ describe("Página de Tarefas", () => {
       }
     });
 
-    // Mock da resposta da API de listagem de contatos
-    cy.intercept("GET", "http://localhost:9000/contacts", {
+    // Mock da resposta da API de listagem de tarefas
+    cy.intercept("GET", "http://localhost:9000/tasks/actives", {
       statusCode: 200,
       body: [
-        { _id: "1", name: "Contato 1", phone: "123456789"},
-        // Adicione mais contatos mockados conforme necessário
+        { _id: "1", text: "Tarefa 1" },
+        // Adicione mais tarefas mockados conforme necessário
       ]
-    }).as("getContacts");
+    }).as("getTasks");
 
     // Define o token JWT mockado no localStorage antes de visitar a página
     localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyODg0NTMsImV4cCI6MTcwNTI5MjA1M30.DK4dDoDEH4UO9NPrE4V5sjsy7uL_15aYaFg-hZBmxQE");
-    cy.visit("http://localhost:3000/contacts");
+    cy.visit("http://localhost:3000/tasks");
 
-    // Espera a requisição GET /api/contacts ser chamada
-    cy.wait("@getContacts");
+    // Espera a requisição GET /api/tasks ser chamada
+    cy.wait("@getTasks");
   });
 
-  it("deve exibir uma lista de contatos", () => {
+  it("deve exibir uma lista de tarefas", () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
 
-  it("deve mudar da tabela para o formulário ao clicar em Novo Contato", () => {
-    cy.get("button").contains("Novo Contato").click();
+  it("deve mudar da tabela para o formulário ao clicar em Nova Tarefa", () => {
+    cy.get("button").contains("Nova Tarefa").click();
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });

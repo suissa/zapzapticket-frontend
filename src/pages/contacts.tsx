@@ -41,7 +41,7 @@ export default function Home() {
     <div className="flex parent-container">
       <Menu onToggle={setIsSidebarExpanded} />
       <div className={`page-container flex-1 transition-all duration-300 ${isSidebarExpanded ? "ml-64" : "ml-10"}`}>
-        <div className="h-screen bg text-white p-10">
+        <div className="ml-60px h-screen bg text-white p-10">
         <Layout title="Contatos" width="w-3/3">
           {tableVisible ? (
             <div>

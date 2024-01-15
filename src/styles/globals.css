@@ -227,6 +227,10 @@ body .h-70vh {
 body .h-600px {
   height: 600px;
 }
+body .ml-60px {
+  margin-left: 60px;
+}
+
 .slide-up {
   animation: slideUp 0.5s forwards;
 }
