@@ -4,7 +4,7 @@ describe("Página de Tarefas", () => {
     cy.intercept("POST", "http://localhost:9000/login", {
       statusCode: 200,
       body: {
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyODM5MTYsImV4cCI6MTcwNTI4NzUxNn0.MyJuXY7h0vvSZFPsyrp5joxvVqF-WejSVSaUGqH2xtA"
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyODg0NTMsImV4cCI6MTcwNTI5MjA1M30.DK4dDoDEH4UO9NPrE4V5sjsy7uL_15aYaFg-hZBmxQE"
       }
     });
 
@@ -18,7 +18,7 @@ describe("Página de Tarefas", () => {
     }).as("getTasks");
 
     // Define o token JWT mockado no localStorage antes de visitar a página
-    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyODM5MTYsImV4cCI6MTcwNTI4NzUxNn0.MyJuXY7h0vvSZFPsyrp5joxvVqF-WejSVSaUGqH2xtA");
+    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyODg0NTMsImV4cCI6MTcwNTI5MjA1M30.DK4dDoDEH4UO9NPrE4V5sjsy7uL_15aYaFg-hZBmxQE");
     cy.visit("http://localhost:3000/tasks");
 
     // Espera a requisição GET /api/tasks ser chamada

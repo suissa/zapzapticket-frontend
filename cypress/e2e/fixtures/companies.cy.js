@@ -12,7 +12,7 @@ describe("Página de Empresas", () => {
     cy.intercept("GET", "http://localhost:9000/companies", {
       statusCode: 200,
       body: [
-        { _id: "1", name: "Tag 1", color: "#000000" },
+        { _id: "1", name: "Empresa 1", phone: "123456789", status: "Ativo", planId: "teste", dueDate: "16/01/2024", recurrence: true  },
         // Adicione mais tarefas mockados conforme necessário
       ]
     }).as("getTasks");
