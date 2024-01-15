@@ -25,7 +25,7 @@ describe("Página de tags", () => {
     cy.wait("@getTasks");
   });
 
-  it("deve exibir uma lista de tarefas", () => {
+  it("deve exibir uma lista de tags", () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
