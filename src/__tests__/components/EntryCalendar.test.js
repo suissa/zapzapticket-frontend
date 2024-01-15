@@ -14,7 +14,7 @@ jest.mock('react-datepicker', () => {
 
     return (
       <input
-        type="text" // Mudar para 'text' para evitar a formatação automática do tipo 'date'
+        type="text"
         value={formattedDate}
         onChange={e => {
           const [day, month, year] = e.target.value.split('/');
@@ -34,12 +34,12 @@ jest.mock('react-datepicker', () => {
 
 describe('CalendarInput Component', () => {
   test('renders correctly', () => {
-    const testDate = new Date(2020, 5, 15); // Junho é 5 porque Janeiro é 0
+    const testDate = new Date(2020, 5, 15);
     render(<CalendarInput text="Select Date" selected={testDate} />);
     const labelElement = screen.getByText('Select Date');
     const datePickerInput = screen.getByRole('textbox');
     expect(labelElement).toBeInTheDocument();
-    expect(datePickerInput.value).toBe('06/15/2020'); // Verifica o formato DD/MM/YYYY
+    expect(datePickerInput.value).toBe('06/15/2020');
   });
 
   test('applies className', () => {
