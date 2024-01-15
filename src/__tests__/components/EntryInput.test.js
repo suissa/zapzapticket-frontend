@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import EntryInput from '../../components/EntryInput'; // Ajuste o caminho conforme a estrutura do seu projeto
+import EntryInput from '../../components/EntryInput';
 
 describe('EntryInput Component', () => {
   test('renders correctly', () => {
