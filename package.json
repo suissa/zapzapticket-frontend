@@ -44,6 +44,7 @@
     "@types/react": "18.0.24",
     "autoprefixer": "^10.4.13",
     "babel-jest": "^29.7.0",
+    "cypress": "^13.6.2",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.0",
     "identity-obj-proxy": "^3.0.0",

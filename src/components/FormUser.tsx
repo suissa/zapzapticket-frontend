@@ -81,7 +81,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
   ,[password]})
 
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -186,7 +186,7 @@ export default function Form({ user, canceled, userModified }: FormProps) {
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }

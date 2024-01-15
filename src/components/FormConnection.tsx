@@ -21,7 +21,7 @@ export default function Form({ connection, canceled, connectionModified }: FormP
     connectionModified?.(new Connection(name, phone, _id));
   }
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -76,7 +76,7 @@ export default function Form({ connection, canceled, connectionModified }: FormP
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   )
 
 }

@@ -36,7 +36,7 @@ export default function Form({ tag, canceled, tagModified, initialColor }: FormP
   console.log("Cor atual:", color);
 
   return (
-    <div>
+    <form>
       {_id ? (
         <EntryInput
           text="ID"
@@ -70,6 +70,6 @@ export default function Form({ tag, canceled, tagModified, initialColor }: FormP
           Cancelar
         </Button>
       </div>
-    </div>
+    </form>
   );
 }
