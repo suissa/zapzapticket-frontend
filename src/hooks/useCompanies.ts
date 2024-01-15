@@ -35,7 +35,9 @@ export default function useCompanies() {
   }
 
   function listPlans() {
-    fetch(`${API_URL}/plans/actives`)
+    fetch(`${API_URL}/plans/actives`, {
+      headers: getAuthHeader(),
+    })
       .then(response => response.json())
       .then(data => {
         console.log("listPlans then", data)
