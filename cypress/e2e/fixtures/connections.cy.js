@@ -8,21 +8,18 @@ describe("Página de Conexões", () => {
       }
     });
 
-    // Mock da resposta da API de listagem de tarefas
     cy.intercept("GET", "http://localhost:9000/connections", {
       statusCode: 200,
       body: [
         { _id: "1", name: "Conexão 1", phone: "123456789", instanceName: "Conexao_1-123456789" },
-        // Adicione mais tarefas mockados conforme necessário
       ]
-    }).as("getTasks");
+    }).as("getConnections");
 
-    // Define o token JWT mockado no localStorage antes de visitar a página
     localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyODg0NTMsImV4cCI6MTcwNTI5MjA1M30.DK4dDoDEH4UO9NPrE4V5sjsy7uL_15aYaFg-hZBmxQE");
     cy.visit("http://localhost:3000/connections");
 
     // Espera a requisição GET /api/connections ser chamada
-    cy.wait("@getTasks");
+    cy.wait("@getConnections");
   });
 
   it("deve exibir uma lista de connections", () => {
