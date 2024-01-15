@@ -25,7 +25,8 @@ describe('EntryInput Component', () => {
 
   test('applies custom className', () => {
     render(<EntryInput text="Label Text" className="custom-class" />);
-    const divElement = screen.getByLabelText('Label Text').parentElement;
+    const divElement = screen.getByText('Label Text').closest('div');
     expect(divElement).toHaveClass('custom-class');
   });
+
 });
