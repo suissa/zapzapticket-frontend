@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import EntryInputSearch from '../../components/EntryInputSearch'; // Ajuste o caminho conforme a estrutura do seu projeto
+import EntryInputSearch from '../../components/EntryInputSearch';
 
 describe('EntryInputSearch Component', () => {
   test('renders correctly', () => {
@@ -23,5 +23,5 @@ describe('EntryInputSearch Component', () => {
     expect(onKeyDown).toHaveBeenCalled();
   });
 
-  // Adicione mais testes conforme necessário...
+
 });
