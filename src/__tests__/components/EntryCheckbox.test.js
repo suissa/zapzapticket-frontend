@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import EntryCheckbox from '../../components/EntryCheckbox'; // Ajuste o caminho conforme a estrutura do seu projeto
+import EntryCheckbox from '../../components/EntryCheckbox';
 
 describe('EntryCheckbox Component', () => {
   test('renders correctly', () => {
