@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: End-to-End Tests
 
 on: [push]
 
@@ -7,17 +7,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout
       uses: actions/checkout@v2
 
     - name: Setup Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v1
       with:
-        node-version: "20" # Especificar a versão do Node.js
+        node-version: '14'
 
     - name: Install Dependencies
       run: npm install
 
-    - name: Run Cypress Tests
-      run: npx cypress run --record --key 67fd9c51-6b49-446d-b8b8-d24b5d798313
+    - name: Start Server
+      run: npm start &
+      env:
+        CI: true
 
+    - name: Run Cypress Tests
+      uses: cypress-io/github-action@v2
+      with:
+        start: npm start
+        wait-on: 'http://localhost:3000'
+        wait-on-timeout: 60
