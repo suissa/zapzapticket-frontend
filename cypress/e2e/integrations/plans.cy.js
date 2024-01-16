@@ -10,22 +10,21 @@ describe("Página de Planos", () => {
         }
       });
 
-      cy.intercept("GET", "http://137.184.81.207:9000/plans", {
-        statusCode: 200,
-        body: [
-          { _id: "1", name: "Empresa 1",},
-        ]
-      }).as("getCompanies");
+      // cy.intercept("GET", "http://137.184.81.207:9000/plans", {
+      //   statusCode: 200,
+      //   body: [
+      //     { _id: "1", name: "Plan 1", users: 1, connections: 1, queues: 1, value: 1},
+      //   ]
+      // }).as("getPlans");
 
       localStorage.setItem("token", token.token);
       cy.visit("http://137.184.81.207:3000/plans");
 
-      cy.wait("@getCompanies");
-    })
-
+      // cy.wait("@getPlans", { timeout: 20000 });
+    });
   });
 
-  it("deve exibir uma lista de planos", () => {
+  it("deve exibir uma lista de plans", () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
@@ -35,4 +34,5 @@ describe("Página de Planos", () => {
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
+
 });

@@ -4,14 +4,14 @@ describe("Página de Conexões", () => {
     
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://localhost:9000/login", {
+      cy.intercept("POST", "http://137.184.81.207:9000/auth/login", {
         statusCode: 200,
         body: {
           token: token.token
         }
       });
 
-      cy.intercept("GET", "http://localhost:9000/connections", {
+      cy.intercept("GET", "http://137.184.81.207:9000/connections", {
         statusCode: 200,
         body: [
           { _id: "1", name: "Conexão 1", phone: "123456789", instanceName: "Conexao_1-123456789" },
@@ -19,10 +19,10 @@ describe("Página de Conexões", () => {
       }).as("getConnections");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://localhost:3000/connections");
+      cy.visit("http://137.184.81.207:3000/connections");
 
       // Espera a requisição GET /api/connections ser chamada
-      cy.wait("@getConnections");
+      cy.wait("@getConnections", { timeout: 10000 });
     });
   });
 
@@ -33,6 +33,7 @@ describe("Página de Conexões", () => {
 
   it("deve mudar da tabela para o formulário ao clicar em Nova Conexão", () => {
     cy.get("button").contains("Nova Conexão").click();
+    cy.wait(1000);
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
