@@ -23,6 +23,9 @@ jobs:
     - name: Run Build
       run: npx next build
 
+    - name: Update Cypress Cache
+      run: npx cypress cache clear
+
     - name: Run Cypress Tests
       uses: cypress-io/github-action@v2
       with:
