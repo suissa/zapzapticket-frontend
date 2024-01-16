@@ -24,7 +24,7 @@ jobs:
       run: npx next build
 
     - name: Start Server
-      run: npm run dev
+      run: npm start
       env:
         CI: true
 
