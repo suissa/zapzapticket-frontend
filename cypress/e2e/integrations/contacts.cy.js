@@ -14,17 +14,17 @@ describe("Página de Contatos", () => {
       cy.fixture("contacts").then((contacts) => {
         console.log(contacts);
       })
-      // cy.intercept("GET", "http://localhost:9000/contacts", {
-      //   statusCode: 200,
-      //   body: [
-      //     { _id: "1", name: "Contato 1", phone: "123456789"},
-      //   ]
-      // }).as("getContacts");
+      cy.intercept("GET", "http://localhost:9000/contacts", {
+        statusCode: 200,
+        body: [
+          { _id: "1", name: "Contato 1", phone: "123456789"},
+        ]
+      }).as("getContacts");
 
       localStorage.setItem("token", token.token);
       cy.visit("http://localhost:3000/contacts");
 
-      // cy.wait("@getContacts");
+      cy.wait("@getContacts");
     })
 
   });
