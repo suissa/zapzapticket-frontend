@@ -3,14 +3,14 @@ describe("Página de Planos", () => {
 
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://137.184.81.207:9000/login", {
+      cy.intercept("POST", "http://localhost:9000/login", {
         statusCode: 200,
         body: {
           token: token.token
         }
       });
 
-      cy.intercept("GET", "http://137.184.81.207:9000/plans", {
+      cy.intercept("GET", "http://localhost:9000/plans", {
         statusCode: 200,
         body: [
           { _id: "1", name: "Empresa 1",},
@@ -18,7 +18,7 @@ describe("Página de Planos", () => {
       }).as("getCompanies");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://137.184.81.207:3000/plans");
+      cy.visit("http://localhost:3000/plans");
 
       cy.wait("@getCompanies");
     })

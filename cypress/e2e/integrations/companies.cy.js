@@ -3,14 +3,14 @@ describe("Página de Empresas", () => {
 
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://localhost:9000/login", {
+      cy.intercept("POST", "http://137.184.81.207:9000/login", {
         statusCode: 200,
         body: {
           token: token.token
         }
       });
 
-      cy.intercept("GET", "http://localhost:9000/companies", {
+      cy.intercept("GET", "http://137.184.81.207:9000/companies", {
         statusCode: 200,
         body: [
           { _id: "1", name: "Empresa 1", phone: "123456789", status: "Ativo", dueDate: "16/01/2024", recurrence: "Mensal"},
@@ -18,7 +18,7 @@ describe("Página de Empresas", () => {
       }).as("getCompanies");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://localhost:3000/companies");
+      cy.visit("http://137.184.81.207:3000/companies");
 
       cy.wait("@getCompanies");
     })
