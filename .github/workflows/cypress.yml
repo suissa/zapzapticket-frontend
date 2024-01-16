@@ -19,6 +19,8 @@ jobs:
 
     - name: Install Dependencies
       run: npm install
+      env:
+        cache-version: v1
 
     - name: Run Build
       run: npx next build
@@ -32,3 +34,4 @@ jobs:
         start: npm start
         wait-on: 'http://localhost:3000'
         wait-on-timeout: 60
+        config-file: cypress.config.ts
