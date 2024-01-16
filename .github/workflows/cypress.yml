@@ -24,13 +24,13 @@ jobs:
       run: npx next build
 
     - name: Start Server
-      run: npm run dev &
+      run: npm start
       env:
         CI: true
 
     - name: Run Cypress Tests
       uses: cypress-io/github-action@v2
       with:
-        start: npm start
         wait-on: 'http://localhost:3000'
         wait-on-timeout: 60
+      
