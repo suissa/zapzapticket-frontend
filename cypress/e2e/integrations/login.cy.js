@@ -21,8 +21,8 @@
 describe("Página de Login", () => {
   it("deve logar com sucesso", () => {
     cy.visit("http://137.184.81.207:3000/login");
-    cy.get("input[type='email']").type("a@a.com");
-    cy.get("input[type='password']").type("a");
+    cy.get("input[type='email']").type("admin@admin.com");
+    cy.get("input[type='password']").type("admin");
     cy.get("button").contains("Entrar").click();
     cy.url().should("include", "/");
 
