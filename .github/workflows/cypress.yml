@@ -1,23 +1,23 @@
-# name: Cypress Tests
+name: Cypress Tests
 
-# on: [push]
+on: [push]
 
-# jobs:
-#   cypress-run:
-#     runs-on: ubuntu-latest
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
 
-#     steps:
-#     - name: Checkout Repository
-#       uses: actions/checkout@v2
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-#     - name: Setup Node.js
-#       uses: actions/setup-node@v2
-#       with:
-#         node-version: "20" # Especificar a versão do Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: "20" # Especificar a versão do Node.js
 
-#     - name: Install Dependencies
-#       run: npm install
+    - name: Install Dependencies
+      run: npm install
 
-#     - name: Run Cypress Tests
-#       run: npx cypress run --record --key 67fd9c51-6b49-446d-b8b8-d24b5d798313
+    - name: Run Cypress Tests
+      run: npx cypress run --record --key 67fd9c51-6b49-446d-b8b8-d24b5d798313
 
