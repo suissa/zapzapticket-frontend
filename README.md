@@ -1,16 +1,16 @@
 # ZapzapTicket - frontend
 
-Projeto em desenvolvimento baseado no Whaticket porém utilizando Next.js e com dependências mais atuais para não dar conflito já que o Whaticket iniciou usando libs antigas.
+Project under development based on Whaticket but using Next.js and with more current dependencies to avoid conflicts since Whaticket started using older libs.
 
-Testes com Jest para os componentes e e2e com Cypress.
+Tests with Jest for the components and e2e with Cypress.
 
-## Instalação
+## Installation
 
 ```bash
 $ npm install
 ```
 
-## Rodando o app
+## Running the app
 
 ```bash
 # development
@@ -21,7 +21,7 @@ $ npm run build
 $ npm start
 ```
 
-## Testando
+## Testing
 
 ```bash
 $ npm run test
