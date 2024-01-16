@@ -1,26 +1,28 @@
 describe("Página de Mensagens", () => {
   beforeEach(() => {
-    // Mock da resposta da API de login (se necessário)
-    cy.intercept("POST", "http://localhost:9000/login", {
-      statusCode: 200,
-      body: {
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyOTIzMzMsImV4cCI6MTcwNTI5NTkzM30.TxSO20RXxsT38R22qOTuUov7xCHoW-BKynSn_7x-ahM"
-      }
+
+
+    cy.fixture("token").then((token) => {
+      console.log(token);
+      cy.intercept("POST", "http://localhost:9000/login", {
+        statusCode: 200,
+        body: {
+          token: token.token
+        }
+      });
+
+      cy.intercept("GET", "http://localhost:9000/messages", {
+        statusCode: 200,
+        body: [
+          { _id: "1", title: "Mensagem 1", text: "mensagem 1" },
+        ]
+      }).as("getMessages");
+
+      localStorage.setItem("token", token.token);
+      cy.visit("http://localhost:3000/messages");
+
+      cy.wait("@getMessages");
     });
-
-    cy.intercept("GET", "http://localhost:9000/messages", {
-      statusCode: 200,
-      body: [
-        { _id: "1", title: "Mensagem 1", text: "mensagem 1" },
-      ]
-    }).as("getMessages");
-
-    // Define o token JWT mockado no localStorage antes de visitar a página
-    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDUyOTIzMzMsImV4cCI6MTcwNTI5NTkzM30.TxSO20RXxsT38R22qOTuUov7xCHoW-BKynSn_7x-ahM");
-    cy.visit("http://localhost:3000/messages");
-
-    // Espera a requisição GET /api/messages ser chamada
-    cy.wait("@getMessages");
   });
 
   it("deve exibir uma lista de messages", () => {
