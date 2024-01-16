@@ -4,14 +4,14 @@ describe("Página de Mensagens", () => {
 
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://localhost:9000/login", {
+      cy.intercept("POST", "http://137.184.81.207:9000/login", {
         statusCode: 200,
         body: {
           token: token.token
         }
       });
 
-      cy.intercept("GET", "http://localhost:9000/messages", {
+      cy.intercept("GET", "http://137.184.81.207:9000/messages", {
         statusCode: 200,
         body: [
           { _id: "1", title: "Mensagem 1", text: "mensagem 1" },
@@ -19,7 +19,7 @@ describe("Página de Mensagens", () => {
       }).as("getMessages");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://localhost:3000/messages");
+      cy.visit("http://137.184.81.207:3000/messages");
 
       cy.wait("@getMessages");
     });
