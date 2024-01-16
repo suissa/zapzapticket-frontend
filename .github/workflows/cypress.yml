@@ -34,7 +34,4 @@ jobs:
         start: npm start
         wait-on: 'http://localhost:3000'
         wait-on-timeout: 60
-        install: true
-        cache-key: cypress-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-        cypress-version: '10.0.0' # ou a versão que você deseja
-    
+        config-file: cypress.config.ts
