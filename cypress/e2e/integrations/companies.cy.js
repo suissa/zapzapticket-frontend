@@ -1,11 +1,12 @@
-const ENV = "development"
-// const ENV = "production"
+// const ENV = "development"
+const ENV = "production"
 const BASE_URL_DEV = "http://localhost"
 const BASE_URL_PROD = "http://137.184.81.207"
 const BASE_URL = ENV == "development" ? BASE_URL_DEV : BASE_URL_PROD
 const LOGIN_URL = `${BASE_URL}:9000/login`
 const API_URL = `${BASE_URL}:9000/companies`
 const TEST_URL = `${BASE_URL}:3000/companies`
+const BUTTON = "Nova Empresa"
 
 describe("Página de Empresas", () => {
   beforeEach(() => {
@@ -39,14 +40,14 @@ describe("Página de Empresas", () => {
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
 
-  it("deve mudar da tabela para o formulário ao clicar em Nova Empresa", () => {
-    cy.get("button").contains("Nova Empresa").click();
+  it(`deve mudar da tabela para o formulário ao clicar em ${BUTTON}`, () => {
+    cy.get("button").contains(BUTTON).click();
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
 
   it("deve mudar do formulário para a tabela ao clicar em Cancelar", () => {
-    cy.get("button").contains("Nova Empresa").click();
+    cy.get("button").contains(BUTTON).click();
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
     cy.get("button").contains("Cancelar").click();
