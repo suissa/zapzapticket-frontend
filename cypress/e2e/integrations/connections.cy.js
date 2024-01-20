@@ -38,5 +38,15 @@ describe("Página de Conexões", () => {
     cy.get("table").should("not.exist");
   });
 
-  // Adicione mais testes conforme necessário...
+  it("deve mudar da tabela para o formulário ao clicar em Cancelar", () => {
+    cy.get("button").contains("Nova Conexão").click();
+    cy.wait(1000);
+    cy.get("form").should("exist");
+    cy.get("table").should("not.exist");
+
+    cy.get("button").contains("Cancelar").click();
+    cy.wait(1000);
+    cy.get("table").should("exist");
+    cy.get("form").should("not.exist");
+  });
 });
