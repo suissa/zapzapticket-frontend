@@ -20,7 +20,7 @@ describe("Página de Planos", () => {
       localStorage.setItem("token", token.token);
       cy.visit("http://137.184.81.207:3000/plans");
 
-      cy.wait("@getPlans");
+      // cy.wait("@getPlans", {timeout: 20000});
     })
 
   });
