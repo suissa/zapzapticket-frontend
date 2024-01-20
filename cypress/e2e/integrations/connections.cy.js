@@ -4,7 +4,7 @@ describe("Página de Conexões", () => {
     
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://137.184.81.207:9000/auth/login", {
+      cy.intercept("POST", "http://137.184.81.207:9000/auth/login", { 
         statusCode: 200,
         body: {
           token: token.token
@@ -38,5 +38,12 @@ describe("Página de Conexões", () => {
     cy.get("table").should("not.exist");
   });
 
-  // Adicione mais testes conforme necessário...
+  it("deve mudar do formulário para a tabela ao clicar em Cancelar", () => {
+    cy.get("button").contains("Nova Conexão").click();
+    cy.get("form").should("exist");
+    cy.get("table").should("not.exist");
+    cy.get("button").contains("Cancelar").click();
+    cy.get("table").should("exist");
+    cy.get("form").should("not.exist");
+  });
 });
