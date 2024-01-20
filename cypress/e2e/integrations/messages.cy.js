@@ -1,17 +1,27 @@
+// const ENV = "development"
+const ENV = "production"
+const BASE_URL_DEV = "http://localhost"
+const BASE_URL_PROD = "http://137.184.81.207"
+const BASE_URL = ENV == "development" ? BASE_URL_DEV : BASE_URL_PROD
+const LOGIN_URL = `${BASE_URL}:9000/login`
+const API_URL = `${BASE_URL}:9000/messages`
+const TEST_URL = `${BASE_URL}:3000/messages`
+const BUTTON = "Nova Mensagem"
+
 describe("Página de Mensagens", () => {
   beforeEach(() => {
 
 
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://137.184.81.207:9000/login", {
+      cy.intercept("POST", `${LOGIN_URL}`, {
         statusCode: 200,
         body: {
           token: token.token
         }
       });
 
-      cy.intercept("GET", "http://137.184.81.207:9000/messages", {
+      cy.intercept("GET", `${API_URL}`, {
         statusCode: 200,
         body: [
           { _id: "1", title: "Mensagem 1", text: "mensagem 1" },
@@ -19,7 +29,7 @@ describe("Página de Mensagens", () => {
       }).as("getMessages");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://137.184.81.207:3000/messages");
+      cy.visit(`${TEST_URL}`);
 
       cy.wait("@getMessages");
     });
