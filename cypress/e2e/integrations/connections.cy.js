@@ -7,34 +7,30 @@ const LOGIN_URL = `${BASE_URL}:9000/login`
 const API_URL = `${BASE_URL}:9000/connections`
 const TEST_URL = `${BASE_URL}:3000/connections`
 const BUTTON = "Nova Conexão"
+const ENTITY = { _id: "1", name: "Conexão 1", phone: "123456789", instanceName: "Conexao_1-123456789" }
+const ENTITY_PLURAL_NAME = "Mensagens"
+const TEST_NAME = `Página de ${ENTITY_PLURAL_NAME}`
 
-describe("Página de Conexões", () => {
+describe(TEST_NAME, () => {
   beforeEach(() => {
     cy.fixture("token").then((token) => {
       console.log(token);
       cy.intercept("POST", `${LOGIN_URL}`, {
         statusCode: 200,
-        body: {
-          token: token.token
-        }
+        body: { token: token.token }
       });
 
       cy.intercept("GET", `${API_URL}`, {
         statusCode: 200,
-        body: [
-          { _id: "1", name: "Conexão 1", phone: "123456789", instanceName: "Conexao_1-123456789" },
-        ]
-      }).as("getConnections");
+        body: [ ENTITY ]
+      }).as("getPlans");
 
       localStorage.setItem("token", token.token);
       cy.visit(`${TEST_URL}`);
-
-      // Espera a requisição GET /api/connections ser chamada
-      // cy.wait("@getConnections", { timeout: 10000 });
-    });
+    })
   });
 
-  it("deve exibir uma lista de conexões", () => {
+  it(`deve exibir uma lista de ${ENTITY_PLURAL_NAME}`, () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });

@@ -7,35 +7,30 @@ const LOGIN_URL = `${BASE_URL}:9000/login`
 const API_URL = `${BASE_URL}:9000/messages`
 const TEST_URL = `${BASE_URL}:3000/messages`
 const BUTTON = "Nova Mensagem"
+const ENTITY = { _id: "1", title: "Mensagem 1", text: "mensagem 1" }
+const ENTITY_PLURAL_NAME = "Mensagens"
+const TEST_NAME = `Página de ${ENTITY_PLURAL_NAME}`
 
-describe("Página de Mensagens", () => {
+describe(TEST_NAME, () => {
   beforeEach(() => {
-
-
     cy.fixture("token").then((token) => {
       console.log(token);
       cy.intercept("POST", `${LOGIN_URL}`, {
         statusCode: 200,
-        body: {
-          token: token.token
-        }
+        body: { token: token.token }
       });
 
       cy.intercept("GET", `${API_URL}`, {
         statusCode: 200,
-        body: [
-          { _id: "1", title: "Mensagem 1", text: "mensagem 1" },
-        ]
-      }).as("getMessages");
+        body: [ ENTITY ]
+      }).as("getPlans");
 
       localStorage.setItem("token", token.token);
       cy.visit(`${TEST_URL}`);
-
-      cy.wait("@getMessages");
-    });
+    })
   });
 
-  it("deve exibir uma lista de messages", () => {
+  it(`deve exibir uma lista de ${ENTITY_PLURAL_NAME}`, () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });

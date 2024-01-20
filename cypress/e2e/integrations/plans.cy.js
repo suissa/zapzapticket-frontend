@@ -6,36 +6,31 @@ const BASE_URL = ENV == "development" ? BASE_URL_DEV : BASE_URL_PROD
 const LOGIN_URL = `${BASE_URL}:9000/login`
 const API_URL = `${BASE_URL}:9000/plans/active`
 const TEST_URL = `${BASE_URL}:3000/plans`
-const BUTTON = "Nova Mensagem"
+const BUTTON = "Novo Plan"
+const ENTITY = { _id: "1", name: "Plano 1", users: 1, connections: 1, queues: 1, value: 1}
+const ENTITY_PLURAL_NAME = "Planos"
+const TEST_NAME = `Página de ${ENTITY_PLURAL_NAME}`
 
-describe("Página de Planos", () => {
+describe(TEST_NAME, () => {
   beforeEach(() => {
-
     cy.fixture("token").then((token) => {
       console.log(token);
       cy.intercept("POST", `${LOGIN_URL}`, {
         statusCode: 200,
-        body: {
-          token: token.token
-        }
+        body: { token: token.token }
       });
 
       cy.intercept("GET", `${API_URL}`, {
         statusCode: 200,
-        body: [
-          { _id: "1", name: "Plano 1", users: 1, connections: 1, queues: 1, value: 1},
-        ]
+        body: [ ENTITY ]
       }).as("getPlans");
 
       localStorage.setItem("token", token.token);
       cy.visit(`${TEST_URL}`);
-
-      // cy.wait("@getPlans", {timeout: 20000});
     })
-
   });
 
-  it("deve exibir uma lista de empresas", () => {
+  it(`deve exibir uma lista de ${ENTITY_PLURAL_NAME}`, () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
