@@ -50,3 +50,4 @@ describe(TEST_NAME, () => {
     cy.get("form").should("not.exist");
   });
 });
+
