@@ -1,46 +1,52 @@
-describe("Página de Contatos", () => {
-  beforeEach(() => {
+// const ENV = "development"
+const ENV = "production"
+const BASE_URL_DEV = "http://localhost"
+const BASE_URL_PROD = "http://137.184.81.207"
+const BASE_URL = ENV == "development" ? BASE_URL_DEV : BASE_URL_PROD
+const LOGIN_URL = `${BASE_URL}:9000/login`
+const API_URL = `${BASE_URL}:9000/contacts`
+const TEST_URL = `${BASE_URL}:3000/contacts`
+const BUTTON = "Novo Contato"
+const ENTITY = { _id: "1", name: "Contato 1", phone: "123456789"}
+const ENTITY_PLURAL_NAME = "Mensagens"
+const TEST_NAME = `Página de ${ENTITY_PLURAL_NAME}`
 
+describe(TEST_NAME, () => {
+  beforeEach(() => {
     cy.fixture("token").then((token) => {
       console.log(token);
-      // Mock da resposta da API de login (se necessário)
-      cy.intercept("POST", "http://137.184.81.207:9000/login", {
+      cy.intercept("POST", `${LOGIN_URL}`, {
         statusCode: 200,
-        body: {
-          token: token.token
-        }
+        body: { token: token.token }
       });
 
-      cy.fixture("contacts").then((contacts) => {
-        console.log(contacts);
-      })
-      cy.intercept("GET", "http://137.184.81.207:9000/contacts", {
+      cy.intercept("GET", `${API_URL}`, {
         statusCode: 200,
-        body: [
-          { _id: "1", name: "Contato 1", phone: "123456789"},
-        ]
-      }).as("getContacts");
+        body: [ ENTITY ]
+      }).as("getPlans");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://137.184.81.207:3000/contacts");
-
-      cy.wait("@getContacts");
+      cy.visit(`${TEST_URL}`);
     })
-
   });
 
-  Cypress.on("uncaught:exception", (err, runnable) => {
-    console.log("uncaught:exception:", err);
-    return false;
-  });
-  it("deve exibir uma lista de contatos", () => {
+  it(`deve exibir uma lista de ${ENTITY_PLURAL_NAME}`, () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
 
-  it("deve mudar da tabela para o formulário ao clicar em Novo Contato", () => {
-    cy.get("button").contains("Novo Contato").click();
+  it(`deve mudar da tabela para o formulário ao clicar em ${BUTTON}`, () => {
+    cy.get("button").contains(BUTTON).click();
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
+  });
+
+  it("deve mudar do formulário para a tabela ao clicar em Cancelar", () => {
+    cy.get("button").contains(BUTTON).click();
+    cy.get("form").should("exist");
+    cy.get("table").should("not.exist");
+    cy.get("button").contains("Cancelar").click();
+    cy.get("table").should("exist");
+    cy.get("form").should("not.exist");
   });
 });

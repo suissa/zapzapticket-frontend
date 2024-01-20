@@ -30,7 +30,7 @@ const LoginPage = () => {
     <div className="bg flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-glass p-6 max-w-sm w-full bg-white shadow-md rounded">
         <h1 className="text-xl font-semibold mb-4 text-white">Login</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="on">
           <div className="mb-4">
 
             <EntryInput

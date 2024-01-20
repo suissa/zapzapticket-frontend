@@ -1,39 +1,52 @@
-describe("Página de Tarefas", () => {
-  beforeEach(() => {
+// const ENV = "development"
+const ENV = "production"
+const BASE_URL_DEV = "http://localhost"
+const BASE_URL_PROD = "http://137.184.81.207"
+const BASE_URL = ENV == "development" ? BASE_URL_DEV : BASE_URL_PROD
+const LOGIN_URL = `${BASE_URL}:9000/login`
+const API_URL = `${BASE_URL}:9000/tasks`
+const TEST_URL = `${BASE_URL}:3000/tasks`
+const BUTTON = "Nova Tarefa"
+const ENTITY = { _id: "1", text: "Tarefa 1" }
+const ENTITY_PLURAL_NAME = "Planos"
+const TEST_NAME = `Página de ${ENTITY_PLURAL_NAME}`
 
+describe(TEST_NAME, () => {
+  beforeEach(() => {
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://137.184.81.207:9000/login", {
+      cy.intercept("POST", `${LOGIN_URL}`, {
         statusCode: 200,
-        body: {
-          token: token.token
-        }
+        body: { token: token.token }
       });
 
-      cy.intercept("GET", "http://137.184.81.207:9000/tasks/actives", {
+      cy.intercept("GET", `${API_URL}`, {
         statusCode: 200,
-        body: [
-          { _id: "1", text: "Tarefa 1" },
-        ]
-      }).as("getTasks");
+        body: [ ENTITY ]
+      }).as("getPlans");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://137.184.81.207:3000/tasks");
-
-      cy.wait("@getTasks");
-    });
+      cy.visit(`${TEST_URL}`);
+    })
   });
 
-  it("deve exibir uma lista de tarefas", () => {
+  it(`deve exibir uma lista de ${ENTITY_PLURAL_NAME}`, () => {
     cy.get("table").should("exist");
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
 
-  it("deve mudar da tabela para o formulário ao clicar em Nova Tarefa", () => {
-    cy.get("button").contains("Nova Tarefa").click();
+  it(`deve mudar da tabela para o formulário ao clicar em ${BUTTON}`, () => {
+    cy.get("button").contains(BUTTON).click();
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
 
-  // Adicione mais testes conforme necessário...
+  it("deve mudar do formulário para a tabela ao clicar em Cancelar", () => {
+    cy.get("button").contains(BUTTON).click();
+    cy.get("form").should("exist");
+    cy.get("table").should("not.exist");
+    cy.get("button").contains("Cancelar").click();
+    cy.get("table").should("exist");
+    cy.get("form").should("not.exist");
+  });
 });

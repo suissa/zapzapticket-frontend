@@ -4,11 +4,11 @@ const BASE_URL_DEV = "http://localhost"
 const BASE_URL_PROD = "http://137.184.81.207"
 const BASE_URL = ENV == "development" ? BASE_URL_DEV : BASE_URL_PROD
 const LOGIN_URL = `${BASE_URL}:9000/login`
-const API_URL = `${BASE_URL}:9000/tags/active`
-const TEST_URL = `${BASE_URL}:3000/tags`
-const BUTTON = "Nova Tag"
-const ENTITY = { _id: "1", name: "Tag 1", color: "#000000" }
-const ENTITY_PLURAL_NAME = "Tags"
+const API_URL = `${BASE_URL}:9000/plans/active`
+const TEST_URL = `${BASE_URL}:3000/plans`
+const BUTTON = "Novo Plan"
+const ENTITY = { _id: "1", name: "Plano 1", users: 1, connections: 1, queues: 1, value: 1}
+const ENTITY_PLURAL_NAME = "Planos"
 const TEST_NAME = `Página de ${ENTITY_PLURAL_NAME}`
 
 describe(TEST_NAME, () => {
