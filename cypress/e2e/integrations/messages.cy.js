@@ -40,17 +40,16 @@ describe("Página de Mensagens", () => {
     cy.get("table tbody tr").should("have.length.at.least", 1);
   });
 
-  it("deve mudar da tabela para o formulário ao clicar em Nova Mensagem", () => {
-    cy.get("button").contains("Nova Mensagem").click();
+  it(`deve mudar da tabela para o formulário ao clicar em ${BUTTON}`, () => {
+    cy.get("button").contains(BUTTON).click();
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
 
-  it("deve mudar da tabela para o formulário ao clicar em Nova Mensagem", () => {
-    cy.get("button").contains("Nova Mensagem").click();
+  it("deve mudar do formulário para a tabela ao clicar em Cancelar", () => {
+    cy.get("button").contains(BUTTON).click();
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
-
     cy.get("button").contains("Cancelar").click();
     cy.get("table").should("exist");
     cy.get("form").should("not.exist");
