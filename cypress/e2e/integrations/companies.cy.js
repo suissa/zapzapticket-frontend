@@ -35,4 +35,13 @@ describe("Página de Empresas", () => {
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
+
+  it("deve mudar do formulário para a tabela ao clicar em Cancelar", () => {
+    cy.get("button").contains("Nova Empresa").click();
+    cy.get("form").should("exist");
+    cy.get("table").should("not.exist");
+    cy.get("button").contains("Cancelar").click();
+    cy.get("table").should("exist");
+    cy.get("form").should("not.exist");
+  });
 });
