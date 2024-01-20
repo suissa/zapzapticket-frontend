@@ -15,12 +15,12 @@ describe("Página de Planos", () => {
         body: [
           { _id: "1", name: "Plano 1", users: 1, connections: 1, queues: 1, value: 1},
         ]
-      }).as("getCompanies");
+      }).as("getPlans");
 
       localStorage.setItem("token", token.token);
       cy.visit("http://137.184.81.207:3000/plans");
 
-      cy.wait("@getCompanies");
+      cy.wait("@getPlans");
     })
 
   });

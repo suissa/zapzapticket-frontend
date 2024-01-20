@@ -36,5 +36,13 @@ describe("Página de Mensagens", () => {
     cy.get("table").should("not.exist");
   });
 
-  // Adicione mais testes conforme necessário...
+  it("deve mudar da tabela para o formulário ao clicar em Nova Mensagem", () => {
+    cy.get("button").contains("Nova Mensagem").click();
+    cy.get("form").should("exist");
+    cy.get("table").should("not.exist");
+
+    cy.get("button").contains("Cancelar").click();
+    cy.get("table").should("exist");
+    cy.get("form").should("not.exist");
+  });
 });

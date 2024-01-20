@@ -1,16 +1,25 @@
+const ENV = "development"
+// const ENV = "production"
+const BASE_URL_DEV = "http://localhost"
+const BASE_URL_PROD = "http://137.184.81.207"
+const BASE_URL = ENV == "development" ? BASE_URL_DEV : BASE_URL_PROD
+const LOGIN_URL = `${BASE_URL}:9000/login`
+const API_URL = `${BASE_URL}:9000/companies`
+const TEST_URL = `${BASE_URL}:3000/companies`
+
 describe("Página de Empresas", () => {
   beforeEach(() => {
 
     cy.fixture("token").then((token) => {
       console.log(token);
-      cy.intercept("POST", "http://137.184.81.207:9000/login", {
+      cy.intercept("POST", `${LOGIN_URL}`, {
         statusCode: 200,
         body: {
           token: token.token
         }
       });
 
-      cy.intercept("GET", "http://137.184.81.207:9000/companies", {
+      cy.intercept("GET", `${API_URL}`, {
         statusCode: 200,
         body: [
           { _id: "1", name: "Empresa 1", phone: "123456789", status: "Ativo", dueDate: "16/01/2024", recurrence: "Mensal"},
@@ -18,7 +27,7 @@ describe("Página de Empresas", () => {
       }).as("getCompanies");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://137.184.81.207:3000/companies");
+      cy.visit(`${TEST_URL}`);
 
       cy.wait("@getCompanies");
     })
