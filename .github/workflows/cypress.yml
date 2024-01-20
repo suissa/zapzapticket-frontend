@@ -25,6 +25,9 @@ jobs:
     - name: Run Build
       run: npx next build
 
+    - name: Run Jest Tests
+      run: npm test
+
     - name: Update Cypress Cache
       run: npx cypress cache clear
 
