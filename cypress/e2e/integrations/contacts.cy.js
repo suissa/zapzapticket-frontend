@@ -43,4 +43,14 @@ describe("Página de Contatos", () => {
     cy.get("form").should("exist");
     cy.get("table").should("not.exist");
   });
+
+  it("deve mudar do formulário para a tablea  ao clicar em Cancelar", () => {
+    cy.get("button").contains("Novo Contato").click();
+    cy.get("form").should("exist");
+    cy.get("table").should("not.exist");
+
+    cy.get("button").contains("Cancelar").click();
+    cy.get("table").should("exist");
+    cy.get("form").should("not.exist");
+  });
 });
