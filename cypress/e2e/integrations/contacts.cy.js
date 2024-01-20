@@ -28,7 +28,7 @@ describe("Página de Contatos", () => {
       }).as("getContacts");
 
       localStorage.setItem("token", token.token);
-      cy.visit("http://137.184.81.207:3000/contacts");
+      cy.visit(`${TEST_URL}`);
 
       cy.wait("@getContacts");
     })
