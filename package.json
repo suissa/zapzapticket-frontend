@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "cypress:open": "npx cypress open"
+    "cypress:open": "npx cypress open",
+    "preinstall": "node preinstall.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
